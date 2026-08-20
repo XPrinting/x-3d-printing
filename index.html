@@ -14,7 +14,7 @@
 }
 
 :root {
-    --bg: #080b16;
+    --bg: #080816;
     --surface: #11172a;
     --surface2: #171f38;
     --border: rgba(255,255,255,.12);
@@ -22,164 +22,105 @@
     --muted: #aeb6cc;
     --primary: #8b5cf6;
     --primary2: #6d28d9;
-    --danger: #ff4d4d;
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
     background:
-        radial-gradient(circle at 20% 0%, rgba(139,92,246,.18), transparent 30%),
-        radial-gradient(circle at 90% 20%, rgba(59,130,246,.12), transparent 30%),
+        radial-gradient(circle at top, #17153b 0%, #080816 45%),
         var(--bg);
     color: var(--text);
     min-height: 100vh;
 }
 
-/* NAVBAR */
-
 header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: rgba(8,11,22,.9);
-    backdrop-filter: blur(15px);
+    width: 100%;
+    padding: 24px 7%;
     border-bottom: 1px solid var(--border);
-}
+    background: rgba(8,8,22,.85);
+    backdrop-filter: blur(10px);
 
-.navbar {
-    max-width: 1200px;
-    margin: auto;
-    padding: 18px 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
-    font-size: 25px;
-    font-weight: 900;
+    font-size: 28px;
+    font-weight: 800;
 }
 
 .logo span {
-    color: #a78bfa;
+    color: var(--primary);
 }
 
-.nav-links {
+nav {
     display: flex;
-    gap: 30px;
+    gap: 35px;
 }
 
-.nav-links a {
+nav a {
     color: white;
     text-decoration: none;
     font-weight: 600;
-    transition: .2s;
+    cursor: pointer;
 }
 
-.nav-links a:hover {
-    color: #a78bfa;
+nav a:hover {
+    color: var(--primary);
 }
 
 .cart-btn {
-    border: 1px solid rgba(255,255,255,.2);
-    background: linear-gradient(135deg,#292f52,#161b32);
+    border: 1px solid rgba(139,92,246,.5);
+    background: linear-gradient(135deg, #5b21b6, #8b5cf6);
     color: white;
-    padding: 11px 18px;
+    padding: 12px 20px;
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
 }
 
 .cart-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #8b5cf6;
-    min-width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    margin-left: 6px;
+    background: white;
+    color: #6d28d9;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-left: 5px;
 }
-
-/* HERO */
 
 .hero {
-    max-width: 1100px;
-    margin: auto;
+    padding: 80px 7% 50px;
     text-align: center;
-    padding: 95px 20px 70px;
-}
-
-.badge {
-    display: inline-block;
-    padding: 9px 18px;
-    border-radius: 30px;
-    background: rgba(139,92,246,.18);
-    border: 1px solid rgba(139,92,246,.4);
-    color: #c4b5fd;
-    font-weight: bold;
-    margin-bottom: 25px;
 }
 
 .hero h1 {
-    font-size: clamp(45px,7vw,78px);
-    line-height: .95;
-    margin-bottom: 25px;
+    font-size: 55px;
+    margin-bottom: 18px;
 }
 
 .hero h1 span {
-    background: linear-gradient(90deg,#c4b5fd,#8b5cf6,#60a5fa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--primary);
 }
 
 .hero p {
-    max-width: 720px;
-    margin: auto;
     color: var(--muted);
     font-size: 18px;
+    max-width: 650px;
+    margin: auto;
     line-height: 1.7;
 }
 
-.hero-buttons {
-    margin-top: 35px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 14px 25px;
-    border-radius: 12px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg,#8b5cf6,#6d28d9);
-    color: white;
-}
-
-.btn-secondary {
-    background: #171f38;
-    color: white;
-    border: 1px solid var(--border);
-}
-
-/* PRODUCTS */
-
-.products-section {
-    max-width: 1200px;
-    margin: auto;
-    padding: 30px 25px 90px;
+.section {
+    padding: 50px 7%;
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 45px;
+    margin-bottom: 40px;
 }
 
 .section-title h2 {
@@ -194,28 +135,28 @@ header {
 .products-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
+    gap: 25px;
 }
 
 .product-card {
-    background: linear-gradient(145deg,#141b31,#0e1426);
+    background: rgba(17,23,42,.92);
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 22px;
     overflow: hidden;
-    transition: .25s;
+    transition: .3s;
 }
 
 .product-card:hover {
     transform: translateY(-7px);
     border-color: rgba(139,92,246,.7);
-    box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    box-shadow: 0 15px 50px rgba(139,92,246,.15);
 }
 
 .product-image {
+    width: 100%;
     height: 280px;
-    background: #eef0f3;
+    background: #0d1020;
     overflow: hidden;
-    position: relative;
 }
 
 .product-image img {
@@ -233,6 +174,7 @@ header {
     color: #a78bfa;
     font-size: 13px;
     font-weight: bold;
+    text-transform: uppercase;
     margin-bottom: 10px;
 }
 
@@ -241,27 +183,27 @@ header {
     margin-bottom: 10px;
 }
 
-.description {
+.product-info p {
     color: var(--muted);
-    line-height: 1.5;
-    min-height: 48px;
+    line-height: 1.6;
+    min-height: 50px;
 }
 
 .product-bottom {
-    margin-top: 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .price {
-    font-size: 22px;
-    font-weight: 900;
+    font-size: 21px;
+    font-weight: bold;
 }
 
 .add-btn {
-    background: linear-gradient(135deg,#8b5cf6,#6d28d9);
     border: none;
+    background: linear-gradient(135deg, #6d28d9, #8b5cf6);
     color: white;
     padding: 11px 17px;
     border-radius: 10px;
@@ -270,72 +212,82 @@ header {
 }
 
 .add-btn:hover {
-    opacity: .9;
+    opacity: .85;
 }
 
-/* FEATURES */
-
-.features {
-    max-width: 1100px;
-    margin: auto;
-    padding: 60px 25px;
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 20px;
-}
-
-.feature {
+.custom {
+    margin: 50px 7%;
+    padding: 50px;
+    border-radius: 25px;
+    background: linear-gradient(
+        135deg,
+        rgba(109,40,217,.25),
+        rgba(17,23,42,.9)
+    );
+    border: 1px solid rgba(139,92,246,.3);
     text-align: center;
-    padding: 25px;
-    background: rgba(255,255,255,.035);
-    border: 1px solid var(--border);
-    border-radius: 16px;
 }
 
-.feature-icon {
-    font-size: 32px;
-    margin-bottom: 12px;
+.custom h2 {
+    font-size: 35px;
+    margin-bottom: 15px;
 }
 
-.feature h3 {
-    margin-bottom: 8px;
-}
-
-.feature p {
+.custom p {
     color: var(--muted);
-    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.custom-btn {
+    background: white;
+    color: #111;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 70px;
+    padding: 30px 7%;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
 }
 
 /* CART */
 
-.cart-overlay {
+.cart-modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.7);
-    z-index: 2000;
+    background: rgba(0,0,0,.75);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-.cart-panel {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: min(430px,100%);
-    height: 100%;
-    background: #0d1324;
-    border-left: 1px solid var(--border);
-    padding: 25px;
+.cart-box {
+    background: #11172a;
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
     overflow-y: auto;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 25px;
 }
 
 .cart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.close-cart {
+.close-btn {
     background: transparent;
     border: none;
     color: white;
@@ -345,47 +297,35 @@ header {
 
 .cart-item {
     display: flex;
-    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
     padding: 15px 0;
     border-bottom: 1px solid var(--border);
 }
 
-.cart-item img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 10px;
-    background: white;
-}
-
-.cart-item-info {
-    flex: 1;
-}
-
 .cart-item-info h4 {
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 
 .cart-item-info p {
-    color: #aeb6cc;
-    font-size: 14px;
+    color: var(--muted);
 }
 
 .remove-btn {
-    background: transparent;
-    color: #ff7070;
+    background: #ef4444;
+    color: white;
     border: none;
+    padding: 7px 10px;
+    border-radius: 7px;
     cursor: pointer;
-    font-size: 13px;
 }
 
 .cart-total {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
-    font-size: 21px;
+    margin-top: 25px;
+    font-size: 22px;
     font-weight: bold;
 }
 
@@ -393,60 +333,49 @@ header {
     width: 100%;
     margin-top: 20px;
     padding: 15px;
-    border: none;
-    border-radius: 12px;
-    background: #25d366;
+    background: linear-gradient(135deg, #6d28d9, #8b5cf6);
     color: white;
-    font-size: 16px;
+    border: none;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
 }
 
-/* FOOTER */
+/* MOBILE */
 
-footer {
-    border-top: 1px solid var(--border);
-    text-align: center;
-    padding: 35px 20px;
-    color: var(--muted);
-}
-
-/* RESPONSIVE */
-
-@media(max-width:900px) {
+@media (max-width: 900px) {
     .products-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .features {
-        grid-template-columns: repeat(2,1fr);
+    nav {
+        gap: 15px;
     }
 }
 
-@media(max-width:650px) {
-
-    .navbar {
-        padding: 15px;
+@media (max-width: 650px) {
+    header {
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
-    .nav-links {
-        display: none;
+    nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
     }
 
-    .hero {
-        padding: 70px 20px 50px;
+    .hero h1 {
+        font-size: 38px;
     }
 
     .products-grid {
         grid-template-columns: 1fr;
     }
 
-    .features {
-        grid-template-columns: 1fr;
-    }
-
-    .product-image {
-        height: 300px;
+    .custom {
+        margin: 30px 5%;
+        padding: 30px 20px;
     }
 }
 </style>
@@ -454,78 +383,45 @@ footer {
 
 <body>
 
-<!-- NAVBAR -->
-
 <header>
-<nav class="navbar">
 
     <div class="logo">
         X<span>3D</span> Printing
     </div>
 
-    <div class="nav-links">
+    <nav>
         <a href="#home">Home</a>
         <a href="#products">Products</a>
         <a href="#custom">Custom Print</a>
-    </div>
+    </nav>
 
     <button class="cart-btn" onclick="openCart()">
         🛒 Cart
         <span class="cart-count" id="cartCount">0</span>
     </button>
 
-</nav>
 </header>
 
 
-<!-- HERO -->
-
 <section class="hero" id="home">
 
-    <div class="badge">
-        ✨ 3D Printing Store
-    </div>
-
     <h1>
-        Bring Your Ideas<br>
-        <span>To Life</span>
+        Premium <span>3D Printing</span>
     </h1>
 
     <p>
-        High-quality 3D printed products made with care.
-        Choose from our ready-made products or request
-        your own custom 3D print.
+        Discover premium 3D printed products and custom printing services.
+        Unique designs, high quality and made just for you.
     </p>
-
-    <div class="hero-buttons">
-
-        <button class="btn btn-primary"
-                onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-            Shop Products
-        </button>
-
-        <button class="btn btn-secondary"
-                onclick="document.getElementById('custom').scrollIntoView({behavior:'smooth'})">
-            Custom 3D Print
-        </button>
-
-    </div>
 
 </section>
 
 
-<!-- PRODUCTS -->
-
-<section class="products-section" id="products">
+<section class="section" id="products">
 
     <div class="section-title">
-
         <h2>Our Products</h2>
-
-        <p>
-            Premium 3D printed products ready to order.
-        </p>
-
+        <p>Premium 3D printed products ready to order.</p>
     </div>
 
 
@@ -539,22 +435,23 @@ footer {
             <div class="product-image">
                 <img
                     src="01-custom-name-keychain.jpeg"
-                    alt="Custom Name Keychain">
+                    alt="Custom Name Keychain"
+                >
             </div>
 
             <div class="product-info">
 
                 <div class="category">
-                    ACCESSORIES
+                    Accessories
                 </div>
 
                 <h3>
                     Custom Name Keychain
                 </h3>
 
-                <p class="description">
-                    Personalized 3D printed keychain
-                    with your name or any word you like.
+                <p>
+                    Personalized 3D printed keychain with your name
+                    or any word you like.
                 </p>
 
                 <div class="product-bottom">
@@ -563,8 +460,10 @@ footer {
                         EGP 80
                     </div>
 
-                    <button class="add-btn"
-                            onclick="addToCart(1)">
+                    <button
+                        class="add-btn"
+                        onclick="addToCart(1)"
+                    >
                         Add to Cart
                     </button>
 
@@ -582,20 +481,21 @@ footer {
             <div class="product-image">
                 <img
                     src="02-fighter-jet-1.jpeg"
-                    alt="3D Printed Fighter Jets Set of 2">
+                    alt="Fighter Jets"
+                >
             </div>
 
             <div class="product-info">
 
                 <div class="category">
-                    DECORATION
+                    Decoration
                 </div>
 
                 <h3>
                     Fighter Jets — Set of 2
                 </h3>
 
-                <p class="description">
+                <p>
                     Detailed 3D printed fighter jets.
                     Perfect for display and collectors.
                 </p>
@@ -606,8 +506,10 @@ footer {
                         EGP 300
                     </div>
 
-                    <button class="add-btn"
-                            onclick="addToCart(2)">
+                    <button
+                        class="add-btn"
+                        onclick="addToCart(2)"
+                    >
                         Add to Cart
                     </button>
 
@@ -624,23 +526,24 @@ footer {
 
             <div class="product-image">
                 <img
-                    src="03-football-keychain.jpg"
-                    alt="Football Keychain">
+                    src="03-football-keychain.jpeg"
+                    alt="Football Keychain"
+                >
             </div>
 
             <div class="product-info">
 
                 <div class="category">
-                    ACCESSORIES
+                    Accessories
                 </div>
 
                 <h3>
                     Football Keychain
                 </h3>
 
-                <p class="description">
-                    Lightweight 3D printed football
-                    keychain with a detailed design.
+                <p>
+                    Lightweight 3D printed football keychain
+                    with a detailed design.
                 </p>
 
                 <div class="product-bottom">
@@ -649,8 +552,10 @@ footer {
                         EGP 70
                     </div>
 
-                    <button class="add-btn"
-                            onclick="addToCart(3)">
+                    <button
+                        class="add-btn"
+                        onclick="addToCart(3)"
+                    >
                         Add to Cart
                     </button>
 
@@ -667,76 +572,36 @@ footer {
 
             <div class="product-image">
                 <img
-                    src="images/04-decorative-tower.jpg"
-                    alt="3D Printed Decorative Tower">
+                    src="04-knife-1.jpeg"
+                    alt="3D Printed Knife"
+                >
             </div>
 
             <div class="product-info">
 
                 <div class="category">
-                    DECORATION
+                    Decoration
                 </div>
 
                 <h3>
-                    Decorative Tower
+                    3D Printed Knife
                 </h3>
 
-                <p class="description">
-                    Unique 3D printed decorative tower.
-                    Great for home, office or display.
+                <p>
+                    Detailed 3D printed decorative model
+                    for collectors and display.
                 </p>
 
                 <div class="product-bottom">
 
                     <div class="price">
-                        EGP 200
+                        EGP 120
                     </div>
 
-                    <button class="add-btn"
-                            onclick="addToCart(4)">
-                        Add to Cart
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- PRODUCT 5 -->
-
-        <div class="product-card">
-
-            <div class="product-image">
-                <img
-                    src="images/05-knives-set-of-2.jpg"
-                    alt="3D Printed Knife Set of 2">
-            </div>
-
-            <div class="product-info">
-
-                <div class="category">
-                    DISPLAY
-                </div>
-
-                <h3>
-                    3D Printed Knife — Set of 2
-                </h3>
-
-                <p class="description">
-                    Two detailed 3D printed display
-                    pieces for collectors and decoration.
-                </p>
-
-                <div class="product-bottom">
-
-                    <div class="price">
-                        EGP 180
-                    </div>
-
-                    <button class="add-btn"
-                            onclick="addToCart(5)">
+                    <button
+                        class="add-btn"
+                        onclick="addToCart(4)"
+                    >
                         Add to Cart
                     </button>
 
@@ -752,85 +617,39 @@ footer {
 </section>
 
 
-<!-- FEATURES -->
+<section class="custom" id="custom">
 
-<section class="features">
+    <h2>
+        Need Something Custom?
+    </h2>
 
-    <div class="feature">
+    <p>
+        Send us your idea and we'll turn it into a 3D printed product.
+    </p>
 
-        <div class="feature-icon">
-            🛠️
-        </div>
-
-        <h3>
-            High Quality
-        </h3>
-
-        <p>
-            Precise and carefully printed products.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            🎨
-        </div>
-
-        <h3>
-            Multiple Colors
-        </h3>
-
-        <p>
-            Choose your preferred color for selected products.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            📦
-        </div>
-
-        <h3>
-            Fast Delivery
-        </h3>
-
-        <p>
-            Your order is prepared and delivered safely.
-        </p>
-
-    </div>
-
-
-    <div class="feature" id="custom">
-
-        <div class="feature-icon">
-            🖨️
-        </div>
-
-        <h3>
-            Custom Orders
-        </h3>
-
-        <p>
-            Send us your design and we can print it for you.
-        </p>
-
-    </div>
+    <button
+        class="custom-btn"
+        onclick="customPrint()"
+    >
+        Request Custom Print
+    </button>
 
 </section>
 
 
-<!-- CART -->
+<footer>
 
-<div class="cart-overlay" id="cartOverlay">
+    © 2026 X3D Printing.
+    All rights reserved.
 
-    <div class="cart-panel">
+</footer>
+
+
+<!-- CART MODAL -->
+
+<div class="cart-modal" id="cartModal">
+
+    <div class="cart-box">
 
         <div class="cart-header">
 
@@ -838,15 +657,23 @@ footer {
                 Your Cart
             </h2>
 
-            <button class="close-cart"
-                    onclick="closeCart()">
+            <button
+                class="close-btn"
+                onclick="closeCart()"
+            >
                 ×
             </button>
 
         </div>
 
 
-        <div id="cartItems"></div>
+        <div id="cartItems">
+
+            <p style="color:#aeb6cc;">
+                Your cart is empty.
+            </p>
+
+        </div>
 
 
         <div class="cart-total">
@@ -862,25 +689,16 @@ footer {
         </div>
 
 
-        <button class="checkout-btn"
-                onclick="checkoutWhatsApp()">
-            Order via WhatsApp
+        <button
+            class="checkout-btn"
+            onclick="checkout()"
+        >
+            Checkout
         </button>
 
     </div>
 
 </div>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <p>
-        © 2026 X3D Printing. All rights reserved.
-    </p>
-
-</footer>
 
 
 <script>
@@ -890,7 +708,7 @@ const products = {
     1: {
         name: "Custom Name Keychain",
         price: 80,
-        image: "01-custom-name-keychain.jpg"
+        image: "01-custom-name-keychain.jpeg"
     },
 
     2: {
@@ -902,19 +720,13 @@ const products = {
     3: {
         name: "Football Keychain",
         price: 70,
-        image: "images/03-football-keychain.jpg"
+        image: "03-football-keychain.jpeg"
     },
 
     4: {
-        name: "Decorative Tower",
-        price: 200,
-        image: "images/04-decorative-tower.jpg"
-    },
-
-    5: {
-        name: "3D Printed Knife — Set of 2",
-        price: 180,
-        image: "images/05-knives-set-of-2.jpg"
+        name: "3D Printed Knife",
+        price: 120,
+        image: "04-knife-1.jpeg"
     }
 
 };
@@ -927,139 +739,110 @@ function addToCart(id) {
 
     const product = products[id];
 
-    const existing = cart.find(item => item.id === id);
-
-    if (existing) {
-
-        existing.quantity++;
-
-    } else {
-
-        cart.push({
-            id: id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            quantity: 1
-        });
-
+    if (!product) {
+        return;
     }
+
+    cart.push(product);
 
     updateCart();
 
-    openCart();
+    alert(product.name + " added to cart!");
+
+}
+
+
+function removeFromCart(index) {
+
+    cart.splice(index, 1);
+
+    updateCart();
+
 }
 
 
 function updateCart() {
 
-    const cartItems = document.getElementById("cartItems");
-
     const cartCount = document.getElementById("cartCount");
+
+    const cartItems = document.getElementById("cartItems");
 
     const cartTotal = document.getElementById("cartTotal");
 
 
-    cartItems.innerHTML = "";
-
-
-    let total = 0;
-
-    let count = 0;
+    cartCount.textContent = cart.length;
 
 
     if (cart.length === 0) {
 
         cartItems.innerHTML = `
-            <p style="
-                color:#aeb6cc;
-                text-align:center;
-                padding:40px 0;
-            ">
+            <p style="color:#aeb6cc;">
                 Your cart is empty.
             </p>
         `;
 
+        cartTotal.textContent = "EGP 0";
+
+        return;
+
     }
 
 
-    cart.forEach(item => {
-
-        total += item.price * item.quantity;
-
-        count += item.quantity;
+    let total = 0;
 
 
-        const div = document.createElement("div");
+    cartItems.innerHTML = cart.map((item, index) => {
 
-        div.className = "cart-item";
+        total += item.price;
 
+        return `
+            <div class="cart-item">
 
-        div.innerHTML = `
+                <div class="cart-item-info">
 
-            <img src="${item.image}"
-                 alt="${item.name}">
+                    <h4>
+                        ${item.name}
+                    </h4>
 
-            <div class="cart-item-info">
+                    <p>
+                        EGP ${item.price}
+                    </p>
 
-                <h4>
-                    ${item.name}
-                </h4>
-
-                <p>
-                    EGP ${item.price} × ${item.quantity}
-                </p>
+                </div>
 
                 <button
                     class="remove-btn"
-                    onclick="removeFromCart(${item.id})">
+                    onclick="removeFromCart(${index})"
+                >
                     Remove
                 </button>
 
             </div>
-
         `;
 
-
-        cartItems.appendChild(div);
-
-    });
+    }).join("");
 
 
-    cartCount.textContent = count;
-
-    cartTotal.textContent =
-        "EGP " + total;
-
-}
-
-
-function removeFromCart(id) {
-
-    cart = cart.filter(item => item.id !== id);
-
-    updateCart();
+    cartTotal.textContent = "EGP " + total;
 
 }
 
 
 function openCart() {
 
-    document.getElementById("cartOverlay").style.display =
-        "block";
+    document.getElementById("cartModal").style.display = "flex";
 
 }
 
 
 function closeCart() {
 
-    document.getElementById("cartOverlay").style.display =
-        "none";
+    document.getElementById("cartModal").style.display = "none";
 
 }
 
 
-function checkoutWhatsApp() {
+function checkout() {
 
     if (cart.length === 0) {
 
@@ -1069,52 +852,37 @@ function checkoutWhatsApp() {
 
     }
 
-
-    let message =
-        "Hello X3D Printing 👋%0A%0AI would like to order:%0A%0A";
-
-
-    let total = 0;
-
-
-    cart.forEach(item => {
-
-        const itemTotal =
-            item.price * item.quantity;
-
-        total += itemTotal;
-
-
-        message +=
-            `• ${item.name} x${item.quantity} - EGP ${itemTotal}%0A`;
-
-    });
-
-
-    message +=
-        `%0ATotal: EGP ${total}`;
-
-
-    /*
-       IMPORTANT:
-       Replace 201XXXXXXXXX with your WhatsApp number.
-       Example Egypt:
-       2010123456789
-    */
-
-    const whatsappNumber =
-        "201XXXXXXXXX";
-
-
-    window.open(
-        `https://wa.me/${whatsappNumber}?text=${message}`,
-        "_blank"
+    alert(
+        "Checkout coming soon!\n\n" +
+        "Items in cart: " +
+        cart.length
     );
 
 }
 
 
-updateCart();
+function customPrint() {
+
+    alert(
+        "Custom Print Request\n\n" +
+        "Please contact us with your design or idea."
+    );
+
+}
+
+
+window.onclick = function(event) {
+
+    const modal = document.getElementById("cartModal");
+
+    if (event.target === modal) {
+
+        closeCart();
+
+    }
+
+};
+
 
 </script>
 
