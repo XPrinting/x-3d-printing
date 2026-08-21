@@ -2,1137 +2,1501 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>X3D Printing | Products</title>
-
-    <!-- SUPABASE -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg: #080816;
-            --surface: #11172a;
-            --surface-2: #0b1020;
-            --border: rgba(255,255,255,.10);
-            --text: #ffffff;
-            --muted: #aeb6cc;
-            --primary: #8b5cf6;
-            --primary-dark: #6d28d9;
-            --green: #22c55e;
-            --red: #ef4444;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background:
-                radial-gradient(
-                    circle at top right,
-                    #17153b 0%,
-                    #080816 45%
-                ),
-                var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-        }
-
-        /* ================================
-           SIDEBAR
-        ================================= */
-
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            height: 100vh;
-
-            background: rgba(10,12,28,.96);
-            border-right: 1px solid var(--border);
-
-            padding: 25px 18px;
-
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 25px;
-            font-weight: 800;
-            padding: 10px 12px 30px;
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .menu-title {
-            color: #68728a;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-
-            padding: 0 12px;
-            margin-bottom: 10px;
-        }
-
-        .menu {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            color: var(--muted);
-
-            padding: 13px 14px;
-
-            border-radius: 11px;
-
-            cursor: pointer;
-            transition: .2s;
-
-            text-decoration: none;
-        }
 
-        .menu-item:hover {
-            background: rgba(139,92,246,.16);
-            color: white;
-        }
-
-        .menu-item.active {
-            background: rgba(139,92,246,.16);
-            color: white;
-
-            border-left: 3px solid var(--primary);
-        }
-
-        .menu-icon {
-            width: 24px;
-            text-align: center;
-        }
-
-        /* ================================
-           MAIN
-        ================================= */
-
-        .main {
-            margin-left: 250px;
-            padding: 30px 35px;
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 30px;
-            gap: 20px;
-        }
-
-        .page-title h1 {
-            font-size: 30px;
-            margin-bottom: 7px;
-        }
-
-        .page-title p {
-            color: var(--muted);
-        }
-
-        .refresh-btn {
-            border: 1px solid rgba(139,92,246,.4);
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #5b21b6,
-                    #8b5cf6
-                );
-
-            color: white;
-
-            padding: 11px 18px;
-
-            border-radius: 10px;
-
-            cursor: pointer;
-
-            font-weight: bold;
-        }
-
-        .refresh-btn:hover {
-            opacity: .9;
-        }
-
-        /* ================================
-           STATS
-        ================================= */
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-
-            gap: 18px;
-
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            background: rgba(17,23,42,.92);
-
-            border: 1px solid var(--border);
-
-            border-radius: 17px;
-
-            padding: 20px;
-        }
-
-        .stat-label {
-            color: var(--muted);
-
-            font-size: 13px;
-
-            margin-bottom: 12px;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        /* ================================
-           PRODUCTS
-        ================================= */
-
-        .products-card {
-            background: rgba(17,23,42,.92);
-
-            border: 1px solid var(--border);
-
-            border-radius: 20px;
-
-            padding: 22px;
-        }
-
-        .card-header {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 20px;
-        }
-
-        .card-header h2 {
-            font-size: 20px;
-        }
-
-        .card-header span {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .products-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fill,
-                    minmax(250px, 1fr)
-                );
-
-            gap: 18px;
-        }
-
-        .product-card {
-            background: var(--surface-2);
-
-            border: 1px solid var(--border);
-
-            border-radius: 16px;
-
-            overflow: hidden;
-
-            transition: .2s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-3px);
-
-            border-color:
-                rgba(139,92,246,.5);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 210px;
-
-            background: #080816;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-        }
-
-        .no-image {
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        .product-content {
-            padding: 17px;
-        }
-
-        .product-name {
-            font-size: 18px;
-
-            font-weight: bold;
-
-            margin-bottom: 8px;
-        }
-
-        .product-description {
-            color: var(--muted);
-
-            font-size: 13px;
-
-            line-height: 1.5;
-
-            min-height: 40px;
-
-            margin-bottom: 12px;
-        }
-
-        .product-category {
-            display: inline-block;
-
-            background:
-                rgba(139,92,246,.15);
-
-            color:
-                #c4b5fd;
-
-            padding:
-                5px 9px;
-
-            border-radius:
-                20px;
-
-            font-size:
-                11px;
-
-            margin-bottom:
-                14px;
-        }
-
-        .product-bottom {
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items:
-                center;
-        }
-
-        .product-price {
-            font-size: 19px;
-
-            font-weight: bold;
-
-            color: #ffffff;
-        }
-
-        .product-status {
-            padding: 5px 9px;
-
-            border-radius: 20px;
-
-            font-size: 11px;
-
-            font-weight: bold;
-        }
-
-        .active-status {
-            background:
-                rgba(34,197,94,.15);
-
-            color:
-                #4ade80;
-        }
-
-        .inactive-status {
-            background:
-                rgba(239,68,68,.15);
-
-            color:
-                #f87171;
-        }
-
-        /* ================================
-           LOADING
-        ================================= */
-
-        .loading {
-            text-align: center;
-
-            color: var(--muted);
-
-            padding: 50px;
-
-            grid-column: 1 / -1;
-        }
-
-        .error {
-            text-align: center;
-
-            color: #f87171;
-
-            padding: 40px;
-
-            grid-column: 1 / -1;
-
-            line-height: 1.7;
-        }
-
-        .empty {
-            text-align: center;
-
-            color: var(--muted);
-
-            padding: 50px;
-
-            grid-column: 1 / -1;
-        }
-
-        /* ================================
-           MOBILE
-        ================================= */
-
-        @media (max-width: 1000px) {
-
-            .stats {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-        }
-
-        @media (max-width: 800px) {
-
-            .sidebar {
-                position: relative;
-
-                width: 100%;
-
-                height: auto;
-
-                border-right: none;
-
-                border-bottom:
-                    1px solid var(--border);
-            }
-
-            .main {
-                margin-left: 0;
-
-                padding: 22px 15px;
-            }
-
-            .menu {
-                flex-direction: row;
-
-                overflow-x: auto;
-            }
-
-            .menu-item {
-                min-width: max-content;
-            }
-
-            .menu-title {
-                display: none;
-            }
-
-            .topbar {
-                flex-direction: column;
-
-                align-items: flex-start;
-            }
-        }
-
-        @media (max-width: 550px) {
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-    </style>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>X3D Printing | Products</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#080816;
+    --surface:#11172a;
+    --surface2:#0b1020;
+    --border:rgba(255,255,255,.10);
+    --text:#fff;
+    --muted:#aeb6cc;
+    --primary:#8b5cf6;
+    --green:#22c55e;
+    --red:#ef4444;
+    --blue:#3b82f6;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top right,#17153b 0%,#080816 45%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:rgba(10,12,28,.96);
+    border-right:1px solid var(--border);
+    padding:25px 18px;
+    z-index:100;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    padding:10px 12px 30px;
+}
+
+.logo span{
+    color:var(--primary);
+}
+
+.menu-title{
+    color:#68728a;
+    font-size:11px;
+    font-weight:bold;
+    text-transform:uppercase;
+    padding:0 12px;
+    margin-bottom:10px;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.menu-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:var(--muted);
+    padding:13px 14px;
+    border-radius:11px;
+    cursor:pointer;
+    transition:.2s;
+    text-decoration:none;
+}
+
+.menu-item:hover,
+.menu-item.active{
+    background:rgba(139,92,246,.16);
+    color:#fff;
+}
+
+.menu-item.active{
+    border-left:3px solid var(--primary);
+}
+
+.menu-icon{
+    width:24px;
+    text-align:center;
+}
+
+
+/* MAIN */
+
+.main{
+    margin-left:250px;
+    padding:30px 35px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    gap:20px;
+}
+
+.page-title h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.page-title p{
+    color:var(--muted);
+}
+
+.add-btn{
+    border:1px solid rgba(139,92,246,.4);
+    background:linear-gradient(135deg,#5b21b6,#8b5cf6);
+    color:#fff;
+    padding:12px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.stat-card{
+    background:rgba(17,23,42,.92);
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:20px;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.stat-value{
+    font-size:28px;
+    font-weight:bold;
+}
+
+
+/* PRODUCTS */
+
+.products-card{
+    background:rgba(17,23,42,.92);
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.products-header{
+    padding:22px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.products-header h2{
+    font-size:21px;
+}
+
+.search{
+    background:#0b1020;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:11px 14px;
+    border-radius:9px;
+    outline:none;
+    width:260px;
+}
+
+.search:focus{
+    border-color:var(--primary);
+}
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1000px;
+}
+
+th{
+    text-align:left;
+    color:#7f89a3;
+    font-size:12px;
+    text-transform:uppercase;
+    padding:16px 20px;
+    background:rgba(7,10,23,.45);
+}
+
+td{
+    padding:15px 20px;
+    border-top:1px solid var(--border);
+}
+
+tr:hover td{
+    background:rgba(139,92,246,.04);
+}
+
+.product-image{
+    width:55px;
+    height:55px;
+    border-radius:10px;
+    object-fit:cover;
+    background:#0b1020;
+    border:1px solid var(--border);
+}
+
+.product-name{
+    font-weight:bold;
+}
+
+.product-description{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+    max-width:300px;
+    white-space:normal;
+}
+
+.price{
+    font-weight:bold;
+}
+
+.stock{
+    color:#aeb6cc;
+}
+
+.active{
+    color:#4ade80;
+    font-weight:bold;
+}
+
+.inactive{
+    color:#f87171;
+    font-weight:bold;
+}
+
+
+/* BUTTONS */
+
+.edit-btn,
+.delete-btn{
+    padding:7px 11px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.edit-btn{
+    border:1px solid rgba(139,92,246,.35);
+    background:rgba(139,92,246,.10);
+    color:#c4b5fd;
+}
+
+.delete-btn{
+    border:1px solid rgba(239,68,68,.3);
+    background:rgba(239,68,68,.10);
+    color:#f87171;
+    margin-left:5px;
+}
+
+
+/* EMPTY */
+
+.loading,
+.empty,
+.error{
+    padding:50px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.error{
+    color:#f87171;
+}
+
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    z-index:500;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    max-height:90vh;
+    overflow-y:auto;
+    background:#11172a;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.close{
+    background:transparent;
+    border:none;
+    color:#fff;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+label{
+    color:#aeb6cc;
+    font-size:13px;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+    background:#0b1020;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:12px;
+    border-radius:9px;
+    outline:none;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:var(--primary);
+}
+
+.save-btn{
+    width:100%;
+    margin-top:20px;
+    padding:13px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#6d28d9,#8b5cf6);
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+        border-right:none;
+        border-bottom:1px solid var(--border);
+    }
+
+    .main{
+        margin-left:0;
+        padding:22px 15px;
+    }
+
+    .menu{
+        flex-direction:row;
+        overflow-x:auto;
+    }
+
+    .menu-item{
+        min-width:max-content;
+    }
+
+    .menu-title{
+        display:none;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .add-btn{
+        width:100%;
+    }
+
+    .products-header{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .search{
+        width:100%;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-    <!-- ================================
-         SIDEBAR
-    ================================= -->
 
-    <aside class="sidebar">
+<!-- SIDEBAR -->
 
-        <div class="logo">
-            X<span>3D</span> Admin
-        </div>
+<aside class="sidebar">
 
-        <div class="menu-title">
-            Management
-        </div>
+<div class="logo">
+X<span>3D</span> Admin
+</div>
 
-        <div class="menu">
+<div class="menu-title">
+Management
+</div>
 
-            <!-- Dashboard -->
+<div class="menu">
 
-            <a
-                class="menu-item"
-                href="admin.html"
-            >
+<a class="menu-item" href="admin.html">
+<span class="menu-icon">📊</span>
+Dashboard
+</a>
 
-                <span class="menu-icon">
-                    📊
-                </span>
+<a class="menu-item" href="orders.html">
+<span class="menu-icon">🛒</span>
+Orders
+</a>
 
-                Dashboard
+<a class="menu-item active" href="product.html">
+<span class="menu-icon">📦</span>
+Products
+</a>
 
-            </a>
+<a class="menu-item" href="#customers">
+<span class="menu-icon">👥</span>
+Customers
+</a>
 
+<a class="menu-item" href="#custom">
+<span class="menu-icon">🎨</span>
+Custom Requests
+</a>
 
-            <!-- Orders -->
+</div>
 
-            <a
-                class="menu-item"
-                href="orders.html"
-            >
+</aside>
 
-                <span class="menu-icon">
-                    🛒
-                </span>
 
-                Orders
+<!-- MAIN -->
 
-            </a>
+<main class="main">
 
+<div class="topbar">
 
-            <!-- Products -->
+<div class="page-title">
 
-            <a
-                class="menu-item active"
-                href="product.html"
-            >
+<h1>Products</h1>
 
-                <span class="menu-icon">
-                    📦
-                </span>
+<p>
+Manage X3D Printing products.
+</p>
 
-                Products
+</div>
 
-            </a>
+<button
+class="add-btn"
+onclick="openAddModal()"
+>
++ Add Product
+</button>
 
+</div>
 
-            <!-- Customers -->
 
-            <a
-                class="menu-item"
-                href="#customers"
-            >
+<!-- STATS -->
 
-                <span class="menu-icon">
-                    👥
-                </span>
+<section class="stats">
 
-                Customers
+<div class="stat-card">
 
-            </a>
+<div class="stat-label">
+Total Products
+</div>
 
+<div
+class="stat-value"
+id="totalProducts"
+>
+0
+</div>
 
-            <!-- Custom Requests -->
+</div>
 
-            <a
-                class="menu-item"
-                href="#custom"
-            >
 
-                <span class="menu-icon">
-                    🎨
-                </span>
+<div class="stat-card">
 
-                Custom Requests
+<div class="stat-label">
+Active Products
+</div>
 
-            </a>
+<div
+class="stat-value"
+id="activeProducts"
+>
+0
+</div>
 
-        </div>
+</div>
 
-    </aside>
 
+<div class="stat-card">
 
-    <!-- ================================
-         MAIN
-    ================================= -->
+<div class="stat-label">
+Out of Stock
+</div>
 
-    <main class="main">
+<div
+class="stat-value"
+id="outOfStock"
+>
+0
+</div>
 
-        <div class="topbar">
+</div>
 
-            <div class="page-title">
+</section>
 
-                <h1>
-                    Products
-                </h1>
 
-                <p>
-                    Manage your X3D Printing products.
-                </p>
+<!-- PRODUCTS -->
 
-            </div>
+<section class="products-card">
 
+<div class="products-header">
 
-            <button
-                class="refresh-btn"
-                onclick="loadProducts()"
-            >
+<h2>
+All Products
+</h2>
 
-                ↻ Refresh
+<input
+class="search"
+id="searchInput"
+placeholder="Search products..."
+oninput="renderProducts()"
+>
 
-            </button>
+</div>
 
-        </div>
 
+<div
+class="table-wrapper"
+id="tableContainer"
+>
 
-        <!-- ================================
-             STATS
-        ================================= -->
+<div class="loading">
+Loading products...
+</div>
 
-        <section class="stats">
+</div>
 
-            <div class="stat-card">
+</section>
 
-                <div class="stat-label">
-                    Total Products
-                </div>
+</main>
 
-                <div
-                    class="stat-value"
-                    id="totalProducts"
-                >
-                    0
-                </div>
 
-            </div>
+<!-- MODAL -->
 
+<div
+class="modal"
+id="productModal"
+>
 
-            <div class="stat-card">
+<div class="modal-box">
 
-                <div class="stat-label">
-                    Active Products
-                </div>
+<div class="modal-header">
 
-                <div
-                    class="stat-value"
-                    id="activeProducts"
-                >
-                    0
-                </div>
+<h2 id="modalTitle">
+Add Product
+</h2>
 
-            </div>
+<button
+class="close"
+onclick="closeModal()"
+>
+×
+</button>
 
+</div>
 
-            <div class="stat-card">
 
-                <div class="stat-label">
-                    Categories
-                </div>
+<div class="form-grid">
 
-                <div
-                    class="stat-value"
-                    id="totalCategories"
-                >
-                    0
-                </div>
 
-            </div>
+<div class="form-group">
 
-        </section>
+<label>
+Product Name
+</label>
 
+<input
+id="productName"
+placeholder="Example: Phone Stand"
+>
 
-        <!-- ================================
-             PRODUCTS CARD
-        ================================= -->
+</div>
 
-        <section class="products-card">
 
-            <div class="card-header">
+<div class="form-group">
 
-                <h2>
-                    All Products
-                </h2>
+<label>
+Category
+</label>
 
-                <span id="productsCount">
-                    Loading...
-                </span>
+<input
+id="productCategory"
+placeholder="Example: Accessories"
+>
 
-            </div>
+</div>
 
 
-            <div
-                class="products-grid"
-                id="productsGrid"
-            >
+<div class="form-group full">
 
-                <div class="loading">
+<label>
+Description
+</label>
 
-                    Loading products...
+<textarea
+id="productDescription"
+placeholder="Product description..."
+></textarea>
 
-                </div>
+</div>
 
-            </div>
 
-        </section>
+<div class="form-group">
 
-    </main>
+<label>
+Price (EGP)
+</label>
 
+<input
+id="productPrice"
+type="number"
+step="0.01"
+placeholder="250"
+>
 
-    <!-- ================================
-         JAVASCRIPT
-    ================================= -->
+</div>
 
-    <script>
 
-        /* =================================
-           SUPABASE
-        ================================= */
+<div class="form-group">
 
-        const SUPABASE_URL =
-            "https://wxezuqdktbftlkjxqcmi.supabase.co";
+<label>
+Stock
+</label>
 
-        const SUPABASE_PUBLISHABLE_KEY =
-            "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
+<input
+id="productStock"
+type="number"
+placeholder="10"
+value="0"
+>
 
-        const supabaseClient =
-            window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
-            );
+</div>
 
 
-        /* =================================
-           LOAD PRODUCTS
-        ================================= */
+<div class="form-group full">
 
-        async function loadProducts() {
+<label>
+Image URL
+</label>
 
-            const grid =
-                document.getElementById(
-                    "productsGrid"
-                );
+<input
+id="productImage"
+placeholder="https://..."
+>
 
-            grid.innerHTML = `
-                <div class="loading">
-                    Loading products...
-                </div>
-            `;
+</div>
 
 
-            try {
+<div class="form-group">
 
-                const result =
-                    await supabaseClient
-                        .from("products")
-                        .select(
-                            "id,name,description,category,price,image,active"
-                        )
-                        .order(
-                            "id",
-                            {
-                                ascending: true
-                            }
-                        );
+<label>
+Status
+</label>
 
+<select id="productActive">
 
-                if (result.error) {
+<option value="true">
+Active
+</option>
 
-                    throw result.error;
+<option value="false">
+Inactive
+</option>
 
-                }
+</select>
 
+</div>
 
-                const products =
-                    result.data || [];
 
+</div>
 
-                /* =========================
-                   STATS
-                ========================= */
 
-                const activeProducts =
-                    products.filter(
-                        product =>
-                            product.active !== false
-                    );
+<button
+class="save-btn"
+onclick="saveProduct()"
+>
+Save Product
+</button>
 
+</div>
 
-                const categories =
-                    new Set(
-                        products
-                            .map(
-                                product =>
-                                    product.category
-                            )
-                            .filter(Boolean)
-                    );
+</div>
 
 
-                document
-                    .getElementById(
-                        "totalProducts"
-                    )
-                    .textContent =
-                        products.length;
+<script>
 
 
-                document
-                    .getElementById(
-                        "activeProducts"
-                    )
-                    .textContent =
-                        activeProducts.length;
+/* =========================================
+   SUPABASE
+========================================= */
 
+const SUPABASE_URL =
+"https://wxezuqdktbftlkjxqcmi.supabase.co";
 
-                document
-                    .getElementById(
-                        "totalCategories"
-                    )
-                    .textContent =
-                        categories.size;
+const SUPABASE_PUBLISHABLE_KEY =
+"sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
 
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+);
 
-                document
-                    .getElementById(
-                        "productsCount"
-                    )
-                    .textContent =
-                        `${products.length} product${products.length === 1 ? "" : "s"}`;
 
+/* =========================================
+   GLOBAL
+========================================= */
 
-                /* =========================
-                   EMPTY
-                ========================= */
+let products = [];
 
-                if (!products.length) {
+let editingId = null;
 
-                    grid.innerHTML = `
-                        <div class="empty">
 
-                            📦
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
 
-                            <br><br>
+async function loadProducts(){
 
-                            No products found.
+const container =
+document.getElementById("tableContainer");
 
-                        </div>
-                    `;
+container.innerHTML = `
+<div class="loading">
+Loading products...
+</div>
+`;
 
-                    return;
+try{
 
-                }
+const {data,error} =
+await supabaseClient
+.from("products")
+.select("*")
+.order("id",{ascending:false});
 
+if(error){
 
-                /* =========================
-                   RENDER
-                ========================= */
+console.error(error);
 
-                grid.innerHTML =
-                    products
-                        .map(
-                            product =>
-                                createProductCard(
-                                    product
-                                )
-                        )
-                        .join("");
+container.innerHTML = `
+<div class="error">
+❌ Failed to load products.
+<br><br>
+${escapeHtml(error.message)}
+</div>
+`;
 
+return;
+}
 
-            } catch (error) {
+products = data || [];
 
-                console.error(
-                    "Products Error:",
-                    error
-                );
+updateStats();
 
+renderProducts();
 
-                grid.innerHTML = `
+}
 
-                    <div class="error">
+catch(error){
 
-                        ❌ Failed to load products.
+console.error(error);
 
-                        <br><br>
+container.innerHTML = `
+<div class="error">
+❌ Something went wrong.
+<br><br>
+${escapeHtml(error.message)}
+</div>
+`;
 
-                        ${escapeHtml(
-                            error.message ||
-                            "Unknown error"
-                        )}
+}
 
-                    </div>
+}
 
-                `;
 
-            }
+/* =========================================
+   STATS
+========================================= */
 
-        }
+function updateStats(){
 
+document.getElementById("totalProducts")
+.textContent = products.length;
 
-        /* =================================
-           PRODUCT CARD
-        ================================= */
 
-        function createProductCard(product) {
+document.getElementById("activeProducts")
+.textContent =
+products.filter(
+p => p.is_active !== false
+).length;
 
-            const image =
-                product.image
-                    ? getImageUrl(product.image)
-                    : "";
 
+document.getElementById("outOfStock")
+.textContent =
+products.filter(
+p => Number(p.stock || 0) <= 0
+).length;
 
-            const isActive =
-                product.active !== false;
+}
 
 
-            return `
+/* =========================================
+   RENDER
+========================================= */
 
-                <div class="product-card">
+function renderProducts(){
 
-                    <div class="product-image">
+const container =
+document.getElementById("tableContainer");
 
-                        ${
-                            image
-                                ? `
-                                    <img
-                                        src="${escapeHtml(image)}"
-                                        alt="${escapeHtml(product.name || "Product")}"
-                                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=&quot;no-image&quot;>Image not found</div>';"
-                                    >
-                                `
-                                : `
-                                    <div class="no-image">
-                                        No image
-                                    </div>
-                                `
-                        }
+const search =
+document.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
 
-                    </div>
 
+let filtered = [...products];
 
-                    <div class="product-content">
 
-                        <div class="product-name">
+if(search){
 
-                            ${escapeHtml(
-                                product.name ||
-                                "Unnamed Product"
-                            )}
+filtered =
+filtered.filter(product => {
 
-                        </div>
+const name =
+String(
+product.name || ""
+).toLowerCase();
 
+const category =
+String(
+product.category || ""
+).toLowerCase();
 
-                        <div class="product-description">
+const description =
+String(
+product.description || ""
+).toLowerCase();
 
-                            ${escapeHtml(
-                                product.description ||
-                                "No description available."
-                            )}
+return (
+name.includes(search) ||
+category.includes(search) ||
+description.includes(search)
+);
 
-                        </div>
+});
 
+}
 
-                        ${
-                            product.category
-                                ? `
-                                    <div class="product-category">
 
-                                        ${escapeHtml(
-                                            product.category
-                                        )}
+if(!filtered.length){
 
-                                    </div>
-                                `
-                                : ""
-                        }
+container.innerHTML = `
+<div class="empty">
+No products found.
+</div>
+`;
 
+return;
 
-                        <div class="product-bottom">
+}
 
-                            <div class="product-price">
 
-                                EGP
-                                ${Number(
-                                    product.price || 0
-                                ).toLocaleString()}
+container.innerHTML = `
 
-                            </div>
+<table>
 
+<thead>
 
-                            <div
-                                class="product-status ${
-                                    isActive
-                                        ? "active-status"
-                                        : "inactive-status"
-                                }"
-                            >
+<tr>
 
-                                ${
-                                    isActive
-                                        ? "Active"
-                                        : "Inactive"
-                                }
+<th>Image</th>
 
-                            </div>
+<th>Product</th>
 
-                        </div>
+<th>Category</th>
 
-                    </div>
+<th>Price</th>
 
-                </div>
+<th>Stock</th>
 
-            `;
+<th>Status</th>
 
-        }
+<th>Actions</th>
 
+</tr>
 
-        /* =================================
-           IMAGE URL
-        ================================= */
+</thead>
 
-        function getImageUrl(imagePath) {
+<tbody>
 
-            const value =
-                String(imagePath)
-                    .trim();
+${filtered.map(product => `
 
+<tr>
 
-            /*
-             * لو الصورة مكتوبة كـ URL كامل
-             */
+<td>
 
-            if (
-                value.startsWith(
-                    "http://"
-                ) ||
-                value.startsWith(
-                    "https://"
-                )
-            ) {
+<img
+class="product-image"
+src="${escapeHtml(
+product.image_url || ""
+)}"
+onerror="this.style.display='none'"
+>
 
-                return value;
+</td>
 
-            }
 
+<td>
 
-            /*
-             * الصور الموجودة في Root
-             *
-             * مثال:
-             * 01-custom-name-keychain.jpeg
-             */
+<div class="product-name">
 
-            if (
-                !value.startsWith("/")
-            ) {
+${escapeHtml(
+product.name || "-"
+)}
 
-                return "../" + value;
+</div>
 
-            }
+<div class="product-description">
 
+${escapeHtml(
+product.description || ""
+)}
 
-            return value;
+</div>
 
-        }
+</td>
 
 
-        /* =================================
-           ESCAPE HTML
-        ================================= */
+<td>
 
-        function escapeHtml(value) {
+${escapeHtml(
+product.category || "-"
+)}
 
-            if (
-                value === null ||
-                value === undefined
-            ) {
+</td>
 
-                return "";
 
-            }
+<td>
 
+<span class="price">
 
-            return String(value)
+EGP ${Number(
+product.price || 0
+).toLocaleString()}
 
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
+</span>
 
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
+</td>
 
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
 
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
+<td>
 
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
+<span class="stock">
 
-        }
+${escapeHtml(
+product.stock ?? 0
+)}
 
+</span>
 
-        /* =================================
-           START
-        ================================= */
+</td>
 
-        loadProducts();
 
-    </script>
+<td>
+
+${
+product.is_active !== false
+?
+`<span class="active">Active</span>`
+:
+`<span class="inactive">Inactive</span>`
+}
+
+</td>
+
+
+<td>
+
+<button
+class="edit-btn"
+onclick="editProduct(${Number(product.id)})"
+>
+Edit
+</button>
+
+<button
+class="delete-btn"
+onclick="deleteProduct(${Number(product.id)})"
+>
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`).join("")}
+
+</tbody>
+
+</table>
+
+`;
+
+}
+
+
+/* =========================================
+   ADD PRODUCT
+========================================= */
+
+function openAddModal(){
+
+editingId = null;
+
+document.getElementById("modalTitle")
+.textContent =
+"Add Product";
+
+clearForm();
+
+document.getElementById("productModal")
+.style.display =
+"flex";
+
+}
+
+
+/* =========================================
+   EDIT PRODUCT
+========================================= */
+
+function editProduct(id){
+
+const product =
+products.find(
+p => Number(p.id) === Number(id)
+);
+
+if(!product)
+return;
+
+editingId =
+product.id;
+
+
+document.getElementById("modalTitle")
+.textContent =
+"Edit Product";
+
+
+document.getElementById("productName")
+.value =
+product.name || "";
+
+
+document.getElementById("productCategory")
+.value =
+product.category || "";
+
+
+document.getElementById("productDescription")
+.value =
+product.description || "";
+
+
+document.getElementById("productPrice")
+.value =
+product.price || "";
+
+
+document.getElementById("productStock")
+.value =
+product.stock ?? 0;
+
+
+document.getElementById("productImage")
+.value =
+product.image_url || "";
+
+
+document.getElementById("productActive")
+.value =
+product.is_active === false
+?
+"false"
+:
+"true";
+
+
+document.getElementById("productModal")
+.style.display =
+"flex";
+
+}
+
+
+/* =========================================
+   SAVE PRODUCT
+========================================= */
+
+async function saveProduct(){
+
+const name =
+document.getElementById("productName")
+.value.trim();
+
+const category =
+document.getElementById("productCategory")
+.value.trim();
+
+const description =
+document.getElementById("productDescription")
+.value.trim();
+
+const price =
+Number(
+document.getElementById("productPrice")
+.value
+);
+
+const stock =
+Number(
+document.getElementById("productStock")
+.value
+);
+
+const image_url =
+document.getElementById("productImage")
+.value.trim();
+
+const is_active =
+document.getElementById("productActive")
+.value === "true";
+
+
+if(!name){
+
+alert("Please enter product name.");
+
+return;
+
+}
+
+
+if(isNaN(price)){
+
+alert("Please enter a valid price.");
+
+return;
+
+}
+
+
+const productData = {
+
+name,
+category,
+description,
+price,
+stock,
+image_url,
+is_active
+
+};
+
+
+try{
+
+let result;
+
+
+if(editingId){
+
+result =
+await supabaseClient
+.from("products")
+.update(productData)
+.eq("id",editingId);
+
+}
+
+else{
+
+result =
+await supabaseClient
+.from("products")
+.insert(productData);
+
+}
+
+
+if(result.error){
+
+console.error(result.error);
+
+alert(
+"Failed to save product:\n\n" +
+result.error.message
+);
+
+return;
+
+}
+
+
+alert(
+editingId
+?
+"Product updated successfully!"
+:
+"Product added successfully!"
+);
+
+
+closeModal();
+
+await loadProducts();
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert(
+"Something went wrong:\n\n" +
+error.message
+);
+
+}
+
+}
+
+
+/* =========================================
+   DELETE
+========================================= */
+
+async function deleteProduct(id){
+
+const product =
+products.find(
+p => Number(p.id) === Number(id)
+);
+
+if(!product)
+return;
+
+
+const confirmed =
+confirm(
+`Delete "${product.name}"?`
+);
+
+if(!confirmed)
+return;
+
+
+const {error} =
+await supabaseClient
+.from("products")
+.delete()
+.eq("id",id);
+
+
+if(error){
+
+console.error(error);
+
+alert(
+"Failed to delete product:\n\n" +
+error.message
+);
+
+return;
+
+}
+
+
+alert(
+"Product deleted successfully!"
+);
+
+
+await loadProducts();
+
+}
+
+
+/* =========================================
+   CLEAR FORM
+========================================= */
+
+function clearForm(){
+
+document.getElementById("productName")
+.value = "";
+
+document.getElementById("productCategory")
+.value = "";
+
+document.getElementById("productDescription")
+.value = "";
+
+document.getElementById("productPrice")
+.value = "";
+
+document.getElementById("productStock")
+.value = "0";
+
+document.getElementById("productImage")
+.value = "";
+
+document.getElementById("productActive")
+.value = "true";
+
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+function closeModal(){
+
+document.getElementById("productModal")
+.style.display =
+"none";
+
+}
+
+
+window.onclick =
+function(event){
+
+const modal =
+document.getElementById("productModal");
+
+if(event.target === modal){
+
+closeModal();
+
+}
+
+};
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value){
+
+if(
+value === null ||
+value === undefined
+){
+
+return "";
+
+}
+
+return String(value)
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+loadProducts();
+
+</script>
 
 </body>
 
