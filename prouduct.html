@@ -2,8 +2,13 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>X3D Printing | Products</title>
 
@@ -18,508 +23,858 @@
         }
 
         :root {
+
             --bg: #080816;
             --surface: #11172a;
-            --surface2: #0b1020;
+            --surface2: #171f38;
             --border: rgba(255,255,255,.10);
+
             --text: #ffffff;
             --muted: #aeb6cc;
+
             --primary: #8b5cf6;
+            --primary2: #6d28d9;
+
             --green: #22c55e;
             --red: #ef4444;
-            --orange: #f59e0b;
+
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background:
-                radial-gradient(circle at top right, #17153b 0%, #080816 45%),
+                radial-gradient(
+                    circle at top right,
+                    #17153b 0%,
+                    #080816 45%
+                ),
                 var(--bg);
+
             color: var(--text);
+
             min-height: 100vh;
+
         }
 
-        /* ================= SIDEBAR ================= */
+        /* SIDEBAR */
 
         .sidebar {
+
             position: fixed;
+
             left: 0;
             top: 0;
+
             width: 250px;
             height: 100vh;
-            background: rgba(10,12,28,.96);
-            border-right: 1px solid var(--border);
+
+            background:
+                rgba(10,12,28,.96);
+
+            border-right:
+                1px solid var(--border);
+
             padding: 25px 18px;
+
             z-index: 100;
+
         }
 
         .logo {
+
             font-size: 25px;
+
             font-weight: 800;
-            padding: 10px 12px 30px;
+
+            padding:
+                10px 12px 30px;
+
         }
 
         .logo span {
+
             color: var(--primary);
+
         }
 
         .menu-title {
+
             color: #68728a;
+
             font-size: 11px;
+
             font-weight: bold;
+
             text-transform: uppercase;
+
             padding: 0 12px;
+
             margin-bottom: 10px;
+
         }
 
         .menu {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 6px;
+
         }
 
         .menu-item {
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
+
             color: var(--muted);
-            padding: 13px 14px;
+
+            padding:
+                13px 14px;
+
             border-radius: 11px;
+
             cursor: pointer;
+
+            transition: .2s;
+
             text-decoration: none;
+
         }
 
         .menu-item:hover,
         .menu-item.active {
-            background: rgba(139,92,246,.16);
+
+            background:
+                rgba(139,92,246,.16);
+
             color: white;
+
         }
 
         .menu-item.active {
-            border-left: 3px solid var(--primary);
+
+            border-left:
+                3px solid var(--primary);
+
         }
 
         .menu-icon {
+
             width: 24px;
+
             text-align: center;
+
         }
 
-        /* ================= MAIN ================= */
+        /* MAIN */
 
         .main {
+
             margin-left: 250px;
-            padding: 30px 35px;
+
+            padding:
+                30px 35px;
+
         }
 
         .topbar {
+
             display: flex;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             align-items: center;
+
             margin-bottom: 30px;
+
             gap: 20px;
+
         }
 
         .page-title h1 {
+
             font-size: 30px;
+
             margin-bottom: 7px;
+
         }
 
         .page-title p {
+
             color: var(--muted);
+
         }
 
         .add-btn {
+
             border: none;
-            background: linear-gradient(135deg,#6d28d9,#8b5cf6);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d28d9,
+                    #8b5cf6
+                );
+
             color: white;
-            padding: 12px 18px;
+
+            padding:
+                12px 18px;
+
             border-radius: 10px;
+
             cursor: pointer;
+
             font-weight: bold;
+
+            font-size: 14px;
+
         }
 
         .add-btn:hover {
-            opacity: .9;
+
+            opacity: .88;
+
         }
 
-        /* ================= STATS ================= */
+        /* STATS */
 
         .stats {
+
             display: grid;
-            grid-template-columns: repeat(4,1fr);
+
+            grid-template-columns:
+                repeat(3,1fr);
+
             gap: 18px;
+
             margin-bottom: 25px;
+
         }
 
         .stat-card {
-            background: rgba(17,23,42,.92);
-            border: 1px solid var(--border);
+
+            background:
+                rgba(17,23,42,.92);
+
+            border:
+                1px solid var(--border);
+
             border-radius: 17px;
+
             padding: 20px;
+
         }
 
         .stat-label {
+
             color: var(--muted);
+
             font-size: 13px;
+
             margin-bottom: 12px;
+
         }
 
         .stat-value {
+
             font-size: 28px;
+
             font-weight: bold;
+
         }
 
-        /* ================= PRODUCTS ================= */
+        /* PRODUCTS */
 
         .products-card {
-            background: rgba(17,23,42,.92);
-            border: 1px solid var(--border);
+
+            background:
+                rgba(17,23,42,.92);
+
+            border:
+                1px solid var(--border);
+
             border-radius: 20px;
+
             overflow: hidden;
+
         }
 
         .products-header {
+
             padding: 22px;
-            border-bottom: 1px solid var(--border);
+
+            border-bottom:
+                1px solid var(--border);
 
             display: flex;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             align-items: center;
+
             gap: 15px;
+
         }
 
         .products-header h2 {
+
             font-size: 21px;
+
+        }
+
+        .actions {
+
+            display: flex;
+
+            gap: 10px;
+
         }
 
         .search {
+
             background: #0b1020;
-            border: 1px solid var(--border);
+
+            border:
+                1px solid var(--border);
+
             color: white;
-            padding: 11px 13px;
+
+            padding:
+                10px 13px;
+
             border-radius: 9px;
+
             outline: none;
-            width: 280px;
+
+            width: 250px;
+
         }
 
-        .search:focus {
-            border-color: var(--primary);
-        }
+        .filter {
 
-        /* ================= TABLE ================= */
+            background: #0b1020;
+
+            border:
+                1px solid var(--border);
+
+            color: white;
+
+            padding:
+                10px 13px;
+
+            border-radius: 9px;
+
+            outline: none;
+
+        }
 
         .table-wrapper {
+
             width: 100%;
+
             overflow-x: auto;
+
         }
 
         table {
+
             width: 100%;
-            border-collapse: collapse;
-            min-width: 950px;
+
+            border-collapse:
+                collapse;
+
+            min-width: 900px;
+
         }
 
         th {
+
             text-align: left;
+
             color: #7f89a3;
+
             font-size: 12px;
-            text-transform: uppercase;
-            padding: 16px 20px;
-            background: rgba(7,10,23,.45);
-            white-space: nowrap;
+
+            text-transform:
+                uppercase;
+
+            padding:
+                16px 20px;
+
+            background:
+                rgba(7,10,23,.45);
+
+            white-space:
+                nowrap;
+
         }
 
         td {
-            padding: 16px 20px;
-            border-top: 1px solid var(--border);
-            white-space: nowrap;
+
+            padding:
+                16px 20px;
+
+            border-top:
+                1px solid var(--border);
+
+            white-space:
+                nowrap;
+
         }
 
         tr:hover td {
-            background: rgba(139,92,246,.04);
-        }
 
-        .product-info {
-            display: flex;
-            align-items: center;
-            gap: 13px;
+            background:
+                rgba(139,92,246,.04);
+
         }
 
         .product-image {
+
             width: 55px;
+
             height: 55px;
+
             border-radius: 10px;
+
             object-fit: cover;
+
             background: #0b1020;
-            border: 1px solid var(--border);
+
+            border:
+                1px solid var(--border);
+
         }
 
         .product-name {
+
             font-weight: bold;
+
         }
 
         .product-description {
+
             color: var(--muted);
+
             font-size: 12px;
-            margin-top: 5px;
+
+            margin-top: 4px;
+
             max-width: 250px;
+
             overflow: hidden;
+
             text-overflow: ellipsis;
+
         }
 
         .price {
+
             font-weight: bold;
+
         }
 
-        /* ================= STATUS ================= */
+        .category {
+
+            color: #c4b5fd;
+
+        }
+
+        /* STATUS */
 
         .status {
+
             display: inline-flex;
-            padding: 6px 10px;
+
+            padding:
+                6px 10px;
+
             border-radius: 20px;
+
             font-size: 12px;
+
             font-weight: bold;
+
         }
 
-        .status-active {
-            background: rgba(34,197,94,.15);
-            color: #4ade80;
+        .active {
+
+            background:
+                rgba(34,197,94,.15);
+
+            color:
+                #4ade80;
+
         }
 
-        .status-inactive {
-            background: rgba(239,68,68,.15);
-            color: #f87171;
+        .inactive {
+
+            background:
+                rgba(239,68,68,.15);
+
+            color:
+                #f87171;
+
         }
 
-        /* ================= ACTIONS ================= */
+        /* BUTTONS */
 
-        .actions {
-            display: flex;
-            gap: 7px;
-        }
+        .edit-btn,
+        .delete-btn {
 
-        .action-btn {
-            border: 1px solid var(--border);
-            background: #0b1020;
-            color: white;
-            padding: 7px 10px;
+            border: 1px solid;
+
+            padding:
+                7px 11px;
+
             border-radius: 8px;
+
             cursor: pointer;
+
+            margin-right: 5px;
+
         }
 
         .edit-btn {
-            color: #c4b5fd;
-            border-color: rgba(139,92,246,.35);
+
+            background:
+                rgba(139,92,246,.10);
+
+            border-color:
+                rgba(139,92,246,.35);
+
+            color:
+                #c4b5fd;
+
         }
 
         .delete-btn {
-            color: #f87171;
-            border-color: rgba(239,68,68,.3);
+
+            background:
+                rgba(239,68,68,.10);
+
+            border-color:
+                rgba(239,68,68,.30);
+
+            color:
+                #f87171;
+
         }
 
-        /* ================= EMPTY ================= */
-
-        .loading,
-        .empty {
-            padding: 50px;
-            text-align: center;
-            color: var(--muted);
-        }
-
-        .error {
-            padding: 30px;
-            text-align: center;
-            color: #f87171;
-        }
-
-        /* ================= MODAL ================= */
+        /* MODAL */
 
         .modal {
+
             display: none;
+
             position: fixed;
+
             inset: 0;
-            background: rgba(0,0,0,.75);
+
+            background:
+                rgba(0,0,0,.78);
+
             z-index: 500;
 
             align-items: center;
+
             justify-content: center;
 
             padding: 20px;
+
         }
 
         .modal-box {
+
             width: 100%;
+
             max-width: 600px;
+
             max-height: 90vh;
+
             overflow-y: auto;
 
-            background: #11172a;
-            border: 1px solid var(--border);
+            background:
+                #11172a;
+
+            border:
+                1px solid var(--border);
+
             border-radius: 20px;
+
             padding: 25px;
+
         }
 
         .modal-header {
+
             display: flex;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             align-items: center;
+
             margin-bottom: 25px;
+
         }
 
         .modal-header h2 {
+
             font-size: 22px;
+
         }
 
         .close {
+
             background: transparent;
+
             border: none;
+
             color: white;
+
             font-size: 28px;
+
             cursor: pointer;
+
         }
 
-        /* ================= FORM ================= */
-
         .form-group {
+
             margin-bottom: 17px;
+
         }
 
         .form-group label {
+
             display: block;
+
             color: var(--muted);
+
             font-size: 13px;
+
             margin-bottom: 7px;
+
         }
 
-        .form-input,
-        .form-textarea,
-        .form-select {
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+
             width: 100%;
-            background: #0b1020;
-            border: 1px solid var(--border);
+
+            background:
+                #0b1020;
+
+            border:
+                1px solid var(--border);
+
             color: white;
+
             padding: 12px;
+
             border-radius: 9px;
+
             outline: none;
+
         }
 
-        .form-input:focus,
-        .form-textarea:focus,
-        .form-select:focus {
-            border-color: var(--primary);
-        }
+        .form-group textarea {
 
-        .form-textarea {
             min-height: 100px;
+
             resize: vertical;
+
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+
+            border-color:
+                var(--primary);
+
         }
 
         .form-row {
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 15px;
+
         }
 
         .save-btn {
+
             width: 100%;
+
             margin-top: 8px;
+
             padding: 13px;
+
             border: none;
+
             border-radius: 9px;
-            background: linear-gradient(135deg,#6d28d9,#8b5cf6);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6d28d9,
+                    #8b5cf6
+                );
+
             color: white;
+
             font-weight: bold;
+
             cursor: pointer;
-        }
-
-        .save-btn:disabled {
-            opacity: .6;
-            cursor: not-allowed;
-        }
-
-        /* ================= MOBILE ================= */
-
-        @media(max-width:1100px) {
-
-            .stats {
-                grid-template-columns: repeat(2,1fr);
-            }
 
         }
+
+        .loading,
+        .empty {
+
+            padding: 50px;
+
+            text-align: center;
+
+            color: var(--muted);
+
+        }
+
+        .error {
+
+            padding: 30px;
+
+            text-align: center;
+
+            color: #f87171;
+
+        }
+
+        /* MOBILE */
 
         @media(max-width:800px) {
 
             .sidebar {
+
                 position: relative;
+
                 width: 100%;
+
                 height: auto;
 
                 border-right: none;
-                border-bottom: 1px solid var(--border);
+
+                border-bottom:
+                    1px solid var(--border);
+
             }
 
             .main {
+
                 margin-left: 0;
-                padding: 22px 15px;
+
+                padding:
+                    22px 15px;
+
             }
 
             .menu {
+
                 flex-direction: row;
+
                 overflow-x: auto;
+
             }
 
             .menu-item {
-                min-width: max-content;
+
+                min-width:
+                    max-content;
+
             }
 
             .menu-title {
+
                 display: none;
+
             }
 
             .topbar {
-                flex-direction: column;
-                align-items: stretch;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
             }
 
-            .add-btn {
-                width: 100%;
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
             }
 
             .products-header {
-                flex-direction: column;
-                align-items: stretch;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
+
+            }
+
+            .actions {
+
+                flex-direction:
+                    column;
+
             }
 
             .search {
+
                 width: 100%;
-            }
 
-        }
-
-        @media(max-width:550px) {
-
-            .stats {
-                grid-template-columns: 1fr;
             }
 
             .form-row {
-                grid-template-columns: 1fr;
-            }
 
-            .modal-box {
-                padding: 20px;
+                grid-template-columns:
+                    1fr;
+
             }
 
         }
 
     </style>
+
 </head>
 
 
 <body>
 
 
-<!-- ================= SIDEBAR ================= -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
@@ -533,28 +888,62 @@
 
     <div class="menu">
 
-        <a class="menu-item" href="admin.html">
-            <span class="menu-icon">📊</span>
+        <a
+            class="menu-item"
+            href="admin.html"
+        >
+            <span class="menu-icon">
+                📊
+            </span>
+
             Dashboard
         </a>
 
-        <a class="menu-item" href="orders.html">
-            <span class="menu-icon">🛒</span>
+
+        <a
+            class="menu-item"
+            href="orders.html"
+        >
+            <span class="menu-icon">
+                🛒
+            </span>
+
             Orders
         </a>
 
-        <a class="menu-item active" href="products.html">
-            <span class="menu-icon">📦</span>
+
+        <a
+            class="menu-item active"
+            href="products.html"
+        >
+            <span class="menu-icon">
+                📦
+            </span>
+
             Products
         </a>
 
-        <a class="menu-item" href="#">
-            <span class="menu-icon">👥</span>
+
+        <a
+            class="menu-item"
+            href="#"
+        >
+            <span class="menu-icon">
+                👥
+            </span>
+
             Customers
         </a>
 
-        <a class="menu-item" href="#">
-            <span class="menu-icon">🎨</span>
+
+        <a
+            class="menu-item"
+            href="#"
+        >
+            <span class="menu-icon">
+                🎨
+            </span>
+
             Custom Requests
         </a>
 
@@ -563,7 +952,7 @@
 </aside>
 
 
-<!-- ================= MAIN ================= -->
+<!-- MAIN -->
 
 <main class="main">
 
@@ -582,6 +971,7 @@
 
         </div>
 
+
         <button
             class="add-btn"
             onclick="openAddProduct()"
@@ -592,9 +982,10 @@
     </div>
 
 
-    <!-- ================= STATS ================= -->
+    <!-- STATS -->
 
     <section class="stats">
+
 
         <div class="stat-card">
 
@@ -644,27 +1035,13 @@
         </div>
 
 
-        <div class="stat-card">
-
-            <div class="stat-label">
-                Average Price
-            </div>
-
-            <div
-                class="stat-value"
-                id="averagePrice"
-            >
-                EGP 0
-            </div>
-
-        </div>
-
     </section>
 
 
-    <!-- ================= PRODUCTS ================= -->
+    <!-- PRODUCTS -->
 
     <section class="products-card">
+
 
         <div class="products-header">
 
@@ -672,13 +1049,39 @@
                 All Products
             </h2>
 
-            <input
-                class="search"
-                id="searchInput"
-                type="text"
-                placeholder="Search products..."
-                oninput="renderProducts()"
-            >
+
+            <div class="actions">
+
+                <input
+                    class="search"
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search products..."
+                    oninput="renderProducts()"
+                >
+
+
+                <select
+                    class="filter"
+                    id="statusFilter"
+                    onchange="renderProducts()"
+                >
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="active">
+                        Active
+                    </option>
+
+                    <option value="inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
 
         </div>
 
@@ -700,20 +1103,23 @@
 </main>
 
 
-<!-- ================= ADD / EDIT MODAL ================= -->
+<!-- ADD / EDIT MODAL -->
 
 <div
     class="modal"
     id="productModal"
 >
 
+
     <div class="modal-box">
+
 
         <div class="modal-header">
 
             <h2 id="modalTitle">
                 Add Product
             </h2>
+
 
             <button
                 class="close"
@@ -725,7 +1131,10 @@
         </div>
 
 
-        <form id="productForm">
+        <form
+            id="productForm"
+            onsubmit="saveProduct(event)"
+        >
 
 
             <div class="form-group">
@@ -735,11 +1144,10 @@
                 </label>
 
                 <input
-                    class="form-input"
-                    id="productName"
                     type="text"
-                    placeholder="Example: Dragon Statue"
+                    id="productName"
                     required
+                    placeholder="Example: Custom Name Keychain"
                 >
 
             </div>
@@ -752,7 +1160,6 @@
                 </label>
 
                 <textarea
-                    class="form-textarea"
                     id="productDescription"
                     placeholder="Product description..."
                 ></textarea>
@@ -762,46 +1169,6 @@
 
             <div class="form-row">
 
-                <div class="form-group">
-
-                    <label>
-                        Price (EGP)
-                    </label>
-
-                    <input
-                        class="form-input"
-                        id="productPrice"
-                        type="number"
-                        min="0"
-                        step="0.01"
-                        placeholder="500"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Stock
-                    </label>
-
-                    <input
-                        class="form-input"
-                        id="productStock"
-                        type="number"
-                        min="0"
-                        placeholder="10"
-                        value="0"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <div class="form-row">
 
                 <div class="form-group">
 
@@ -810,10 +1177,9 @@
                     </label>
 
                     <input
-                        class="form-input"
-                        id="productCategory"
                         type="text"
-                        placeholder="Figures"
+                        id="productCategory"
+                        placeholder="Accessories"
                     >
 
                 </div>
@@ -822,48 +1188,34 @@
                 <div class="form-group">
 
                     <label>
-                        Material
+                        Price (EGP)
                     </label>
 
                     <input
-                        class="form-input"
-                        id="productMaterial"
-                        type="text"
-                        placeholder="PLA"
+                        type="number"
+                        id="productPrice"
+                        min="0"
+                        step="0.01"
+                        required
+                        placeholder="80"
                     >
 
                 </div>
 
+
             </div>
 
 
             <div class="form-group">
 
                 <label>
-                    Colors
+                    Image URL / Path
                 </label>
 
                 <input
-                    class="form-input"
-                    id="productColors"
                     type="text"
-                    placeholder="Black, White, Red"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Product Image URL
-                </label>
-
-                <input
-                    class="form-input"
                     id="productImage"
-                    type="url"
-                    placeholder="https://..."
+                    placeholder="/images/product.jpg"
                 >
 
             </div>
@@ -876,15 +1228,14 @@
                 </label>
 
                 <select
-                    class="form-select"
-                    id="productStatus"
+                    id="productActive"
                 >
 
-                    <option value="active">
+                    <option value="true">
                         Active
                     </option>
 
-                    <option value="inactive">
+                    <option value="false">
                         Inactive
                     </option>
 
@@ -895,7 +1246,6 @@
 
             <button
                 class="save-btn"
-                id="saveButton"
                 type="submit"
             >
                 Save Product
@@ -903,6 +1253,7 @@
 
 
         </form>
+
 
     </div>
 
@@ -915,11 +1266,6 @@
 /* =========================================================
    SUPABASE
    ========================================================= */
-
-/*
-   IMPORTANT:
-   Put EXACTLY the same values from admin.html
-*/
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
@@ -952,7 +1298,9 @@ let editingProductId = null;
 async function loadProducts() {
 
     const container =
-        document.getElementById("tableContainer");
+        document.getElementById(
+            "tableContainer"
+        );
 
 
     container.innerHTML = `
@@ -985,6 +1333,7 @@ async function loadProducts() {
             `;
 
             return;
+
         }
 
 
@@ -1025,74 +1374,66 @@ function updateStats() {
 
     const active =
         products.filter(
-            product =>
-                String(product.status).toLowerCase() === "active"
+            product => product.active !== false
         ).length;
 
 
     const inactive =
-        total - active;
+        products.filter(
+            product => product.active === false
+        ).length;
 
 
-    const prices =
-        products
-            .map(product => Number(product.price || 0))
-            .filter(price => price > 0);
+    document.getElementById(
+        "totalProducts"
+    ).textContent = total;
 
 
-    const average =
-        prices.length
-            ? prices.reduce((a,b) => a + b, 0) / prices.length
-            : 0;
+    document.getElementById(
+        "activeProducts"
+    ).textContent = active;
 
 
-    document.getElementById("totalProducts")
-        .textContent = total;
-
-
-    document.getElementById("activeProducts")
-        .textContent = active;
-
-
-    document.getElementById("inactiveProducts")
-        .textContent = inactive;
-
-
-    document.getElementById("averagePrice")
-        .textContent =
-        "EGP " +
-        average.toLocaleString(
-            undefined,
-            {
-                maximumFractionDigits: 0
-            }
-        );
+    document.getElementById(
+        "inactiveProducts"
+    ).textContent = inactive;
 
 }
 
 
 /* =========================================================
-   RENDER PRODUCTS
+   RENDER
    ========================================================= */
 
 function renderProducts() {
 
     const container =
-        document.getElementById("tableContainer");
+        document.getElementById(
+            "tableContainer"
+        );
 
 
     const search =
-        document.getElementById("searchInput")
-            .value
-            .toLowerCase()
-            .trim();
+        document.getElementById(
+            "searchInput"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const status =
+        document.getElementById(
+            "statusFilter"
+        )
+        .value;
 
 
     let filtered =
         [...products];
 
 
-    if (search) {
+    if(search) {
 
         filtered =
             filtered.filter(product => {
@@ -1103,22 +1444,22 @@ function renderProducts() {
                     ).toLowerCase();
 
 
+                const description =
+                    String(
+                        product.description || ""
+                    ).toLowerCase();
+
+
                 const category =
                     String(
                         product.category || ""
                     ).toLowerCase();
 
 
-                const material =
-                    String(
-                        product.material || ""
-                    ).toLowerCase();
-
-
                 return (
                     name.includes(search) ||
-                    category.includes(search) ||
-                    material.includes(search)
+                    description.includes(search) ||
+                    category.includes(search)
                 );
 
             });
@@ -1126,7 +1467,29 @@ function renderProducts() {
     }
 
 
-    if (filtered.length === 0) {
+    if(status === "active") {
+
+        filtered =
+            filtered.filter(
+                product =>
+                    product.active !== false
+            );
+
+    }
+
+
+    if(status === "inactive") {
+
+        filtered =
+            filtered.filter(
+                product =>
+                    product.active === false
+            );
+
+    }
+
+
+    if(filtered.length === 0) {
 
         container.innerHTML = `
             <div class="empty">
@@ -1135,6 +1498,7 @@ function renderProducts() {
         `;
 
         return;
+
     }
 
 
@@ -1147,6 +1511,10 @@ function renderProducts() {
                 <tr>
 
                     <th>
+                        Image
+                    </th>
+
+                    <th>
                         Product
                     </th>
 
@@ -1155,15 +1523,7 @@ function renderProducts() {
                     </th>
 
                     <th>
-                        Material
-                    </th>
-
-                    <th>
                         Price
-                    </th>
-
-                    <th>
-                        Stock
                     </th>
 
                     <th>
@@ -1187,32 +1547,44 @@ function renderProducts() {
 
                         <td>
 
-                            <div class="product-info">
-
+                            ${
+                                product.image
+                                ?
+                                `
                                 <img
                                     class="product-image"
-                                    src="${escapeHtml(
-                                        product.image_url ||
-                                        "https://placehold.co/100x100/11172a/ffffff?text=X3D"
-                                    )}"
-                                    onerror="this.src='https://placehold.co/100x100/11172a/ffffff?text=X3D'"
+                                    src="${escapeHtml(product.image)}"
+                                    onerror="this.style.display='none'"
                                 >
+                                `
+                                :
+                                `
+                                <div class="product-image"></div>
+                                `
+                            }
 
-                                <div>
+                        </td>
 
-                                    <div class="product-name">
-                                        ${escapeHtml(
-                                            product.name || "-"
-                                        )}
-                                    </div>
 
-                                    <div class="product-description">
-                                        ${escapeHtml(
-                                            product.description || ""
-                                        )}
-                                    </div>
+                        <td>
 
-                                </div>
+                            <div class="product-name">
+
+                                ${escapeHtml(
+                                    product.name
+                                )}
+
+                            </div>
+
+
+                            <div
+                                class="product-description"
+                            >
+
+                                ${escapeHtml(
+                                    product.description ||
+                                    "-"
+                                )}
 
                             </div>
 
@@ -1220,65 +1592,73 @@ function renderProducts() {
 
 
                         <td>
-                            ${escapeHtml(
-                                product.category || "-"
-                            )}
-                        </td>
 
+                            <span class="category">
 
-                        <td>
-                            ${escapeHtml(
-                                product.material || "-"
-                            )}
-                        </td>
+                                ${escapeHtml(
+                                    product.category ||
+                                    "-"
+                                )}
 
-
-                        <td>
-
-                            <span class="price">
-                                EGP ${Number(
-                                    product.price || 0
-                                ).toLocaleString()}
                             </span>
 
                         </td>
 
 
                         <td>
-                            ${escapeHtml(
-                                product.stock ?? 0
-                            )}
-                        </td>
 
+                            <span class="price">
 
-                        <td>
+                                EGP ${Number(
+                                    product.price || 0
+                                ).toLocaleString()}
 
-                            ${statusBadge(
-                                product.status
-                            )}
+                            </span>
 
                         </td>
 
 
                         <td>
 
-                            <div class="actions">
-
-                                <button
-                                    class="action-btn edit-btn"
-                                    onclick="editProduct(${Number(product.id)})"
+                            ${
+                                product.active !== false
+                                ?
+                                `
+                                <span
+                                    class="status active"
                                 >
-                                    Edit
-                                </button>
-
-                                <button
-                                    class="action-btn delete-btn"
-                                    onclick="deleteProduct(${Number(product.id)})"
+                                    Active
+                                </span>
+                                `
+                                :
+                                `
+                                <span
+                                    class="status inactive"
                                 >
-                                    Delete
-                                </button>
+                                    Inactive
+                                </span>
+                                `
+                            }
 
-                            </div>
+                        </td>
+
+
+                        <td>
+
+                            <button
+                                class="edit-btn"
+                                onclick="editProduct(${product.id})"
+                            >
+                                Edit
+                            </button>
+
+
+                            <button
+                                class="delete-btn"
+                                onclick="deleteProduct(${product.id})"
+                            >
+                                Delete
+                            </button>
 
                         </td>
 
@@ -1296,32 +1676,6 @@ function renderProducts() {
 
 
 /* =========================================================
-   STATUS
-   ========================================================= */
-
-function statusBadge(status) {
-
-    const normalized =
-        String(status || "active")
-            .toLowerCase();
-
-
-    const label =
-        normalized === "active"
-            ? "Active"
-            : "Inactive";
-
-
-    return `
-        <span class="status status-${normalized}">
-            ${label}
-        </span>
-    `;
-
-}
-
-
-/* =========================================================
    ADD PRODUCT
    ========================================================= */
 
@@ -1330,20 +1684,25 @@ function openAddProduct() {
     editingProductId = null;
 
 
-    document.getElementById("modalTitle")
-        .textContent = "Add Product";
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Add Product";
 
 
-    document.getElementById("productForm")
-        .reset();
+    document.getElementById(
+        "productForm"
+    ).reset();
 
 
-    document.getElementById("productStatus")
-        .value = "active";
+    document.getElementById(
+        "productActive"
+    ).value = "true";
 
 
-    document.getElementById("productModal")
-        .style.display = "flex";
+    document.getElementById(
+        "productModal"
+    ).style.display = "flex";
 
 }
 
@@ -1361,7 +1720,7 @@ function editProduct(id) {
         );
 
 
-    if (!product) {
+    if(!product) {
         return;
     }
 
@@ -1370,57 +1729,53 @@ function editProduct(id) {
         product.id;
 
 
-    document.getElementById("modalTitle")
-        .textContent = "Edit Product";
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
+        "Edit Product";
 
 
-    document.getElementById("productName")
-        .value =
+    document.getElementById(
+        "productName"
+    ).value =
         product.name || "";
 
 
-    document.getElementById("productDescription")
-        .value =
+    document.getElementById(
+        "productDescription"
+    ).value =
         product.description || "";
 
 
-    document.getElementById("productPrice")
-        .value =
-        product.price || 0;
-
-
-    document.getElementById("productStock")
-        .value =
-        product.stock ?? 0;
-
-
-    document.getElementById("productCategory")
-        .value =
+    document.getElementById(
+        "productCategory"
+    ).value =
         product.category || "";
 
 
-    document.getElementById("productMaterial")
-        .value =
-        product.material || "";
+    document.getElementById(
+        "productPrice"
+    ).value =
+        product.price || 0;
 
 
-    document.getElementById("productColors")
-        .value =
-        product.colors || "";
+    document.getElementById(
+        "productImage"
+    ).value =
+        product.image || "";
 
 
-    document.getElementById("productImage")
-        .value =
-        product.image_url || "";
+    document.getElementById(
+        "productActive"
+    ).value =
+        product.active === false
+        ? "false"
+        : "true";
 
 
-    document.getElementById("productStatus")
-        .value =
-        product.status || "active";
-
-
-    document.getElementById("productModal")
-        .style.display = "flex";
+    document.getElementById(
+        "productModal"
+    ).style.display = "flex";
 
 }
 
@@ -1429,143 +1784,155 @@ function editProduct(id) {
    SAVE PRODUCT
    ========================================================= */
 
-document.getElementById("productForm")
-    .addEventListener(
-        "submit",
-        async function(event) {
+async function saveProduct(event) {
 
-            event.preventDefault();
+    event.preventDefault();
 
 
-            const button =
-                document.getElementById("saveButton");
+    const name =
+        document.getElementById(
+            "productName"
+        ).value.trim();
 
 
-            button.disabled = true;
-
-            button.textContent =
-                "Saving...";
-
-
-            const productData = {
-
-                name:
-                    document.getElementById("productName")
-                        .value
-                        .trim(),
-
-                description:
-                    document.getElementById("productDescription")
-                        .value
-                        .trim(),
-
-                price:
-                    Number(
-                        document.getElementById("productPrice")
-                            .value
-                    ),
-
-                stock:
-                    Number(
-                        document.getElementById("productStock")
-                            .value || 0
-                    ),
-
-                category:
-                    document.getElementById("productCategory")
-                        .value
-                        .trim(),
-
-                material:
-                    document.getElementById("productMaterial")
-                        .value
-                        .trim(),
-
-                colors:
-                    document.getElementById("productColors")
-                        .value
-                        .trim(),
-
-                image_url:
-                    document.getElementById("productImage")
-                        .value
-                        .trim(),
-
-                status:
-                    document.getElementById("productStatus")
-                        .value
-
-            };
+    const description =
+        document.getElementById(
+            "productDescription"
+        ).value.trim();
 
 
-            let result;
+    const category =
+        document.getElementById(
+            "productCategory"
+        ).value.trim();
 
 
-            if (editingProductId) {
-
-                result =
-                    await supabaseClient
-                        .from("products")
-                        .update(productData)
-                        .eq(
-                            "id",
-                            editingProductId
-                        );
-
-            }
-
-            else {
-
-                result =
-                    await supabaseClient
-                        .from("products")
-                        .insert([
-                            productData
-                        ]);
-
-            }
+    const price =
+        Number(
+            document.getElementById(
+                "productPrice"
+            ).value
+        );
 
 
-            if (result.error) {
-
-                console.error(
-                    result.error
-                );
-
-
-                alert(
-                    "Failed to save product:\n\n" +
-                    result.error.message
-                );
+    const image =
+        document.getElementById(
+            "productImage"
+        ).value.trim();
 
 
-                button.disabled = false;
-
-                button.textContent =
-                    "Save Product";
-
-                return;
-
-            }
+    const active =
+        document.getElementById(
+            "productActive"
+        ).value === "true";
 
 
-            closeProductModal();
+    const productData = {
+
+        name,
+
+        description:
+            description || null,
+
+        category:
+            category || null,
+
+        price,
+
+        image:
+            image || null,
+
+        active,
+
+        updated_at:
+            new Date().toISOString()
+
+    };
 
 
-            await loadProducts();
+    try {
+
+        let error;
 
 
-            button.disabled = false;
+        if(editingProductId) {
 
-            button.textContent =
-                "Save Product";
+            const result =
+                await supabaseClient
+                    .from("products")
+                    .update(productData)
+                    .eq(
+                        "id",
+                        editingProductId
+                    );
+
+
+            error =
+                result.error;
 
         }
-    );
+
+        else {
+
+            const result =
+                await supabaseClient
+                    .from("products")
+                    .insert([
+                        productData
+                    ]);
+
+
+            error =
+                result.error;
+
+        }
+
+
+        if(error) {
+
+            console.error(error);
+
+            alert(
+                "Failed to save product:\n\n" +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            editingProductId
+            ?
+            "Product updated successfully!"
+            :
+            "Product added successfully!"
+        );
+
+
+        closeProductModal();
+
+        await loadProducts();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        alert(
+            "Something went wrong:\n\n" +
+            error.message
+        );
+
+    }
+
+}
 
 
 /* =========================================================
-   DELETE PRODUCT
+   DELETE
    ========================================================= */
 
 async function deleteProduct(id) {
@@ -1577,7 +1944,7 @@ async function deleteProduct(id) {
         );
 
 
-    if (!product) {
+    if(!product) {
         return;
     }
 
@@ -1588,7 +1955,7 @@ async function deleteProduct(id) {
         );
 
 
-    if (!confirmed) {
+    if(!confirmed) {
         return;
     }
 
@@ -1600,7 +1967,7 @@ async function deleteProduct(id) {
             .eq("id", id);
 
 
-    if (error) {
+    if(error) {
 
         console.error(error);
 
@@ -1614,6 +1981,11 @@ async function deleteProduct(id) {
     }
 
 
+    alert(
+        "Product deleted successfully!"
+    );
+
+
     await loadProducts();
 
 }
@@ -1625,26 +1997,29 @@ async function deleteProduct(id) {
 
 function closeProductModal() {
 
-    document.getElementById("productModal")
-        .style.display = "none";
+    document.getElementById(
+        "productModal"
+    ).style.display = "none";
 
 }
 
 
 window.onclick =
-    function(event) {
+function(event) {
 
-        const modal =
-            document.getElementById("productModal");
+    const modal =
+        document.getElementById(
+            "productModal"
+        );
 
 
-        if (event.target === modal) {
+    if(event.target === modal) {
 
-            closeProductModal();
+        closeProductModal();
 
-        }
+    }
 
-    };
+};
 
 
 /* =========================================================
@@ -1653,7 +2028,7 @@ window.onclick =
 
 function escapeHtml(value) {
 
-    if (
+    if(
         value === null ||
         value === undefined
     ) {
@@ -1664,11 +2039,31 @@ function escapeHtml(value) {
 
 
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -1682,4 +2077,5 @@ loadProducts();
 </script>
 
 </body>
+
 </html>
