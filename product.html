@@ -1039,25 +1039,11 @@ function getGithubImageUrl(product){
         normalizeText(product.name);
 
 
-    /*
-        IMPORTANT:
-
-        Database column is:
-        image
-
-        NOT:
-        image_url
-    */
-
     let databaseImage =
         String(
             product.image || ""
         ).trim();
 
-
-    /*
-        If database contains full URL
-    */
 
     if(
         databaseImage.startsWith("http://") ||
@@ -1068,10 +1054,6 @@ function getGithubImageUrl(product){
 
     }
 
-
-    /*
-        Remove folders
-    */
 
     if(databaseImage){
 
@@ -1116,10 +1098,6 @@ function getGithubImageUrl(product){
     }
 
 
-    /*
-        Product name matching
-    */
-
     if(
         PRODUCT_IMAGES[name]
     ){
@@ -1134,10 +1112,6 @@ function getGithubImageUrl(product){
 
     }
 
-
-    /*
-        Flexible matching
-    */
 
     if(
         name.includes("custom") &&
@@ -1212,10 +1186,6 @@ function getProductImageUrl(product){
         ).trim();
 
 
-    /*
-        Full external URL
-    */
-
     if(
         image.startsWith("http://") ||
         image.startsWith("https://")
@@ -1225,10 +1195,6 @@ function getProductImageUrl(product){
 
     }
 
-
-    /*
-        First try GitHub
-    */
 
     const githubImage =
         getGithubImageUrl(product);
@@ -1240,10 +1206,6 @@ function getProductImageUrl(product){
 
     }
 
-
-    /*
-        Supabase Storage
-    */
 
     if(image){
 
@@ -1306,15 +1268,6 @@ async function loadProducts(){
 
 
     try{
-
-        /*
-            IMPORTANT:
-
-            We don't use image_url.
-            We don't use is_active.
-
-            We select all columns.
-        */
 
         const {
             data,
@@ -1396,14 +1349,6 @@ async function loadProducts(){
 ===================================================== */
 
 function updateStats(){
-
-    /*
-        Since database doesn't have is_active:
-
-        Active = stock > 0
-        Out of Stock = stock <= 0
-    */
-
 
     document.getElementById(
         "totalProducts"
@@ -1531,33 +1476,19 @@ function renderProducts(){
 
                 <tr>
 
-                    <th>
-                        Image
-                    </th>
+                    <th>Image</th>
 
-                    <th>
-                        Product
-                    </th>
+                    <th>Product</th>
 
-                    <th>
-                        Category
-                    </th>
+                    <th>Category</th>
 
-                    <th>
-                        Price
-                    </th>
+                    <th>Price</th>
 
-                    <th>
-                        Stock
-                    </th>
+                    <th>Stock</th>
 
-                    <th>
-                        Status
-                    </th>
+                    <th>Status</th>
 
-                    <th>
-                        Actions
-                    </th>
+                    <th>Actions</th>
 
                 </tr>
 
@@ -1595,9 +1526,7 @@ function renderProducts(){
 
                                             ${
                                                 imageUrl
-
                                                 ?
-
                                                 `
                                                     <img
                                                         class="product-image"
@@ -1609,9 +1538,7 @@ function renderProducts(){
                                                         onerror="handleImageError(this)"
                                                     >
                                                 `
-
                                                 :
-
                                                 `
                                                     <div class="product-image-placeholder">
                                                         No Image
@@ -1687,17 +1614,13 @@ function renderProducts(){
 
                                             ${
                                                 isActive
-
                                                 ?
-
                                                 `
                                                     <span class="active">
                                                         Active
                                                     </span>
                                                 `
-
                                                 :
-
                                                 `
                                                     <span class="inactive">
                                                         Out of Stock
@@ -1875,10 +1798,6 @@ function editProduct(id){
         "";
 
 
-    /*
-        Status is calculated from stock.
-    */
-
     document.getElementById(
         "productStatus"
     ).value =
@@ -2019,6 +1938,7 @@ async function uploadProductImage(file){
 
 /* =====================================================
    SAVE PRODUCT
+   UPDATED
 ===================================================== */
 
 async function saveProduct(){
@@ -2076,6 +1996,10 @@ async function saveProduct(){
         .files[0];
 
 
+    /* =========================
+       VALIDATION
+    ========================= */
+
     if(!name){
 
         alert(
@@ -2123,23 +2047,12 @@ async function saveProduct(){
             "Saving...";
 
 
-        /*
-            IMPORTANT:
-
-            Database column is:
-
-            image
-
-            NOT image_url.
-        */
+        /* =========================
+           EXISTING IMAGE
+        ========================= */
 
         let imagePath = null;
 
-
-        /*
-            Editing:
-            keep old image.
-        */
 
         if(editingId){
 
@@ -2162,9 +2075,9 @@ async function saveProduct(){
         }
 
 
-        /*
-            Upload new image
-        */
+        /* =========================
+           UPLOAD NEW IMAGE
+        ========================= */
 
         if(imageFile){
 
@@ -2176,18 +2089,11 @@ async function saveProduct(){
         }
 
 
-        /*
-            IMPORTANT:
+        /* =========================
+           DATA WITH STOCK
+        ========================= */
 
-            Do NOT add:
-
-            is_active
-
-            because that column
-            does not exist in your table.
-        */
-
-        const productData = {
+        const productDataWithStock = {
 
             name:
                 name,
@@ -2210,12 +2116,36 @@ async function saveProduct(){
         };
 
 
+        /* =========================
+           DATA WITHOUT STOCK
+        ========================= */
+
+        const productDataWithoutStock = {
+
+            name:
+                name,
+
+            description:
+                description,
+
+            category:
+                category,
+
+            price:
+                price,
+
+            image:
+                imagePath
+
+        };
+
+
         let result;
 
 
-        /* =====================
+        /* =========================
            UPDATE
-        ===================== */
+        ========================= */
 
         if(editingId){
 
@@ -2223,19 +2153,57 @@ async function saveProduct(){
                 await supabaseClient
                     .from("products")
                     .update(
-                        productData
+                        productDataWithStock
                     )
                     .eq(
                         "id",
                         editingId
                     );
 
+
+            /*
+                FALLBACK:
+                If stock does not exist
+                in Supabase, retry without it.
+            */
+
+            if(
+                result.error &&
+                (
+                    result.error.message
+                        .toLowerCase()
+                        .includes("stock") ||
+
+                    result.error.message
+                        .toLowerCase()
+                        .includes("schema cache")
+                )
+            ){
+
+                console.warn(
+                    "Stock column not found. Retrying without stock..."
+                );
+
+
+                result =
+                    await supabaseClient
+                        .from("products")
+                        .update(
+                            productDataWithoutStock
+                        )
+                        .eq(
+                            "id",
+                            editingId
+                        );
+
+            }
+
         }
 
 
-        /* =====================
+        /* =========================
            INSERT
-        ===================== */
+        ========================= */
 
         else{
 
@@ -2243,11 +2211,49 @@ async function saveProduct(){
                 await supabaseClient
                     .from("products")
                     .insert(
-                        productData
+                        productDataWithStock
                     );
+
+
+            /*
+                FALLBACK:
+                If stock does not exist
+                in Supabase, retry without it.
+            */
+
+            if(
+                result.error &&
+                (
+                    result.error.message
+                        .toLowerCase()
+                        .includes("stock") ||
+
+                    result.error.message
+                        .toLowerCase()
+                        .includes("schema cache")
+                )
+            ){
+
+                console.warn(
+                    "Stock column not found. Retrying without stock..."
+                );
+
+
+                result =
+                    await supabaseClient
+                        .from("products")
+                        .insert(
+                            productDataWithoutStock
+                        );
+
+            }
 
         }
 
+
+        /* =========================
+           FINAL ERROR
+        ========================= */
 
         if(result.error){
 
@@ -2267,6 +2273,10 @@ async function saveProduct(){
 
         }
 
+
+        /* =========================
+           SUCCESS
+        ========================= */
 
         alert(
             editingId
