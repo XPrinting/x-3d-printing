@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>X3D Printing | 3D Printed Products</title>
 
 <style>
+
 * {
     margin: 0;
     padding: 0;
@@ -341,9 +344,67 @@ footer {
     cursor: pointer;
 }
 
+/* CHECKOUT */
+
+#checkoutForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#checkoutForm label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+#checkoutForm input,
+#checkoutForm select,
+#checkoutForm textarea {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: #0d1020;
+    color: white;
+    outline: none;
+}
+
+#checkoutForm textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+#checkoutForm input:focus,
+#checkoutForm select:focus,
+#checkoutForm textarea:focus {
+    border-color: var(--primary);
+}
+
+.checkout-summary-box {
+    background: #0d1020;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.summary-total {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+    font-size: 20px;
+    font-weight: bold;
+}
+
 /* MOBILE */
 
 @media (max-width: 900px) {
+
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -351,9 +412,11 @@ footer {
     nav {
         gap: 15px;
     }
+
 }
 
 @media (max-width: 650px) {
+
     header {
         flex-wrap: wrap;
         gap: 15px;
@@ -377,8 +440,14 @@ footer {
         margin: 30px 5%;
         padding: 30px 20px;
     }
+
 }
+
 </style>
+
+<!-- SUPABASE LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
@@ -420,8 +489,13 @@ footer {
 <section class="section" id="products">
 
     <div class="section-title">
+
         <h2>Our Products</h2>
-        <p>Premium 3D printed products ready to order.</p>
+
+        <p>
+            Premium 3D printed products ready to order.
+        </p>
+
     </div>
 
 
@@ -433,10 +507,12 @@ footer {
         <div class="product-card">
 
             <div class="product-image">
+
                 <img
                     src="01-custom-name-keychain.jpeg"
                     alt="Custom Name Keychain"
                 >
+
             </div>
 
             <div class="product-info">
@@ -479,10 +555,12 @@ footer {
         <div class="product-card">
 
             <div class="product-image">
+
                 <img
                     src="02-fighter-jet-1.jpeg"
                     alt="Fighter Jets"
                 >
+
             </div>
 
             <div class="product-info">
@@ -525,10 +603,12 @@ footer {
         <div class="product-card">
 
             <div class="product-image">
+
                 <img
                     src="03-football-keychain.jpeg"
                     alt="Football Keychain"
                 >
+
             </div>
 
             <div class="product-info">
@@ -571,10 +651,12 @@ footer {
         <div class="product-card">
 
             <div class="product-image">
+
                 <img
                     src="04-knife-1.jpeg"
                     alt="3D Printed Knife"
                 >
+
             </div>
 
             <div class="product-info">
@@ -701,29 +783,236 @@ footer {
 </div>
 
 
+<!-- CHECKOUT MODAL -->
+
+<div class="cart-modal" id="checkoutModal">
+
+    <div class="cart-box">
+
+        <div class="cart-header">
+
+            <h2>
+                Checkout
+            </h2>
+
+            <button
+                class="close-btn"
+                onclick="closeCheckout()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="checkoutForm">
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Enter your full name"
+                required
+            >
+
+
+            <label>
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="01xxxxxxxxx"
+                required
+            >
+
+
+            <label>
+                Governorate
+            </label>
+
+            <input
+                type="text"
+                id="governorate"
+                placeholder="Cairo"
+                required
+            >
+
+
+            <label>
+                Area
+            </label>
+
+            <input
+                type="text"
+                id="area"
+                placeholder="Nasr City"
+                required
+            >
+
+
+            <label>
+                Full Address
+            </label>
+
+            <textarea
+                id="address"
+                placeholder="Enter your full delivery address"
+                required
+            ></textarea>
+
+
+            <label>
+                Color
+            </label>
+
+            <select id="color">
+
+                <option value="">
+                    Select Color
+                </option>
+
+                <option value="Black">
+                    Black
+                </option>
+
+                <option value="White">
+                    White
+                </option>
+
+                <option value="Blue">
+                    Blue
+                </option>
+
+                <option value="Green">
+                    Green
+                </option>
+
+                <option value="Red">
+                    Red
+                </option>
+
+                <option value="Custom">
+                    Custom Color
+                </option>
+
+            </select>
+
+
+            <label>
+                Notes
+            </label>
+
+            <textarea
+                id="notes"
+                placeholder="Any special instructions?"
+            ></textarea>
+
+
+            <label>
+                Payment Method
+            </label>
+
+            <select id="paymentMethod" required>
+
+                <option value="">
+                    Select Payment Method
+                </option>
+
+                <option value="Vodafone Cash">
+                    Vodafone Cash
+                </option>
+
+                <option value="InstaPay">
+                    InstaPay
+                </option>
+
+            </select>
+
+
+            <div id="checkoutSummary"></div>
+
+
+            <button
+                type="submit"
+                class="checkout-btn"
+            >
+                Place Order
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
 <script>
+
+/* =========================================================
+   SUPABASE CONNECTION
+   ========================================================= */
+
+/*
+   PUT YOUR SUPABASE PROJECT URL HERE
+   Example:
+   https://xxxxxxxx.supabase.co
+*/
+
+const SUPABASE_URL =
+    "https://wxezuqdktbftlkjxqcmi.supabase.co";
+
+
+/*
+   PUT YOUR SUPABASE PUBLISHABLE KEY HERE
+
+   DO NOT PUT THE SECRET KEY HERE.
+*/
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================================================
+   PRODUCTS
+   ========================================================= */
 
 const products = {
 
     1: {
+        id: 1,
         name: "Custom Name Keychain",
         price: 80,
         image: "01-custom-name-keychain.jpeg"
     },
 
     2: {
+        id: 2,
         name: "Fighter Jets — Set of 2",
         price: 300,
         image: "02-fighter-jet-1.jpeg"
     },
 
     3: {
+        id: 3,
         name: "Football Keychain",
         price: 70,
         image: "03-football-keychain.jpeg"
     },
 
     4: {
+        id: 4,
         name: "3D Printed Knife",
         price: 120,
         image: "04-knife-1.jpeg"
@@ -731,6 +1020,10 @@ const products = {
 
 };
 
+
+/* =========================================================
+   CART
+   ========================================================= */
 
 let cart = [];
 
@@ -747,7 +1040,10 @@ function addToCart(id) {
 
     updateCart();
 
-    alert(product.name + " added to cart!");
+    alert(
+        product.name +
+        " added to cart!"
+    );
 
 }
 
@@ -761,16 +1057,31 @@ function removeFromCart(index) {
 }
 
 
+function getCartTotal() {
+
+    return cart.reduce(
+        (total, item) =>
+            total + item.price,
+        0
+    );
+
+}
+
+
 function updateCart() {
 
-    const cartCount = document.getElementById("cartCount");
+    const cartCount =
+        document.getElementById("cartCount");
 
-    const cartItems = document.getElementById("cartItems");
+    const cartItems =
+        document.getElementById("cartItems");
 
-    const cartTotal = document.getElementById("cartTotal");
+    const cartTotal =
+        document.getElementById("cartTotal");
 
 
-    cartCount.textContent = cart.length;
+    cartCount.textContent =
+        cart.length;
 
 
     if (cart.length === 0) {
@@ -781,7 +1092,8 @@ function updateCart() {
             </p>
         `;
 
-        cartTotal.textContent = "EGP 0";
+        cartTotal.textContent =
+            "EGP 0";
 
         return;
 
@@ -791,98 +1103,518 @@ function updateCart() {
     let total = 0;
 
 
-    cartItems.innerHTML = cart.map((item, index) => {
+    cartItems.innerHTML =
+        cart.map((item, index) => {
 
-        total += item.price;
+            total += item.price;
 
-        return `
-            <div class="cart-item">
+            return `
 
-                <div class="cart-item-info">
+                <div class="cart-item">
 
-                    <h4>
-                        ${item.name}
-                    </h4>
+                    <div class="cart-item-info">
 
-                    <p>
-                        EGP ${item.price}
-                    </p>
+                        <h4>
+                            ${item.name}
+                        </h4>
+
+                        <p>
+                            EGP ${item.price}
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="remove-btn"
+                        onclick="removeFromCart(${index})"
+                    >
+                        Remove
+                    </button>
 
                 </div>
 
-                <button
-                    class="remove-btn"
-                    onclick="removeFromCart(${index})"
-                >
-                    Remove
-                </button>
+            `;
 
-            </div>
-        `;
-
-    }).join("");
+        }).join("");
 
 
-    cartTotal.textContent = "EGP " + total;
+    cartTotal.textContent =
+        "EGP " + total;
 
 }
 
 
+/* =========================================================
+   CART MODAL
+   ========================================================= */
+
 function openCart() {
 
-    document.getElementById("cartModal").style.display = "flex";
+    document.getElementById(
+        "cartModal"
+    ).style.display = "flex";
 
 }
 
 
 function closeCart() {
 
-    document.getElementById("cartModal").style.display = "none";
+    document.getElementById(
+        "cartModal"
+    ).style.display = "none";
 
 }
 
+
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
 
 function checkout() {
 
     if (cart.length === 0) {
 
-        alert("Your cart is empty.");
+        alert(
+            "Your cart is empty."
+        );
 
         return;
-
     }
 
-    alert(
-        "Checkout coming soon!\n\n" +
-        "Items in cart: " +
-        cart.length
-    );
+
+    closeCart();
+
+    renderCheckoutSummary();
+
+    document.getElementById(
+        "checkoutModal"
+    ).style.display = "flex";
 
 }
 
+
+function closeCheckout() {
+
+    document.getElementById(
+        "checkoutModal"
+    ).style.display = "none";
+
+}
+
+
+/* =========================================================
+   CHECKOUT SUMMARY
+   ========================================================= */
+
+function renderCheckoutSummary() {
+
+    const subtotal =
+        getCartTotal();
+
+    const deliveryFee = 0;
+
+    const total =
+        subtotal + deliveryFee;
+
+
+    document.getElementById(
+        "checkoutSummary"
+    ).innerHTML = `
+
+        <div class="checkout-summary-box">
+
+            <h3>
+                Order Summary
+            </h3>
+
+            <br>
+
+            ${cart.map(item => `
+
+                <div class="summary-row">
+
+                    <span>
+                        ${item.name}
+                    </span>
+
+                    <span>
+                        EGP ${item.price}
+                    </span>
+
+                </div>
+
+            `).join("")}
+
+
+            <div class="summary-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <span>
+                    EGP ${subtotal}
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Delivery
+                </span>
+
+                <span>
+                    Will be confirmed
+                </span>
+
+            </div>
+
+
+            <div class="summary-row summary-total">
+
+                <span>
+                    Products Total
+                </span>
+
+                <span>
+                    EGP ${total}
+                </span>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   CREATE ORDER
+   ========================================================= */
+
+document
+    .getElementById("checkoutForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            if (cart.length === 0) {
+
+                alert(
+                    "Your cart is empty."
+                );
+
+                return;
+
+            }
+
+
+            const customerName =
+                document
+                    .getElementById(
+                        "customerName"
+                    )
+                    .value
+                    .trim();
+
+
+            const phone =
+                document
+                    .getElementById(
+                        "customerPhone"
+                    )
+                    .value
+                    .trim();
+
+
+            const governorate =
+                document
+                    .getElementById(
+                        "governorate"
+                    )
+                    .value
+                    .trim();
+
+
+            const area =
+                document
+                    .getElementById(
+                        "area"
+                    )
+                    .value
+                    .trim();
+
+
+            const address =
+                document
+                    .getElementById(
+                        "address"
+                    )
+                    .value
+                    .trim();
+
+
+            const color =
+                document
+                    .getElementById(
+                        "color"
+                    )
+                    .value;
+
+
+            const notes =
+                document
+                    .getElementById(
+                        "notes"
+                    )
+                    .value
+                    .trim();
+
+
+            const paymentMethod =
+                document
+                    .getElementById(
+                        "paymentMethod"
+                    )
+                    .value;
+
+
+            const subtotal =
+                getCartTotal();
+
+
+            const button =
+                document.querySelector(
+                    "#checkoutForm button[type='submit']"
+                );
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Placing Order...";
+
+
+            try {
+
+                /*
+                    For now we create
+                    one order row per
+                    cart item.
+
+                    We will improve this
+                    later with order_items.
+                */
+
+                for (
+                    const item of cart
+                ) {
+
+                    const orderData = {
+
+                        customer_name:
+                            customerName,
+
+                        phone:
+                            phone,
+
+                        governorate:
+                            governorate,
+
+                        area:
+                            area,
+
+                        address:
+                            address,
+
+                        product_id:
+                            item.id,
+
+                        product_name:
+                            item.name,
+
+                        quantity:
+                            1,
+
+                        color:
+                            color || null,
+
+                        custom_color:
+                            color === "Custom",
+
+                        file_type:
+                            null,
+
+                        file_url:
+                            null,
+
+                        notes:
+                            notes || null,
+
+                        subtotal:
+                            item.price,
+
+                        delivery_fee:
+                            0,
+
+                        total_price:
+                            item.price,
+
+                        deposit_amount:
+                            0,
+
+                        remaining_amount:
+                            item.price,
+
+                        payment_method:
+                            paymentMethod,
+
+                        deposit_status:
+                            "pending",
+
+                        order_status:
+                            "new",
+
+                        whatsapp_confirmed:
+                            false
+
+                    };
+
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient
+                            .from("orders")
+                            .insert(
+                                [orderData]
+                            )
+                            .select();
+
+
+                    if (error) {
+
+                        console.error(
+                            "Supabase Error:",
+                            error
+                        );
+
+                        throw error;
+
+                    }
+
+
+                    console.log(
+                        "Order created:",
+                        data
+                    );
+
+                }
+
+
+                alert(
+                    "Order placed successfully! 🎉\n\n" +
+                    "We will contact you on WhatsApp to confirm your order."
+                );
+
+
+                cart = [];
+
+                updateCart();
+
+                document
+                    .getElementById(
+                        "checkoutForm"
+                    )
+                    .reset();
+
+                closeCheckout();
+
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+                alert(
+                    "Failed to place order.\n\n" +
+                    error.message
+                );
+
+            } finally {
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    "Place Order";
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   CUSTOM PRINT
+   ========================================================= */
 
 function customPrint() {
 
     alert(
         "Custom Print Request\n\n" +
-        "Please contact us with your design or idea."
+        "Custom file upload will be added next."
     );
 
 }
 
 
-window.onclick = function(event) {
+/* =========================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+   ========================================================= */
 
-    const modal = document.getElementById("cartModal");
+window.onclick =
+    function(event) {
 
-    if (event.target === modal) {
+        const cartModal =
+            document.getElementById(
+                "cartModal"
+            );
 
-        closeCart();
+        const checkoutModal =
+            document.getElementById(
+                "checkoutModal"
+            );
 
-    }
 
-};
+        if (
+            event.target ===
+            cartModal
+        ) {
 
+            closeCart();
+
+        }
+
+
+        if (
+            event.target ===
+            checkoutModal
+        ) {
+
+            closeCheckout();
+
+        }
+
+    };
 
 </script>
 
