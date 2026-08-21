@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>X3D Printing | Products</title>
@@ -311,7 +312,7 @@ tr:hover td{
 
 
 /* =========================
-   EMPTY / LOADING / ERROR
+   EMPTY / LOADING
 ========================= */
 
 .loading,
@@ -417,47 +418,52 @@ select:focus{
    FILE INPUT
 ========================= */
 
-input[type="file"]{
-    padding:9px;
+.file-input{
+    padding:10px;
     cursor:pointer;
 }
 
-input[type="file"]::file-selector-button{
+.file-input::file-selector-button{
+    border:none;
     background:linear-gradient(135deg,#6d28d9,#8b5cf6);
     color:#fff;
-    border:none;
     padding:9px 14px;
     border-radius:8px;
-    margin-right:10px;
     cursor:pointer;
     font-weight:bold;
+    margin-right:10px;
 }
 
 .image-preview{
-    display:none;
     margin-top:10px;
-    width:100px;
-    height:100px;
-    border-radius:12px;
+    display:none;
+}
+
+.image-preview img{
+    width:120px;
+    height:120px;
     object-fit:cover;
+    border-radius:12px;
     border:1px solid var(--border);
 }
 
 .current-image{
-    display:none;
     margin-top:10px;
-    color:var(--muted);
-    font-size:12px;
+    display:none;
 }
 
 .current-image img{
-    width:100px;
-    height:100px;
-    border-radius:12px;
+    width:120px;
+    height:120px;
     object-fit:cover;
-    display:block;
-    margin-top:7px;
+    border-radius:12px;
     border:1px solid var(--border);
+}
+
+.image-info{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:7px;
 }
 
 
@@ -560,42 +566,42 @@ input[type="file"]::file-selector-button{
 
 <aside class="sidebar">
 
-    <div class="logo">
-        X<span>3D</span> Admin
-    </div>
+<div class="logo">
+X<span>3D</span> Admin
+</div>
 
-    <div class="menu-title">
-        Management
-    </div>
+<div class="menu-title">
+Management
+</div>
 
-    <div class="menu">
+<div class="menu">
 
-        <a class="menu-item" href="admin.html">
-            <span class="menu-icon">📊</span>
-            Dashboard
-        </a>
+<a class="menu-item" href="admin.html">
+<span class="menu-icon">📊</span>
+Dashboard
+</a>
 
-        <a class="menu-item" href="orders.html">
-            <span class="menu-icon">🛒</span>
-            Orders
-        </a>
+<a class="menu-item" href="orders.html">
+<span class="menu-icon">🛒</span>
+Orders
+</a>
 
-        <a class="menu-item active" href="product.html">
-            <span class="menu-icon">📦</span>
-            Products
-        </a>
+<a class="menu-item active" href="product.html">
+<span class="menu-icon">📦</span>
+Products
+</a>
 
-        <a class="menu-item" href="#customers">
-            <span class="menu-icon">👥</span>
-            Customers
-        </a>
+<a class="menu-item" href="#customers">
+<span class="menu-icon">👥</span>
+Customers
+</a>
 
-        <a class="menu-item" href="#custom">
-            <span class="menu-icon">🎨</span>
-            Custom Requests
-        </a>
+<a class="menu-item" href="#custom">
+<span class="menu-icon">🎨</span>
+Custom Requests
+</a>
 
-    </div>
+</div>
 
 </aside>
 
@@ -606,114 +612,118 @@ input[type="file"]::file-selector-button{
 
 <main class="main">
 
-    <div class="topbar">
+<div class="topbar">
 
-        <div class="page-title">
+<div class="page-title">
 
-            <h1>Products</h1>
+<h1>Products</h1>
 
-            <p>
-                Manage X3D Printing products.
-            </p>
+<p>
+Manage X3D Printing products.
+</p>
 
-        </div>
+</div>
 
-        <button
-            class="add-btn"
-            onclick="openAddModal()"
-        >
-            + Add Product
-        </button>
+<button
+class="add-btn"
+onclick="openAddModal()"
+>
++ Add Product
+</button>
 
-    </div>
-
-
-    <!-- STATS -->
-
-    <section class="stats">
-
-        <div class="stat-card">
-
-            <div class="stat-label">
-                Total Products
-            </div>
-
-            <div
-                class="stat-value"
-                id="totalProducts"
-            >
-                0
-            </div>
-
-        </div>
+</div>
 
 
-        <div class="stat-card">
+<!-- =========================
+     STATS
+========================= -->
 
-            <div class="stat-label">
-                Active Products
-            </div>
+<section class="stats">
 
-            <div
-                class="stat-value"
-                id="activeProducts"
-            >
-                0
-            </div>
+<div class="stat-card">
 
-        </div>
+<div class="stat-label">
+Total Products
+</div>
 
+<div
+class="stat-value"
+id="totalProducts"
+>
+0
+</div>
 
-        <div class="stat-card">
-
-            <div class="stat-label">
-                Out of Stock
-            </div>
-
-            <div
-                class="stat-value"
-                id="outOfStock"
-            >
-                0
-            </div>
-
-        </div>
-
-    </section>
+</div>
 
 
-    <!-- PRODUCTS -->
+<div class="stat-card">
 
-    <section class="products-card">
+<div class="stat-label">
+Active Products
+</div>
 
-        <div class="products-header">
+<div
+class="stat-value"
+id="activeProducts"
+>
+0
+</div>
 
-            <h2>
-                All Products
-            </h2>
-
-            <input
-                class="search"
-                id="searchInput"
-                placeholder="Search products..."
-                oninput="renderProducts()"
-            >
-
-        </div>
+</div>
 
 
-        <div
-            class="table-wrapper"
-            id="tableContainer"
-        >
+<div class="stat-card">
 
-            <div class="loading">
-                Loading products...
-            </div>
+<div class="stat-label">
+Out of Stock
+</div>
 
-        </div>
+<div
+class="stat-value"
+id="outOfStock"
+>
+0
+</div>
 
-    </section>
+</div>
+
+</section>
+
+
+<!-- =========================
+     PRODUCTS TABLE
+========================= -->
+
+<section class="products-card">
+
+<div class="products-header">
+
+<h2>
+All Products
+</h2>
+
+<input
+class="search"
+id="searchInput"
+placeholder="Search products..."
+oninput="renderProducts()"
+>
+
+</div>
+
+
+<div
+class="table-wrapper"
+id="tableContainer"
+>
+
+<div class="loading">
+Loading products...
+</div>
+
+</div>
+
+</section>
 
 </main>
 
@@ -723,192 +733,214 @@ input[type="file"]::file-selector-button{
 ========================= -->
 
 <div
-    class="modal"
-    id="productModal"
+class="modal"
+id="productModal"
 >
 
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2 id="modalTitle">
-                Add Product
-            </h2>
-
-            <button
-                class="close"
-                onclick="closeModal()"
-            >
-                ×
-            </button>
-
-        </div>
+<div class="modal-box">
 
 
-        <div class="form-grid">
+<div class="modal-header">
+
+<h2 id="modalTitle">
+Add Product
+</h2>
+
+<button
+class="close"
+onclick="closeModal()"
+>
+×
+</button>
+
+</div>
 
 
-            <!-- PRODUCT NAME -->
-
-            <div class="form-group">
-
-                <label>
-                    Product Name
-                </label>
-
-                <input
-                    id="productName"
-                    placeholder="Example: Phone Stand"
-                >
-
-            </div>
+<div class="form-grid">
 
 
-            <!-- CATEGORY -->
+<!-- NAME -->
 
-            <div class="form-group">
+<div class="form-group">
 
-                <label>
-                    Category
-                </label>
+<label>
+Product Name
+</label>
 
-                <input
-                    id="productCategory"
-                    placeholder="Example: Accessories"
-                >
+<input
+id="productName"
+placeholder="Example: Phone Stand"
+>
 
-            </div>
-
-
-            <!-- DESCRIPTION -->
-
-            <div class="form-group full">
-
-                <label>
-                    Description
-                </label>
-
-                <textarea
-                    id="productDescription"
-                    placeholder="Product description..."
-                ></textarea>
-
-            </div>
+</div>
 
 
-            <!-- PRICE -->
+<!-- CATEGORY -->
 
-            <div class="form-group">
+<div class="form-group">
 
-                <label>
-                    Price (EGP)
-                </label>
+<label>
+Category
+</label>
 
-                <input
-                    id="productPrice"
-                    type="number"
-                    step="0.01"
-                    placeholder="250"
-                >
+<input
+id="productCategory"
+placeholder="Example: Accessories"
+>
 
-            </div>
+</div>
 
 
-            <!-- STOCK -->
+<!-- DESCRIPTION -->
 
-            <div class="form-group">
+<div class="form-group full">
 
-                <label>
-                    Stock
-                </label>
+<label>
+Description
+</label>
 
-                <input
-                    id="productStock"
-                    type="number"
-                    placeholder="10"
-                    value="0"
-                >
+<textarea
+id="productDescription"
+placeholder="Product description..."
+></textarea>
 
-            </div>
+</div>
 
 
-            <!-- IMAGE UPLOAD -->
+<!-- PRICE -->
 
-            <div class="form-group full">
+<div class="form-group">
 
-                <label>
-                    Product Image
-                </label>
+<label>
+Price (EGP)
+</label>
 
-                <input
-                    id="productImageFile"
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp,image/jpg"
-                    onchange="previewImage(event)"
-                >
+<input
+id="productPrice"
+type="number"
+step="0.01"
+placeholder="250"
+>
 
-                <!-- Preview new image -->
-
-                <img
-                    id="imagePreview"
-                    class="image-preview"
-                    alt="Image Preview"
-                >
-
-                <!-- Current image when editing -->
-
-                <div
-                    id="currentImage"
-                    class="current-image"
-                >
-
-                    Current Image:
-
-                    <img
-                        id="currentImagePreview"
-                        alt="Current Product Image"
-                    >
-
-                </div>
-
-            </div>
+</div>
 
 
-            <!-- STATUS -->
+<!-- STOCK -->
 
-            <div class="form-group">
+<div class="form-group">
 
-                <label>
-                    Status
-                </label>
+<label>
+Stock
+</label>
 
-                <select id="productActive">
+<input
+id="productStock"
+type="number"
+placeholder="10"
+value="0"
+>
 
-                    <option value="true">
-                        Active
-                    </option>
-
-                    <option value="false">
-                        Inactive
-                    </option>
-
-                </select>
-
-            </div>
+</div>
 
 
-        </div>
+<!-- IMAGE -->
+
+<div class="form-group full">
+
+<label>
+Product Image
+</label>
+
+<input
+id="productImage"
+class="file-input"
+type="file"
+accept="image/*"
+onchange="previewSelectedImage(event)"
+>
+
+<div
+class="image-info"
+id="imageInfo"
+>
+Choose an image from your computer.
+</div>
 
 
-        <button
-            class="save-btn"
-            id="saveButton"
-            onclick="saveProduct()"
-        >
-            Save Product
-        </button>
+<div
+class="current-image"
+id="currentImage"
+>
 
-    </div>
+<div class="image-info">
+Current image:
+</div>
+
+<img
+id="currentImagePreview"
+src=""
+alt="Current Product Image"
+>
+
+</div>
+
+
+<div
+class="image-preview"
+id="imagePreview"
+>
+
+<div class="image-info">
+New image:
+</div>
+
+<img
+id="selectedImagePreview"
+src=""
+alt="Selected Image"
+>
+
+</div>
+
+</div>
+
+
+<!-- STATUS -->
+
+<div class="form-group">
+
+<label>
+Status
+</label>
+
+<select id="productActive">
+
+<option value="true">
+Active
+</option>
+
+<option value="false">
+Inactive
+</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+
+<button
+class="save-btn"
+id="saveButton"
+onclick="saveProduct()"
+>
+Save Product
+</button>
+
+
+</div>
 
 </div>
 
@@ -928,8 +960,8 @@ const SUPABASE_PUBLISHABLE_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
 );
 
 
@@ -956,61 +988,59 @@ let editingId = null;
 
 async function loadProducts(){
 
-    const container =
-        document.getElementById("tableContainer");
+const container =
+document.getElementById("tableContainer");
 
-    container.innerHTML = `
-        <div class="loading">
-            Loading products...
-        </div>
-    `;
+container.innerHTML = `
+<div class="loading">
+Loading products...
+</div>
+`;
 
-    try{
+try{
 
-        const {data,error} =
-            await supabaseClient
-            .from("products")
-            .select("*")
-            .order("id",{ascending:false});
+const {data,error} =
+await supabaseClient
+.from("products")
+.select("*")
+.order("id",{ascending:false});
 
+if(error){
 
-        if(error){
+console.error(error);
 
-            console.error(error);
+container.innerHTML = `
+<div class="error">
+❌ Failed to load products.
+<br><br>
+${escapeHtml(error.message)}
+</div>
+`;
 
-            container.innerHTML = `
-                <div class="error">
-                    ❌ Failed to load products.
-                    <br><br>
-                    ${escapeHtml(error.message)}
-                </div>
-            `;
+return;
+}
 
-            return;
-        }
+products = data || [];
 
+updateStats();
 
-        products = data || [];
+renderProducts();
 
-        updateStats();
+}
 
-        renderProducts();
+catch(error){
 
-    }
+console.error(error);
 
-    catch(error){
+container.innerHTML = `
+<div class="error">
+❌ Something went wrong.
+<br><br>
+${escapeHtml(error.message)}
+</div>
+`;
 
-        console.error(error);
-
-        container.innerHTML = `
-            <div class="error">
-                ❌ Something went wrong.
-                <br><br>
-                ${escapeHtml(error.message)}
-            </div>
-        `;
-
-    }
+}
 
 }
 
@@ -1021,23 +1051,23 @@ async function loadProducts(){
 
 function updateStats(){
 
-    document.getElementById("totalProducts")
-        .textContent =
-        products.length;
+document.getElementById("totalProducts")
+.textContent =
+products.length;
 
 
-    document.getElementById("activeProducts")
-        .textContent =
-        products.filter(
-            p => p.is_active !== false
-        ).length;
+document.getElementById("activeProducts")
+.textContent =
+products.filter(
+p => p.is_active !== false
+).length;
 
 
-    document.getElementById("outOfStock")
-        .textContent =
-        products.filter(
-            p => Number(p.stock || 0) <= 0
-        ).length;
+document.getElementById("outOfStock")
+.textContent =
+products.filter(
+p => Number(p.stock || 0) <= 0
+).length;
 
 }
 
@@ -1048,254 +1078,247 @@ function updateStats(){
 
 function renderProducts(){
 
-    const container =
-        document.getElementById("tableContainer");
+const container =
+document.getElementById("tableContainer");
 
+const search =
+document.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
 
-    const search =
-        document.getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
 
+let filtered =
+[...products];
 
-    let filtered = [...products];
 
+if(search){
 
-    if(search){
+filtered =
+filtered.filter(product => {
 
-        filtered =
-            filtered.filter(product => {
+const name =
+String(
+product.name || ""
+).toLowerCase();
 
-                const name =
-                    String(
-                        product.name || ""
-                    ).toLowerCase();
+const category =
+String(
+product.category || ""
+).toLowerCase();
 
+const description =
+String(
+product.description || ""
+).toLowerCase();
 
-                const category =
-                    String(
-                        product.category || ""
-                    ).toLowerCase();
+return (
+name.includes(search) ||
+category.includes(search) ||
+description.includes(search)
+);
 
+});
 
-                const description =
-                    String(
-                        product.description || ""
-                    ).toLowerCase();
+}
 
 
-                return (
-                    name.includes(search) ||
-                    category.includes(search) ||
-                    description.includes(search)
-                );
+if(!filtered.length){
 
-            });
+container.innerHTML = `
+<div class="empty">
+No products found.
+</div>
+`;
 
-    }
+return;
 
+}
 
-    if(!filtered.length){
 
-        container.innerHTML = `
-            <div class="empty">
-                No products found.
-            </div>
-        `;
+container.innerHTML = `
 
-        return;
-    }
+<table>
 
+<thead>
 
-    container.innerHTML = `
+<tr>
 
-        <table>
+<th>Image</th>
 
-            <thead>
+<th>Product</th>
 
-                <tr>
+<th>Category</th>
 
-                    <th>Image</th>
+<th>Price</th>
 
-                    <th>Product</th>
+<th>Stock</th>
 
-                    <th>Category</th>
+<th>Status</th>
 
-                    <th>Price</th>
+<th>Actions</th>
 
-                    <th>Stock</th>
+</tr>
 
-                    <th>Status</th>
+</thead>
 
-                    <th>Actions</th>
+<tbody>
 
-                </tr>
+${filtered.map(product => `
 
-            </thead>
+<tr>
 
+<td>
 
-            <tbody>
+${
+product.image_url
+?
+`
+<img
+class="product-image"
+src="${escapeHtml(product.image_url)}"
+alt="${escapeHtml(product.name || "Product")}"
+onerror="this.style.display='none'"
+>
+`
+:
+`
+<div class="product-image"></div>
+`
+}
 
-                ${filtered.map(product => `
+</td>
 
-                    <tr>
 
-                        <td>
+<td>
 
-                            ${
-                                product.image_url
-                                ?
+<div class="product-name">
 
-                                `
-                                <img
-                                    class="product-image"
-                                    src="${escapeHtml(product.image_url)}"
-                                    alt="${escapeHtml(product.name || "")}"
-                                    onerror="this.style.display='none'"
-                                >
-                                `
+${escapeHtml(
+product.name || "-"
+)}
 
-                                :
+</div>
 
-                                `
-                                <div class="product-image"></div>
-                                `
-                            }
+<div class="product-description">
 
-                        </td>
+${escapeHtml(
+product.description || ""
+)}
 
+</div>
 
-                        <td>
+</td>
 
-                            <div class="product-name">
 
-                                ${escapeHtml(
-                                    product.name || "-"
-                                )}
+<td>
 
-                            </div>
+${escapeHtml(
+product.category || "-"
+)}
 
+</td>
 
-                            <div class="product-description">
 
-                                ${escapeHtml(
-                                    product.description || ""
-                                )}
+<td>
 
-                            </div>
+<span class="price">
 
-                        </td>
+EGP ${Number(
+product.price || 0
+).toLocaleString()}
 
+</span>
 
-                        <td>
+</td>
 
-                            ${escapeHtml(
-                                product.category || "-"
-                            )}
 
-                        </td>
+<td>
 
+<span class="stock">
 
-                        <td>
+${escapeHtml(
+product.stock ?? 0
+)}
 
-                            <span class="price">
+</span>
 
-                                EGP ${Number(
-                                    product.price || 0
-                                ).toLocaleString()}
+</td>
 
-                            </span>
 
-                        </td>
+<td>
 
+${
+product.is_active !== false
+?
+`<span class="active">Active</span>`
+:
+`<span class="inactive">Inactive</span>`
+}
 
-                        <td>
+</td>
 
-                            <span class="stock">
 
-                                ${escapeHtml(
-                                    product.stock ?? 0
-                                )}
+<td>
 
-                            </span>
+<button
+class="edit-btn"
+onclick="editProduct(${Number(product.id)})"
+>
+Edit
+</button>
 
-                        </td>
+<button
+class="delete-btn"
+onclick="deleteProduct(${Number(product.id)})"
+>
+Delete
+</button>
 
+</td>
 
-                        <td>
+</tr>
 
-                            ${
-                                product.is_active !== false
+`).join("")}
 
-                                ?
+</tbody>
 
-                                `<span class="active">
-                                    Active
-                                </span>`
+</table>
 
-                                :
-
-                                `<span class="inactive">
-                                    Inactive
-                                </span>`
-                            }
-
-                        </td>
-
-
-                        <td>
-
-                            <button
-                                class="edit-btn"
-                                onclick="editProduct(${Number(product.id)})"
-                            >
-                                Edit
-                            </button>
-
-
-                            <button
-                                class="delete-btn"
-                                onclick="deleteProduct(${Number(product.id)})"
-                            >
-                                Delete
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                `).join("")}
-
-            </tbody>
-
-        </table>
-
-    `;
+`;
 
 }
 
 
 /* =========================================
-   ADD PRODUCT
+   OPEN ADD MODAL
 ========================================= */
 
 function openAddModal(){
 
-    editingId = null;
+editingId = null;
 
+document.getElementById("modalTitle")
+.textContent =
+"Add Product";
 
-    document.getElementById("modalTitle")
-        .textContent =
-        "Add Product";
+clearForm();
 
+document.getElementById("currentImage")
+.style.display =
+"none";
 
-    clearForm();
+document.getElementById("imagePreview")
+.style.display =
+"none";
 
+document.getElementById("imageInfo")
+.textContent =
+"Choose an image from your computer.";
 
-    document.getElementById("productModal")
-        .style.display =
-        "flex";
+document.getElementById("productModal")
+.style.display =
+"flex";
 
 }
 
@@ -1306,97 +1329,105 @@ function openAddModal(){
 
 function editProduct(id){
 
-    const product =
-        products.find(
-            p => Number(p.id) === Number(id)
-        );
+const product =
+products.find(
+p => Number(p.id) === Number(id)
+);
+
+if(!product)
+return;
 
 
-    if(!product)
-        return;
+editingId =
+product.id;
 
 
-    editingId =
-        product.id;
+document.getElementById("modalTitle")
+.textContent =
+"Edit Product";
 
 
-    document.getElementById("modalTitle")
-        .textContent =
-        "Edit Product";
+document.getElementById("productName")
+.value =
+product.name || "";
 
 
-    document.getElementById("productName")
-        .value =
-        product.name || "";
+document.getElementById("productCategory")
+.value =
+product.category || "";
 
 
-    document.getElementById("productCategory")
-        .value =
-        product.category || "";
+document.getElementById("productDescription")
+.value =
+product.description || "";
 
 
-    document.getElementById("productDescription")
-        .value =
-        product.description || "";
+document.getElementById("productPrice")
+.value =
+product.price || "";
 
 
-    document.getElementById("productPrice")
-        .value =
-        product.price || "";
+document.getElementById("productStock")
+.value =
+product.stock ?? 0;
 
 
-    document.getElementById("productStock")
-        .value =
-        product.stock ?? 0;
+document.getElementById("productImage")
+.value =
+"";
 
 
-    document.getElementById("productActive")
-        .value =
-        product.is_active === false
-        ?
-        "false"
-        :
-        "true";
+document.getElementById("productActive")
+.value =
+product.is_active === false
+?
+"false"
+:
+"true";
 
 
-    /* Clear selected new file */
+/* CURRENT IMAGE */
 
-    document.getElementById("productImageFile")
-        .value = "";
+const currentImage =
+document.getElementById("currentImage");
 
-
-    document.getElementById("imagePreview")
-        .style.display =
-        "none";
+const currentImagePreview =
+document.getElementById("currentImagePreview");
 
 
-    /* Show current image */
+if(product.image_url){
 
-    if(product.image_url){
+currentImagePreview.src =
+product.image_url;
 
-        document.getElementById("currentImage")
-            .style.display =
-            "block";
+currentImage.style.display =
+"block";
 
+}
 
-        document.getElementById("currentImagePreview")
-            .src =
-            product.image_url;
+else{
 
-    }
+currentImage.style.display =
+"none";
 
-    else{
-
-        document.getElementById("currentImage")
-            .style.display =
-            "none";
-
-    }
+}
 
 
-    document.getElementById("productModal")
-        .style.display =
-        "flex";
+/* RESET NEW IMAGE */
+
+document.getElementById("imagePreview")
+.style.display =
+"none";
+
+
+document.getElementById("imageInfo")
+.textContent =
+"Choose a new image only if you want to replace the current image.";
+
+
+document.getElementById("productModal")
+.style.display =
+"flex";
 
 }
 
@@ -1405,55 +1436,85 @@ function editProduct(id){
    PREVIEW IMAGE
 ========================================= */
 
-function previewImage(event){
+function previewSelectedImage(event){
 
-    const file =
-        event.target.files[0];
-
-
-    const preview =
-        document.getElementById("imagePreview");
+const file =
+event.target.files[0];
 
 
-    if(!file){
+if(!file){
 
-        preview.style.display =
-            "none";
+document.getElementById("imagePreview")
+.style.display =
+"none";
 
-        return;
-    }
+return;
 
-
-    if(!file.type.startsWith("image/")){
-
-        alert("Please select an image file.");
-
-        event.target.value = "";
-
-        preview.style.display =
-            "none";
-
-        return;
-    }
+}
 
 
-    const reader =
-        new FileReader();
+/* CHECK IMAGE */
+
+if(!file.type.startsWith("image/")){
+
+alert("Please select an image file.");
+
+event.target.value = "";
+
+return;
+
+}
 
 
-    reader.onload =
-        function(e){
+/* SIZE */
 
-            preview.src =
-                e.target.result;
-
-            preview.style.display =
-                "block";
-
-        };
+const maxSize =
+5 * 1024 * 1024;
 
 
-    reader.readAsDataURL(file);
+if(file.size > maxSize){
+
+alert(
+"Image size must be less than 5MB."
+);
+
+event.target.value = "";
+
+return;
+
+}
+
+
+/* PREVIEW */
+
+const reader =
+new FileReader();
+
+
+reader.onload =
+function(e){
+
+document.getElementById(
+"selectedImagePreview"
+).src =
+e.target.result;
+
+
+document.getElementById(
+"imagePreview"
+).style.display =
+"block";
+
+
+document.getElementById(
+"imageInfo"
+).textContent =
+file.name;
+
+};
+
+
+reader.readAsDataURL(file);
 
 }
 
@@ -1464,113 +1525,90 @@ function previewImage(event){
 
 async function uploadProductImage(file){
 
-    if(!file)
-        return null;
+if(!file)
+return null;
 
 
-    /* Allowed image types */
+/* CREATE UNIQUE FILE NAME */
 
-    const allowedTypes = [
-        "image/jpeg",
-        "image/jpg",
-        "image/png",
-        "image/webp"
-    ];
-
-
-    if(!allowedTypes.includes(file.type)){
-
-        throw new Error(
-            "Only JPG, JPEG, PNG and WEBP images are allowed."
-        );
-
-    }
+const extension =
+file.name
+.split(".")
+.pop()
+.toLowerCase();
 
 
-    /* Maximum size = 5 MB */
-
-    const maxSize =
-        5 * 1024 * 1024;
-
-
-    if(file.size > maxSize){
-
-        throw new Error(
-            "Image size must be less than 5 MB."
-        );
-
-    }
+const safeName =
+file.name
+.replace(/\.[^/.]+$/,"")
+.toLowerCase()
+.replace(/[^a-z0-9]+/g,"-")
+.substring(0,50);
 
 
-    /*
-       Create unique filename
-       Example:
-       products/1724251234-abc123.jpg
-    */
-
-    const extension =
-        file.name
-        .split(".")
-        .pop()
-        .toLowerCase();
+const uniqueName =
+`${Date.now()}-${Math.random()
+.toString(36)
+.substring(2,8)}-${safeName}.${extension}`;
 
 
-    const uniqueName =
-        `${Date.now()}-${crypto.randomUUID()}.${extension}`;
+/* FOLDER */
+
+const filePath =
+`products/${uniqueName}`;
 
 
-    const filePath =
-        `products/${uniqueName}`;
+/* UPLOAD */
+
+const {error} =
+await supabaseClient
+.storage
+.from(STORAGE_BUCKET)
+.upload(
+filePath,
+file,
+{
+cacheControl:"3600",
+upsert:false,
+contentType:file.type
+}
+);
 
 
-    /* Upload */
+if(error){
 
-    const {data,error} =
-        await supabaseClient
-        .storage
-        .from(STORAGE_BUCKET)
-        .upload(
-            filePath,
-            file,
-            {
-                cacheControl:"3600",
-                upsert:false,
-                contentType:file.type
-            }
-        );
+console.error(
+"Image upload error:",
+error
+);
+
+throw new Error(
+"Failed to upload image: " +
+error.message
+);
+
+}
 
 
-    if(error){
+/* GET PUBLIC URL */
 
-        console.error(
-            "Storage upload error:",
-            error
-        );
-
-        throw error;
-
-    }
+const {data} =
+supabaseClient
+.storage
+.from(STORAGE_BUCKET)
+.getPublicUrl(filePath);
 
 
-    /* Get public URL */
+if(!data || !data.publicUrl){
 
-    const {data:urlData} =
-        supabaseClient
-        .storage
-        .from(STORAGE_BUCKET)
-        .getPublicUrl(data.path);
+throw new Error(
+"Could not create public image URL."
+);
 
-
-    if(!urlData || !urlData.publicUrl){
-
-        throw new Error(
-            "Could not create public image URL."
-        );
-
-    }
+}
 
 
-    return urlData.publicUrl;
+return data.publicUrl;
 
 }
 
@@ -1581,235 +1619,310 @@ async function uploadProductImage(file){
 
 async function saveProduct(){
 
-    const saveButton =
-        document.getElementById("saveButton");
+const saveButton =
+document.getElementById("saveButton");
 
 
-    const name =
-        document.getElementById("productName")
-        .value
-        .trim();
+/* FORM VALUES */
 
+const name =
+document.getElementById("productName")
+.value.trim();
 
-    const category =
-        document.getElementById("productCategory")
-        .value
-        .trim();
 
+const category =
+document.getElementById("productCategory")
+.value.trim();
 
-    const description =
-        document.getElementById("productDescription")
-        .value
-        .trim();
 
+const description =
+document.getElementById("productDescription")
+.value.trim();
 
-    const price =
-        Number(
-            document.getElementById("productPrice")
-            .value
-        );
 
+const price =
+Number(
+document.getElementById("productPrice")
+.value
+);
 
-    const stock =
-        Number(
-            document.getElementById("productStock")
-            .value
-        );
 
+const stock =
+Number(
+document.getElementById("productStock")
+.value
+);
 
-    const is_active =
-        document.getElementById("productActive")
-        .value === "true";
 
+const is_active =
+document.getElementById("productActive")
+.value === "true";
 
-    const imageFile =
-        document.getElementById("productImageFile")
-        .files[0];
 
+const imageFile =
+document.getElementById("productImage")
+.files[0];
 
-    /* Validation */
 
-    if(!name){
+/* VALIDATION */
 
-        alert(
-            "Please enter product name."
-        );
+if(!name){
 
-        return;
+alert(
+"Please enter product name."
+);
 
-    }
+return;
 
+}
 
-    if(isNaN(price)){
 
-        alert(
-            "Please enter a valid price."
-        );
+if(
+isNaN(price) ||
+price < 0
+){
 
-        return;
+alert(
+"Please enter a valid price."
+);
 
-    }
+return;
 
+}
 
-    if(isNaN(stock) || stock < 0){
 
-        alert(
-            "Please enter a valid stock."
-        );
+if(
+isNaN(stock) ||
+stock < 0
+){
 
-        return;
+alert(
+"Please enter a valid stock."
+);
 
-    }
+return;
 
+}
 
-    try{
 
-        saveButton.disabled = true;
+/* DISABLE */
 
-        saveButton.textContent =
-            imageFile
-            ?
-            "Uploading image..."
-            :
-            "Saving product...";
+saveButton.disabled =
+true;
 
+saveButton.textContent =
+"Saving...";
 
-        let image_url = null;
 
+try{
 
-        /*
-         * EDIT PRODUCT
-         *
-         * If user doesn't select
-         * a new image, keep old image.
-         */
 
-        if(editingId){
+/* =====================================
+   EDITING PRODUCT
+===================================== */
 
-            const oldProduct =
-                products.find(
-                    p =>
-                    Number(p.id) ===
-                    Number(editingId)
-                );
+if(editingId){
 
+const existingProduct =
+products.find(
+p =>
+Number(p.id) ===
+Number(editingId)
+);
 
-            image_url =
-                oldProduct?.image_url || null;
 
-        }
+if(!existingProduct){
 
+throw new Error(
+"Product not found."
+);
 
-        /*
-         * If a new image was selected
-         * upload it to Supabase Storage.
-         */
+}
 
-        if(imageFile){
 
-            image_url =
-                await uploadProductImage(
-                    imageFile
-                );
+/* KEEP OLD IMAGE */
 
-        }
+let image_url =
+existingProduct.image_url ||
+null;
 
 
-        /* Product data */
+/* UPLOAD NEW IMAGE ONLY IF SELECTED */
 
-        const productData = {
+if(imageFile){
 
-            name,
+saveButton.textContent =
+"Uploading image...";
 
-            category,
 
-            description,
+image_url =
+await uploadProductImage(
+imageFile
+);
 
-            price,
+}
 
-            stock,
 
-            image_url,
+/* PRODUCT DATA */
 
-            is_active
+const productData = {
 
-        };
+name,
+category,
+description,
+price,
+stock,
+image_url,
+is_active
 
+};
 
-        let result;
 
+/* UPDATE */
 
-        /* UPDATE */
+saveButton.textContent =
+"Saving product...";
 
-        if(editingId){
 
-            result =
-                await supabaseClient
-                .from("products")
-                .update(productData)
-                .eq("id",editingId);
+const {error} =
+await supabaseClient
+.from("products")
+.update(productData)
+.eq("id",editingId);
 
-        }
 
+if(error){
 
-        /* INSERT */
+throw new Error(
+error.message
+);
 
-        else{
+}
 
-            result =
-                await supabaseClient
-                .from("products")
-                .insert(productData);
 
-        }
+alert(
+"Product updated successfully!"
+);
 
+}
 
-        if(result.error){
 
-            console.error(
-                result.error
-            );
+/* =====================================
+   ADDING PRODUCT
+===================================== */
 
-            throw result.error;
+else{
 
-        }
 
+let image_url =
+null;
 
-        alert(
-            editingId
-            ?
-            "Product updated successfully!"
-            :
-            "Product added successfully!"
-        );
 
+/* IMAGE REQUIRED FOR NEW PRODUCT */
 
-        closeModal();
+if(!imageFile){
 
+alert(
+"Please choose a product image."
+);
 
-        await loadProducts();
+saveButton.disabled =
+false;
 
-    }
+saveButton.textContent =
+"Save Product";
 
-    catch(error){
+return;
 
-        console.error(error);
+}
 
-        alert(
-            "Failed to save product:\n\n" +
-            error.message
-        );
 
-    }
+/* UPLOAD */
 
-    finally{
+saveButton.textContent =
+"Uploading image...";
 
-        saveButton.disabled = false;
 
-        saveButton.textContent =
-            "Save Product";
+image_url =
+await uploadProductImage(
+imageFile
+);
 
-    }
+
+/* PRODUCT DATA */
+
+const productData = {
+
+name,
+category,
+description,
+price,
+stock,
+image_url,
+is_active
+
+};
+
+
+/* INSERT */
+
+saveButton.textContent =
+"Saving product...";
+
+
+const {error} =
+await supabaseClient
+.from("products")
+.insert(productData);
+
+
+if(error){
+
+throw new Error(
+error.message
+);
+
+}
+
+
+alert(
+"Product added successfully!"
+);
+
+}
+
+
+/* CLOSE */
+
+closeModal();
+
+
+/* REFRESH */
+
+await loadProducts();
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert(
+"Failed to save product:\n\n" +
+error.message
+);
+
+}
+
+finally{
+
+saveButton.disabled =
+false;
+
+saveButton.textContent =
+"Save Product";
+
+}
 
 }
 
@@ -1820,70 +1933,64 @@ async function saveProduct(){
 
 async function deleteProduct(id){
 
-    const product =
-        products.find(
-            p =>
-            Number(p.id) ===
-            Number(id)
-        );
+const product =
+products.find(
+p =>
+Number(p.id) ===
+Number(id)
+);
+
+if(!product)
+return;
 
 
-    if(!product)
-        return;
+const confirmed =
+confirm(
+`Delete "${product.name}"?`
+);
 
 
-    const confirmed =
-        confirm(
-            `Delete "${product.name}"?`
-        );
+if(!confirmed)
+return;
 
 
-    if(!confirmed)
-        return;
+try{
+
+const {error} =
+await supabaseClient
+.from("products")
+.delete()
+.eq("id",id);
 
 
-    try{
+if(error){
 
-        const {error} =
-            await supabaseClient
-            .from("products")
-            .delete()
-            .eq("id",id);
+throw new Error(
+error.message
+);
 
-
-        if(error){
-
-            console.error(error);
-
-            alert(
-                "Failed to delete product:\n\n" +
-                error.message
-            );
-
-            return;
-
-        }
+}
 
 
-        alert(
-            "Product deleted successfully!"
-        );
+alert(
+"Product deleted successfully!"
+);
 
 
-        await loadProducts();
+await loadProducts();
 
-    }
+}
 
-    catch(error){
+catch(error){
 
-        console.error(error);
+console.error(error);
 
-        alert(
-            "Something went wrong:\n\n" +
-            error.message
-        );
+alert(
+"Failed to delete product:\n\n" +
+error.message
+);
 
-    }
+}
 
 }
 
@@ -1894,46 +2001,42 @@ async function deleteProduct(id){
 
 function clearForm(){
 
-    document.getElementById("productName")
-        .value = "";
+document.getElementById("productName")
+.value = "";
 
 
-    document.getElementById("productCategory")
-        .value = "";
+document.getElementById("productCategory")
+.value = "";
 
 
-    document.getElementById("productDescription")
-        .value = "";
+document.getElementById("productDescription")
+.value = "";
 
 
-    document.getElementById("productPrice")
-        .value = "";
+document.getElementById("productPrice")
+.value = "";
 
 
-    document.getElementById("productStock")
-        .value = "0";
+document.getElementById("productStock")
+.value = "0";
 
 
-    document.getElementById("productActive")
-        .value = "true";
+document.getElementById("productImage")
+.value = "";
 
 
-    document.getElementById("productImageFile")
-        .value = "";
+document.getElementById("productActive")
+.value = "true";
 
 
-    document.getElementById("imagePreview")
-        .style.display =
-        "none";
+document.getElementById("currentImage")
+.style.display =
+"none";
 
 
-    document.getElementById("currentImage")
-        .style.display =
-        "none";
-
-
-    document.getElementById("currentImagePreview")
-        .src = "";
+document.getElementById("imagePreview")
+.style.display =
+"none";
 
 }
 
@@ -1944,29 +2047,28 @@ function clearForm(){
 
 function closeModal(){
 
-    document.getElementById("productModal")
-        .style.display =
-        "none";
+document.getElementById("productModal")
+.style.display =
+"none";
 
 }
 
 
 /* =========================================
-   CLICK OUTSIDE MODAL
+   CLOSE MODAL BY CLICKING OUTSIDE
 ========================================= */
 
 window.onclick =
 function(event){
 
-    const modal =
-        document.getElementById("productModal");
+const modal =
+document.getElementById("productModal");
 
+if(event.target === modal){
 
-    if(event.target === modal){
+closeModal();
 
-        closeModal();
-
-    }
+}
 
 };
 
@@ -1977,42 +2079,27 @@ function(event){
 
 function escapeHtml(value){
 
-    if(
-        value === null ||
-        value === undefined
-    ){
+if(
+value === null ||
+value === undefined
+){
 
-        return "";
+return "";
 
-    }
+}
 
 
-    return String(value)
+return String(value)
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+.replace(/&/g,"&amp;")
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+.replace(/</g,"&lt;")
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+.replace(/>/g,"&gt;")
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+.replace(/"/g,"&quot;")
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+.replace(/'/g,"&#039;");
 
 }
 
