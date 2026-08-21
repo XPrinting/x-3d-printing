@@ -1,547 +1,882 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>X3D Printing | Admin Dashboard</title>
 
+    <!-- SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+
         :root {
+
             --bg: #080816;
+
             --surface: #11172a;
-            --surface2: #171f38;
+
+            --surface-2: #0b1020;
+
             --border: rgba(255,255,255,.10);
+
             --text: #ffffff;
+
             --muted: #aeb6cc;
+
             --primary: #8b5cf6;
-            --primary2: #6d28d9;
+
+            --primary-dark: #6d28d9;
+
             --green: #22c55e;
+
             --orange: #f59e0b;
+
             --red: #ef4444;
+
             --blue: #3b82f6;
+
         }
+
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background:
-                radial-gradient(circle at top right, #17153b 0%, #080816 45%),
+                radial-gradient(
+                    circle at top right,
+                    #17153b 0%,
+                    #080816 45%
+                ),
                 var(--bg);
+
             color: var(--text);
+
             min-height: 100vh;
+
         }
 
-        /* SIDEBAR */
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
 
         .sidebar {
+
             position: fixed;
+
             left: 0;
+
             top: 0;
+
             width: 250px;
+
             height: 100vh;
-            background: rgba(10, 12, 28, .96);
-            border-right: 1px solid var(--border);
-            padding: 25px 18px;
+
+            background:
+                rgba(10,12,28,.96);
+
+            border-right:
+                1px solid var(--border);
+
+            padding:
+                25px 18px;
+
             z-index: 100;
+
         }
+
 
         .logo {
+
             font-size: 25px;
+
             font-weight: 800;
-            padding: 10px 12px 30px;
+
+            padding:
+                10px 12px 30px;
+
         }
+
 
         .logo span {
-            color: var(--primary);
+
+            color:
+                var(--primary);
+
         }
+
 
         .menu-title {
-            color: #68728a;
+
+            color:
+                #68728a;
+
             font-size: 11px;
+
             font-weight: bold;
-            text-transform: uppercase;
-            padding: 0 12px;
-            margin-bottom: 10px;
+
+            text-transform:
+                uppercase;
+
+            padding:
+                0 12px;
+
+            margin-bottom:
+                10px;
+
         }
+
 
         .menu {
+
             display: flex;
-            flex-direction: column;
+
+            flex-direction:
+                column;
+
             gap: 6px;
+
         }
+
 
         .menu-item {
+
             display: flex;
+
             align-items: center;
+
             gap: 12px;
-            color: var(--muted);
-            padding: 13px 14px;
-            border-radius: 11px;
+
+            color:
+                var(--muted);
+
+            padding:
+                13px 14px;
+
+            border-radius:
+                11px;
+
             cursor: pointer;
-            transition: .2s;
-            text-decoration: none;
+
+            transition:
+                .2s;
+
+            text-decoration:
+                none;
+
         }
 
-        .menu-item:hover,
-        .menu-item.active {
-            background: rgba(139, 92, 246, .16);
-            color: white;
+
+        .menu-item:hover {
+
+            background:
+                rgba(139,92,246,.16);
+
+            color:
+                white;
+
         }
 
+
         .menu-item.active {
-            border-left: 3px solid var(--primary);
+
+            background:
+                rgba(139,92,246,.16);
+
+            color:
+                white;
+
+            border-left:
+                3px solid var(--primary);
+
         }
+
 
         .menu-icon {
+
             width: 24px;
-            text-align: center;
+
+            text-align:
+                center;
+
         }
 
-        /* MAIN */
+
+        /* =========================================
+           MAIN
+        ========================================= */
 
         .main {
-            margin-left: 250px;
-            padding: 30px 35px;
+
+            margin-left:
+                250px;
+
+            padding:
+                30px 35px;
+
         }
+
 
         .topbar {
+
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            margin-bottom:
+                30px;
+
+            gap:
+                20px;
+
         }
+
 
         .page-title h1 {
-            font-size: 30px;
-            margin-bottom: 7px;
+
+            font-size:
+                30px;
+
+            margin-bottom:
+                7px;
+
         }
+
 
         .page-title p {
-            color: var(--muted);
+
+            color:
+                var(--muted);
+
         }
+
 
         .refresh-btn {
-            border: 1px solid rgba(139,92,246,.4);
-            background: linear-gradient(135deg, #5b21b6, #8b5cf6);
-            color: white;
-            padding: 11px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
+
+            border:
+                1px solid rgba(139,92,246,.4);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #5b21b6,
+                    #8b5cf6
+                );
+
+            color:
+                white;
+
+            padding:
+                11px 18px;
+
+            border-radius:
+                10px;
+
+            cursor:
+                pointer;
+
+            font-weight:
+                bold;
+
         }
 
-        .refresh-btn:hover {
-            opacity: .85;
-        }
 
-        /* STATS */
+        /* =========================================
+           STATS
+        ========================================= */
 
         .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 30px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                18px;
+
+            margin-bottom:
+                25px;
+
         }
+
 
         .stat-card {
-            background: rgba(17,23,42,.92);
-            border: 1px solid var(--border);
-            border-radius: 17px;
-            padding: 22px;
-            transition: .2s;
+
+            background:
+                rgba(17,23,42,.92);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                17px;
+
+            padding:
+                20px;
+
         }
 
-        .stat-card:hover {
-            border-color: rgba(139,92,246,.45);
-            transform: translateY(-2px);
-        }
-
-        .stat-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-        }
 
         .stat-label {
-            color: var(--muted);
-            font-size: 14px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                13px;
+
+            margin-bottom:
+                12px;
+
         }
 
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 11px;
-            background: rgba(139,92,246,.14);
-            font-size: 19px;
-        }
 
         .stat-value {
-            font-size: 29px;
-            font-weight: bold;
+
+            font-size:
+                28px;
+
+            font-weight:
+                bold;
+
         }
 
-        /* ORDERS CARD */
 
-        .orders-card {
-            background: rgba(17,23,42,.92);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            overflow: hidden;
+        /* =========================================
+           CONTENT CARDS
+        ========================================= */
+
+        .content-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                2fr 1fr;
+
+            gap:
+                20px;
+
         }
 
-        .orders-header {
-            padding: 22px;
-            border-bottom: 1px solid var(--border);
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
+        .card {
+
+            background:
+                rgba(17,23,42,.92);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                20px;
+
+            padding:
+                22px;
+
         }
 
-        .orders-header h2 {
-            font-size: 21px;
+
+        .card-header {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            margin-bottom:
+                20px;
+
         }
 
-        .orders-actions {
-            display: flex;
-            gap: 10px;
+
+        .card-header h2 {
+
+            font-size:
+                20px;
+
         }
 
-        .search {
-            background: #0b1020;
-            border: 1px solid var(--border);
-            color: white;
-            padding: 10px 13px;
-            border-radius: 9px;
-            outline: none;
-            width: 220px;
+
+        .card-header span {
+
+            color:
+                var(--muted);
+
+            font-size:
+                13px;
+
         }
 
-        .search:focus {
-            border-color: var(--primary);
+
+        /* =========================================
+           QUICK ACTIONS
+        ========================================= */
+
+        .quick-actions {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap:
+                12px;
+
         }
 
-        .filter {
-            background: #0b1020;
-            border: 1px solid var(--border);
-            color: white;
-            padding: 10px 13px;
-            border-radius: 9px;
-            outline: none;
-            cursor: pointer;
+
+        .quick-action {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            padding:
+                15px;
+
+            background:
+                var(--surface-2);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            transition:
+                .2s;
+
         }
 
-        .filter option {
-            background: #11172a;
+
+        .quick-action:hover {
+
+            border-color:
+                rgba(139,92,246,.5);
+
+            background:
+                rgba(139,92,246,.08);
+
         }
 
-        /* TABLE */
 
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto;
+        .quick-icon {
+
+            font-size:
+                24px;
+
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 950px;
+
+        .quick-text strong {
+
+            display:
+                block;
+
+            margin-bottom:
+                4px;
+
         }
 
-        th {
-            text-align: left;
-            color: #7f89a3;
-            font-size: 12px;
-            text-transform: uppercase;
-            padding: 16px 20px;
-            background: rgba(7,10,23,.45);
-            white-space: nowrap;
+
+        .quick-text small {
+
+            color:
+                var(--muted);
+
         }
 
-        td {
-            padding: 17px 20px;
-            border-top: 1px solid var(--border);
-            white-space: nowrap;
+
+        /* =========================================
+           RECENT ORDERS
+        ========================================= */
+
+        .orders-list {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                10px;
+
         }
 
-        tr:hover td {
-            background: rgba(139,92,246,.04);
+
+        .order-row {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+            padding:
+                14px;
+
+            background:
+                var(--surface-2);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
         }
+
+
+        .order-info {
+
+            min-width:
+                0;
+
+        }
+
 
         .order-id {
-            color: #a78bfa;
-            font-weight: bold;
+
+            color:
+                #a78bfa;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                4px;
+
         }
 
-        .customer-name {
-            font-weight: bold;
+
+        .customer {
+
+            font-weight:
+                bold;
+
         }
 
-        .customer-phone {
-            color: var(--muted);
-            font-size: 12px;
-            margin-top: 4px;
+
+        .phone {
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            margin-top:
+                4px;
+
         }
+
+
+        .order-right {
+
+            text-align:
+                right;
+
+        }
+
 
         .amount {
-            font-weight: bold;
+
+            font-weight:
+                bold;
+
+            margin-bottom:
+                5px;
+
         }
+
 
         .status {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+
+            display:
+                inline-flex;
+
+            padding:
+                5px 9px;
+
+            border-radius:
+                20px;
+
+            font-size:
+                11px;
+
+            font-weight:
+                bold;
+
         }
+
 
         .status-new {
-            background: rgba(59,130,246,.15);
-            color: #60a5fa;
+
+            background:
+                rgba(59,130,246,.15);
+
+            color:
+                #60a5fa;
+
         }
+
 
         .status-confirmed {
-            background: rgba(34,197,94,.15);
-            color: #4ade80;
+
+            background:
+                rgba(34,197,94,.15);
+
+            color:
+                #4ade80;
+
         }
+
 
         .status-preparing {
-            background: rgba(245,158,11,.15);
-            color: #fbbf24;
+
+            background:
+                rgba(245,158,11,.15);
+
+            color:
+                #fbbf24;
+
         }
+
 
         .status-delivered {
-            background: rgba(139,92,246,.15);
-            color: #a78bfa;
+
+            background:
+                rgba(139,92,246,.15);
+
+            color:
+                #a78bfa;
+
         }
+
 
         .status-cancelled {
-            background: rgba(239,68,68,.15);
-            color: #f87171;
+
+            background:
+                rgba(239,68,68,.15);
+
+            color:
+                #f87171;
+
         }
 
-        .view-btn {
-            border: 1px solid rgba(139,92,246,.35);
-            background: rgba(139,92,246,.10);
-            color: #c4b5fd;
-            padding: 7px 11px;
-            border-radius: 8px;
-            cursor: pointer;
+
+        .loading {
+
+            text-align:
+                center;
+
+            color:
+                var(--muted);
+
+            padding:
+                30px;
+
         }
 
-        .view-btn:hover {
-            background: rgba(139,92,246,.2);
-        }
-
-        /* EMPTY / LOADING */
-
-        .loading,
-        .empty {
-            padding: 50px;
-            text-align: center;
-            color: var(--muted);
-        }
 
         .error {
-            padding: 25px;
-            text-align: center;
-            color: #f87171;
+
+            color:
+                #f87171;
+
+            padding:
+                20px;
+
+            text-align:
+                center;
+
         }
 
-        /* MODAL */
 
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.75);
-            z-index: 500;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-box {
-            width: 100%;
-            max-width: 650px;
-            max-height: 90vh;
-            overflow-y: auto;
-            background: #11172a;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 25px;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .modal-header h2 {
-            font-size: 22px;
-        }
-
-        .close {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
-        }
-
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .detail {
-            background: #0b1020;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px;
-        }
-
-        .detail.full {
-            grid-column: 1 / -1;
-        }
-
-        .detail-label {
-            color: #7f89a3;
-            font-size: 11px;
-            text-transform: uppercase;
-            margin-bottom: 7px;
-        }
-
-        .detail-value {
-            color: white;
-            word-break: break-word;
-        }
-
-        .status-control {
-            margin-top: 20px;
-        }
-
-        .status-control label {
-            display: block;
-            color: var(--muted);
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-
-        .status-select {
-            width: 100%;
-            background: #0b1020;
-            border: 1px solid var(--border);
-            color: white;
-            padding: 12px;
-            border-radius: 9px;
-            outline: none;
-        }
-
-        .save-status {
-            width: 100%;
-            margin-top: 12px;
-            padding: 12px;
-            border: none;
-            border-radius: 9px;
-            background: linear-gradient(135deg, #6d28d9, #8b5cf6);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* MOBILE */
+        /* =========================================
+           MOBILE
+        ========================================= */
 
         @media (max-width: 1100px) {
+
             .stats {
-                grid-template-columns: repeat(2, 1fr);
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
             }
+
+            .content-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
         }
+
 
         @media (max-width: 800px) {
 
             .sidebar {
-                position: relative;
-                width: 100%;
-                height: auto;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
+
+                position:
+                    relative;
+
+                width:
+                    100%;
+
+                height:
+                    auto;
+
+                border-right:
+                    none;
+
+                border-bottom:
+                    1px solid var(--border);
+
             }
+
 
             .main {
-                margin-left: 0;
-                padding: 22px 15px;
+
+                margin-left:
+                    0;
+
+                padding:
+                    22px 15px;
+
             }
+
 
             .menu {
-                flex-direction: row;
-                overflow-x: auto;
+
+                flex-direction:
+                    row;
+
+                overflow-x:
+                    auto;
+
             }
+
 
             .menu-item {
-                min-width: max-content;
+
+                min-width:
+                    max-content;
+
             }
+
 
             .menu-title {
-                display: none;
+
+                display:
+                    none;
+
             }
+
 
             .topbar {
-                flex-direction: column;
-                align-items: flex-start;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
             }
 
-            .orders-header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .orders-actions {
-                flex-direction: column;
-            }
-
-            .search {
-                width: 100%;
-            }
         }
+
 
         @media (max-width: 550px) {
 
             .stats {
-                grid-template-columns: 1fr;
+
+                grid-template-columns:
+                    1fr;
+
             }
 
-            .details-grid {
-                grid-template-columns: 1fr;
+
+            .quick-actions {
+
+                grid-template-columns:
+                    1fr;
+
             }
 
-            .detail.full {
-                grid-column: auto;
+
+            .order-row {
+
+                align-items:
+                    flex-start;
+
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<!-- SIDEBAR -->
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
 
 <aside class="sidebar">
 
@@ -549,52 +884,112 @@
         X<span>3D</span> Admin
     </div>
 
+
     <div class="menu-title">
         Management
     </div>
 
+
     <div class="menu">
 
-        <a class="menu-item active" href="admin.html">
-            <span class="menu-icon">📊</span>
+
+        <!-- DASHBOARD -->
+
+        <a
+            class="menu-item active"
+            href="admin.html"
+        >
+
+            <span class="menu-icon">
+                📊
+            </span>
+
             Dashboard
+
         </a>
 
-        <a class="menu-item" href="#orders">
-            <span class="menu-icon">🛒</span>
+
+        <!-- ORDERS -->
+
+        <a
+            class="menu-item"
+            href="orders.html"
+        >
+
+            <span class="menu-icon">
+                🛒
+            </span>
+
             Orders
+
         </a>
 
-        <a class="menu-item" href="products.htm">
-            <span class="menu-icon">📦</span>
+
+        <!-- PRODUCTS -->
+
+        <a
+            class="menu-item"
+            href="product.html"
+        >
+
+            <span class="menu-icon">
+                📦
+            </span>
+
             Products
+
         </a>
 
-        <a class="menu-item" href="#customers">
-            <span class="menu-icon">👥</span>
+
+        <!-- CUSTOMERS -->
+
+        <a
+            class="menu-item"
+            href="#customers"
+        >
+
+            <span class="menu-icon">
+                👥
+            </span>
+
             Customers
+
         </a>
 
-        <a class="menu-item" href="#custom">
-            <span class="menu-icon">🎨</span>
+
+        <!-- CUSTOM REQUESTS -->
+
+        <a
+            class="menu-item"
+            href="#custom"
+        >
+
+            <span class="menu-icon">
+                🎨
+            </span>
+
             Custom Requests
+
         </a>
 
-        <a class="menu-item" href="#settings">
-            <span class="menu-icon">⚙️</span>
-            Settings
-        </a>
 
     </div>
 
 </aside>
 
 
-<!-- MAIN -->
+
+<!-- =========================================
+     MAIN
+========================================= -->
 
 <main class="main">
 
+
+    <!-- TOPBAR -->
+
     <div class="topbar">
+
 
         <div class="page-title">
 
@@ -603,37 +998,39 @@
             </h1>
 
             <p>
-                Welcome back. Here's what's happening with your store.
+                Welcome to X3D Printing Admin Dashboard.
             </p>
 
         </div>
 
+
         <button
             class="refresh-btn"
-            onclick="loadOrders()"
+            onclick="loadDashboard()"
         >
+
             ↻ Refresh
+
         </button>
+
 
     </div>
 
 
-    <!-- STATS -->
+
+    <!-- =========================================
+         STATS
+    ========================================= -->
 
     <section class="stats">
 
+
+        <!-- ORDERS -->
+
         <div class="stat-card">
 
-            <div class="stat-top">
-
-                <span class="stat-label">
-                    Total Orders
-                </span>
-
-                <div class="stat-icon">
-                    🛒
-                </div>
-
+            <div class="stat-label">
+                Total Orders
             </div>
 
             <div
@@ -646,18 +1043,12 @@
         </div>
 
 
+        <!-- NEW ORDERS -->
+
         <div class="stat-card">
 
-            <div class="stat-top">
-
-                <span class="stat-label">
-                    New Orders
-                </span>
-
-                <div class="stat-icon">
-                    🆕
-                </div>
-
+            <div class="stat-label">
+                New Orders
             </div>
 
             <div
@@ -670,42 +1061,30 @@
         </div>
 
 
+        <!-- PRODUCTS -->
+
         <div class="stat-card">
 
-            <div class="stat-top">
-
-                <span class="stat-label">
-                    Total Sales
-                </span>
-
-                <div class="stat-icon">
-                    💰
-                </div>
-
+            <div class="stat-label">
+                Products
             </div>
 
             <div
                 class="stat-value"
-                id="totalSales"
+                id="totalProducts"
             >
-                EGP 0
+                0
             </div>
 
         </div>
 
 
+        <!-- CUSTOMERS -->
+
         <div class="stat-card">
 
-            <div class="stat-top">
-
-                <span class="stat-label">
-                    Customers
-                </span>
-
-                <div class="stat-icon">
-                    👥
-                </div>
-
+            <div class="stat-label">
+                Customers
             </div>
 
             <div
@@ -717,137 +1096,208 @@
 
         </div>
 
+
     </section>
 
 
-    <!-- ORDERS -->
 
-    <section
-        class="orders-card"
-        id="orders"
-    >
+    <!-- =========================================
+         CONTENT
+    ========================================= -->
 
-        <div class="orders-header">
+    <section class="content-grid">
 
-            <h2>
-                Recent Orders
-            </h2>
 
-            <div class="orders-actions">
+        <!-- =====================================
+             RECENT ORDERS
+        ====================================== -->
 
-                <input
-                    type="text"
-                    class="search"
-                    id="searchInput"
-                    placeholder="Search customer or phone..."
-                    oninput="renderOrders()"
+        <div class="card">
+
+
+            <div class="card-header">
+
+                <h2>
+                    Recent Orders
+                </h2>
+
+                <a
+                    href="orders.html"
+                    style="
+                        color:#a78bfa;
+                        text-decoration:none;
+                        font-size:13px;
+                    "
                 >
-
-                <select
-                    class="filter"
-                    id="statusFilter"
-                    onchange="renderOrders()"
-                >
-
-                    <option value="all">
-                        All Status
-                    </option>
-
-                    <option value="new">
-                        New
-                    </option>
-
-                    <option value="confirmed">
-                        Confirmed
-                    </option>
-
-                    <option value="preparing">
-                        Preparing
-                    </option>
-
-                    <option value="delivered">
-                        Delivered
-                    </option>
-
-                    <option value="cancelled">
-                        Cancelled
-                    </option>
-
-                </select>
+                    View All
+                </a>
 
             </div>
+
+
+            <div
+                class="orders-list"
+                id="recentOrders"
+            >
+
+                <div class="loading">
+                    Loading orders...
+                </div>
+
+            </div>
+
 
         </div>
 
 
-        <div
-            class="table-wrapper"
-            id="tableContainer"
-        >
 
-            <div class="loading">
-                Loading orders...
+        <!-- =====================================
+             QUICK ACTIONS
+        ====================================== -->
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+                <h2>
+                    Quick Actions
+                </h2>
+
             </div>
+
+
+            <div class="quick-actions">
+
+
+                <!-- PRODUCTS -->
+
+                <a
+                    href="product.html"
+                    class="quick-action"
+                >
+
+                    <div class="quick-icon">
+                        📦
+                    </div>
+
+                    <div class="quick-text">
+
+                        <strong>
+                            Products
+                        </strong>
+
+                        <small>
+                            Manage products
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+                <!-- ORDERS -->
+
+                <a
+                    href="orders.html"
+                    class="quick-action"
+                >
+
+                    <div class="quick-icon">
+                        🛒
+                    </div>
+
+                    <div class="quick-text">
+
+                        <strong>
+                            Orders
+                        </strong>
+
+                        <small>
+                            Manage orders
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+                <!-- CUSTOMERS -->
+
+                <a
+                    href="#customers"
+                    class="quick-action"
+                >
+
+                    <div class="quick-icon">
+                        👥
+                    </div>
+
+                    <div class="quick-text">
+
+                        <strong>
+                            Customers
+                        </strong>
+
+                        <small>
+                            View customers
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+                <!-- CUSTOM REQUESTS -->
+
+                <a
+                    href="#custom"
+                    class="quick-action"
+                >
+
+                    <div class="quick-icon">
+                        🎨
+                    </div>
+
+                    <div class="quick-text">
+
+                        <strong>
+                            Custom Requests
+                        </strong>
+
+                        <small>
+                            View requests
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+            </div>
+
 
         </div>
 
+
     </section>
+
 
 </main>
 
 
-<!-- DETAILS MODAL -->
-
-<div
-    class="modal"
-    id="detailsModal"
->
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2>
-                Order Details
-            </h2>
-
-            <button
-                class="close"
-                onclick="closeModal()"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div
-            class="details-grid"
-            id="detailsContent"
-        >
-        </div>
-
-    </div>
-
-</div>
-
 
 <script>
 
-/* =========================================================
-   SUPABASE CONFIG
-   ========================================================= */
 
-/*
-   PUT YOUR SUPABASE PROJECT URL HERE
-*/
+/* =========================================
+   SUPABASE
+========================================= */
+
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
 
-
-/*
-   PUT YOUR SUPABASE PUBLISHABLE KEY HERE
-*/
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
@@ -860,682 +1310,330 @@ const supabaseClient =
     );
 
 
-/* =========================================================
+
+/* =========================================
    GLOBAL DATA
-   ========================================================= */
+========================================= */
+
 
 let orders = [];
 
-let selectedOrder = null;
 
 
-/* =========================================================
-   LOAD ORDERS
-   ========================================================= */
+/* =========================================
+   LOAD DASHBOARD
+========================================= */
 
-async function loadOrders() {
 
-    const tableContainer =
-        document.getElementById("tableContainer");
+async function loadDashboard() {
 
-    tableContainer.innerHTML = `
-        <div class="loading">
-            Loading orders...
-        </div>
-    `;
 
     try {
 
-        const { data, error } =
+
+        /* ===============================
+           LOAD ORDERS
+        =============================== */
+
+
+        const ordersResult =
             await supabaseClient
                 .from("orders")
                 .select("*")
-                .order("id", {
-                    ascending: false
-                });
+                .order(
+                    "id",
+                    {
+                        ascending: false
+                    }
+                );
 
-        if (error) {
 
-            console.error(error);
+        if (ordersResult.error) {
 
-            tableContainer.innerHTML = `
-                <div class="error">
-                    ❌ Failed to load orders.<br><br>
-                    ${escapeHtml(error.message)}
-                </div>
-            `;
+            throw ordersResult.error;
 
-            return;
         }
 
-        orders = data || [];
 
-        updateStats();
+        orders =
+            ordersResult.data || [];
 
-        renderOrders();
 
-    } catch (error) {
 
-        console.error(error);
+        /* ===============================
+           LOAD PRODUCTS
+        =============================== */
 
-        tableContainer.innerHTML = `
-            <div class="error">
-                ❌ Something went wrong.<br><br>
-                ${escapeHtml(error.message)}
-            </div>
-        `;
+
+        const productsResult =
+            await supabaseClient
+                .from("products")
+                .select(
+                    "id",
+                    {
+                        count: "exact",
+                        head: true
+                    }
+                );
+
+
+        if (!productsResult.error) {
+
+            document
+                .getElementById("totalProducts")
+                .textContent =
+                    productsResult.count || 0;
+
+        }
+
+
+
+        /* ===============================
+           UPDATE ORDER STATS
+        =============================== */
+
+
+        document
+            .getElementById("totalOrders")
+            .textContent =
+                orders.length;
+
+
+
+        const newOrders =
+            orders.filter(
+                order =>
+                    normalizeStatus(order.status)
+                    === "new"
+            ).length;
+
+
+        document
+            .getElementById("newOrders")
+            .textContent =
+                newOrders;
+
+
+
+        /* ===============================
+           CUSTOMERS
+        =============================== */
+
+
+        const customers =
+            new Set();
+
+
+        orders.forEach(order => {
+
+            const phone =
+                order.phone;
+
+
+            if (phone) {
+
+                customers.add(
+                    String(phone)
+                );
+
+            }
+
+        });
+
+
+        document
+            .getElementById("totalCustomers")
+            .textContent =
+                customers.size;
+
+
+
+        /* ===============================
+           RENDER ORDERS
+        =============================== */
+
+
+        renderRecentOrders();
+
+
+    }
+
+    catch (error) {
+
+
+        console.error(
+            "Dashboard Error:",
+            error
+        );
+
+
+        document
+            .getElementById("recentOrders")
+            .innerHTML = `
+
+                <div class="error">
+
+                    ❌ Failed to load dashboard.
+
+                    <br><br>
+
+                    ${escapeHtml(
+                        error.message ||
+                        "Unknown error"
+                    )}
+
+                </div>
+
+            `;
 
     }
 
 }
 
 
-/* =========================================================
-   STATS
-   ========================================================= */
 
-function updateStats() {
-
-    const total =
-        orders.length;
-
-    const newOrders =
-        orders.filter(order =>
-            normalizeStatus(order.status) === "new"
-        ).length;
-
-    const sales =
-        orders.reduce((sum, order) => {
-
-            const value =
-                Number(
-                    order.total ??
-                    order.total_price ??
-                    order.price ??
-                    0
-                );
-
-            return sum + value;
-
-        }, 0);
+/* =========================================
+   RECENT ORDERS
+========================================= */
 
 
-    const customers =
-        new Set(
-            orders
-                .map(order => order.phone)
-                .filter(Boolean)
-        ).size;
+function renderRecentOrders() {
 
-
-    document.getElementById("totalOrders")
-        .textContent = total;
-
-    document.getElementById("newOrders")
-        .textContent = newOrders;
-
-    document.getElementById("totalSales")
-        .textContent =
-        "EGP " +
-        sales.toLocaleString();
-
-    document.getElementById("totalCustomers")
-        .textContent = customers;
-
-}
-
-
-/* =========================================================
-   RENDER ORDERS
-   ========================================================= */
-
-function renderOrders() {
 
     const container =
-        document.getElementById("tableContainer");
-
-    const search =
-        document.getElementById("searchInput")
-            .value
-            .toLowerCase()
-            .trim();
-
-    const status =
-        document.getElementById("statusFilter")
-            .value;
+        document.getElementById(
+            "recentOrders"
+        );
 
 
-    let filtered =
-        [...orders];
+    if (!orders.length) {
 
-
-    if (search) {
-
-        filtered =
-            filtered.filter(order => {
-
-                const name =
-                    String(
-                        order.customer_name || ""
-                    ).toLowerCase();
-
-                const phone =
-                    String(
-                        order.phone || ""
-                    ).toLowerCase();
-
-                const governorate =
-                    String(
-                        order.governorate || ""
-                    ).toLowerCase();
-
-                const area =
-                    String(
-                        order.area || ""
-                    ).toLowerCase();
-
-                return (
-                    name.includes(search) ||
-                    phone.includes(search) ||
-                    governorate.includes(search) ||
-                    area.includes(search)
-                );
-
-            });
-
-    }
-
-
-    if (status !== "all") {
-
-        filtered =
-            filtered.filter(order =>
-                normalizeStatus(order.status) === status
-            );
-
-    }
-
-
-    if (filtered.length === 0) {
 
         container.innerHTML = `
-            <div class="empty">
-                No orders found.
+
+            <div class="loading">
+
+                No orders yet.
+
             </div>
+
         `;
 
+
         return;
 
     }
 
 
-    container.innerHTML = `
 
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Order
-                    </th>
-
-                    <th>
-                        Customer
-                    </th>
-
-                    <th>
-                        Location
-                    </th>
-
-                    <th>
-                        Product
-                    </th>
-
-                    <th>
-                        Quantity
-                    </th>
-
-                    <th>
-                        Color
-                    </th>
-
-                    <th>
-                        Total
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                    <th>
-                        Action
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                ${filtered.map(order => {
-
-                    return `
-
-                        <tr>
-
-                            <td>
-                                <span class="order-id">
-                                    #${escapeHtml(order.id)}
-                                </span>
-                            </td>
-
-                            <td>
-
-                                <div class="customer-name">
-                                    ${escapeHtml(
-                                        order.customer_name ||
-                                        "Unknown"
-                                    )}
-                                </div>
-
-                                <div class="customer-phone">
-                                    ${escapeHtml(
-                                        order.phone ||
-                                        "-"
-                                    )}
-                                </div>
-
-                            </td>
-
-                            <td>
-                                ${escapeHtml(
-                                    [
-                                        order.governorate,
-                                        order.area
-                                    ]
-                                    .filter(Boolean)
-                                    .join(" - ") || "-"
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHtml(
-                                    order.product_name ||
-                                    order.product ||
-                                    order.product_id ||
-                                    "-"
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHtml(
-                                    order.quantity ??
-                                    1
-                                )}
-                            </td>
-
-                            <td>
-                                ${escapeHtml(
-                                    getColor(order)
-                                )}
-                            </td>
-
-                            <td>
-
-                                <span class="amount">
-                                    EGP ${escapeHtml(
-                                        getOrderTotal(order)
-                                    )}
-                                </span>
-
-                            </td>
-
-                            <td>
-                                ${statusBadge(order.status)}
-                            </td>
-
-                            <td>
-
-                                <button
-                                    class="view-btn"
-                                    onclick="viewOrder(${Number(order.id)})"
-                                >
-                                    View
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-                    `;
-
-                }).join("")}
-
-            </tbody>
-
-        </table>
-
-    `;
-
-}
-
-
-/* =========================================================
-   VIEW ORDER
-   ========================================================= */
-
-function viewOrder(id) {
-
-    selectedOrder =
-        orders.find(
-            order => Number(order.id) === Number(id)
+    const recent =
+        orders.slice(
+            0,
+            5
         );
 
 
-    if (!selectedOrder) {
-        return;
-    }
+
+    container.innerHTML =
+        recent.map(order => `
+
+            <div class="order-row">
 
 
-    const order =
-        selectedOrder;
+                <div class="order-info">
 
 
-    const details =
-        document.getElementById("detailsContent");
+                    <div class="order-id">
+
+                        #${escapeHtml(
+                            order.id
+                        )}
+
+                    </div>
 
 
-    details.innerHTML = `
+                    <div class="customer">
 
-        <div class="detail">
+                        ${escapeHtml(
+                            order.customer_name ||
+                            "Unknown Customer"
+                        )}
 
-            <div class="detail-label">
-                Order ID
+                    </div>
+
+
+                    <div class="phone">
+
+                        ${escapeHtml(
+                            order.phone ||
+                            "-"
+                        )}
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="order-right">
+
+
+                    <div class="amount">
+
+                        EGP ${escapeHtml(
+                            getOrderTotal(order)
+                        )}
+
+                    </div>
+
+
+                    ${statusBadge(
+                        order.status
+                    )}
+
+
+                </div>
+
+
             </div>
 
-            <div class="detail-value">
-                #${escapeHtml(order.id)}
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Customer
-            </div>
-
-            <div class="detail-value">
-                ${escapeHtml(
-                    order.customer_name || "-"
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Phone
-            </div>
-
-            <div class="detail-value">
-                ${escapeHtml(
-                    order.phone || "-"
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Product
-            </div>
-
-            <div class="detail-value">
-                ${escapeHtml(
-                    order.product_name ||
-                    order.product ||
-                    order.product_id ||
-                    "-"
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Quantity
-            </div>
-
-            <div class="detail-value">
-                ${escapeHtml(
-                    order.quantity ?? 1
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Color
-            </div>
-
-            <div class="detail-value">
-                ${escapeHtml(
-                    getColor(order)
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Total
-            </div>
-
-            <div class="detail-value">
-                EGP ${escapeHtml(
-                    getOrderTotal(order)
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="detail">
-
-            <div class="detail-label">
-                Payment
-            </div>
-
-            <div class="detail-value">
-                ${escapeHtml(
-                    order.payment_method ||
-                    "-"
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="detail full">
-
-            <div class="detail-label">
-                Address
-            </div>
-
-            <div class="detail-value">
-                ${escapeHtml(
-                    [
-                        order.governorate,
-                        order.area,
-                        order.address
-                    ]
-                    .filter(Boolean)
-                    .join(" - ") || "-"
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="detail full">
-
-            <div class="detail-label">
-                Created At
-            </div>
-
-            <div class="detail-value">
-                ${formatDate(
-                    order.created_at
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="status-control detail full">
-
-            <label>
-                Order Status
-            </label>
-
-            <select
-                class="status-select"
-                id="orderStatus"
-            >
-
-                <option value="new"
-                    ${normalizeStatus(order.status) === "new" ? "selected" : ""}>
-                    New
-                </option>
-
-                <option value="confirmed"
-                    ${normalizeStatus(order.status) === "confirmed" ? "selected" : ""}>
-                    Confirmed
-                </option>
-
-                <option value="preparing"
-                    ${normalizeStatus(order.status) === "preparing" ? "selected" : ""}>
-                    Preparing
-                </option>
-
-                <option value="delivered"
-                    ${normalizeStatus(order.status) === "delivered" ? "selected" : ""}>
-                    Delivered
-                </option>
-
-                <option value="cancelled"
-                    ${normalizeStatus(order.status) === "cancelled" ? "selected" : ""}>
-                    Cancelled
-                </option>
-
-            </select>
-
-            <button
-                class="save-status"
-                onclick="updateOrderStatus()"
-            >
-                Save Status
-            </button>
-
-        </div>
-
-    `;
-
-
-    document.getElementById("detailsModal")
-        .style.display = "flex";
+        `)
+        .join("");
 
 }
 
 
-/* =========================================================
-   UPDATE STATUS
-   ========================================================= */
 
-async function updateOrderStatus() {
+/* =========================================
+   STATUS
+========================================= */
 
-    if (!selectedOrder) {
-        return;
-    }
-
-
-    const newStatus =
-        document.getElementById("orderStatus")
-            .value;
-
-
-    const { error } =
-        await supabaseClient
-            .from("orders")
-            .update({
-                status: newStatus
-            })
-            .eq("id", selectedOrder.id);
-
-
-    if (error) {
-
-        alert(
-            "Failed to update status:\n" +
-            error.message
-        );
-
-        console.error(error);
-
-        return;
-    }
-
-
-    selectedOrder.status =
-        newStatus;
-
-
-    alert(
-        "Order status updated successfully!"
-    );
-
-
-    closeModal();
-
-    await loadOrders();
-
-}
-
-
-/* =========================================================
-   HELPERS
-   ========================================================= */
 
 function normalizeStatus(status) {
 
+
     if (!status) {
+
         return "new";
+
     }
+
 
     return String(status)
         .toLowerCase()
         .trim()
-        .replace(/\s+/g, "_");
+        .replace(
+            /\s+/g,
+            "_"
+        );
 
 }
 
 
+
 function statusBadge(status) {
+
 
     const normalized =
         normalizeStatus(status);
@@ -1545,37 +1643,74 @@ function statusBadge(status) {
         normalized;
 
 
-    if (normalized === "new") {
+    if (
+        normalized === "new"
+    ) {
+
         label = "New";
+
     }
 
-    else if (normalized === "confirmed") {
+    else if (
+        normalized === "confirmed"
+    ) {
+
         label = "Confirmed";
+
     }
 
-    else if (normalized === "preparing") {
+    else if (
+        normalized === "preparing"
+    ) {
+
         label = "Preparing";
+
     }
 
-    else if (normalized === "delivered") {
+    else if (
+        normalized === "delivered"
+    ) {
+
         label = "Delivered";
+
     }
 
-    else if (normalized === "cancelled") {
+    else if (
+        normalized === "cancelled"
+    ) {
+
         label = "Cancelled";
+
     }
 
 
     return `
-        <span class="status status-${escapeHtml(normalized)}">
-            ${escapeHtml(label)}
+
+        <span
+            class="status status-${escapeHtml(
+                normalized
+            )}"
+        >
+
+            ${escapeHtml(
+                label
+            )}
+
         </span>
+
     `;
 
 }
 
 
+
+/* =========================================
+   TOTAL
+========================================= */
+
+
 function getOrderTotal(order) {
+
 
     const value =
         order.total ??
@@ -1590,108 +1725,67 @@ function getOrderTotal(order) {
 }
 
 
-function getColor(order) {
 
-    if (order.color) {
-        return order.color;
-    }
-
-    if (order.colors) {
-        return order.colors;
-    }
-
-    if (order.color_1 && order.color_2) {
-
-        return (
-            order.color_1 +
-            " + " +
-            order.color_2
-        );
-
-    }
-
-    if (order.color_1) {
-        return order.color_1;
-    }
-
-    if (order.color_2) {
-        return order.color_2;
-    }
-
-    return "-";
-
-}
-
-
-function formatDate(date) {
-
-    if (!date) {
-        return "-";
-    }
-
-    const d =
-        new Date(date);
-
-
-    if (isNaN(d.getTime())) {
-        return date;
-    }
-
-
-    return d.toLocaleString();
-
-}
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
 
 function escapeHtml(value) {
 
-    if (value === null || value === undefined) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
         return "";
+
     }
 
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* =========================================================
-   MODAL
-   ========================================================= */
 
-function closeModal() {
-
-    document.getElementById("detailsModal")
-        .style.display = "none";
-
-}
-
-
-window.onclick = function(event) {
-
-    const modal =
-        document.getElementById("detailsModal");
-
-
-    if (event.target === modal) {
-        closeModal();
-    }
-
-};
-
-
-/* =========================================================
+/* =========================================
    START
-   ========================================================= */
+========================================= */
 
-loadOrders();
+
+loadDashboard();
+
 
 </script>
 
+
 </body>
+
 </html>
