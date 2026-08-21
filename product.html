@@ -274,6 +274,11 @@ tr:hover td{
     text-align:center;
 }
 
+
+/* =========================================
+   PRODUCT TEXT
+========================================= */
+
 .product-name{
     font-weight:bold;
 }
@@ -445,6 +450,11 @@ select:focus{
     cursor:pointer;
 }
 
+.save-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
 
 /* =========================================
    MOBILE
@@ -523,42 +533,42 @@ select:focus{
 
 <aside class="sidebar">
 
-<div class="logo">
-X<span>3D</span> Admin
-</div>
+    <div class="logo">
+        X<span>3D</span> Admin
+    </div>
 
-<div class="menu-title">
-Management
-</div>
+    <div class="menu-title">
+        Management
+    </div>
 
-<div class="menu">
+    <div class="menu">
 
-<a class="menu-item" href="admin.html">
-<span class="menu-icon">📊</span>
-Dashboard
-</a>
+        <a class="menu-item" href="admin.html">
+            <span class="menu-icon">📊</span>
+            Dashboard
+        </a>
 
-<a class="menu-item" href="orders.html">
-<span class="menu-icon">🛒</span>
-Orders
-</a>
+        <a class="menu-item" href="orders.html">
+            <span class="menu-icon">🛒</span>
+            Orders
+        </a>
 
-<a class="menu-item active" href="product.html">
-<span class="menu-icon">📦</span>
-Products
-</a>
+        <a class="menu-item active" href="product.html">
+            <span class="menu-icon">📦</span>
+            Products
+        </a>
 
-<a class="menu-item" href="#customers">
-<span class="menu-icon">👥</span>
-Customers
-</a>
+        <a class="menu-item" href="#customers">
+            <span class="menu-icon">👥</span>
+            Customers
+        </a>
 
-<a class="menu-item" href="#custom">
-<span class="menu-icon">🎨</span>
-Custom Requests
-</a>
+        <a class="menu-item" href="#custom">
+            <span class="menu-icon">🎨</span>
+            Custom Requests
+        </a>
 
-</div>
+    </div>
 
 </aside>
 
@@ -569,118 +579,118 @@ Custom Requests
 
 <main class="main">
 
-<div class="topbar">
+    <div class="topbar">
 
-<div class="page-title">
+        <div class="page-title">
 
-<h1>Products</h1>
+            <h1>Products</h1>
 
-<p>
-Manage X3D Printing products.
-</p>
+            <p>
+                Manage X3D Printing products.
+            </p>
 
-</div>
+        </div>
 
-<button
-class="add-btn"
-onclick="openAddModal()"
->
-+ Add Product
-</button>
+        <button
+            class="add-btn"
+            onclick="openAddModal()"
+        >
+            + Add Product
+        </button>
 
-</div>
-
-
-<!-- =========================================
-     STATS
-========================================= -->
-
-<section class="stats">
-
-<div class="stat-card">
-
-<div class="stat-label">
-Total Products
-</div>
-
-<div
-class="stat-value"
-id="totalProducts"
->
-0
-</div>
-
-</div>
+    </div>
 
 
-<div class="stat-card">
+    <!-- =========================================
+         STATS
+    ========================================= -->
 
-<div class="stat-label">
-Active Products
-</div>
+    <section class="stats">
 
-<div
-class="stat-value"
-id="activeProducts"
->
-0
-</div>
+        <div class="stat-card">
 
-</div>
+            <div class="stat-label">
+                Total Products
+            </div>
 
+            <div
+                class="stat-value"
+                id="totalProducts"
+            >
+                0
+            </div>
 
-<div class="stat-card">
-
-<div class="stat-label">
-Out of Stock
-</div>
-
-<div
-class="stat-value"
-id="outOfStock"
->
-0
-</div>
-
-</div>
-
-</section>
+        </div>
 
 
-<!-- =========================================
-     PRODUCTS TABLE
-========================================= -->
+        <div class="stat-card">
 
-<section class="products-card">
+            <div class="stat-label">
+                Active Products
+            </div>
 
-<div class="products-header">
+            <div
+                class="stat-value"
+                id="activeProducts"
+            >
+                0
+            </div>
 
-<h2>
-All Products
-</h2>
-
-<input
-class="search"
-id="searchInput"
-placeholder="Search products..."
-oninput="renderProducts()"
->
-
-</div>
+        </div>
 
 
-<div
-class="table-wrapper"
-id="tableContainer"
->
+        <div class="stat-card">
 
-<div class="loading">
-Loading products...
-</div>
+            <div class="stat-label">
+                Out of Stock
+            </div>
 
-</div>
+            <div
+                class="stat-value"
+                id="outOfStock"
+            >
+                0
+            </div>
 
-</section>
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         PRODUCTS TABLE
+    ========================================= -->
+
+    <section class="products-card">
+
+        <div class="products-header">
+
+            <h2>
+                All Products
+            </h2>
+
+            <input
+                class="search"
+                id="searchInput"
+                placeholder="Search products..."
+                oninput="renderProducts()"
+            >
+
+        </div>
+
+
+        <div
+            class="table-wrapper"
+            id="tableContainer"
+        >
+
+            <div class="loading">
+                Loading products...
+            </div>
+
+        </div>
+
+    </section>
 
 </main>
 
@@ -690,160 +700,162 @@ Loading products...
 ========================================= -->
 
 <div
-class="modal"
-id="productModal"
+    class="modal"
+    id="productModal"
 >
 
-<div class="modal-box">
+    <div class="modal-box">
 
-<div class="modal-header">
+        <div class="modal-header">
 
-<h2 id="modalTitle">
-Add Product
-</h2>
+            <h2 id="modalTitle">
+                Add Product
+            </h2>
 
-<button
-class="close"
-onclick="closeModal()"
->
-×
-</button>
+            <button
+                class="close"
+                onclick="closeModal()"
+            >
+                ×
+            </button>
 
-</div>
-
-
-<div class="form-grid">
+        </div>
 
 
-<div class="form-group">
-
-<label>
-Product Name
-</label>
-
-<input
-id="productName"
-placeholder="Example: Phone Stand"
->
-
-</div>
+        <div class="form-grid">
 
 
-<div class="form-group">
+            <div class="form-group">
 
-<label>
-Category
-</label>
+                <label>
+                    Product Name
+                </label>
 
-<input
-id="productCategory"
-placeholder="Example: Accessories"
->
+                <input
+                    id="productName"
+                    placeholder="Example: Phone Stand"
+                >
 
-</div>
-
-
-<div class="form-group full">
-
-<label>
-Description
-</label>
-
-<textarea
-id="productDescription"
-placeholder="Product description..."
-></textarea>
-
-</div>
+            </div>
 
 
-<div class="form-group">
+            <div class="form-group">
 
-<label>
-Price (EGP)
-</label>
+                <label>
+                    Category
+                </label>
 
-<input
-id="productPrice"
-type="number"
-step="0.01"
-placeholder="250"
->
+                <input
+                    id="productCategory"
+                    placeholder="Example: Accessories"
+                >
 
-</div>
+            </div>
 
 
-<div class="form-group">
+            <div class="form-group full">
 
-<label>
-Stock
-</label>
+                <label>
+                    Description
+                </label>
 
-<input
-id="productStock"
-type="number"
-placeholder="10"
-value="0"
->
+                <textarea
+                    id="productDescription"
+                    placeholder="Product description..."
+                ></textarea>
 
-</div>
+            </div>
 
 
-<div class="form-group full">
+            <div class="form-group">
 
-<label>
-Product Image</label>
+                <label>
+                    Price (EGP)
+                </label>
 
-<input
-id="productImage"
-type="file"
-accept="image/*"
->
+                <input
+                    id="productPrice"
+                    type="number"
+                    step="0.01"
+                    placeholder="250"
+                >
 
-<div
-id="currentImageText"
-style="
-color:#8f9ab3;
-font-size:12px;
-margin-top:3px;
-"
-></div>
-
-</div>
+            </div>
 
 
-<div class="form-group">
+            <div class="form-group">
 
-<label>
-Status
-</label>
+                <label>
+                    Stock
+                </label>
 
-<select id="productActive">
+                <input
+                    id="productStock"
+                    type="number"
+                    placeholder="10"
+                    value="0"
+                >
 
-<option value="true">
-Active
-</option>
-
-<option value="false">
-Inactive
-</option>
-
-</select>
-
-</div>
+            </div>
 
 
-</div>
+            <div class="form-group full">
+
+                <label>
+                    Product Image
+                </label>
+
+                <input
+                    id="productImage"
+                    type="file"
+                    accept="image/*"
+                >
+
+                <div
+                    id="currentImageText"
+                    style="
+                        color:#8f9ab3;
+                        font-size:12px;
+                        margin-top:3px;
+                    "
+                ></div>
+
+            </div>
 
 
-<button
-class="save-btn"
-onclick="saveProduct()"
->
-Save Product
-</button>
+            <div class="form-group">
 
-</div>
+                <label>
+                    Status
+                </label>
+
+                <select id="productActive">
+
+                    <option value="true">
+                        Active
+                    </option>
+
+                    <option value="false">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            class="save-btn"
+            id="saveProductButton"
+            onclick="saveProduct()"
+        >
+            Save Product
+        </button>
+
+    </div>
 
 </div>
 
@@ -856,23 +868,25 @@ Save Product
 ========================================= */
 
 const SUPABASE_URL =
-"https://wxezuqdktbftlkjxqcmi.supabase.co";
+    "https://wxezuqdktbftlkjxqcmi.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
+    "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
+
 
 const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
 
 /* =========================================
    STORAGE
 ========================================= */
 
-const PRODUCT_BUCKET = "product-images";
+const PRODUCT_BUCKET =
+    "product-images";
 
 
 /* =========================================
@@ -891,24 +905,22 @@ let editingId = null;
 function getProductImageUrl(imagePath){
 
     if(!imagePath){
+
         return "";
+
     }
 
-    /*
-       Database contains paths like:
-
-       images/01-custom-name-keychain.jpeg
-
-       Supabase bucket:
-
-       product-images
-    */
 
     const cleanPath =
         String(imagePath)
         .replace(/^\/+/, "");
 
-    return `${SUPABASE_URL}/storage/v1/object/public/${PRODUCT_BUCKET}/${cleanPath}`;
+
+    return (
+        `${SUPABASE_URL}/storage/v1/object/public/` +
+        `${PRODUCT_BUCKET}/${cleanPath}`
+    );
+
 }
 
 
@@ -919,7 +931,10 @@ function getProductImageUrl(imagePath){
 async function loadProducts(){
 
     const container =
-        document.getElementById("tableContainer");
+        document.getElementById(
+            "tableContainer"
+        );
+
 
     container.innerHTML = `
         <div class="loading">
@@ -927,30 +942,54 @@ async function loadProducts(){
         </div>
     `;
 
+
     try{
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
             .from("products")
             .select("*")
-            .order("id",{ascending:false});
+            .order(
+                "id",
+                {
+                    ascending:false
+                }
+            );
+
 
         if(error){
 
-            console.error(error);
+            console.error(
+                "Supabase load error:",
+                error
+            );
+
 
             container.innerHTML = `
                 <div class="error">
+
                     ❌ Failed to load products.
+
                     <br><br>
-                    ${escapeHtml(error.message)}
+
+                    ${escapeHtml(
+                        error.message
+                    )}
+
                 </div>
             `;
 
             return;
+
         }
 
-        products = data || [];
+
+        products =
+            data || [];
+
 
         updateStats();
 
@@ -962,11 +1001,18 @@ async function loadProducts(){
 
         console.error(error);
 
+
         container.innerHTML = `
             <div class="error">
+
                 ❌ Something went wrong.
+
                 <br><br>
-                ${escapeHtml(error.message)}
+
+                ${escapeHtml(
+                    error.message
+                )}
+
             </div>
         `;
 
@@ -976,27 +1022,34 @@ async function loadProducts(){
 
 
 /* =========================================
-   STATS
+   UPDATE STATS
 ========================================= */
 
 function updateStats(){
 
-    document.getElementById("totalProducts")
-        .textContent =
+    document.getElementById(
+        "totalProducts"
+    ).textContent =
         products.length;
 
 
-    document.getElementById("activeProducts")
-        .textContent =
+    document.getElementById(
+        "activeProducts"
+    ).textContent =
         products.filter(
-            p => p.is_active !== false
+            product =>
+                product.is_active !== false
         ).length;
 
 
-    document.getElementById("outOfStock")
-        .textContent =
+    document.getElementById(
+        "outOfStock"
+    ).textContent =
         products.filter(
-            p => Number(p.stock || 0) <= 0
+            product =>
+                Number(
+                    product.stock || 0
+                ) <= 0
         ).length;
 
 }
@@ -1009,45 +1062,77 @@ function updateStats(){
 function renderProducts(){
 
     const container =
-        document.getElementById("tableContainer");
+        document.getElementById(
+            "tableContainer"
+        );
+
+
+    const searchInput =
+        document.getElementById(
+            "searchInput"
+        );
+
 
     const search =
-        document.getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
+        searchInput
+        ?
+        searchInput.value
+            .toLowerCase()
+            .trim()
+        :
+        "";
 
 
-    let filtered = [...products];
+    let filtered =
+        [...products];
 
 
     if(search){
 
         filtered =
-            filtered.filter(product => {
+            filtered.filter(
+                product => {
 
-                const name =
-                    String(
-                        product.name || ""
-                    ).toLowerCase();
+                    const name =
+                        String(
+                            product.name || ""
+                        ).toLowerCase();
 
-                const category =
-                    String(
-                        product.category || ""
-                    ).toLowerCase();
 
-                const description =
-                    String(
-                        product.description || ""
-                    ).toLowerCase();
+                    const category =
+                        String(
+                            product.category || ""
+                        ).toLowerCase();
 
-                return (
-                    name.includes(search) ||
-                    category.includes(search) ||
-                    description.includes(search)
-                );
 
-            });
+                    const description =
+                        String(
+                            product.description || ""
+                        ).toLowerCase();
+
+
+                    return (
+
+                        name.includes(
+                            search
+                        )
+
+                        ||
+
+                        category.includes(
+                            search
+                        )
+
+                        ||
+
+                        description.includes(
+                            search
+                        )
+
+                    );
+
+                }
+            );
 
     }
 
@@ -1073,164 +1158,227 @@ function renderProducts(){
 
                 <tr>
 
-                    <th>Image</th>
+                    <th>
+                        Image
+                    </th>
 
-                    <th>Product</th>
+                    <th>
+                        Product
+                    </th>
 
-                    <th>Category</th>
+                    <th>
+                        Category
+                    </th>
 
-                    <th>Price</th>
+                    <th>
+                        Price
+                    </th>
 
-                    <th>Stock</th>
+                    <th>
+                        Stock
+                    </th>
 
-                    <th>Status</th>
+                    <th>
+                        Status
+                    </th>
 
-                    <th>Actions</th>
+                    <th>
+                        Actions
+                    </th>
 
                 </tr>
 
             </thead>
 
+
             <tbody>
 
-                ${filtered.map(product => {
+                ${
 
-                    const imageUrl =
-                        getProductImageUrl(
-                            product.image_url
-                        );
+                    filtered
+                    .map(
+                        product => {
 
-                    return `
+                            /*
+                             IMPORTANT:
+                             Database column is "image"
+                             NOT "image_url"
+                            */
 
-                        <tr>
-
-                            <td>
-
-                                ${
-                                    imageUrl
-                                    ?
-
-                                    `
-                                    <img
-                                        class="product-image"
-                                        src="${escapeHtml(imageUrl)}"
-                                        alt="${escapeHtml(product.name || "Product")}"
-                                        onerror="handleImageError(this)"
-                                    >
-                                    `
-
-                                    :
-
-                                    `
-                                    <div class="product-image-placeholder">
-                                        No Image
-                                    </div>
-                                    `
-                                }
-
-                            </td>
+                            const imageUrl =
+                                getProductImageUrl(
+                                    product.image
+                                );
 
 
-                            <td>
+                            return `
 
-                                <div class="product-name">
+                                <tr>
 
-                                    ${escapeHtml(
-                                        product.name || "-"
-                                    )}
+                                    <td>
 
-                                </div>
+                                        ${
+                                            imageUrl
 
-                                <div class="product-description">
+                                            ?
 
-                                    ${escapeHtml(
-                                        product.description || ""
-                                    )}
+                                            `
+                                                <img
+                                                    class="product-image"
+                                                    src="${escapeHtml(imageUrl)}"
+                                                    alt="${escapeHtml(
+                                                        product.name ||
+                                                        "Product"
+                                                    )}"
+                                                    onerror="handleImageError(this)"
+                                                >
+                                            `
 
-                                </div>
+                                            :
 
-                            </td>
+                                            `
+                                                <div
+                                                    class="product-image-placeholder"
+                                                >
+                                                    No Image
+                                                </div>
+                                            `
+                                        }
 
-
-                            <td>
-
-                                ${escapeHtml(
-                                    product.category || "-"
-                                )}
-
-                            </td>
-
-
-                            <td>
-
-                                <span class="price">
-
-                                    EGP ${Number(
-                                        product.price || 0
-                                    ).toLocaleString()}
-
-                                </span>
-
-                            </td>
+                                    </td>
 
 
-                            <td>
+                                    <td>
 
-                                <span class="stock">
+                                        <div
+                                            class="product-name"
+                                        >
 
-                                    ${escapeHtml(
-                                        product.stock ?? 0
-                                    )}
+                                            ${escapeHtml(
+                                                product.name ||
+                                                "-"
+                                            )}
 
-                                </span>
-
-                            </td>
-
-
-                            <td>
-
-                                ${
-                                    product.is_active !== false
-
-                                    ?
-
-                                    `<span class="active">
-                                        Active
-                                    </span>`
-
-                                    :
-
-                                    `<span class="inactive">
-                                        Inactive
-                                    </span>`
-                                }
-
-                            </td>
+                                        </div>
 
 
-                            <td>
+                                        <div
+                                            class="product-description"
+                                        >
 
-                                <button
-                                    class="edit-btn"
-                                    onclick="editProduct(${Number(product.id)})"
-                                >
-                                    Edit
-                                </button>
+                                            ${escapeHtml(
+                                                product.description ||
+                                                ""
+                                            )}
 
-                                <button
-                                    class="delete-btn"
-                                    onclick="deleteProduct(${Number(product.id)})"
-                                >
-                                    Delete
-                                </button>
+                                        </div>
 
-                            </td>
+                                    </td>
 
-                        </tr>
 
-                    `;
+                                    <td>
 
-                }).join("")}
+                                        ${escapeHtml(
+                                            product.category ||
+                                            "-"
+                                        )}
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span
+                                            class="price"
+                                        >
+
+                                            EGP ${Number(
+                                                product.price ||
+                                                0
+                                            ).toLocaleString()}
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span
+                                            class="stock"
+                                        >
+
+                                            ${escapeHtml(
+                                                product.stock ??
+                                                0
+                                            )}
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        ${
+                                            product.is_active !== false
+
+                                            ?
+
+                                            `
+                                                <span
+                                                    class="active"
+                                                >
+                                                    Active
+                                                </span>
+                                            `
+
+                                            :
+
+                                            `
+                                                <span
+                                                    class="inactive"
+                                                >
+                                                    Inactive
+                                                </span>
+                                            `
+                                        }
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <button
+                                            class="edit-btn"
+                                            onclick="editProduct(${Number(
+                                                product.id
+                                            )})"
+                                        >
+                                            Edit
+                                        </button>
+
+
+                                        <button
+                                            class="delete-btn"
+                                            onclick="deleteProduct(${Number(
+                                                product.id
+                                            )})"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+                            `;
+
+                        }
+                    )
+                    .join("")
+
+                }
 
             </tbody>
 
@@ -1252,8 +1400,11 @@ function handleImageError(image){
         image.src
     );
 
+
     image.outerHTML = `
-        <div class="product-image-placeholder">
+        <div
+            class="product-image-placeholder"
+        >
             Image Error
         </div>
     `;
@@ -1269,17 +1420,25 @@ function openAddModal(){
 
     editingId = null;
 
-    document.getElementById("modalTitle")
-        .textContent =
+
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
         "Add Product";
+
 
     clearForm();
 
-    document.getElementById("currentImageText")
-        .textContent = "";
 
-    document.getElementById("productModal")
-        .style.display =
+    document.getElementById(
+        "currentImageText"
+    ).textContent =
+        "";
+
+
+    document.getElementById(
+        "productModal"
+    ).style.display =
         "flex";
 
 }
@@ -1293,53 +1452,72 @@ function editProduct(id){
 
     const product =
         products.find(
-            p => Number(p.id) === Number(id)
+            p =>
+                Number(p.id) ===
+                Number(id)
         );
 
-    if(!product)
+
+    if(!product){
+
+        alert(
+            "Product not found."
+        );
+
         return;
+
+    }
 
 
     editingId =
         product.id;
 
 
-    document.getElementById("modalTitle")
-        .textContent =
+    document.getElementById(
+        "modalTitle"
+    ).textContent =
         "Edit Product";
 
 
-    document.getElementById("productName")
-        .value =
+    document.getElementById(
+        "productName"
+    ).value =
         product.name || "";
 
 
-    document.getElementById("productCategory")
-        .value =
+    document.getElementById(
+        "productCategory"
+    ).value =
         product.category || "";
 
 
-    document.getElementById("productDescription")
-        .value =
+    document.getElementById(
+        "productDescription"
+    ).value =
         product.description || "";
 
 
-    document.getElementById("productPrice")
-        .value =
+    document.getElementById(
+        "productPrice"
+    ).value =
         product.price || "";
 
 
-    document.getElementById("productStock")
-        .value =
+    document.getElementById(
+        "productStock"
+    ).value =
         product.stock ?? 0;
 
 
-    document.getElementById("productImage")
-        .value = "";
+    document.getElementById(
+        "productImage"
+    ).value =
+        "";
 
 
-    document.getElementById("productActive")
-        .value =
+    document.getElementById(
+        "productActive"
+    ).value =
         product.is_active === false
         ?
         "false"
@@ -1348,14 +1526,21 @@ function editProduct(id){
 
 
     const currentImageText =
-        document.getElementById("currentImageText");
+        document.getElementById(
+            "currentImageText"
+        );
 
 
-    if(product.image_url){
+    /*
+        IMPORTANT:
+        Database column = image
+    */
+
+    if(product.image){
 
         currentImageText.textContent =
             "Current image: " +
-            product.image_url +
+            product.image +
             " — Choose a new image only if you want to replace it.";
 
     }
@@ -1368,8 +1553,9 @@ function editProduct(id){
     }
 
 
-    document.getElementById("productModal")
-        .style.display =
+    document.getElementById(
+        "productModal"
+    ).style.display =
         "flex";
 
 }
@@ -1381,8 +1567,11 @@ function editProduct(id){
 
 async function uploadProductImage(file){
 
-    if(!file)
+    if(!file){
+
         return null;
+
+    }
 
 
     const extension =
@@ -1394,8 +1583,14 @@ async function uploadProductImage(file){
 
     const safeName =
         file.name
-        .replace(/\.[^/.]+$/,"")
-        .replace(/[^a-zA-Z0-9-_]/g,"-")
+        .replace(
+            /\.[^/.]+$/,
+            ""
+        )
+        .replace(
+            /[^a-zA-Z0-9-_]/g,
+            "-"
+        )
         .toLowerCase();
 
 
@@ -1407,7 +1602,9 @@ async function uploadProductImage(file){
         `images/${fileName}`;
 
 
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient
         .storage
         .from(PRODUCT_BUCKET)
@@ -1439,47 +1636,69 @@ async function uploadProductImage(file){
 
 async function saveProduct(){
 
+    const button =
+        document.getElementById(
+            "saveProductButton"
+        );
+
+
     const name =
-        document.getElementById("productName")
+        document.getElementById(
+            "productName"
+        )
         .value
         .trim();
 
 
     const category =
-        document.getElementById("productCategory")
+        document.getElementById(
+            "productCategory"
+        )
         .value
         .trim();
 
 
     const description =
-        document.getElementById("productDescription")
+        document.getElementById(
+            "productDescription"
+        )
         .value
         .trim();
 
 
     const price =
         Number(
-            document.getElementById("productPrice")
-            .value
+            document.getElementById(
+                "productPrice"
+            ).value
         );
 
 
     const stock =
         Number(
-            document.getElementById("productStock")
-            .value
+            document.getElementById(
+                "productStock"
+            ).value
         );
 
 
     const imageFile =
-        document.getElementById("productImage")
+        document.getElementById(
+            "productImage"
+        )
         .files[0];
 
 
     const is_active =
-        document.getElementById("productActive")
+        document.getElementById(
+            "productActive"
+        )
         .value === "true";
 
+
+    /* =========================================
+       VALIDATION
+    ========================================= */
 
     if(!name){
 
@@ -1516,37 +1735,48 @@ async function saveProduct(){
 
     try{
 
+        button.disabled = true;
+
+        button.textContent =
+            "Saving...";
+
+
         let imagePath = null;
 
 
-        /*
-            If editing and no new image is selected,
-            keep the existing image.
-        */
+        /* =========================================
+           KEEP OLD IMAGE WHEN EDITING
+        ========================================= */
 
         if(editingId){
 
             const existingProduct =
                 products.find(
                     p =>
-                    Number(p.id) ===
-                    Number(editingId)
+                        Number(p.id) ===
+                        Number(editingId)
                 );
 
+
+            /*
+                IMPORTANT:
+                Database column = image
+            */
 
             imagePath =
                 existingProduct
                 ?
-                existingProduct.image_url || null
+                existingProduct.image ||
+                null
                 :
                 null;
 
         }
 
 
-        /*
-            Upload new image if selected.
-        */
+        /* =========================================
+           UPLOAD NEW IMAGE
+        ========================================= */
 
         if(imageFile){
 
@@ -1558,14 +1788,31 @@ async function saveProduct(){
         }
 
 
+        /* =========================================
+           PRODUCT DATA
+        ========================================= */
+
+        /*
+            IMPORTANT:
+            Database column is "image"
+            NOT "image_url"
+        */
+
         const productData = {
 
             name,
+
             category,
+
             description,
+
             price,
+
             stock,
-            image_url:imagePath,
+
+            image:
+                imagePath,
+
             is_active
 
         };
@@ -1574,39 +1821,68 @@ async function saveProduct(){
         let result;
 
 
+        /* =========================================
+           UPDATE
+        ========================================= */
+
         if(editingId){
 
             result =
                 await supabaseClient
                 .from("products")
-                .update(productData)
-                .eq("id",editingId);
+                .update(
+                    productData
+                )
+                .eq(
+                    "id",
+                    editingId
+                );
 
         }
+
+
+        /* =========================================
+           INSERT
+        ========================================= */
 
         else{
 
             result =
                 await supabaseClient
                 .from("products")
-                .insert(productData);
+                .insert(
+                    productData
+                );
 
         }
 
 
+        /* =========================================
+           DATABASE ERROR
+        ========================================= */
+
         if(result.error){
 
-            console.error(result.error);
+            console.error(
+                "Save product error:",
+                result.error
+            );
+
 
             alert(
                 "Failed to save product:\n\n" +
                 result.error.message
             );
 
+
             return;
 
         }
 
+
+        /* =========================================
+           SUCCESS
+        ========================================= */
 
         alert(
             editingId
@@ -1619,18 +1895,32 @@ async function saveProduct(){
 
         closeModal();
 
+
         await loadProducts();
 
     }
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Save error:",
+            error
+        );
+
 
         alert(
             "Something went wrong:\n\n" +
             error.message
         );
+
+    }
+
+    finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "Save Product";
 
     }
 
@@ -1646,13 +1936,16 @@ async function deleteProduct(id){
     const product =
         products.find(
             p =>
-            Number(p.id) ===
-            Number(id)
+                Number(p.id) ===
+                Number(id)
         );
 
 
-    if(!product)
+    if(!product){
+
         return;
+
+    }
 
 
     const confirmed =
@@ -1661,37 +1954,65 @@ async function deleteProduct(id){
         );
 
 
-    if(!confirmed)
-        return;
-
-
-    const { error } =
-        await supabaseClient
-        .from("products")
-        .delete()
-        .eq("id",id);
-
-
-    if(error){
-
-        console.error(error);
-
-        alert(
-            "Failed to delete product:\n\n" +
-            error.message
-        );
+    if(!confirmed){
 
         return;
 
     }
 
 
-    alert(
-        "Product deleted successfully!"
-    );
+    try{
+
+        const {
+            error
+        } =
+            await supabaseClient
+            .from("products")
+            .delete()
+            .eq(
+                "id",
+                id
+            );
 
 
-    await loadProducts();
+        if(error){
+
+            console.error(
+                "Delete error:",
+                error
+            );
+
+
+            alert(
+                "Failed to delete product:\n\n" +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Product deleted successfully!"
+        );
+
+
+        await loadProducts();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+
+        alert(
+            "Something went wrong:\n\n" +
+            error.message
+        );
+
+    }
 
 }
 
@@ -1702,32 +2023,46 @@ async function deleteProduct(id){
 
 function clearForm(){
 
-    document.getElementById("productName")
-        .value = "";
+    document.getElementById(
+        "productName"
+    ).value =
+        "";
 
 
-    document.getElementById("productCategory")
-        .value = "";
+    document.getElementById(
+        "productCategory"
+    ).value =
+        "";
 
 
-    document.getElementById("productDescription")
-        .value = "";
+    document.getElementById(
+        "productDescription"
+    ).value =
+        "";
 
 
-    document.getElementById("productPrice")
-        .value = "";
+    document.getElementById(
+        "productPrice"
+    ).value =
+        "";
 
 
-    document.getElementById("productStock")
-        .value = "0";
+    document.getElementById(
+        "productStock"
+    ).value =
+        "0";
 
 
-    document.getElementById("productImage")
-        .value = "";
+    document.getElementById(
+        "productImage"
+    ).value =
+        "";
 
 
-    document.getElementById("productActive")
-        .value = "true";
+    document.getElementById(
+        "productActive"
+    ).value =
+        "true";
 
 }
 
@@ -1738,24 +2073,31 @@ function clearForm(){
 
 function closeModal(){
 
-    document.getElementById("productModal")
-        .style.display =
+    document.getElementById(
+        "productModal"
+    ).style.display =
         "none";
 
 }
 
 
 /* =========================================
-   CLOSE MODAL WHEN CLICKING OUTSIDE
+   CLOSE MODAL OUTSIDE
 ========================================= */
 
 window.onclick =
 function(event){
 
     const modal =
-        document.getElementById("productModal");
+        document.getElementById(
+            "productModal"
+        );
 
-    if(event.target === modal){
+
+    if(
+        event.target ===
+        modal
+    ){
 
         closeModal();
 
@@ -1782,15 +2124,30 @@ function escapeHtml(value){
 
     return String(value)
 
-        .replace(/&/g,"&amp;")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-        .replace(/</g,"&lt;")
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-        .replace(/>/g,"&gt;")
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-        .replace(/"/g,"&quot;")
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-        .replace(/'/g,"&#039;");
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
