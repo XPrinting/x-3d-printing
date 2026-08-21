@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>X3D Printing | Products</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #080816;
+            --surface: #11172a;
+            --surface2: #0b1020;
+            --border: rgba(255,255,255,.10);
+            --text: #ffffff;
+            --muted: #aeb6cc;
+            --primary: #8b5cf6;
+            --green: #22c55e;
+            --red: #ef4444;
+            --orange: #f59e0b;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top right, #17153b 0%, #080816 45%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: rgba(10,12,28,.96);
+            border-right: 1px solid var(--border);
+            padding: 25px 18px;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            padding: 10px 12px 30px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .menu-title {
+            color: #68728a;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0 12px;
+            margin-bottom: 10px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--muted);
+            padding: 13px 14px;
+            border-radius: 11px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: rgba(139,92,246,.16);
+            color: white;
+        }
+
+        .menu-item.active {
+            border-left: 3px solid var(--primary);
+        }
+
+        .menu-icon {
+            width: 24px;
+            text-align: center;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 250px;
+            padding: 30px 35px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .page-title h1 {
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .page-title p {
+            color: var(--muted);
+        }
+
+        .add-btn {
+            border: none;
+            background: linear-gradient(135deg,#6d28d9,#8b5cf6);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            opacity: .9;
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: rgba(17,23,42,.92);
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* ================= PRODUCTS ================= */
+
+        .products-card {
+            background: rgba(17,23,42,.92);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .products-header {
+            padding: 22px;
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .products-header h2 {
+            font-size: 21px;
+        }
+
+        .search {
+            background: #0b1020;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 11px 13px;
+            border-radius: 9px;
+            outline: none;
+            width: 280px;
+        }
+
+        .search:focus {
+            border-color: var(--primary);
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th {
+            text-align: left;
+            color: #7f89a3;
+            font-size: 12px;
+            text-transform: uppercase;
+            padding: 16px 20px;
+            background: rgba(7,10,23,.45);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        tr:hover td {
+            background: rgba(139,92,246,.04);
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .product-image {
+            width: 55px;
+            height: 55px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #0b1020;
+            border: 1px solid var(--border);
+        }
+
+        .product-name {
+            font-weight: bold;
+        }
+
+        .product-description {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .price {
+            font-weight: bold;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status {
+            display: inline-flex;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: rgba(34,197,94,.15);
+            color: #4ade80;
+        }
+
+        .status-inactive {
+            background: rgba(239,68,68,.15);
+            color: #f87171;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .action-btn {
+            border: 1px solid var(--border);
+            background: #0b1020;
+            color: white;
+            padding: 7px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            color: #c4b5fd;
+            border-color: rgba(139,92,246,.35);
+        }
+
+        .delete-btn {
+            color: #f87171;
+            border-color: rgba(239,68,68,.3);
+        }
+
+        /* ================= EMPTY ================= */
+
+        .loading,
+        .empty {
+            padding: 50px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .error {
+            padding: 30px;
+            text-align: center;
+            color: #f87171;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.75);
+            z-index: 500;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+
+            background: #11172a;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            font-size: 22px;
+        }
+
+        .close {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            background: #0b1020;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 12px;
+            border-radius: 9px;
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            border-color: var(--primary);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .save-btn {
+            width: 100%;
+            margin-top: 8px;
+            padding: 13px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(135deg,#6d28d9,#8b5cf6);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:1100px) {
+
+            .stats {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+        }
+
+        @media(max-width:800px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 22px 15px;
+            }
+
+            .menu {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .menu-item {
+                min-width: max-content;
+            }
+
+            .menu-title {
+                display: none;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .add-btn {
+                width: 100%;
+            }
+
+            .products-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search {
+                width: 100%;
+            }
+
+        }
+
+        @media(max-width:550px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-box {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        X<span>3D</span> Admin
+    </div>
+
+    <div class="menu-title">
+        Management
+    </div>
+
+    <div class="menu">
+
+        <a class="menu-item" href="admin.html">
+            <span class="menu-icon">📊</span>
+            Dashboard
+        </a>
+
+        <a class="menu-item" href="orders.html">
+            <span class="menu-icon">🛒</span>
+            Orders
+        </a>
+
+        <a class="menu-item active" href="products.html">
+            <span class="menu-icon">📦</span>
+            Products
+        </a>
+
+        <a class="menu-item" href="#">
+            <span class="menu-icon">👥</span>
+            Customers
+        </a>
+
+        <a class="menu-item" href="#">
+            <span class="menu-icon">🎨</span>
+            Custom Requests
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+
+    <div class="topbar">
+
+        <div class="page-title">
+
+            <h1>
+                Products
+            </h1>
+
+            <p>
+                Manage all products in your store.
+            </p>
+
+        </div>
+
+        <button
+            class="add-btn"
+            onclick="openAddProduct()"
+        >
+            + Add Product
+        </button>
+
+    </div>
+
+
+    <!-- ================= STATS ================= -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Total Products
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalProducts"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Products
+            </div>
+
+            <div
+                class="stat-value"
+                id="activeProducts"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Inactive Products
+            </div>
+
+            <div
+                class="stat-value"
+                id="inactiveProducts"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Average Price
+            </div>
+
+            <div
+                class="stat-value"
+                id="averagePrice"
+            >
+                EGP 0
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PRODUCTS ================= -->
+
+    <section class="products-card">
+
+        <div class="products-header">
+
+            <h2>
+                All Products
+            </h2>
+
+            <input
+                class="search"
+                id="searchInput"
+                type="text"
+                placeholder="Search products..."
+                oninput="renderProducts()"
+            >
+
+        </div>
+
+
+        <div
+            class="table-wrapper"
+            id="tableContainer"
+        >
+
+            <div class="loading">
+                Loading products...
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- ================= ADD / EDIT MODAL ================= -->
+
+<div
+    class="modal"
+    id="productModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Add Product
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeProductModal()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="productForm">
+
+
+            <div class="form-group">
+
+                <label>
+                    Product Name
+                </label>
+
+                <input
+                    class="form-input"
+                    id="productName"
+                    type="text"
+                    placeholder="Example: Dragon Statue"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    class="form-textarea"
+                    id="productDescription"
+                    placeholder="Product description..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Price (EGP)
+                    </label>
+
+                    <input
+                        class="form-input"
+                        id="productPrice"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="500"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Stock
+                    </label>
+
+                    <input
+                        class="form-input"
+                        id="productStock"
+                        type="number"
+                        min="0"
+                        placeholder="10"
+                        value="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <input
+                        class="form-input"
+                        id="productCategory"
+                        type="text"
+                        placeholder="Figures"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Material
+                    </label>
+
+                    <input
+                        class="form-input"
+                        id="productMaterial"
+                        type="text"
+                        placeholder="PLA"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Colors
+                </label>
+
+                <input
+                    class="form-input"
+                    id="productColors"
+                    type="text"
+                    placeholder="Black, White, Red"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Product Image URL
+                </label>
+
+                <input
+                    class="form-input"
+                    id="productImage"
+                    type="url"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select
+                    class="form-select"
+                    id="productStatus"
+                >
+
+                    <option value="active">
+                        Active
+                    </option>
+
+                    <option value="inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="save-btn"
+                id="saveButton"
+                type="submit"
+            >
+                Save Product
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   SUPABASE
+   ========================================================= */
+
+/*
+   IMPORTANT:
+   Put EXACTLY the same values from admin.html
+*/
+
+const SUPABASE_URL =
+    "https://wxezuqdktbftlkjxqcmi.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+let products = [];
+
+let editingProductId = null;
+
+
+/* =========================================================
+   LOAD PRODUCTS
+   ========================================================= */
+
+async function loadProducts() {
+
+    const container =
+        document.getElementById("tableContainer");
+
+
+    container.innerHTML = `
+        <div class="loading">
+            Loading products...
+        </div>
+    `;
+
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("products")
+                .select("*")
+                .order("id", {
+                    ascending: false
+                });
+
+
+        if (error) {
+
+            console.error(error);
+
+            container.innerHTML = `
+                <div class="error">
+                    ❌ Failed to load products.<br><br>
+                    ${escapeHtml(error.message)}
+                </div>
+            `;
+
+            return;
+        }
+
+
+        products = data || [];
+
+
+        updateStats();
+
+        renderProducts();
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="error">
+                ❌ Something went wrong.<br><br>
+                ${escapeHtml(error.message)}
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+function updateStats() {
+
+    const total =
+        products.length;
+
+
+    const active =
+        products.filter(
+            product =>
+                String(product.status).toLowerCase() === "active"
+        ).length;
+
+
+    const inactive =
+        total - active;
+
+
+    const prices =
+        products
+            .map(product => Number(product.price || 0))
+            .filter(price => price > 0);
+
+
+    const average =
+        prices.length
+            ? prices.reduce((a,b) => a + b, 0) / prices.length
+            : 0;
+
+
+    document.getElementById("totalProducts")
+        .textContent = total;
+
+
+    document.getElementById("activeProducts")
+        .textContent = active;
+
+
+    document.getElementById("inactiveProducts")
+        .textContent = inactive;
+
+
+    document.getElementById("averagePrice")
+        .textContent =
+        "EGP " +
+        average.toLocaleString(
+            undefined,
+            {
+                maximumFractionDigits: 0
+            }
+        );
+
+}
+
+
+/* =========================================================
+   RENDER PRODUCTS
+   ========================================================= */
+
+function renderProducts() {
+
+    const container =
+        document.getElementById("tableContainer");
+
+
+    const search =
+        document.getElementById("searchInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    let filtered =
+        [...products];
+
+
+    if (search) {
+
+        filtered =
+            filtered.filter(product => {
+
+                const name =
+                    String(
+                        product.name || ""
+                    ).toLowerCase();
+
+
+                const category =
+                    String(
+                        product.category || ""
+                    ).toLowerCase();
+
+
+                const material =
+                    String(
+                        product.material || ""
+                    ).toLowerCase();
+
+
+                return (
+                    name.includes(search) ||
+                    category.includes(search) ||
+                    material.includes(search)
+                );
+
+            });
+
+    }
+
+
+    if (filtered.length === 0) {
+
+        container.innerHTML = `
+            <div class="empty">
+                No products found.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Product
+                    </th>
+
+                    <th>
+                        Category
+                    </th>
+
+                    <th>
+                        Material
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                    <th>
+                        Stock
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                ${filtered.map(product => `
+
+                    <tr>
+
+                        <td>
+
+                            <div class="product-info">
+
+                                <img
+                                    class="product-image"
+                                    src="${escapeHtml(
+                                        product.image_url ||
+                                        "https://placehold.co/100x100/11172a/ffffff?text=X3D"
+                                    )}"
+                                    onerror="this.src='https://placehold.co/100x100/11172a/ffffff?text=X3D'"
+                                >
+
+                                <div>
+
+                                    <div class="product-name">
+                                        ${escapeHtml(
+                                            product.name || "-"
+                                        )}
+                                    </div>
+
+                                    <div class="product-description">
+                                        ${escapeHtml(
+                                            product.description || ""
+                                        )}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                product.category || "-"
+                            )}
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                product.material || "-"
+                            )}
+                        </td>
+
+
+                        <td>
+
+                            <span class="price">
+                                EGP ${Number(
+                                    product.price || 0
+                                ).toLocaleString()}
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            ${escapeHtml(
+                                product.stock ?? 0
+                            )}
+                        </td>
+
+
+                        <td>
+
+                            ${statusBadge(
+                                product.status
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <button
+                                    class="action-btn edit-btn"
+                                    onclick="editProduct(${Number(product.id)})"
+                                >
+                                    Edit
+                                </button>
+
+                                <button
+                                    class="action-btn delete-btn"
+                                    onclick="deleteProduct(${Number(product.id)})"
+                                >
+                                    Delete
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `).join("")}
+
+            </tbody>
+
+        </table>
+
+    `;
+
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+function statusBadge(status) {
+
+    const normalized =
+        String(status || "active")
+            .toLowerCase();
+
+
+    const label =
+        normalized === "active"
+            ? "Active"
+            : "Inactive";
+
+
+    return `
+        <span class="status status-${normalized}">
+            ${label}
+        </span>
+    `;
+
+}
+
+
+/* =========================================================
+   ADD PRODUCT
+   ========================================================= */
+
+function openAddProduct() {
+
+    editingProductId = null;
+
+
+    document.getElementById("modalTitle")
+        .textContent = "Add Product";
+
+
+    document.getElementById("productForm")
+        .reset();
+
+
+    document.getElementById("productStatus")
+        .value = "active";
+
+
+    document.getElementById("productModal")
+        .style.display = "flex";
+
+}
+
+
+/* =========================================================
+   EDIT PRODUCT
+   ========================================================= */
+
+function editProduct(id) {
+
+    const product =
+        products.find(
+            item =>
+                Number(item.id) === Number(id)
+        );
+
+
+    if (!product) {
+        return;
+    }
+
+
+    editingProductId =
+        product.id;
+
+
+    document.getElementById("modalTitle")
+        .textContent = "Edit Product";
+
+
+    document.getElementById("productName")
+        .value =
+        product.name || "";
+
+
+    document.getElementById("productDescription")
+        .value =
+        product.description || "";
+
+
+    document.getElementById("productPrice")
+        .value =
+        product.price || 0;
+
+
+    document.getElementById("productStock")
+        .value =
+        product.stock ?? 0;
+
+
+    document.getElementById("productCategory")
+        .value =
+        product.category || "";
+
+
+    document.getElementById("productMaterial")
+        .value =
+        product.material || "";
+
+
+    document.getElementById("productColors")
+        .value =
+        product.colors || "";
+
+
+    document.getElementById("productImage")
+        .value =
+        product.image_url || "";
+
+
+    document.getElementById("productStatus")
+        .value =
+        product.status || "active";
+
+
+    document.getElementById("productModal")
+        .style.display = "flex";
+
+}
+
+
+/* =========================================================
+   SAVE PRODUCT
+   ========================================================= */
+
+document.getElementById("productForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const button =
+                document.getElementById("saveButton");
+
+
+            button.disabled = true;
+
+            button.textContent =
+                "Saving...";
+
+
+            const productData = {
+
+                name:
+                    document.getElementById("productName")
+                        .value
+                        .trim(),
+
+                description:
+                    document.getElementById("productDescription")
+                        .value
+                        .trim(),
+
+                price:
+                    Number(
+                        document.getElementById("productPrice")
+                            .value
+                    ),
+
+                stock:
+                    Number(
+                        document.getElementById("productStock")
+                            .value || 0
+                    ),
+
+                category:
+                    document.getElementById("productCategory")
+                        .value
+                        .trim(),
+
+                material:
+                    document.getElementById("productMaterial")
+                        .value
+                        .trim(),
+
+                colors:
+                    document.getElementById("productColors")
+                        .value
+                        .trim(),
+
+                image_url:
+                    document.getElementById("productImage")
+                        .value
+                        .trim(),
+
+                status:
+                    document.getElementById("productStatus")
+                        .value
+
+            };
+
+
+            let result;
+
+
+            if (editingProductId) {
+
+                result =
+                    await supabaseClient
+                        .from("products")
+                        .update(productData)
+                        .eq(
+                            "id",
+                            editingProductId
+                        );
+
+            }
+
+            else {
+
+                result =
+                    await supabaseClient
+                        .from("products")
+                        .insert([
+                            productData
+                        ]);
+
+            }
+
+
+            if (result.error) {
+
+                console.error(
+                    result.error
+                );
+
+
+                alert(
+                    "Failed to save product:\n\n" +
+                    result.error.message
+                );
+
+
+                button.disabled = false;
+
+                button.textContent =
+                    "Save Product";
+
+                return;
+
+            }
+
+
+            closeProductModal();
+
+
+            await loadProducts();
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Save Product";
+
+        }
+    );
+
+
+/* =========================================================
+   DELETE PRODUCT
+   ========================================================= */
+
+async function deleteProduct(id) {
+
+    const product =
+        products.find(
+            item =>
+                Number(item.id) === Number(id)
+        );
+
+
+    if (!product) {
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to delete "${product.name}"?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const { error } =
+        await supabaseClient
+            .from("products")
+            .delete()
+            .eq("id", id);
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Failed to delete product:\n\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+
+    await loadProducts();
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+   ========================================================= */
+
+function closeProductModal() {
+
+    document.getElementById("productModal")
+        .style.display = "none";
+
+}
+
+
+window.onclick =
+    function(event) {
+
+        const modal =
+            document.getElementById("productModal");
+
+
+        if (event.target === modal) {
+
+            closeProductModal();
+
+        }
+
+    };
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+loadProducts();
+
+</script>
+
+</body>
+</html>
