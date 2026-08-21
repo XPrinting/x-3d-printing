@@ -34,6 +34,7 @@
 
 body{
     font-family:Arial,Helvetica,sans-serif;
+
     background:
         radial-gradient(
             circle at top right,
@@ -41,6 +42,7 @@ body{
             #080816 45%
         ),
         var(--bg);
+
     color:var(--text);
     min-height:100vh;
 }
@@ -54,17 +56,23 @@ body{
     position:fixed;
     left:0;
     top:0;
+
     width:250px;
     height:100vh;
+
     background:rgba(10,12,28,.96);
+
     border-right:1px solid var(--border);
+
     padding:25px 18px;
+
     z-index:100;
 }
 
 .logo{
     font-size:25px;
     font-weight:800;
+
     padding:10px 12px 30px;
 }
 
@@ -74,10 +82,14 @@ body{
 
 .menu-title{
     color:#68728a;
+
     font-size:11px;
     font-weight:bold;
+
     text-transform:uppercase;
+
     padding:0 12px;
+
     margin-bottom:10px;
 }
 
@@ -90,12 +102,19 @@ body{
 .menu-item{
     display:flex;
     align-items:center;
+
     gap:12px;
+
     color:var(--muted);
+
     padding:13px 14px;
+
     border-radius:11px;
+
     cursor:pointer;
+
     transition:.2s;
+
     text-decoration:none;
 }
 
@@ -126,9 +145,12 @@ body{
 
 .topbar{
     display:flex;
+
     justify-content:space-between;
     align-items:center;
+
     margin-bottom:25px;
+
     gap:20px;
 }
 
@@ -143,16 +165,22 @@ body{
 
 .add-btn{
     border:1px solid rgba(139,92,246,.4);
+
     background:
         linear-gradient(
             135deg,
             #5b21b6,
             #8b5cf6
         );
+
     color:#fff;
+
     padding:12px 18px;
+
     border-radius:10px;
+
     cursor:pointer;
+
     font-weight:bold;
 }
 
@@ -163,26 +191,36 @@ body{
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:18px;
+
     margin-bottom:25px;
 }
 
 .stat-card{
     background:rgba(17,23,42,.92);
+
     border:1px solid var(--border);
+
     border-radius:17px;
+
     padding:20px;
 }
 
 .stat-label{
     color:var(--muted);
+
     font-size:13px;
+
     margin-bottom:10px;
 }
 
 .stat-value{
     font-size:28px;
+
     font-weight:bold;
 }
 
@@ -193,17 +231,24 @@ body{
 
 .products-card{
     background:rgba(17,23,42,.92);
+
     border:1px solid var(--border);
+
     border-radius:20px;
+
     overflow:hidden;
 }
 
 .products-header{
     padding:22px;
+
     border-bottom:1px solid var(--border);
+
     display:flex;
+
     justify-content:space-between;
     align-items:center;
+
     gap:15px;
 }
 
@@ -213,11 +258,17 @@ body{
 
 .search{
     background:#0b1020;
+
     border:1px solid var(--border);
+
     color:#fff;
+
     padding:11px 14px;
+
     border-radius:9px;
+
     outline:none;
+
     width:260px;
 }
 
@@ -227,26 +278,35 @@ body{
 
 .table-wrapper{
     width:100%;
+
     overflow-x:auto;
 }
 
 table{
     width:100%;
+
     border-collapse:collapse;
+
     min-width:1000px;
 }
 
 th{
     text-align:left;
+
     color:#7f89a3;
+
     font-size:12px;
+
     text-transform:uppercase;
+
     padding:16px 20px;
+
     background:rgba(7,10,23,.45);
 }
 
 td{
     padding:15px 20px;
+
     border-top:1px solid var(--border);
 }
 
@@ -262,24 +322,37 @@ tr:hover td{
 .product-image{
     width:65px;
     height:65px;
+
     border-radius:10px;
+
     object-fit:cover;
+
     background:#0b1020;
+
     border:1px solid var(--border);
+
     display:block;
 }
 
 .product-image-placeholder{
     width:65px;
     height:65px;
+
     border-radius:10px;
+
     background:#0b1020;
+
     border:1px solid var(--border);
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     color:#68728a;
+
     font-size:11px;
+
     text-align:center;
 }
 
@@ -294,9 +367,13 @@ tr:hover td{
 
 .product-description{
     color:var(--muted);
+
     font-size:12px;
+
     margin-top:4px;
+
     max-width:300px;
+
     white-space:normal;
 }
 
@@ -310,11 +387,13 @@ tr:hover td{
 
 .active{
     color:#4ade80;
+
     font-weight:bold;
 }
 
 .inactive{
     color:#f87171;
+
     font-weight:bold;
 }
 
@@ -326,21 +405,29 @@ tr:hover td{
 .edit-btn,
 .delete-btn{
     padding:7px 11px;
+
     border-radius:8px;
+
     cursor:pointer;
+
     font-size:12px;
 }
 
 .edit-btn{
     border:1px solid rgba(139,92,246,.35);
+
     background:rgba(139,92,246,.10);
+
     color:#c4b5fd;
 }
 
 .delete-btn{
     border:1px solid rgba(239,68,68,.3);
+
     background:rgba(239,68,68,.10);
+
     color:#f87171;
+
     margin-left:5px;
 }
 
@@ -353,7 +440,9 @@ tr:hover td{
 .empty,
 .error{
     padding:50px;
+
     text-align:center;
+
     color:var(--muted);
 }
 
@@ -368,50 +457,74 @@ tr:hover td{
 
 .modal{
     display:none;
+
     position:fixed;
+
     inset:0;
+
     background:rgba(0,0,0,.75);
+
     z-index:500;
+
     align-items:center;
     justify-content:center;
+
     padding:20px;
 }
 
 .modal-box{
     width:100%;
+
     max-width:650px;
+
     max-height:90vh;
+
     overflow-y:auto;
+
     background:#11172a;
+
     border:1px solid var(--border);
+
     border-radius:20px;
+
     padding:25px;
 }
 
 .modal-header{
     display:flex;
+
     justify-content:space-between;
     align-items:center;
+
     margin-bottom:25px;
 }
 
 .close{
     background:transparent;
+
     border:none;
+
     color:#fff;
+
     font-size:28px;
+
     cursor:pointer;
 }
 
 .form-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:15px;
 }
 
 .form-group{
     display:flex;
+
     flex-direction:column;
+
     gap:7px;
 }
 
@@ -421,6 +534,7 @@ tr:hover td{
 
 label{
     color:#aeb6cc;
+
     font-size:13px;
 }
 
@@ -428,16 +542,23 @@ input,
 textarea,
 select{
     width:100%;
+
     background:#0b1020;
+
     border:1px solid var(--border);
+
     color:#fff;
+
     padding:12px;
+
     border-radius:9px;
+
     outline:none;
 }
 
 textarea{
     min-height:100px;
+
     resize:vertical;
 }
 
@@ -449,19 +570,33 @@ select:focus{
 
 .save-btn{
     width:100%;
+
     margin-top:20px;
+
     padding:13px;
+
     border:none;
+
     border-radius:10px;
+
     background:
         linear-gradient(
             135deg,
             #6d28d9,
             #8b5cf6
         );
+
     color:#fff;
+
     font-weight:bold;
+
     cursor:pointer;
+}
+
+.save-btn:disabled{
+    opacity:.6;
+
+    cursor:not-allowed;
 }
 
 
@@ -473,19 +608,25 @@ select:focus{
 
     .sidebar{
         position:relative;
+
         width:100%;
+
         height:auto;
+
         border-right:none;
+
         border-bottom:1px solid var(--border);
     }
 
     .main{
         margin-left:0;
+
         padding:22px 15px;
     }
 
     .menu{
         flex-direction:row;
+
         overflow-x:auto;
     }
 
@@ -503,6 +644,7 @@ select:focus{
 
     .topbar{
         flex-direction:column;
+
         align-items:flex-start;
     }
 
@@ -512,6 +654,7 @@ select:focus{
 
     .products-header{
         flex-direction:column;
+
         align-items:stretch;
     }
 
@@ -533,6 +676,7 @@ select:focus{
 
 </head>
 
+
 <body>
 
 
@@ -552,29 +696,73 @@ select:focus{
 
     <div class="menu">
 
-        <a class="menu-item" href="admin.html">
-            <span class="menu-icon">📊</span>
+        <a
+            class="menu-item"
+            href="admin.html"
+        >
+
+            <span class="menu-icon">
+                📊
+            </span>
+
             Dashboard
+
         </a>
 
-        <a class="menu-item" href="orders.html">
-            <span class="menu-icon">🛒</span>
+
+        <a
+            class="menu-item"
+            href="orders.html"
+        >
+
+            <span class="menu-icon">
+                🛒
+            </span>
+
             Orders
+
         </a>
 
-        <a class="menu-item active" href="product.html">
-            <span class="menu-icon">📦</span>
+
+        <a
+            class="menu-item active"
+            href="product.html"
+        >
+
+            <span class="menu-icon">
+                📦
+            </span>
+
             Products
+
         </a>
 
-        <a class="menu-item" href="#customers">
-            <span class="menu-icon">👥</span>
+
+        <a
+            class="menu-item"
+            href="#customers"
+        >
+
+            <span class="menu-icon">
+                👥
+            </span>
+
             Customers
+
         </a>
 
-        <a class="menu-item" href="#custom">
-            <span class="menu-icon">🎨</span>
+
+        <a
+            class="menu-item"
+            href="#custom"
+        >
+
+            <span class="menu-icon">
+                🎨
+            </span>
+
             Custom Requests
+
         </a>
 
     </div>
@@ -588,11 +776,14 @@ select:focus{
 
 <main class="main">
 
+
     <div class="topbar">
 
         <div class="page-title">
 
-            <h1>Products</h1>
+            <h1>
+                Products
+            </h1>
 
             <p>
                 Manage X3D Printing products.
@@ -600,19 +791,25 @@ select:focus{
 
         </div>
 
+
         <button
             class="add-btn"
             onclick="openAddModal()"
         >
+
             + Add Product
+
         </button>
 
     </div>
 
 
-    <!-- STATS -->
+    <!-- =====================================
+         STATS
+    ====================================== -->
 
     <section class="stats">
+
 
         <div class="stat-card">
 
@@ -661,18 +858,23 @@ select:focus{
 
         </div>
 
+
     </section>
 
 
-    <!-- PRODUCTS TABLE -->
+    <!-- =====================================
+         PRODUCTS TABLE
+    ====================================== -->
 
     <section class="products-card">
+
 
         <div class="products-header">
 
             <h2>
                 All Products
             </h2>
+
 
             <input
                 class="search"
@@ -695,7 +897,9 @@ select:focus{
 
         </div>
 
+
     </section>
+
 
 </main>
 
@@ -711,11 +915,13 @@ select:focus{
 
     <div class="modal-box">
 
+
         <div class="modal-header">
 
             <h2 id="modalTitle">
                 Add Product
             </h2>
+
 
             <button
                 class="close"
@@ -729,6 +935,8 @@ select:focus{
 
         <div class="form-grid">
 
+
+            <!-- PRODUCT NAME -->
 
             <div class="form-group">
 
@@ -744,6 +952,8 @@ select:focus{
             </div>
 
 
+            <!-- CATEGORY -->
+
             <div class="form-group">
 
                 <label>
@@ -758,6 +968,8 @@ select:focus{
             </div>
 
 
+            <!-- DESCRIPTION -->
+
             <div class="form-group full">
 
                 <label>
@@ -771,6 +983,8 @@ select:focus{
 
             </div>
 
+
+            <!-- PRICE -->
 
             <div class="form-group">
 
@@ -788,6 +1002,8 @@ select:focus{
             </div>
 
 
+            <!-- STOCK -->
+
             <div class="form-group">
 
                 <label>
@@ -797,12 +1013,15 @@ select:focus{
                 <input
                     id="productStock"
                     type="number"
+                    min="0"
                     placeholder="10"
                     value="0"
                 >
 
             </div>
 
+
+            <!-- IMAGE -->
 
             <div class="form-group full">
 
@@ -816,6 +1035,7 @@ select:focus{
                     accept="image/*"
                 >
 
+
                 <div
                     id="currentImageText"
                     style="
@@ -827,6 +1047,8 @@ select:focus{
 
             </div>
 
+
+            <!-- STATUS -->
 
             <div class="form-group">
 
@@ -854,10 +1076,14 @@ select:focus{
 
         <button
             class="save-btn"
+            id="saveProductButton"
             onclick="saveProduct()"
         >
+
             Save Product
+
         </button>
+
 
     </div>
 
@@ -868,11 +1094,12 @@ select:focus{
 
 
 /* =========================================
-   SUPABASE
+   SUPABASE CONFIGURATION
 ========================================= */
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
+
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
@@ -889,20 +1116,6 @@ const supabaseClient =
    GITHUB
 ========================================= */
 
-/*
-    IMPORTANT
-
-    الصور موجودة في نفس Repository:
-
-    ahmedramadansadek1112-collab/x-3d-printing
-
-    والفرع:
-
-    main
-
-    لذلك هنقرأ الصور مباشرة من GitHub.
-*/
-
 const GITHUB_RAW_BASE =
     "https://raw.githubusercontent.com/ahmedramadansadek1112-collab/x-3d-printing/main";
 
@@ -916,7 +1129,7 @@ const PRODUCT_BUCKET =
 
 
 /* =========================================
-   GLOBAL
+   GLOBAL VARIABLES
 ========================================= */
 
 let products = [];
@@ -925,61 +1138,53 @@ let editingId = null;
 
 
 /* =========================================
-   IMAGE FILE MAP
+   PRODUCT IMAGE MAP
 ========================================= */
 
 const PRODUCT_IMAGES = {
 
-    /*
-        Custom Name Keychain
-    */
 
     "custom name keychain":
         "01-custom-name-keychain.jpeg",
 
+
     "custom name":
         "01-custom-name-keychain.jpeg",
 
-    "01-custom-name-keychain":
+
+    "01 custom name keychain":
         "01-custom-name-keychain.jpeg",
 
-
-    /*
-        Football Keychain
-    */
 
     "football keychain":
         "03-football-keychain.jpeg",
 
-    "03-football-keychain":
+
+    "03 football keychain":
         "03-football-keychain.jpeg",
 
-
-    /*
-        Fighter Jets
-    */
 
     "fighter jets - set of 2":
         "02-fighter-jet-1.jpeg",
 
+
     "fighter jets":
         "02-fighter-jet-1.jpeg",
+
 
     "fighter jet":
         "02-fighter-jet-1.jpeg",
 
-    "02-fighter-jet-1":
+
+    "02 fighter jet 1":
         "02-fighter-jet-1.jpeg",
 
-
-    /*
-        Knife
-    */
 
     "knife":
         "04-knife-1.jpeg",
 
-    "04-knife-1":
+
+    "04 knife 1":
         "04-knife-1.jpeg"
 
 };
@@ -1001,41 +1206,47 @@ function normalizeText(value){
 
 
 /* =========================================
-   GET GITHUB IMAGE
+   GET GITHUB IMAGE URL
 ========================================= */
 
 function getGithubImageUrl(product){
 
     if(!product){
+
         return "";
+
     }
 
 
     const name =
-        normalizeText(product.name);
+        normalizeText(
+            product.name
+        );
 
 
     /*
-        First:
-        Try image_url from database.
+        IMPORTANT:
+        Supabase column is:
+
+        image
+
+        NOT:
+
+        image_url
     */
 
     let databaseImage =
         String(
-            product.image_url || ""
+            product.image || ""
         ).trim();
 
 
     /*
-        If database contains something like:
+        If database has:
 
-        images/01-custom-name-keychain.jpeg
+        images/file.jpeg
 
-        or:
-
-        01-custom-name-keychain.jpeg
-
-        extract only the filename.
+        extract filename.
     */
 
     if(databaseImage){
@@ -1046,12 +1257,6 @@ function getGithubImageUrl(product){
                 .pop()
                 .trim();
 
-
-        /*
-            If this exact filename exists
-            in our GitHub repository,
-            use it.
-        */
 
         const knownFiles = [
 
@@ -1079,8 +1284,26 @@ function getGithubImageUrl(product){
             return (
                 GITHUB_RAW_BASE +
                 "/" +
-                encodeURIComponent(databaseImage)
+                encodeURIComponent(
+                    databaseImage
+                )
             );
+
+        }
+
+
+        /*
+            If image is already
+            a complete URL.
+        */
+
+        if(
+            /^https?:\/\//i.test(
+                product.image
+            )
+        ){
+
+            return product.image;
 
         }
 
@@ -1088,8 +1311,7 @@ function getGithubImageUrl(product){
 
 
     /*
-        If image_url doesn't match,
-        use product name.
+        Try name mapping.
     */
 
     if(
@@ -1108,7 +1330,7 @@ function getGithubImageUrl(product){
 
 
     /*
-        Additional flexible matching.
+        Flexible matching.
     */
 
     if(
@@ -1168,12 +1390,34 @@ function getGithubImageUrl(product){
 
 
 /* =========================================
-   GET IMAGE URL
+   GET PRODUCT IMAGE URL
 ========================================= */
 
 function getProductImageUrl(product){
 
-    return getGithubImageUrl(product);
+    /*
+        If database image is a
+        full URL, use it directly.
+    */
+
+    if(
+        product &&
+        product.image &&
+        /^https?:\/\//i.test(
+            String(product.image)
+        )
+    ){
+
+        return String(
+            product.image
+        );
+
+    }
+
+
+    return getGithubImageUrl(
+        product
+    );
 
 }
 
@@ -1199,6 +1443,16 @@ async function loadProducts(){
 
     try{
 
+        /*
+            IMPORTANT:
+
+            select *
+            automatically gets the real
+            columns from Supabase.
+
+            No image_url reference.
+        */
+
         const {
             data,
             error
@@ -1216,7 +1470,10 @@ async function loadProducts(){
 
         if(error){
 
-            console.error(error);
+            console.error(
+                "Supabase Load Error:",
+                error
+            );
 
 
             container.innerHTML = `
@@ -1249,10 +1506,11 @@ async function loadProducts(){
 
 
     }
-
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
 
 
         container.innerHTML = `
@@ -1275,7 +1533,7 @@ async function loadProducts(){
 
 
 /* =========================================
-   STATS
+   UPDATE STATS
 ========================================= */
 
 function updateStats(){
@@ -1290,8 +1548,8 @@ function updateStats(){
         "activeProducts"
     ).textContent =
         products.filter(
-            p =>
-                p.is_active !== false
+            product =>
+                product.is_active !== false
         ).length;
 
 
@@ -1299,9 +1557,9 @@ function updateStats(){
         "outOfStock"
     ).textContent =
         products.filter(
-            p =>
+            product =>
                 Number(
-                    p.stock || 0
+                    product.stock || 0
                 ) <= 0
         ).length;
 
@@ -1320,13 +1578,20 @@ function renderProducts(){
         );
 
 
-    const search =
+    const searchElement =
         document.getElementById(
             "searchInput"
-        )
-        .value
-        .toLowerCase()
-        .trim();
+        );
+
+
+    const search =
+        searchElement
+        ?
+        searchElement.value
+            .toLowerCase()
+            .trim()
+        :
+        "";
 
 
     let filtered =
@@ -1362,11 +1627,17 @@ function renderProducts(){
 
                     return (
 
-                        name.includes(search) ||
+                        name.includes(
+                            search
+                        ) ||
 
-                        category.includes(search) ||
+                        category.includes(
+                            search
+                        ) ||
 
-                        description.includes(search)
+                        description.includes(
+                            search
+                        )
 
                     );
 
@@ -1457,7 +1728,9 @@ function renderProducts(){
                                                 `
                                                     <img
                                                         class="product-image"
-                                                        src="${escapeHtml(imageUrl)}"
+                                                        src="${escapeHtml(
+                                                            imageUrl
+                                                        )}"
                                                         alt="${escapeHtml(
                                                             product.name ||
                                                             "Product"
@@ -1627,7 +1900,7 @@ function handleImageError(image){
 
 
 /* =========================================
-   ADD PRODUCT
+   OPEN ADD MODAL
 ========================================= */
 
 function openAddModal(){
@@ -1672,8 +1945,15 @@ function editProduct(id){
         );
 
 
-    if(!product)
+    if(!product){
+
+        alert(
+            "Product not found."
+        );
+
         return;
+
+    }
 
 
     editingId =
@@ -1707,7 +1987,7 @@ function editProduct(id){
     document.getElementById(
         "productPrice"
     ).value =
-        product.price || "";
+        product.price ?? "";
 
 
     document.getElementById(
@@ -1748,11 +2028,15 @@ function editProduct(id){
 
         currentImageText.innerHTML = `
 
-            Current image loaded from GitHub.
+            Current image:
 
             <br>
 
-            <span style="word-break:break-all;">
+            <span
+                style="
+                    word-break:break-all;
+                "
+            >
                 ${escapeHtml(
                     currentImage
                 )}
@@ -1760,13 +2044,12 @@ function editProduct(id){
 
             <br><br>
 
-            Choose a new image only if you want
-            to replace the current image.
+            Choose a new image only if you
+            want to replace the current image.
 
         `;
 
     }
-
     else{
 
         currentImageText.textContent =
@@ -1784,13 +2067,49 @@ function editProduct(id){
 
 
 /* =========================================
-   UPLOAD IMAGE
+   UPLOAD IMAGE TO SUPABASE STORAGE
 ========================================= */
 
 async function uploadProductImage(file){
 
-    if(!file)
+    if(!file){
+
         return null;
+
+    }
+
+
+    /*
+        Validate image.
+    */
+
+    if(
+        !file.type.startsWith(
+            "image/"
+        )
+    ){
+
+        throw new Error(
+            "Please select a valid image file."
+        );
+
+    }
+
+
+    /*
+        Maximum 5 MB.
+    */
+
+    if(
+        file.size >
+        5 * 1024 * 1024
+    ){
+
+        throw new Error(
+            "Image size must be less than 5 MB."
+        );
+
+    }
 
 
     const extension =
@@ -1802,14 +2121,17 @@ async function uploadProductImage(file){
 
     const safeName =
         file.name
+
             .replace(
                 /\.[^/.]+$/,
                 ""
             )
+
             .replace(
                 /[^a-zA-Z0-9-_]/g,
                 "-"
             )
+
             .toLowerCase();
 
 
@@ -1833,11 +2155,13 @@ async function uploadProductImage(file){
                 filePath,
                 file,
                 {
+
                     cacheControl:
                         "3600",
 
                     upsert:
                         false
+
                 }
             );
 
@@ -1849,7 +2173,138 @@ async function uploadProductImage(file){
     }
 
 
+    /*
+        Return the storage path.
+
+        IMPORTANT:
+
+        This will be saved in:
+
+        products.image
+    */
+
     return filePath;
+
+}
+
+
+/* =========================================
+   GET STORAGE PUBLIC URL
+========================================= */
+
+function getStoragePublicUrl(
+    path
+){
+
+    if(!path){
+
+        return "";
+
+    }
+
+
+    if(
+        /^https?:\/\//i.test(
+            path
+        )
+    ){
+
+        return path;
+
+    }
+
+
+    const {
+        data
+    } =
+        supabaseClient
+            .storage
+            .from(
+                PRODUCT_BUCKET
+            )
+            .getPublicUrl(
+                path
+            );
+
+
+    return (
+        data &&
+        data.publicUrl
+    )
+    ?
+    data.publicUrl
+    :
+    "";
+
+}
+
+
+/* =========================================
+   GET BEST PRODUCT IMAGE
+========================================= */
+
+function getBestProductImageUrl(
+    product
+){
+
+    if(!product){
+
+        return "";
+
+    }
+
+
+    /*
+        If image is a Supabase
+        storage path.
+    */
+
+    if(
+        product.image &&
+        !/^https?:\/\//i.test(
+            String(
+                product.image
+            )
+        )
+    ){
+
+        /*
+            Only treat it as storage
+            path if it starts with images/.
+        */
+
+        if(
+            String(
+                product.image
+            ).startsWith(
+                "images/"
+            )
+        ){
+
+            const storageUrl =
+                getStoragePublicUrl(
+                    product.image
+                );
+
+
+            if(storageUrl){
+
+                return storageUrl;
+
+            }
+
+        }
+
+    }
+
+
+    /*
+        GitHub image.
+    */
+
+    return getGithubImageUrl(
+        product
+    );
 
 }
 
@@ -1859,6 +2314,12 @@ async function uploadProductImage(file){
 ========================================= */
 
 async function saveProduct(){
+
+    const saveButton =
+        document.getElementById(
+            "saveProductButton"
+        );
+
 
     const name =
         document.getElementById(
@@ -1913,6 +2374,10 @@ async function saveProduct(){
         ).value === "true";
 
 
+    /* =====================================
+       VALIDATION
+    ====================================== */
+
     if(!name){
 
         alert(
@@ -1924,7 +2389,10 @@ async function saveProduct(){
     }
 
 
-    if(isNaN(price)){
+    if(
+        !Number.isFinite(price) ||
+        price < 0
+    ){
 
         alert(
             "Please enter a valid price."
@@ -1935,7 +2403,10 @@ async function saveProduct(){
     }
 
 
-    if(isNaN(stock) || stock < 0){
+    if(
+        !Number.isFinite(stock) ||
+        stock < 0
+    ){
 
         alert(
             "Please enter a valid stock."
@@ -1948,14 +2419,18 @@ async function saveProduct(){
 
     try{
 
+        saveButton.disabled = true;
+
+        saveButton.textContent =
+            "Saving...";
+
+
         let imagePath = null;
 
 
-        /*
-            When editing:
-
-            Keep existing database image value.
-        */
+        /* =================================
+           EDIT MODE
+        ================================= */
 
         if(editingId){
 
@@ -1967,10 +2442,18 @@ async function saveProduct(){
                 );
 
 
+            /*
+                IMPORTANT:
+
+                Use product.image
+
+                NOT product.image_url
+            */
+
             imagePath =
                 existingProduct
                 ?
-                existingProduct.image_url ||
+                existingProduct.image ||
                 null
                 :
                 null;
@@ -1978,10 +2461,9 @@ async function saveProduct(){
         }
 
 
-        /*
-            Upload new image only
-            when user selects one.
-        */
+        /* =================================
+           NEW IMAGE
+        ================================= */
 
         if(imageFile){
 
@@ -1993,37 +2475,87 @@ async function saveProduct(){
         }
 
 
+        /* =================================
+           PRODUCT DATA
+        ================================= */
+
         const productData = {
 
-            name,
+            name:
 
-            category,
+                name,
 
-            description,
 
-            price,
+            category:
 
-            stock,
+                category,
 
-            image_url:
+
+            description:
+
+                description,
+
+
+            price:
+
+                price,
+
+
+            stock:
+
+                stock,
+
+
+            /*
+                IMPORTANT:
+
+                Supabase column is:
+
+                image
+
+                NOT:
+
+                image_url
+            */
+
+            image:
+
                 imagePath,
 
-            is_active
+
+            is_active:
+
+                is_active
 
         };
+
+
+        console.log(
+            "Saving product:",
+            productData
+        );
 
 
         let result;
 
 
+        /* =================================
+           UPDATE
+        ================================= */
+
         if(editingId){
 
             result =
                 await supabaseClient
-                    .from("products")
+
+                    .from(
+                        "products"
+                    )
+
                     .update(
                         productData
                     )
+
                     .eq(
                         "id",
                         editingId
@@ -2031,11 +2563,20 @@ async function saveProduct(){
 
         }
 
+
+        /* =================================
+           INSERT
+        ================================= */
+
         else{
 
             result =
                 await supabaseClient
-                    .from("products")
+
+                    .from(
+                        "products"
+                    )
+
                     .insert(
                         productData
                     );
@@ -2043,9 +2584,14 @@ async function saveProduct(){
         }
 
 
+        /* =================================
+           ERROR
+        ================================= */
+
         if(result.error){
 
             console.error(
+                "Save Product Error:",
                 result.error
             );
 
@@ -2060,6 +2606,10 @@ async function saveProduct(){
 
         }
 
+
+        /* =================================
+           SUCCESS
+        ================================= */
 
         alert(
             editingId
@@ -2079,13 +2629,26 @@ async function saveProduct(){
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Save Product Exception:",
+            error
+        );
 
 
         alert(
             "Something went wrong:\n\n" +
             error.message
         );
+
+    }
+
+    finally{
+
+        saveButton.disabled =
+            false;
+
+        saveButton.textContent =
+            "Save Product";
 
     }
 
@@ -2106,8 +2669,11 @@ async function deleteProduct(id){
         );
 
 
-    if(!product)
+    if(!product){
+
         return;
+
+    }
 
 
     const confirmed =
@@ -2116,44 +2682,73 @@ async function deleteProduct(id){
         );
 
 
-    if(!confirmed)
-        return;
-
-
-    const {
-        error
-    } =
-        await supabaseClient
-            .from("products")
-            .delete()
-            .eq(
-                "id",
-                id
-            );
-
-
-    if(error){
-
-        console.error(error);
-
-
-        alert(
-            "Failed to delete product:\n\n" +
-            error.message
-        );
-
+    if(!confirmed){
 
         return;
 
     }
 
 
-    alert(
-        "Product deleted successfully!"
-    );
+    try{
+
+        const {
+            error
+        } =
+            await supabaseClient
+
+                .from(
+                    "products"
+                )
+
+                .delete()
+
+                .eq(
+                    "id",
+                    id
+                );
 
 
-    await loadProducts();
+        if(error){
+
+            console.error(
+                "Delete Error:",
+                error
+            );
+
+
+            alert(
+                "Failed to delete product:\n\n" +
+                error.message
+            );
+
+
+            return;
+
+        }
+
+
+        alert(
+            "Product deleted successfully!"
+        );
+
+
+        await loadProducts();
+
+    }
+
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        alert(
+            "Something went wrong:\n\n" +
+            error.message
+        );
+
+    }
 
 }
 
@@ -2205,6 +2800,12 @@ function clearForm(){
     ).value =
         "true";
 
+
+    document.getElementById(
+        "currentImageText"
+    ).textContent =
+        "";
+
 }
 
 
@@ -2223,7 +2824,7 @@ function closeModal(){
 
 
 /* =========================================
-   CLOSE MODAL OUTSIDE
+   CLOSE MODAL WHEN CLICK OUTSIDE
 ========================================= */
 
 window.onclick =
@@ -2235,13 +2836,37 @@ function(event){
         );
 
 
-    if(event.target === modal){
+    if(
+        event.target ===
+        modal
+    ){
 
         closeModal();
 
     }
 
 };
+
+
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeModal();
+
+        }
+
+    }
+);
 
 
 /* =========================================
@@ -2291,7 +2916,7 @@ function escapeHtml(value){
 
 
 /* =========================================
-   START
+   START APPLICATION
 ========================================= */
 
 loadProducts();
