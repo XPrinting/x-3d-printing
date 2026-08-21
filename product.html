@@ -450,9 +450,22 @@ select:focus{
     cursor:pointer;
 }
 
-.save-btn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
+
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+.image-preview{
+    margin-top:10px;
+    display:none;
+}
+
+.image-preview img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+    border-radius:10px;
+    border:1px solid var(--border);
 }
 
 
@@ -809,6 +822,7 @@ select:focus{
                     id="productImage"
                     type="file"
                     accept="image/*"
+                    onchange="previewSelectedImage()"
                 >
 
                 <div
@@ -819,6 +833,17 @@ select:focus{
                         margin-top:3px;
                     "
                 ></div>
+
+                <div
+                    class="image-preview"
+                    id="imagePreview"
+                >
+                    <img
+                        id="previewImage"
+                        src=""
+                        alt="Preview"
+                    >
+                </div>
 
             </div>
 
@@ -849,7 +874,6 @@ select:focus{
 
         <button
             class="save-btn"
-            id="saveProductButton"
             onclick="saveProduct()"
         >
             Save Product
@@ -869,6 +893,7 @@ select:focus{
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
+
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
@@ -917,8 +942,10 @@ function getProductImageUrl(imagePath){
 
 
     return (
-        `${SUPABASE_URL}/storage/v1/object/public/` +
-        `${PRODUCT_BUCKET}/${cleanPath}`
+        `${SUPABASE_URL}` +
+        `/storage/v1/object/public/` +
+        `${PRODUCT_BUCKET}/` +
+        `${cleanPath}`
     );
 
 }
@@ -945,10 +972,7 @@ async function loadProducts(){
 
     try{
 
-        const {
-            data,
-            error
-        } =
+        const { data, error } =
             await supabaseClient
             .from("products")
             .select("*")
@@ -962,10 +986,7 @@ async function loadProducts(){
 
         if(error){
 
-            console.error(
-                "Supabase load error:",
-                error
-            );
+            console.error(error);
 
 
             container.innerHTML = `
@@ -975,9 +996,7 @@ async function loadProducts(){
 
                     <br><br>
 
-                    ${escapeHtml(
-                        error.message
-                    )}
+                    ${escapeHtml(error.message)}
 
                 </div>
             `;
@@ -1009,9 +1028,7 @@ async function loadProducts(){
 
                 <br><br>
 
-                ${escapeHtml(
-                    error.message
-                )}
+                ${escapeHtml(error.message)}
 
             </div>
         `;
@@ -1022,7 +1039,7 @@ async function loadProducts(){
 
 
 /* =========================================
-   UPDATE STATS
+   STATS
 ========================================= */
 
 function updateStats(){
@@ -1037,8 +1054,8 @@ function updateStats(){
         "activeProducts"
     ).textContent =
         products.filter(
-            product =>
-                product.is_active !== false
+            p =>
+                p.is_active !== false
         ).length;
 
 
@@ -1046,9 +1063,9 @@ function updateStats(){
         "outOfStock"
     ).textContent =
         products.filter(
-            product =>
+            p =>
                 Number(
-                    product.stock || 0
+                    p.stock || 0
                 ) <= 0
         ).length;
 
@@ -1067,20 +1084,13 @@ function renderProducts(){
         );
 
 
-    const searchInput =
+    const search =
         document.getElementById(
             "searchInput"
-        );
-
-
-    const search =
-        searchInput
-        ?
-        searchInput.value
-            .toLowerCase()
-            .trim()
-        :
-        "";
+        )
+        .value
+        .toLowerCase()
+        .trim();
 
 
     let filtered =
@@ -1096,39 +1106,28 @@ function renderProducts(){
                     const name =
                         String(
                             product.name || ""
-                        ).toLowerCase();
+                        )
+                        .toLowerCase();
 
 
                     const category =
                         String(
                             product.category || ""
-                        ).toLowerCase();
+                        )
+                        .toLowerCase();
 
 
                     const description =
                         String(
                             product.description || ""
-                        ).toLowerCase();
+                        )
+                        .toLowerCase();
 
 
                     return (
-
-                        name.includes(
-                            search
-                        )
-
-                        ||
-
-                        category.includes(
-                            search
-                        )
-
-                        ||
-
-                        description.includes(
-                            search
-                        )
-
+                        name.includes(search) ||
+                        category.includes(search) ||
+                        description.includes(search)
                     );
 
                 }
@@ -1194,15 +1193,14 @@ function renderProducts(){
             <tbody>
 
                 ${
-
                     filtered
                     .map(
                         product => {
 
                             /*
-                             IMPORTANT:
-                             Database column is "image"
-                             NOT "image_url"
+                                IMPORTANT:
+                                Database column is "image"
+                                NOT "image_url".
                             */
 
                             const imageUrl =
@@ -1223,25 +1221,25 @@ function renderProducts(){
                                             ?
 
                                             `
-                                                <img
-                                                    class="product-image"
-                                                    src="${escapeHtml(imageUrl)}"
-                                                    alt="${escapeHtml(
-                                                        product.name ||
-                                                        "Product"
-                                                    )}"
-                                                    onerror="handleImageError(this)"
-                                                >
+                                            <img
+                                                class="product-image"
+                                                src="${escapeHtml(imageUrl)}"
+                                                alt="${escapeHtml(
+                                                    product.name ||
+                                                    "Product"
+                                                )}"
+                                                onerror="handleImageError(this)"
+                                            >
                                             `
 
                                             :
 
                                             `
-                                                <div
-                                                    class="product-image-placeholder"
-                                                >
-                                                    No Image
-                                                </div>
+                                            <div
+                                                class="product-image-placeholder"
+                                            >
+                                                No Image
+                                            </div>
                                             `
                                         }
 
@@ -1292,10 +1290,14 @@ function renderProducts(){
                                             class="price"
                                         >
 
-                                            EGP ${Number(
-                                                product.price ||
-                                                0
-                                            ).toLocaleString()}
+                                            EGP
+                                            ${
+                                                Number(
+                                                    product.price ||
+                                                    0
+                                                )
+                                                .toLocaleString()
+                                            }
 
                                         </span>
 
@@ -1326,21 +1328,21 @@ function renderProducts(){
                                             ?
 
                                             `
-                                                <span
-                                                    class="active"
-                                                >
-                                                    Active
-                                                </span>
+                                            <span
+                                                class="active"
+                                            >
+                                                Active
+                                            </span>
                                             `
 
                                             :
 
                                             `
-                                                <span
-                                                    class="inactive"
-                                                >
-                                                    Inactive
-                                                </span>
+                                            <span
+                                                class="inactive"
+                                            >
+                                                Inactive
+                                            </span>
                                             `
                                         }
 
@@ -1377,7 +1379,6 @@ function renderProducts(){
                         }
                     )
                     .join("")
-
                 }
 
             </tbody>
@@ -1413,12 +1414,68 @@ function handleImageError(image){
 
 
 /* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+function previewSelectedImage(){
+
+    const fileInput =
+        document.getElementById(
+            "productImage"
+        );
+
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    const previewImage =
+        document.getElementById(
+            "previewImage"
+        );
+
+
+    const file =
+        fileInput.files[0];
+
+
+    if(!file){
+
+        preview.style.display =
+            "none";
+
+        previewImage.src =
+            "";
+
+        return;
+
+    }
+
+
+    const objectUrl =
+        URL.createObjectURL(file);
+
+
+    previewImage.src =
+        objectUrl;
+
+
+    preview.style.display =
+        "block";
+
+}
+
+
+/* =========================================
    ADD PRODUCT
 ========================================= */
 
 function openAddModal(){
 
-    editingId = null;
+    editingId =
+        null;
 
 
     document.getElementById(
@@ -1434,6 +1491,12 @@ function openAddModal(){
         "currentImageText"
     ).textContent =
         "";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).style.display =
+        "none";
 
 
     document.getElementById(
@@ -1459,10 +1522,6 @@ function editProduct(id){
 
 
     if(!product){
-
-        alert(
-            "Product not found."
-        );
 
         return;
 
@@ -1531,10 +1590,17 @@ function editProduct(id){
         );
 
 
-    /*
-        IMPORTANT:
-        Database column = image
-    */
+    const imagePreview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    const previewImage =
+        document.getElementById(
+            "previewImage"
+        );
+
 
     if(product.image){
 
@@ -1543,12 +1609,30 @@ function editProduct(id){
             product.image +
             " — Choose a new image only if you want to replace it.";
 
+
+        const currentUrl =
+            getProductImageUrl(
+                product.image
+            );
+
+
+        previewImage.src =
+            currentUrl;
+
+
+        imagePreview.style.display =
+            "block";
+
     }
 
     else{
 
         currentImageText.textContent =
             "No current image.";
+
+
+        imagePreview.style.display =
+            "none";
 
     }
 
@@ -1636,12 +1720,6 @@ async function uploadProductImage(file){
 
 async function saveProduct(){
 
-    const button =
-        document.getElementById(
-            "saveProductButton"
-        );
-
-
     const name =
         document.getElementById(
             "productName"
@@ -1696,9 +1774,9 @@ async function saveProduct(){
         .value === "true";
 
 
-    /* =========================================
+    /* =====================================
        VALIDATION
-    ========================================= */
+    ===================================== */
 
     if(!name){
 
@@ -1735,18 +1813,15 @@ async function saveProduct(){
 
     try{
 
-        button.disabled = true;
-
-        button.textContent =
-            "Saving...";
+        let imagePath =
+            null;
 
 
-        let imagePath = null;
-
-
-        /* =========================================
-           KEEP OLD IMAGE WHEN EDITING
-        ========================================= */
+        /*
+            EDITING:
+            Keep old image if no new image
+            is selected.
+        */
 
         if(editingId){
 
@@ -1758,25 +1833,19 @@ async function saveProduct(){
                 );
 
 
-            /*
-                IMPORTANT:
-                Database column = image
-            */
-
             imagePath =
                 existingProduct
                 ?
-                existingProduct.image ||
-                null
+                existingProduct.image || null
                 :
                 null;
 
         }
 
 
-        /* =========================================
-           UPLOAD NEW IMAGE
-        ========================================= */
+        /*
+            UPLOAD NEW IMAGE
+        */
 
         if(imageFile){
 
@@ -1788,14 +1857,10 @@ async function saveProduct(){
         }
 
 
-        /* =========================================
-           PRODUCT DATA
-        ========================================= */
-
         /*
             IMPORTANT:
             Database column is "image"
-            NOT "image_url"
+            NOT "image_url".
         */
 
         const productData = {
@@ -1821,9 +1886,9 @@ async function saveProduct(){
         let result;
 
 
-        /* =========================================
+        /* =================================
            UPDATE
-        ========================================= */
+        ================================= */
 
         if(editingId){
 
@@ -1841,9 +1906,9 @@ async function saveProduct(){
         }
 
 
-        /* =========================================
+        /* =================================
            INSERT
-        ========================================= */
+        ================================= */
 
         else{
 
@@ -1857,14 +1922,9 @@ async function saveProduct(){
         }
 
 
-        /* =========================================
-           DATABASE ERROR
-        ========================================= */
-
         if(result.error){
 
             console.error(
-                "Save product error:",
                 result.error
             );
 
@@ -1879,10 +1939,6 @@ async function saveProduct(){
 
         }
 
-
-        /* =========================================
-           SUCCESS
-        ========================================= */
 
         alert(
             editingId
@@ -1903,7 +1959,6 @@ async function saveProduct(){
     catch(error){
 
         console.error(
-            "Save error:",
             error
         );
 
@@ -1912,15 +1967,6 @@ async function saveProduct(){
             "Something went wrong:\n\n" +
             error.message
         );
-
-    }
-
-    finally{
-
-        button.disabled = false;
-
-        button.textContent =
-            "Save Product";
 
     }
 
@@ -1978,7 +2024,6 @@ async function deleteProduct(id){
         if(error){
 
             console.error(
-                "Delete error:",
                 error
             );
 
@@ -1987,6 +2032,7 @@ async function deleteProduct(id){
                 "Failed to delete product:\n\n" +
                 error.message
             );
+
 
             return;
 
@@ -2004,7 +2050,9 @@ async function deleteProduct(id){
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
 
 
         alert(
@@ -2063,6 +2111,18 @@ function clearForm(){
         "productActive"
     ).value =
         "true";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "previewImage"
+    ).src =
+        "";
 
 }
 
