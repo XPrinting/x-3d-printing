@@ -29,6 +29,7 @@
     --primary:#8b5cf6;
     --green:#22c55e;
     --red:#ef4444;
+    --blue:#3b82f6;
 }
 
 body{
@@ -43,7 +44,6 @@ body{
         var(--bg);
 
     color:var(--text);
-
     min-height:100vh;
 }
 
@@ -56,7 +56,6 @@ body{
     position:fixed;
     left:0;
     top:0;
-
     width:250px;
     height:100vh;
 
@@ -140,7 +139,6 @@ body{
 
 .main{
     margin-left:250px;
-
     padding:30px 35px;
 }
 
@@ -157,7 +155,6 @@ body{
 
 .page-title h1{
     font-size:30px;
-
     margin-bottom:7px;
 }
 
@@ -221,7 +218,6 @@ body{
 
 .stat-value{
     font-size:28px;
-
     font-weight:bold;
 }
 
@@ -452,6 +448,7 @@ tr:hover td{
     z-index:500;
 
     align-items:center;
+
     justify-content:center;
 
     padding:20px;
@@ -573,16 +570,10 @@ textarea:focus{
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:.2s;
-}
-
-.save-btn:hover{
-    opacity:.9;
 }
 
 .save-btn:disabled{
-    opacity:.6;
+    opacity:.7;
 
     cursor:not-allowed;
 }
@@ -660,6 +651,7 @@ textarea:focus{
 
 </head>
 
+
 <body>
 
 
@@ -673,40 +665,99 @@ textarea:focus{
         X<span>3D</span> Admin
     </div>
 
+
     <div class="menu-title">
         Management
     </div>
 
+
     <div class="menu">
 
-        <a class="menu-item" href="admin.html">
-            <span class="menu-icon">📊</span>
+
+        <!-- DASHBOARD -->
+
+        <a
+            class="menu-item"
+            href="admin.html"
+        >
+
+            <span class="menu-icon">
+                📊
+            </span>
+
             Dashboard
+
         </a>
 
-        <a class="menu-item" href="orders.html">
-            <span class="menu-icon">🛒</span>
+
+        <!-- ORDERS -->
+
+        <a
+            class="menu-item"
+            href="orders.html"
+        >
+
+            <span class="menu-icon">
+                🛒
+            </span>
+
             Orders
+
         </a>
 
-        <a class="menu-item active" href="product.html">
-            <span class="menu-icon">📦</span>
+
+        <!-- PRODUCTS -->
+
+        <a
+            class="menu-item active"
+            href="product.html"
+        >
+
+            <span class="menu-icon">
+                📦
+            </span>
+
             Products
+
         </a>
 
-        <a class="menu-item" href="#customers">
-            <span class="menu-icon">👥</span>
+
+        <!-- CUSTOMERS -->
+
+        <a
+            class="menu-item"
+            href="customers.html"
+        >
+
+            <span class="menu-icon">
+                👥
+            </span>
+
             Customers
+
         </a>
 
-        <a class="menu-item" href="#custom">
-            <span class="menu-icon">🎨</span>
+
+        <!-- CUSTOM REQUESTS -->
+
+        <a
+            class="menu-item"
+            href="custom.html"
+        >
+
+            <span class="menu-icon">
+                🎨
+            </span>
+
             Custom Requests
+
         </a>
+
 
     </div>
 
 </aside>
+
 
 
 <!-- =========================================
@@ -715,11 +766,15 @@ textarea:focus{
 
 <main class="main">
 
+
     <div class="topbar">
+
 
         <div class="page-title">
 
-            <h1>Products</h1>
+            <h1>
+                Products
+            </h1>
 
             <p>
                 Manage X3D Printing products.
@@ -727,19 +782,27 @@ textarea:focus{
 
         </div>
 
+
         <button
             class="add-btn"
             onclick="openAddModal()"
         >
+
             + Add Product
+
         </button>
+
 
     </div>
 
 
-    <!-- STATS -->
+
+    <!-- =====================================
+         STATS
+    ====================================== -->
 
     <section class="stats">
+
 
         <div class="stat-card">
 
@@ -756,18 +819,25 @@ textarea:focus{
 
         </div>
 
+
     </section>
 
 
-    <!-- PRODUCTS TABLE -->
+
+    <!-- =====================================
+         PRODUCTS TABLE
+    ====================================== -->
 
     <section class="products-card">
 
+
         <div class="products-header">
+
 
             <h2>
                 All Products
             </h2>
+
 
             <input
                 class="search"
@@ -776,7 +846,9 @@ textarea:focus{
                 oninput="renderProducts()"
             >
 
+
         </div>
+
 
 
         <div
@@ -790,9 +862,12 @@ textarea:focus{
 
         </div>
 
+
     </section>
 
+
 </main>
+
 
 
 <!-- =========================================
@@ -804,13 +879,17 @@ textarea:focus{
     id="productModal"
 >
 
+
     <div class="modal-box">
 
+
         <div class="modal-header">
+
 
             <h2 id="modalTitle">
                 Add Product
             </h2>
+
 
             <button
                 class="close"
@@ -819,13 +898,15 @@ textarea:focus{
                 ×
             </button>
 
+
         </div>
+
 
 
         <div class="form-grid">
 
 
-            <!-- PRODUCT NAME -->
+            <!-- NAME -->
 
             <div class="form-group">
 
@@ -839,6 +920,7 @@ textarea:focus{
                 >
 
             </div>
+
 
 
             <!-- CATEGORY -->
@@ -857,6 +939,7 @@ textarea:focus{
             </div>
 
 
+
             <!-- DESCRIPTION -->
 
             <div class="form-group full">
@@ -871,6 +954,7 @@ textarea:focus{
                 ></textarea>
 
             </div>
+
 
 
             <!-- PRICE -->
@@ -891,19 +975,28 @@ textarea:focus{
             </div>
 
 
+
             <!-- IMAGE -->
 
-            <div class="form-group full">
+            <div class="form-group">
 
                 <label>
-                    Product Image
+                    Image File Name
                 </label>
 
                 <input
                     id="productImage"
-                    type="file"
-                    accept="image/*"
+                    type="text"
+                    placeholder="01-custom-name-keychain.jpeg"
                 >
+
+            </div>
+
+
+            <div
+                class="form-group full"
+                id="currentImageContainer"
+            >
 
                 <div
                     id="currentImageText"
@@ -920,17 +1013,22 @@ textarea:focus{
         </div>
 
 
+
         <button
             class="save-btn"
-            id="saveProductButton"
+            id="saveButton"
             onclick="saveProduct()"
         >
+
             Save Product
+
         </button>
+
 
     </div>
 
 </div>
+
 
 
 <script>
@@ -943,6 +1041,7 @@ textarea:focus{
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
 
@@ -954,6 +1053,7 @@ const supabaseClient =
     );
 
 
+
 /* =========================================
    GITHUB
 ========================================= */
@@ -961,13 +1061,6 @@ const supabaseClient =
 const GITHUB_RAW_BASE =
     "https://raw.githubusercontent.com/ahmedramadansadek1112-collab/x-3d-printing/main";
 
-
-/* =========================================
-   STORAGE
-========================================= */
-
-const PRODUCT_BUCKET =
-    "product-images";
 
 
 /* =========================================
@@ -979,8 +1072,9 @@ let products = [];
 let editingId = null;
 
 
+
 /* =========================================
-   KNOWN GITHUB IMAGES
+   KNOWN IMAGES
 ========================================= */
 
 const PRODUCT_IMAGES = {
@@ -1018,6 +1112,7 @@ const PRODUCT_IMAGES = {
 };
 
 
+
 /* =========================================
    NORMALIZE TEXT
 ========================================= */
@@ -1033,11 +1128,12 @@ function normalizeText(value){
 }
 
 
+
 /* =========================================
-   GET GITHUB IMAGE
+   GET IMAGE URL
 ========================================= */
 
-function getGithubImageUrl(product){
+function getProductImageUrl(product){
 
     if(!product){
 
@@ -1046,17 +1142,10 @@ function getGithubImageUrl(product){
     }
 
 
-    const name =
-        normalizeText(
-            product.name
-        );
-
-
     /*
-        Database column is:
-        image
-
-        NOT image_url
+        IMPORTANT:
+        Your database column is "image"
+        NOT image_url.
     */
 
     let databaseImage =
@@ -1066,9 +1155,15 @@ function getGithubImageUrl(product){
 
 
     /*
-        If image contains
-        images/filename.jpeg
-        get only filename.
+        Remove folders.
+
+        Example:
+
+        images/01-custom-name-keychain.jpeg
+
+        becomes:
+
+        01-custom-name-keychain.jpeg
     */
 
     if(databaseImage){
@@ -1080,63 +1175,20 @@ function getGithubImageUrl(product){
                 .trim();
 
 
-        const knownFiles = [
-
-            "01-custom-name-keychain.jpeg",
-
-            "02-fighter-jet-1.jpeg",
-
-            "02-fighter-jet-2.jpeg",
-
-            "03-football-keychain.jpeg",
-
-            "04-knife-1.jpeg",
-
-            "04-knife-2.jpeg"
-
-        ];
-
-
-        if(
-            knownFiles.includes(
-                databaseImage
-            )
-        ){
-
-            return (
-                GITHUB_RAW_BASE +
-                "/" +
-                encodeURIComponent(
-                    databaseImage
-                )
-            );
-
-        }
-
-
-        /*
-            If database already contains
-            a complete HTTP URL
-        */
-
-        if(
-            databaseImage.startsWith("http")
-        ){
-
-            return databaseImage;
-
-        }
+        return (
+            GITHUB_RAW_BASE +
+            "/" +
+            encodeURIComponent(databaseImage)
+        );
 
     }
 
 
-    /*
-        Match by product name.
-    */
+    const name =
+        normalizeText(product.name);
 
-    if(
-        PRODUCT_IMAGES[name]
-    ){
+
+    if(PRODUCT_IMAGES[name]){
 
         return (
             GITHUB_RAW_BASE +
@@ -1192,9 +1244,7 @@ function getGithubImageUrl(product){
     }
 
 
-    if(
-        name.includes("knife")
-    ){
+    if(name.includes("knife")){
 
         return (
             GITHUB_RAW_BASE +
@@ -1208,16 +1258,6 @@ function getGithubImageUrl(product){
 
 }
 
-
-/* =========================================
-   PRODUCT IMAGE URL
-========================================= */
-
-function getProductImageUrl(product){
-
-    return getGithubImageUrl(product);
-
-}
 
 
 /* =========================================
@@ -1241,13 +1281,26 @@ async function loadProducts(){
 
     try{
 
+        /*
+            ONLY SELECT EXISTING COLUMNS.
+
+            id
+            name
+            description
+            category
+            price
+            image
+        */
+
         const {
             data,
             error
         } =
             await supabaseClient
                 .from("products")
-                .select("*")
+                .select(
+                    "id,name,description,category,price,image"
+                )
                 .order(
                     "id",
                     {
@@ -1275,6 +1328,7 @@ async function loadProducts(){
                 </div>
             `;
 
+
             return;
 
         }
@@ -1287,6 +1341,7 @@ async function loadProducts(){
         updateStats();
 
         renderProducts();
+
 
     }
 
@@ -1314,6 +1369,7 @@ async function loadProducts(){
 }
 
 
+
 /* =========================================
    STATS
 ========================================= */
@@ -1326,6 +1382,7 @@ function updateStats(){
         products.length;
 
 }
+
 
 
 /* =========================================
@@ -1409,6 +1466,7 @@ function renderProducts(){
     }
 
 
+
     container.innerHTML = `
 
         <table>
@@ -1459,6 +1517,7 @@ function renderProducts(){
 
                                     <tr>
 
+
                                         <td>
 
                                             ${
@@ -1490,6 +1549,7 @@ function renderProducts(){
                                         </td>
 
 
+
                                         <td>
 
                                             <div class="product-name">
@@ -1514,6 +1574,7 @@ function renderProducts(){
                                         </td>
 
 
+
                                         <td>
 
                                             ${escapeHtml(
@@ -1522,6 +1583,7 @@ function renderProducts(){
                                             )}
 
                                         </td>
+
 
 
                                         <td>
@@ -1537,7 +1599,9 @@ function renderProducts(){
                                         </td>
 
 
+
                                         <td>
+
 
                                             <button
                                                 class="edit-btn"
@@ -1545,8 +1609,11 @@ function renderProducts(){
                                                     product.id
                                                 )})"
                                             >
+
                                                 Edit
+
                                             </button>
+
 
 
                                             <button
@@ -1555,10 +1622,14 @@ function renderProducts(){
                                                     product.id
                                                 )})"
                                             >
+
                                                 Delete
+
                                             </button>
 
+
                                         </td>
+
 
                                     </tr>
 
@@ -1576,6 +1647,7 @@ function renderProducts(){
     `;
 
 }
+
 
 
 /* =========================================
@@ -1599,6 +1671,7 @@ function handleImageError(image){
 }
 
 
+
 /* =========================================
    ADD PRODUCT
 ========================================= */
@@ -1620,7 +1693,7 @@ function openAddModal(){
     document.getElementById(
         "currentImageText"
     ).textContent =
-        "";
+        "Enter the GitHub image filename, for example: 01-custom-name-keychain.jpeg";
 
 
     document.getElementById(
@@ -1629,6 +1702,7 @@ function openAddModal(){
         "flex";
 
 }
+
 
 
 /* =========================================
@@ -1645,8 +1719,11 @@ function editProduct(id){
         );
 
 
-    if(!product)
+    if(!product){
+
         return;
+
+    }
 
 
     editingId =
@@ -1680,13 +1757,13 @@ function editProduct(id){
     document.getElementById(
         "productPrice"
     ).value =
-        product.price || "";
+        product.price ?? "";
 
 
     document.getElementById(
         "productImage"
     ).value =
-        "";
+        product.image || "";
 
 
     const currentImageText =
@@ -1710,17 +1787,10 @@ function editProduct(id){
             <br>
 
             <span style="word-break:break-all;">
-
                 ${escapeHtml(
                     currentImage
                 )}
-
             </span>
-
-            <br><br>
-
-            Choose a new image only if you
-            want to replace the current image.
 
         `;
 
@@ -1742,93 +1812,6 @@ function editProduct(id){
 }
 
 
-/* =========================================
-   UPLOAD IMAGE
-========================================= */
-
-async function uploadProductImage(file){
-
-    if(!file)
-        return null;
-
-
-    const extension =
-        file.name
-            .split(".")
-            .pop()
-            .toLowerCase();
-
-
-    const safeName =
-        file.name
-            .replace(
-                /\.[^/.]+$/,
-                ""
-            )
-            .replace(
-                /[^a-zA-Z0-9-_]/g,
-                "-"
-            )
-            .toLowerCase();
-
-
-    const fileName =
-        `${Date.now()}-${safeName}.${extension}`;
-
-
-    const filePath =
-        `images/${fileName}`;
-
-
-    const {
-        error
-    } =
-        await supabaseClient
-            .storage
-            .from(
-                PRODUCT_BUCKET
-            )
-            .upload(
-                filePath,
-                file,
-                {
-                    cacheControl:
-                        "3600",
-
-                    upsert:
-                        false
-                }
-            );
-
-
-    if(error){
-
-        throw error;
-
-    }
-
-
-    /*
-        Get public URL
-    */
-
-    const {
-        data
-    } =
-        supabaseClient
-            .storage
-            .from(
-                PRODUCT_BUCKET
-            )
-            .getPublicUrl(
-                filePath
-            );
-
-
-    return data.publicUrl;
-
-}
-
 
 /* =========================================
    SAVE PRODUCT
@@ -1836,9 +1819,9 @@ async function uploadProductImage(file){
 
 async function saveProduct(){
 
-    const button =
+    const saveButton =
         document.getElementById(
-            "saveProductButton"
+            "saveButton"
         );
 
 
@@ -1866,19 +1849,20 @@ async function saveProduct(){
         .trim();
 
 
-    const price =
-        Number(
-            document.getElementById(
-                "productPrice"
-            ).value
-        );
+    const priceValue =
+        document.getElementById(
+            "productPrice"
+        )
+        .value
+        .trim();
 
 
-    const imageFile =
+    const image =
         document.getElementById(
             "productImage"
         )
-        .files[0];
+        .value
+        .trim();
 
 
     if(!name){
@@ -1892,10 +1876,22 @@ async function saveProduct(){
     }
 
 
-    if(
-        isNaN(price) ||
-        price < 0
-    ){
+    if(priceValue === ""){
+
+        alert(
+            "Please enter a price."
+        );
+
+        return;
+
+    }
+
+
+    const price =
+        Number(priceValue);
+
+
+    if(!Number.isFinite(price)){
 
         alert(
             "Please enter a valid price."
@@ -1906,107 +1902,42 @@ async function saveProduct(){
     }
 
 
+    /*
+        IMPORTANT:
+
+        We are ONLY sending columns
+        that actually exist in your table.
+    */
+
+    const productData = {
+
+        name,
+
+        description,
+
+        category,
+
+        price,
+
+        image
+
+    };
+
+
     try{
 
-        button.disabled = true;
+        saveButton.disabled = true;
 
-        button.textContent =
+        saveButton.textContent =
             "Saving...";
-
-
-        /*
-            Get existing image.
-
-            IMPORTANT:
-            Database column is "image"
-            NOT "image_url".
-        */
-
-        let imagePath = null;
-
-
-        if(editingId){
-
-            const existingProduct =
-                products.find(
-                    p =>
-                        Number(p.id) ===
-                        Number(editingId)
-                );
-
-
-            imagePath =
-                existingProduct
-                ?
-                existingProduct.image ||
-                null
-                :
-                null;
-
-        }
-
-
-        /*
-            Upload new image
-            only if selected.
-        */
-
-        if(imageFile){
-
-            imagePath =
-                await uploadProductImage(
-                    imageFile
-                );
-
-        }
-
-
-        /*
-            IMPORTANT:
-
-            Only use columns that
-            actually exist in Supabase.
-
-            Current schema:
-
-            name
-            description
-            category
-            price
-            image
-        */
-
-        const productData = {
-
-            name:
-
-                name,
-
-            description:
-
-                description,
-
-            category:
-
-                category,
-
-            price:
-
-                price,
-
-            image:
-
-                imagePath
-
-        };
 
 
         let result;
 
 
-        /* =====================================
-           UPDATE
-        ===================================== */
+        /*
+            EDIT
+        */
 
         if(editingId){
 
@@ -2024,9 +1955,9 @@ async function saveProduct(){
         }
 
 
-        /* =====================================
-           INSERT
-        ===================================== */
+        /*
+            ADD
+        */
 
         else{
 
@@ -2043,12 +1974,17 @@ async function saveProduct(){
         if(result.error){
 
             console.error(
-                "Supabase error:",
                 result.error
             );
 
 
-            throw result.error;
+            alert(
+                "Failed to save product:\n\n" +
+                result.error.message
+            );
+
+
+            return;
 
         }
 
@@ -2071,14 +2007,11 @@ async function saveProduct(){
 
     catch(error){
 
-        console.error(
-            "Save product error:",
-            error
-        );
+        console.error(error);
 
 
         alert(
-            "Failed to save product:\n\n" +
+            "Something went wrong:\n\n" +
             error.message
         );
 
@@ -2086,14 +2019,15 @@ async function saveProduct(){
 
     finally{
 
-        button.disabled = false;
+        saveButton.disabled = false;
 
-        button.textContent =
+        saveButton.textContent =
             "Save Product";
 
     }
 
 }
+
 
 
 /* =========================================
@@ -2110,8 +2044,11 @@ async function deleteProduct(id){
         );
 
 
-    if(!product)
+    if(!product){
+
         return;
+
+    }
 
 
     const confirmed =
@@ -2120,8 +2057,11 @@ async function deleteProduct(id){
         );
 
 
-    if(!confirmed)
+    if(!confirmed){
+
         return;
+
+    }
 
 
     try{
@@ -2140,7 +2080,16 @@ async function deleteProduct(id){
 
         if(error){
 
-            throw error;
+            console.error(error);
+
+
+            alert(
+                "Failed to delete product:\n\n" +
+                error.message
+            );
+
+
+            return;
 
         }
 
@@ -2160,13 +2109,14 @@ async function deleteProduct(id){
 
 
         alert(
-            "Failed to delete product:\n\n" +
+            "Something went wrong:\n\n" +
             error.message
         );
 
     }
 
 }
+
 
 
 /* =========================================
@@ -2207,6 +2157,7 @@ function clearForm(){
 }
 
 
+
 /* =========================================
    CLOSE MODAL
 ========================================= */
@@ -2219,6 +2170,7 @@ function closeModal(){
         "none";
 
 }
+
 
 
 /* =========================================
@@ -2234,15 +2186,14 @@ function(event){
         );
 
 
-    if(
-        event.target === modal
-    ){
+    if(event.target === modal){
 
         closeModal();
 
     }
 
 };
+
 
 
 /* =========================================
@@ -2291,6 +2242,7 @@ function escapeHtml(value){
 }
 
 
+
 /* =========================================
    START
 ========================================= */
@@ -2298,6 +2250,7 @@ function escapeHtml(value){
 loadProducts();
 
 </script>
+
 
 </body>
 
