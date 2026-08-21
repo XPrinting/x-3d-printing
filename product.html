@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>X3D Printing | Products</title>
@@ -28,7 +29,6 @@
     --primary:#8b5cf6;
     --green:#22c55e;
     --red:#ef4444;
-    --blue:#3b82f6;
 }
 
 body{
@@ -43,6 +43,7 @@ body{
         var(--bg);
 
     color:var(--text);
+
     min-height:100vh;
 }
 
@@ -156,6 +157,7 @@ body{
 
 .page-title h1{
     font-size:30px;
+
     margin-bottom:7px;
 }
 
@@ -192,8 +194,7 @@ body{
 .stats{
     display:grid;
 
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns:1fr;
 
     gap:18px;
 
@@ -381,10 +382,6 @@ tr:hover td{
     font-weight:bold;
 }
 
-.category{
-    color:#c4b5fd;
-}
-
 
 /* =========================================
    BUTTONS
@@ -455,7 +452,6 @@ tr:hover td{
     z-index:500;
 
     align-items:center;
-
     justify-content:center;
 
     padding:20px;
@@ -483,7 +479,6 @@ tr:hover td{
     display:flex;
 
     justify-content:space-between;
-
     align-items:center;
 
     margin-bottom:25px;
@@ -504,8 +499,7 @@ tr:hover td{
 .form-grid{
     display:grid;
 
-    grid-template-columns:
-        1fr 1fr;
+    grid-template-columns:1fr 1fr;
 
     gap:15px;
 }
@@ -579,35 +573,18 @@ textarea:focus{
     font-weight:bold;
 
     cursor:pointer;
+
+    transition:.2s;
+}
+
+.save-btn:hover{
+    opacity:.9;
 }
 
 .save-btn:disabled{
     opacity:.6;
 
     cursor:not-allowed;
-}
-
-
-/* =========================================
-   IMAGE PREVIEW
-========================================= */
-
-.image-preview{
-    width:100%;
-
-    max-height:220px;
-
-    object-fit:contain;
-
-    background:#0b1020;
-
-    border:1px solid var(--border);
-
-    border-radius:10px;
-
-    margin-top:10px;
-
-    display:none;
 }
 
 
@@ -649,10 +626,6 @@ textarea:focus{
         display:none;
     }
 
-    .stats{
-        grid-template-columns:1fr;
-    }
-
     .topbar{
         flex-direction:column;
 
@@ -686,7 +659,6 @@ textarea:focus{
 </style>
 
 </head>
-
 
 <body>
 
@@ -765,9 +737,7 @@ textarea:focus{
     </div>
 
 
-    <!-- =====================================
-         STATS
-    ====================================== -->
+    <!-- STATS -->
 
     <section class="stats">
 
@@ -786,44 +756,10 @@ textarea:focus{
 
         </div>
 
-
-        <div class="stat-card">
-
-            <div class="stat-label">
-                Categories
-            </div>
-
-            <div
-                class="stat-value"
-                id="totalCategories"
-            >
-                0
-            </div>
-
-        </div>
-
-
-        <div class="stat-card">
-
-            <div class="stat-label">
-                Average Price
-            </div>
-
-            <div
-                class="stat-value"
-                id="averagePrice"
-            >
-                EGP 0
-            </div>
-
-        </div>
-
     </section>
 
 
-    <!-- =====================================
-         PRODUCTS
-    ====================================== -->
+    <!-- PRODUCTS TABLE -->
 
     <section class="products-card">
 
@@ -889,7 +825,7 @@ textarea:focus{
         <div class="form-grid">
 
 
-            <!-- NAME -->
+            <!-- PRODUCT NAME -->
 
             <div class="form-group">
 
@@ -949,7 +885,6 @@ textarea:focus{
                     id="productPrice"
                     type="number"
                     step="0.01"
-                    min="0"
                     placeholder="250"
                 >
 
@@ -968,13 +903,6 @@ textarea:focus{
                     id="productImage"
                     type="file"
                     accept="image/*"
-                    onchange="previewImage(event)"
-                >
-
-                <img
-                    id="imagePreview"
-                    class="image-preview"
-                    alt="Image Preview"
                 >
 
                 <div
@@ -994,7 +922,7 @@ textarea:focus{
 
         <button
             class="save-btn"
-            id="saveButton"
+            id="saveProductButton"
             onclick="saveProduct()"
         >
             Save Product
@@ -1052,7 +980,7 @@ let editingId = null;
 
 
 /* =========================================
-   KNOWN IMAGES
+   KNOWN GITHUB IMAGES
 ========================================= */
 
 const PRODUCT_IMAGES = {
@@ -1074,7 +1002,7 @@ const PRODUCT_IMAGES = {
         "03-football-keychain.jpeg",
 
 
-    "fighter jets - set of 2":
+    "fighter jets set of 2":
         "02-fighter-jet-1.jpeg",
 
     "fighter jets":
@@ -1097,13 +1025,9 @@ const PRODUCT_IMAGES = {
 function normalizeText(value){
 
     return String(value || "")
-
         .toLowerCase()
-
         .trim()
-
         .replace(/[_-]+/g," ")
-
         .replace(/\s+/g," ");
 
 }
@@ -1116,15 +1040,20 @@ function normalizeText(value){
 function getGithubImageUrl(product){
 
     if(!product){
+
         return "";
+
     }
 
 
+    const name =
+        normalizeText(
+            product.name
+        );
+
+
     /*
-        IMPORTANT:
-
         Database column is:
-
         image
 
         NOT image_url
@@ -1137,16 +1066,14 @@ function getGithubImageUrl(product){
 
 
     /*
-        If database contains:
-
-        images/01-custom-name-keychain.jpeg
-
-        remove folder.
+        If image contains
+        images/filename.jpeg
+        get only filename.
     */
 
     if(databaseImage){
 
-        const fileName =
+        databaseImage =
             databaseImage
                 .split("/")
                 .pop()
@@ -1171,26 +1098,29 @@ function getGithubImageUrl(product){
 
 
         if(
-            knownFiles.includes(fileName)
+            knownFiles.includes(
+                databaseImage
+            )
         ){
 
             return (
                 GITHUB_RAW_BASE +
                 "/" +
-                encodeURIComponent(fileName)
+                encodeURIComponent(
+                    databaseImage
+                )
             );
 
         }
 
 
         /*
-            If image is already
-            a full URL.
+            If database already contains
+            a complete HTTP URL
         */
 
         if(
-            databaseImage.startsWith("http://") ||
-            databaseImage.startsWith("https://")
+            databaseImage.startsWith("http")
         ){
 
             return databaseImage;
@@ -1200,12 +1130,8 @@ function getGithubImageUrl(product){
     }
 
 
-    const name =
-        normalizeText(product.name);
-
-
     /*
-        Search by exact name.
+        Match by product name.
     */
 
     if(
@@ -1224,7 +1150,7 @@ function getGithubImageUrl(product){
 
 
     /*
-        Flexible matching.
+        Flexible matching
     */
 
     if(
@@ -1284,7 +1210,7 @@ function getGithubImageUrl(product){
 
 
 /* =========================================
-   GET IMAGE
+   PRODUCT IMAGE URL
 ========================================= */
 
 function getProductImageUrl(product){
@@ -1320,13 +1246,8 @@ async function loadProducts(){
             error
         } =
             await supabaseClient
-
                 .from("products")
-
-                .select(
-                    "id,name,description,category,price,image"
-                )
-
+                .select("*")
                 .order(
                     "id",
                     {
@@ -1341,7 +1262,6 @@ async function loadProducts(){
 
 
             container.innerHTML = `
-
                 <div class="error">
 
                     ❌ Failed to load products.
@@ -1353,7 +1273,6 @@ async function loadProducts(){
                     )}
 
                 </div>
-
             `;
 
             return;
@@ -1377,7 +1296,6 @@ async function loadProducts(){
 
 
         container.innerHTML = `
-
             <div class="error">
 
                 ❌ Something went wrong.
@@ -1389,7 +1307,6 @@ async function loadProducts(){
                 )}
 
             </div>
-
         `;
 
     }
@@ -1403,89 +1320,10 @@ async function loadProducts(){
 
 function updateStats(){
 
-    /*
-        Total
-    */
-
     document.getElementById(
         "totalProducts"
     ).textContent =
         products.length;
-
-
-    /*
-        Categories
-    */
-
-    const categories =
-        new Set(
-
-            products
-
-                .map(
-                    p =>
-                        String(
-                            p.category || ""
-                        )
-                        .trim()
-                )
-
-                .filter(Boolean)
-
-        );
-
-
-    document.getElementById(
-        "totalCategories"
-    ).textContent =
-        categories.size;
-
-
-    /*
-        Average price
-    */
-
-    if(!products.length){
-
-        document.getElementById(
-            "averagePrice"
-        ).textContent =
-            "EGP 0";
-
-        return;
-
-    }
-
-
-    const total =
-        products.reduce(
-
-            (sum,p) =>
-
-                sum +
-                Number(
-                    p.price || 0
-                ),
-
-            0
-
-        );
-
-
-    const average =
-        total / products.length;
-
-
-    document.getElementById(
-        "averagePrice"
-    ).textContent =
-        "EGP " +
-        average.toLocaleString(
-            "en-EG",
-            {
-                maximumFractionDigits:2
-            }
-        );
 
 }
 
@@ -1561,13 +1399,9 @@ function renderProducts(){
     if(!filtered.length){
 
         container.innerHTML = `
-
             <div class="empty">
-
                 No products found.
-
             </div>
-
         `;
 
         return;
@@ -1633,36 +1467,23 @@ function renderProducts(){
                                                 ?
 
                                                 `
-
                                                     <img
-
                                                         class="product-image"
-
-                                                        src="${escapeHtml(
-                                                            imageUrl
-                                                        )}"
-
+                                                        src="${escapeHtml(imageUrl)}"
                                                         alt="${escapeHtml(
                                                             product.name ||
                                                             "Product"
                                                         )}"
-
                                                         onerror="handleImageError(this)"
-
                                                     >
-
                                                 `
 
                                                 :
 
                                                 `
-
                                                     <div class="product-image-placeholder">
-
                                                         No Image
-
                                                     </div>
-
                                                 `
                                             }
 
@@ -1695,14 +1516,10 @@ function renderProducts(){
 
                                         <td>
 
-                                            <span class="category">
-
-                                                ${escapeHtml(
-                                                    product.category ||
-                                                    "-"
-                                                )}
-
-                                            </span>
+                                            ${escapeHtml(
+                                                product.category ||
+                                                "-"
+                                            )}
 
                                         </td>
 
@@ -1723,32 +1540,22 @@ function renderProducts(){
                                         <td>
 
                                             <button
-
                                                 class="edit-btn"
-
                                                 onclick="editProduct(${Number(
                                                     product.id
                                                 )})"
-
                                             >
-
                                                 Edit
-
                                             </button>
 
 
                                             <button
-
                                                 class="delete-btn"
-
                                                 onclick="deleteProduct(${Number(
                                                     product.id
                                                 )})"
-
                                             >
-
                                                 Delete
-
                                             </button>
 
                                         </td>
@@ -1758,11 +1565,8 @@ function renderProducts(){
                                 `;
 
                             }
-
                         )
-
                         .join("")
-
                 }
 
             </tbody>
@@ -1787,13 +1591,9 @@ function handleImageError(image){
 
 
     image.outerHTML = `
-
         <div class="product-image-placeholder">
-
             Image Error
-
         </div>
-
     `;
 
 }
@@ -1824,12 +1624,6 @@ function openAddModal(){
 
 
     document.getElementById(
-        "imagePreview"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
         "productModal"
     ).style.display =
         "flex";
@@ -1851,15 +1645,8 @@ function editProduct(id){
         );
 
 
-    if(!product){
-
-        alert(
-            "Product not found."
-        );
-
+    if(!product)
         return;
-
-    }
 
 
     editingId =
@@ -1908,36 +1695,32 @@ function editProduct(id){
         );
 
 
-    const imageUrl =
+    const currentImage =
         getProductImageUrl(
             product
         );
 
 
-    if(imageUrl){
+    if(currentImage){
 
         currentImageText.innerHTML = `
 
             Current image:
 
-            <br><br>
-
-            <img
-                src="${escapeHtml(imageUrl)}"
-                style="
-                    width:100px;
-                    height:100px;
-                    object-fit:cover;
-                    border-radius:10px;
-                    border:1px solid rgba(255,255,255,.1);
-                "
-                onerror="this.style.display='none'"
-            >
-
             <br>
 
-            Choose a new image only if you want
-            to replace the current image.
+            <span style="word-break:break-all;">
+
+                ${escapeHtml(
+                    currentImage
+                )}
+
+            </span>
+
+            <br><br>
+
+            Choose a new image only if you
+            want to replace the current image.
 
         `;
 
@@ -1952,62 +1735,9 @@ function editProduct(id){
 
 
     document.getElementById(
-        "imagePreview"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
         "productModal"
     ).style.display =
         "flex";
-
-}
-
-
-/* =========================================
-   IMAGE PREVIEW
-========================================= */
-
-function previewImage(event){
-
-    const file =
-        event.target.files[0];
-
-
-    const preview =
-        document.getElementById(
-            "imagePreview"
-        );
-
-
-    if(!file){
-
-        preview.style.display =
-            "none";
-
-        return;
-
-    }
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        function(e){
-
-            preview.src =
-                e.target.result;
-
-            preview.style.display =
-                "block";
-
-        };
-
-
-    reader.readAsDataURL(file);
 
 }
 
@@ -2018,11 +1748,8 @@ function previewImage(event){
 
 async function uploadProductImage(file){
 
-    if(!file){
-
+    if(!file)
         return null;
-
-    }
 
 
     const extension =
@@ -2034,17 +1761,14 @@ async function uploadProductImage(file){
 
     const safeName =
         file.name
-
             .replace(
                 /\.[^/.]+$/,
                 ""
             )
-
             .replace(
                 /[^a-zA-Z0-9-_]/g,
                 "-"
             )
-
             .toLowerCase();
 
 
@@ -2060,28 +1784,20 @@ async function uploadProductImage(file){
         error
     } =
         await supabaseClient
-
             .storage
-
             .from(
                 PRODUCT_BUCKET
             )
-
             .upload(
-
                 filePath,
-
                 file,
-
                 {
                     cacheControl:
                         "3600",
 
                     upsert:
                         false
-
                 }
-
             );
 
 
@@ -2092,17 +1808,18 @@ async function uploadProductImage(file){
     }
 
 
+    /*
+        Get public URL
+    */
+
     const {
         data
     } =
         supabaseClient
-
             .storage
-
             .from(
                 PRODUCT_BUCKET
             )
-
             .getPublicUrl(
                 filePath
             );
@@ -2121,7 +1838,7 @@ async function saveProduct(){
 
     const button =
         document.getElementById(
-            "saveButton"
+            "saveProductButton"
         );
 
 
@@ -2149,15 +1866,12 @@ async function saveProduct(){
         .trim();
 
 
-    const priceValue =
-        document.getElementById(
-            "productPrice"
-        )
-        .value;
-
-
     const price =
-        Number(priceValue);
+        Number(
+            document.getElementById(
+                "productPrice"
+            ).value
+        );
 
 
     const imageFile =
@@ -2166,10 +1880,6 @@ async function saveProduct(){
         )
         .files[0];
 
-
-    /* =====================================
-       VALIDATION
-    ====================================== */
 
     if(!name){
 
@@ -2183,7 +1893,6 @@ async function saveProduct(){
 
 
     if(
-        priceValue === "" ||
         isNaN(price) ||
         price < 0
     ){
@@ -2205,14 +1914,16 @@ async function saveProduct(){
             "Saving...";
 
 
+        /*
+            Get existing image.
+
+            IMPORTANT:
+            Database column is "image"
+            NOT "image_url".
+        */
+
         let imagePath = null;
 
-
-        /*
-            EDIT
-
-            Keep current image.
-        */
 
         if(editingId){
 
@@ -2236,10 +1947,8 @@ async function saveProduct(){
 
 
         /*
-            NEW IMAGE
-
-            Only upload if user
-            selected a new image.
+            Upload new image
+            only if selected.
         */
 
         if(imageFile){
@@ -2253,33 +1962,40 @@ async function saveProduct(){
 
 
         /*
-            IMPORTANT
+            IMPORTANT:
 
-            Database columns are ONLY:
+            Only use columns that
+            actually exist in Supabase.
+
+            Current schema:
 
             name
             description
             category
             price
             image
-
         */
 
         const productData = {
 
             name:
+
                 name,
 
             description:
+
                 description,
 
             category:
+
                 category,
 
             price:
+
                 price,
 
             image:
+
                 imagePath
 
         };
@@ -2288,21 +2004,18 @@ async function saveProduct(){
         let result;
 
 
-        /* =================================
+        /* =====================================
            UPDATE
-        ================================= */
+        ===================================== */
 
         if(editingId){
 
             result =
                 await supabaseClient
-
                     .from("products")
-
                     .update(
                         productData
                     )
-
                     .eq(
                         "id",
                         editingId
@@ -2311,17 +2024,15 @@ async function saveProduct(){
         }
 
 
-        /* =================================
+        /* =====================================
            INSERT
-        ================================= */
+        ===================================== */
 
         else{
 
             result =
                 await supabaseClient
-
                     .from("products")
-
                     .insert(
                         productData
                     );
@@ -2332,36 +2043,22 @@ async function saveProduct(){
         if(result.error){
 
             console.error(
+                "Supabase error:",
                 result.error
             );
 
 
-            alert(
-
-                "Failed to save product:\n\n" +
-
-                result.error.message
-
-            );
-
-
-            return;
+            throw result.error;
 
         }
 
 
         alert(
-
             editingId
-
             ?
-
             "Product updated successfully!"
-
             :
-
             "Product added successfully!"
-
         );
 
 
@@ -2375,24 +2072,21 @@ async function saveProduct(){
     catch(error){
 
         console.error(
+            "Save product error:",
             error
         );
 
 
         alert(
-
             "Failed to save product:\n\n" +
-
             error.message
-
         );
 
     }
 
     finally{
 
-        button.disabled =
-            false;
+        button.disabled = false;
 
         button.textContent =
             "Save Product";
@@ -2416,26 +2110,18 @@ async function deleteProduct(id){
         );
 
 
-    if(!product){
-
+    if(!product)
         return;
-
-    }
 
 
     const confirmed =
         confirm(
-
             `Delete "${product.name}"?`
-
         );
 
 
-    if(!confirmed){
-
+    if(!confirmed)
         return;
-
-    }
 
 
     try{
@@ -2444,11 +2130,8 @@ async function deleteProduct(id){
             error
         } =
             await supabaseClient
-
                 .from("products")
-
                 .delete()
-
                 .eq(
                     "id",
                     id
@@ -2457,20 +2140,7 @@ async function deleteProduct(id){
 
         if(error){
 
-            console.error(
-                error
-            );
-
-
-            alert(
-
-                "Failed to delete product:\n\n" +
-
-                error.message
-
-            );
-
-            return;
+            throw error;
 
         }
 
@@ -2486,17 +2156,12 @@ async function deleteProduct(id){
 
     catch(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
 
         alert(
-
-            "Something went wrong:\n\n" +
-
+            "Failed to delete product:\n\n" +
             error.message
-
         );
 
     }
@@ -2537,18 +2202,6 @@ function clearForm(){
     document.getElementById(
         "productImage"
     ).value =
-        "";
-
-
-    document.getElementById(
-        "imagePreview"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "imagePreview"
-    ).src =
         "";
 
 }
