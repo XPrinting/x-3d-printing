@@ -4,9 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>X3D Printing | Products</title>
 
@@ -30,10 +28,12 @@
     --primary:#8b5cf6;
     --green:#22c55e;
     --red:#ef4444;
+    --blue:#3b82f6;
 }
 
 body{
     font-family:Arial,Helvetica,sans-serif;
+
     background:
         radial-gradient(
             circle at top right,
@@ -41,30 +41,37 @@ body{
             #080816 45%
         ),
         var(--bg);
+
     color:var(--text);
     min-height:100vh;
 }
 
 
-/* =========================
+/* =========================================
    SIDEBAR
-========================= */
+========================================= */
 
 .sidebar{
     position:fixed;
     left:0;
     top:0;
+
     width:250px;
     height:100vh;
+
     background:rgba(10,12,28,.96);
+
     border-right:1px solid var(--border);
+
     padding:25px 18px;
+
     z-index:100;
 }
 
 .logo{
     font-size:25px;
     font-weight:800;
+
     padding:10px 12px 30px;
 }
 
@@ -74,10 +81,14 @@ body{
 
 .menu-title{
     color:#68728a;
+
     font-size:11px;
     font-weight:bold;
+
     text-transform:uppercase;
+
     padding:0 12px;
+
     margin-bottom:10px;
 }
 
@@ -90,12 +101,19 @@ body{
 .menu-item{
     display:flex;
     align-items:center;
+
     gap:12px;
+
     color:var(--muted);
+
     padding:13px 14px;
+
     border-radius:11px;
+
     cursor:pointer;
+
     transition:.2s;
+
     text-decoration:none;
 }
 
@@ -115,20 +133,24 @@ body{
 }
 
 
-/* =========================
+/* =========================================
    MAIN
-========================= */
+========================================= */
 
 .main{
     margin-left:250px;
+
     padding:30px 35px;
 }
 
 .topbar{
     display:flex;
+
     justify-content:space-between;
     align-items:center;
+
     margin-bottom:25px;
+
     gap:20px;
 }
 
@@ -143,67 +165,90 @@ body{
 
 .add-btn{
     border:1px solid rgba(139,92,246,.4);
+
     background:
         linear-gradient(
             135deg,
             #5b21b6,
             #8b5cf6
         );
+
     color:#fff;
+
     padding:12px 18px;
+
     border-radius:10px;
+
     cursor:pointer;
+
     font-weight:bold;
 }
 
 
-/* =========================
+/* =========================================
    STATS
-========================= */
+========================================= */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,1fr);
+
     gap:18px;
+
     margin-bottom:25px;
 }
 
 .stat-card{
     background:rgba(17,23,42,.92);
+
     border:1px solid var(--border);
+
     border-radius:17px;
+
     padding:20px;
 }
 
 .stat-label{
     color:var(--muted);
+
     font-size:13px;
+
     margin-bottom:10px;
 }
 
 .stat-value{
     font-size:28px;
+
     font-weight:bold;
 }
 
 
-/* =========================
+/* =========================================
    PRODUCTS
-========================= */
+========================================= */
 
 .products-card{
     background:rgba(17,23,42,.92);
+
     border:1px solid var(--border);
+
     border-radius:20px;
+
     overflow:hidden;
 }
 
 .products-header{
     padding:22px;
+
     border-bottom:1px solid var(--border);
+
     display:flex;
+
     justify-content:space-between;
     align-items:center;
+
     gap:15px;
 }
 
@@ -213,11 +258,17 @@ body{
 
 .search{
     background:#0b1020;
+
     border:1px solid var(--border);
+
     color:#fff;
+
     padding:11px 14px;
+
     border-radius:9px;
+
     outline:none;
+
     width:260px;
 }
 
@@ -227,26 +278,35 @@ body{
 
 .table-wrapper{
     width:100%;
+
     overflow-x:auto;
 }
 
 table{
     width:100%;
+
     border-collapse:collapse;
-    min-width:1000px;
+
+    min-width:900px;
 }
 
 th{
     text-align:left;
+
     color:#7f89a3;
+
     font-size:12px;
+
     text-transform:uppercase;
+
     padding:16px 20px;
+
     background:rgba(7,10,23,.45);
 }
 
 td{
     padding:15px 20px;
+
     border-top:1px solid var(--border);
 }
 
@@ -255,38 +315,51 @@ tr:hover td{
 }
 
 
-/* =========================
+/* =========================================
    PRODUCT IMAGE
-========================= */
+========================================= */
 
 .product-image{
     width:65px;
     height:65px;
+
     border-radius:10px;
+
     object-fit:cover;
+
     background:#0b1020;
+
     border:1px solid var(--border);
+
     display:block;
 }
 
 .product-image-placeholder{
     width:65px;
     height:65px;
+
     border-radius:10px;
+
     background:#0b1020;
+
     border:1px solid var(--border);
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     color:#68728a;
+
     font-size:11px;
+
     text-align:center;
 }
 
 
-/* =========================
+/* =========================================
    PRODUCT INFO
-========================= */
+========================================= */
 
 .product-name{
     font-weight:bold;
@@ -294,65 +367,70 @@ tr:hover td{
 
 .product-description{
     color:var(--muted);
+
     font-size:12px;
+
     margin-top:4px;
+
     max-width:300px;
+
+    white-space:normal;
 }
 
 .price{
     font-weight:bold;
 }
 
-.stock{
-    color:#aeb6cc;
-}
-
-.active{
-    color:#4ade80;
-    font-weight:bold;
-}
-
-.inactive{
-    color:#f87171;
-    font-weight:bold;
+.category{
+    color:#c4b5fd;
 }
 
 
-/* =========================
+/* =========================================
    BUTTONS
-========================= */
+========================================= */
 
 .edit-btn,
 .delete-btn{
     padding:7px 11px;
+
     border-radius:8px;
+
     cursor:pointer;
+
     font-size:12px;
 }
 
 .edit-btn{
     border:1px solid rgba(139,92,246,.35);
+
     background:rgba(139,92,246,.10);
+
     color:#c4b5fd;
 }
 
 .delete-btn{
     border:1px solid rgba(239,68,68,.3);
+
     background:rgba(239,68,68,.10);
+
     color:#f87171;
+
     margin-left:5px;
 }
 
 
-/* =========================
-   LOADING
-========================= */
+/* =========================================
+   EMPTY / LOADING / ERROR
+========================================= */
 
 .loading,
 .empty,
 .error{
     padding:50px;
+
     text-align:center;
+
     color:var(--muted);
 }
 
@@ -361,56 +439,82 @@ tr:hover td{
 }
 
 
-/* =========================
+/* =========================================
    MODAL
-========================= */
+========================================= */
 
 .modal{
     display:none;
+
     position:fixed;
+
     inset:0;
+
     background:rgba(0,0,0,.75);
+
     z-index:500;
+
     align-items:center;
+
     justify-content:center;
+
     padding:20px;
 }
 
 .modal-box{
     width:100%;
+
     max-width:650px;
+
     max-height:90vh;
+
     overflow-y:auto;
+
     background:#11172a;
+
     border:1px solid var(--border);
+
     border-radius:20px;
+
     padding:25px;
 }
 
 .modal-header{
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     margin-bottom:25px;
 }
 
 .close{
     background:transparent;
+
     border:none;
+
     color:#fff;
+
     font-size:28px;
+
     cursor:pointer;
 }
 
 .form-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:15px;
 }
 
 .form-group{
     display:flex;
+
     flex-direction:column;
+
     gap:7px;
 }
 
@@ -420,76 +524,120 @@ tr:hover td{
 
 label{
     color:#aeb6cc;
+
     font-size:13px;
 }
 
 input,
-textarea,
-select{
+textarea{
     width:100%;
+
     background:#0b1020;
+
     border:1px solid var(--border);
+
     color:#fff;
+
     padding:12px;
+
     border-radius:9px;
+
     outline:none;
 }
 
 textarea{
     min-height:100px;
+
     resize:vertical;
 }
 
 input:focus,
-textarea:focus,
-select:focus{
+textarea:focus{
     border-color:var(--primary);
 }
 
 .save-btn{
     width:100%;
+
     margin-top:20px;
+
     padding:13px;
+
     border:none;
+
     border-radius:10px;
+
     background:
         linear-gradient(
             135deg,
             #6d28d9,
             #8b5cf6
         );
+
     color:#fff;
+
     font-weight:bold;
+
     cursor:pointer;
 }
 
 .save-btn:disabled{
     opacity:.6;
+
     cursor:not-allowed;
 }
 
 
-/* =========================
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+.image-preview{
+    width:100%;
+
+    max-height:220px;
+
+    object-fit:contain;
+
+    background:#0b1020;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    margin-top:10px;
+
+    display:none;
+}
+
+
+/* =========================================
    MOBILE
-========================= */
+========================================= */
 
 @media(max-width:900px){
 
     .sidebar{
         position:relative;
+
         width:100%;
+
         height:auto;
+
         border-right:none;
+
         border-bottom:1px solid var(--border);
     }
 
     .main{
         margin-left:0;
+
         padding:22px 15px;
     }
 
     .menu{
         flex-direction:row;
+
         overflow-x:auto;
     }
 
@@ -507,6 +655,7 @@ select:focus{
 
     .topbar{
         flex-direction:column;
+
         align-items:flex-start;
     }
 
@@ -516,6 +665,7 @@ select:focus{
 
     .products-header{
         flex-direction:column;
+
         align-items:stretch;
     }
 
@@ -541,9 +691,9 @@ select:focus{
 <body>
 
 
-<!-- =========================
+<!-- =========================================
      SIDEBAR
-========================= -->
+========================================= -->
 
 <aside class="sidebar">
 
@@ -557,53 +707,29 @@ select:focus{
 
     <div class="menu">
 
-        <a class="menu-item"
-           href="admin.html">
-
+        <a class="menu-item" href="admin.html">
             <span class="menu-icon">📊</span>
-
             Dashboard
-
         </a>
 
-
-        <a class="menu-item"
-           href="orders.html">
-
+        <a class="menu-item" href="orders.html">
             <span class="menu-icon">🛒</span>
-
             Orders
-
         </a>
 
-
-        <a class="menu-item active"
-           href="product.html">
-
+        <a class="menu-item active" href="product.html">
             <span class="menu-icon">📦</span>
-
             Products
-
         </a>
 
-
-        <a class="menu-item"
-           href="#customers">
-
+        <a class="menu-item" href="#customers">
             <span class="menu-icon">👥</span>
-
             Customers
-
         </a>
 
-
-        <a class="menu-item"
-           href="#custom">
-
+        <a class="menu-item" href="#custom">
             <span class="menu-icon">🎨</span>
-
             Custom Requests
-
         </a>
 
     </div>
@@ -611,20 +737,17 @@ select:focus{
 </aside>
 
 
-<!-- =========================
+<!-- =========================================
      MAIN
-========================= -->
+========================================= -->
 
 <main class="main">
-
 
     <div class="topbar">
 
         <div class="page-title">
 
-            <h1>
-                Products
-            </h1>
+            <h1>Products</h1>
 
             <p>
                 Manage X3D Printing products.
@@ -632,24 +755,21 @@ select:focus{
 
         </div>
 
-
         <button
             class="add-btn"
-            onclick="openAddModal()">
-
+            onclick="openAddModal()"
+        >
             + Add Product
-
         </button>
 
     </div>
 
 
-    <!-- =========================
+    <!-- =====================================
          STATS
-    ========================= -->
+    ====================================== -->
 
     <section class="stats">
-
 
         <div class="stat-card">
 
@@ -659,10 +779,9 @@ select:focus{
 
             <div
                 class="stat-value"
-                id="totalProducts">
-
+                id="totalProducts"
+            >
                 0
-
             </div>
 
         </div>
@@ -671,15 +790,14 @@ select:focus{
         <div class="stat-card">
 
             <div class="stat-label">
-                Active Products
+                Categories
             </div>
 
             <div
                 class="stat-value"
-                id="activeProducts">
-
+                id="totalCategories"
+            >
                 0
-
             </div>
 
         </div>
@@ -688,29 +806,26 @@ select:focus{
         <div class="stat-card">
 
             <div class="stat-label">
-                Out of Stock
+                Average Price
             </div>
 
             <div
                 class="stat-value"
-                id="outOfStock">
-
-                0
-
+                id="averagePrice"
+            >
+                EGP 0
             </div>
 
         </div>
-
 
     </section>
 
 
-    <!-- =========================
-         PRODUCTS TABLE
-    ========================= -->
+    <!-- =====================================
+         PRODUCTS
+    ====================================== -->
 
     <section class="products-card">
-
 
         <div class="products-header">
 
@@ -718,19 +833,20 @@ select:focus{
                 All Products
             </h2>
 
-
             <input
                 class="search"
                 id="searchInput"
                 placeholder="Search products..."
-                oninput="renderProducts()">
+                oninput="renderProducts()"
+            >
 
         </div>
 
 
         <div
             class="table-wrapper"
-            id="tableContainer">
+            id="tableContainer"
+        >
 
             <div class="loading">
                 Loading products...
@@ -738,23 +854,21 @@ select:focus{
 
         </div>
 
-
     </section>
 
 </main>
 
 
-<!-- =========================
+<!-- =========================================
      MODAL
-========================= -->
+========================================= -->
 
 <div
     class="modal"
-    id="productModal">
-
+    id="productModal"
+>
 
     <div class="modal-box">
-
 
         <div class="modal-header">
 
@@ -762,13 +876,11 @@ select:focus{
                 Add Product
             </h2>
 
-
             <button
                 class="close"
-                onclick="closeModal()">
-
+                onclick="closeModal()"
+            >
                 ×
-
             </button>
 
         </div>
@@ -787,7 +899,8 @@ select:focus{
 
                 <input
                     id="productName"
-                    placeholder="Example: Phone Stand">
+                    placeholder="Example: Phone Stand"
+                >
 
             </div>
 
@@ -802,7 +915,8 @@ select:focus{
 
                 <input
                     id="productCategory"
-                    placeholder="Example: Accessories">
+                    placeholder="Example: Accessories"
+                >
 
             </div>
 
@@ -817,7 +931,8 @@ select:focus{
 
                 <textarea
                     id="productDescription"
-                    placeholder="Product description..."></textarea>
+                    placeholder="Product description..."
+                ></textarea>
 
             </div>
 
@@ -834,25 +949,9 @@ select:focus{
                     id="productPrice"
                     type="number"
                     step="0.01"
-                    placeholder="250">
-
-            </div>
-
-
-            <!-- STOCK -->
-
-            <div class="form-group">
-
-                <label>
-                    Stock
-                </label>
-
-                <input
-                    id="productStock"
-                    type="number"
                     min="0"
-                    placeholder="10"
-                    value="0">
+                    placeholder="250"
+                >
 
             </div>
 
@@ -868,8 +967,15 @@ select:focus{
                 <input
                     id="productImage"
                     type="file"
-                    accept="image/*">
+                    accept="image/*"
+                    onchange="previewImage(event)"
+                >
 
+                <img
+                    id="imagePreview"
+                    class="image-preview"
+                    alt="Image Preview"
+                >
 
                 <div
                     id="currentImageText"
@@ -877,31 +983,8 @@ select:focus{
                         color:#8f9ab3;
                         font-size:12px;
                         margin-top:3px;
-                    ">
-                </div>
-
-            </div>
-
-
-            <!-- STATUS -->
-
-            <div class="form-group">
-
-                <label>
-                    Status
-                </label>
-
-                <select id="productStatus">
-
-                    <option value="active">
-                        Active
-                    </option>
-
-                    <option value="inactive">
-                        Inactive
-                    </option>
-
-                </select>
+                    "
+                ></div>
 
             </div>
 
@@ -912,12 +995,10 @@ select:focus{
         <button
             class="save-btn"
             id="saveButton"
-            onclick="saveProduct()">
-
+            onclick="saveProduct()"
+        >
             Save Product
-
         </button>
-
 
     </div>
 
@@ -926,13 +1007,13 @@ select:focus{
 
 <script>
 
-/* =====================================================
+
+/* =========================================
    SUPABASE
-===================================================== */
+========================================= */
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
-
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
@@ -945,34 +1026,34 @@ const supabaseClient =
     );
 
 
-/* =====================================================
+/* =========================================
    GITHUB
-===================================================== */
+========================================= */
 
 const GITHUB_RAW_BASE =
     "https://raw.githubusercontent.com/ahmedramadansadek1112-collab/x-3d-printing/main";
 
 
-/* =====================================================
+/* =========================================
    STORAGE
-===================================================== */
+========================================= */
 
 const PRODUCT_BUCKET =
     "product-images";
 
 
-/* =====================================================
+/* =========================================
    GLOBAL
-===================================================== */
+========================================= */
 
 let products = [];
 
 let editingId = null;
 
 
-/* =====================================================
-   PRODUCT IMAGE MAP
-===================================================== */
+/* =========================================
+   KNOWN IMAGES
+========================================= */
 
 const PRODUCT_IMAGES = {
 
@@ -993,7 +1074,7 @@ const PRODUCT_IMAGES = {
         "03-football-keychain.jpeg",
 
 
-    "fighter jets set of 2":
+    "fighter jets - set of 2":
         "02-fighter-jet-1.jpeg",
 
     "fighter jets":
@@ -1009,24 +1090,28 @@ const PRODUCT_IMAGES = {
 };
 
 
-/* =====================================================
+/* =========================================
    NORMALIZE TEXT
-===================================================== */
+========================================= */
 
 function normalizeText(value){
 
     return String(value || "")
+
         .toLowerCase()
+
         .trim()
+
         .replace(/[_-]+/g," ")
+
         .replace(/\s+/g," ");
 
 }
 
 
-/* =====================================================
-   GITHUB IMAGE
-===================================================== */
+/* =========================================
+   GET GITHUB IMAGE
+========================================= */
 
 function getGithubImageUrl(product){
 
@@ -1035,18 +1120,14 @@ function getGithubImageUrl(product){
     }
 
 
-    const name =
-        normalizeText(product.name);
-
-
     /*
         IMPORTANT:
 
         Database column is:
+
         image
 
-        NOT:
-        image_url
+        NOT image_url
     */
 
     let databaseImage =
@@ -1056,26 +1137,16 @@ function getGithubImageUrl(product){
 
 
     /*
-        If database contains full URL
-    */
+        If database contains:
 
-    if(
-        databaseImage.startsWith("http://") ||
-        databaseImage.startsWith("https://")
-    ){
+        images/01-custom-name-keychain.jpeg
 
-        return databaseImage;
-
-    }
-
-
-    /*
-        Remove folders
+        remove folder.
     */
 
     if(databaseImage){
 
-        databaseImage =
+        const fileName =
             databaseImage
                 .split("/")
                 .pop()
@@ -1100,24 +1171,41 @@ function getGithubImageUrl(product){
 
 
         if(
-            knownFiles.includes(databaseImage)
+            knownFiles.includes(fileName)
         ){
 
             return (
                 GITHUB_RAW_BASE +
                 "/" +
-                encodeURIComponent(
-                    databaseImage
-                )
+                encodeURIComponent(fileName)
             );
+
+        }
+
+
+        /*
+            If image is already
+            a full URL.
+        */
+
+        if(
+            databaseImage.startsWith("http://") ||
+            databaseImage.startsWith("https://")
+        ){
+
+            return databaseImage;
 
         }
 
     }
 
 
+    const name =
+        normalizeText(product.name);
+
+
     /*
-        Product name matching
+        Search by exact name.
     */
 
     if(
@@ -1136,7 +1224,7 @@ function getGithubImageUrl(product){
 
 
     /*
-        Flexible matching
+        Flexible matching.
     */
 
     if(
@@ -1195,100 +1283,20 @@ function getGithubImageUrl(product){
 }
 
 
-/* =====================================================
-   IMAGE URL
-===================================================== */
+/* =========================================
+   GET IMAGE
+========================================= */
 
 function getProductImageUrl(product){
 
-    if(!product){
-        return "";
-    }
-
-
-    const image =
-        String(
-            product.image || ""
-        ).trim();
-
-
-    /*
-        Full external URL
-    */
-
-    if(
-        image.startsWith("http://") ||
-        image.startsWith("https://")
-    ){
-
-        return image;
-
-    }
-
-
-    /*
-        First try GitHub
-    */
-
-    const githubImage =
-        getGithubImageUrl(product);
-
-
-    if(githubImage){
-
-        return githubImage;
-
-    }
-
-
-    /*
-        Supabase Storage
-    */
-
-    if(image){
-
-        try{
-
-            const {
-                data
-            } =
-                supabaseClient
-                    .storage
-                    .from(PRODUCT_BUCKET)
-                    .getPublicUrl(image);
-
-
-            if(
-                data &&
-                data.publicUrl
-            ){
-
-                return data.publicUrl;
-
-            }
-
-        }
-
-        catch(error){
-
-            console.error(
-                "Storage image error:",
-                error
-            );
-
-        }
-
-    }
-
-
-    return "";
+    return getGithubImageUrl(product);
 
 }
 
 
-/* =====================================================
+/* =========================================
    LOAD PRODUCTS
-===================================================== */
+========================================= */
 
 async function loadProducts(){
 
@@ -1307,22 +1315,18 @@ async function loadProducts(){
 
     try{
 
-        /*
-            IMPORTANT:
-
-            We don't use image_url.
-            We don't use is_active.
-
-            We select all columns.
-        */
-
         const {
             data,
             error
         } =
             await supabaseClient
+
                 .from("products")
-                .select("*")
+
+                .select(
+                    "id,name,description,category,price,image"
+                )
+
                 .order(
                     "id",
                     {
@@ -1337,6 +1341,7 @@ async function loadProducts(){
 
 
             container.innerHTML = `
+
                 <div class="error">
 
                     ❌ Failed to load products.
@@ -1348,8 +1353,8 @@ async function loadProducts(){
                     )}
 
                 </div>
-            `;
 
+            `;
 
             return;
 
@@ -1364,7 +1369,6 @@ async function loadProducts(){
 
         renderProducts();
 
-
     }
 
     catch(error){
@@ -1373,6 +1377,7 @@ async function loadProducts(){
 
 
         container.innerHTML = `
+
             <div class="error">
 
                 ❌ Something went wrong.
@@ -1384,6 +1389,7 @@ async function loadProducts(){
                 )}
 
             </div>
+
         `;
 
     }
@@ -1391,19 +1397,15 @@ async function loadProducts(){
 }
 
 
-/* =====================================================
+/* =========================================
    STATS
-===================================================== */
+========================================= */
 
 function updateStats(){
 
     /*
-        Since database doesn't have is_active:
-
-        Active = stock > 0
-        Out of Stock = stock <= 0
+        Total
     */
-
 
     document.getElementById(
         "totalProducts"
@@ -1411,33 +1413,86 @@ function updateStats(){
         products.length;
 
 
-    document.getElementById(
-        "activeProducts"
-    ).textContent =
-        products.filter(
-            p =>
-                Number(
-                    p.stock || 0
-                ) > 0
-        ).length;
+    /*
+        Categories
+    */
+
+    const categories =
+        new Set(
+
+            products
+
+                .map(
+                    p =>
+                        String(
+                            p.category || ""
+                        )
+                        .trim()
+                )
+
+                .filter(Boolean)
+
+        );
 
 
     document.getElementById(
-        "outOfStock"
+        "totalCategories"
     ).textContent =
-        products.filter(
-            p =>
+        categories.size;
+
+
+    /*
+        Average price
+    */
+
+    if(!products.length){
+
+        document.getElementById(
+            "averagePrice"
+        ).textContent =
+            "EGP 0";
+
+        return;
+
+    }
+
+
+    const total =
+        products.reduce(
+
+            (sum,p) =>
+
+                sum +
                 Number(
-                    p.stock || 0
-                ) <= 0
-        ).length;
+                    p.price || 0
+                ),
+
+            0
+
+        );
+
+
+    const average =
+        total / products.length;
+
+
+    document.getElementById(
+        "averagePrice"
+    ).textContent =
+        "EGP " +
+        average.toLocaleString(
+            "en-EG",
+            {
+                maximumFractionDigits:2
+            }
+        );
 
 }
 
 
-/* =====================================================
+/* =========================================
    RENDER PRODUCTS
-===================================================== */
+========================================= */
 
 function renderProducts(){
 
@@ -1447,20 +1502,13 @@ function renderProducts(){
         );
 
 
-    const searchInput =
+    const search =
         document.getElementById(
             "searchInput"
-        );
-
-
-    const search =
-        searchInput
-        ?
-        searchInput.value
-            .toLowerCase()
-            .trim()
-        :
-        "";
+        )
+        .value
+        .toLowerCase()
+        .trim();
 
 
     let filtered =
@@ -1513,9 +1561,13 @@ function renderProducts(){
     if(!filtered.length){
 
         container.innerHTML = `
+
             <div class="empty">
+
                 No products found.
+
             </div>
+
         `;
 
         return;
@@ -1548,14 +1600,6 @@ function renderProducts(){
                     </th>
 
                     <th>
-                        Stock
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                    <th>
                         Actions
                     </th>
 
@@ -1577,16 +1621,6 @@ function renderProducts(){
                                     );
 
 
-                                const stock =
-                                    Number(
-                                        product.stock || 0
-                                    );
-
-
-                                const isActive =
-                                    stock > 0;
-
-
                                 return `
 
                                     <tr>
@@ -1599,23 +1633,36 @@ function renderProducts(){
                                                 ?
 
                                                 `
+
                                                     <img
+
                                                         class="product-image"
-                                                        src="${escapeHtml(imageUrl)}"
+
+                                                        src="${escapeHtml(
+                                                            imageUrl
+                                                        )}"
+
                                                         alt="${escapeHtml(
                                                             product.name ||
                                                             "Product"
                                                         )}"
+
                                                         onerror="handleImageError(this)"
+
                                                     >
+
                                                 `
 
                                                 :
 
                                                 `
+
                                                     <div class="product-image-placeholder">
+
                                                         No Image
+
                                                     </div>
+
                                                 `
                                             }
 
@@ -1648,10 +1695,14 @@ function renderProducts(){
 
                                         <td>
 
-                                            ${escapeHtml(
-                                                product.category ||
-                                                "-"
-                                            )}
+                                            <span class="category">
+
+                                                ${escapeHtml(
+                                                    product.category ||
+                                                    "-"
+                                                )}
+
+                                            </span>
 
                                         </td>
 
@@ -1671,50 +1722,15 @@ function renderProducts(){
 
                                         <td>
 
-                                            <span class="stock">
-
-                                                ${escapeHtml(
-                                                    product.stock ??
-                                                    0
-                                                )}
-
-                                            </span>
-
-                                        </td>
-
-
-                                        <td>
-
-                                            ${
-                                                isActive
-
-                                                ?
-
-                                                `
-                                                    <span class="active">
-                                                        Active
-                                                    </span>
-                                                `
-
-                                                :
-
-                                                `
-                                                    <span class="inactive">
-                                                        Out of Stock
-                                                    </span>
-                                                `
-                                            }
-
-                                        </td>
-
-
-                                        <td>
-
                                             <button
+
                                                 class="edit-btn"
+
                                                 onclick="editProduct(${Number(
                                                     product.id
-                                                )})">
+                                                )})"
+
+                                            >
 
                                                 Edit
 
@@ -1722,10 +1738,14 @@ function renderProducts(){
 
 
                                             <button
+
                                                 class="delete-btn"
+
                                                 onclick="deleteProduct(${Number(
                                                     product.id
-                                                )})">
+                                                )})"
+
+                                            >
 
                                                 Delete
 
@@ -1738,8 +1758,11 @@ function renderProducts(){
                                 `;
 
                             }
+
                         )
+
                         .join("")
+
                 }
 
             </tbody>
@@ -1751,9 +1774,9 @@ function renderProducts(){
 }
 
 
-/* =====================================================
+/* =========================================
    IMAGE ERROR
-===================================================== */
+========================================= */
 
 function handleImageError(image){
 
@@ -1764,17 +1787,21 @@ function handleImageError(image){
 
 
     image.outerHTML = `
+
         <div class="product-image-placeholder">
+
             Image Error
+
         </div>
+
     `;
 
 }
 
 
-/* =====================================================
-   OPEN ADD MODAL
-===================================================== */
+/* =========================================
+   ADD PRODUCT
+========================================= */
 
 function openAddModal(){
 
@@ -1797,6 +1824,12 @@ function openAddModal(){
 
 
     document.getElementById(
+        "imagePreview"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
         "productModal"
     ).style.display =
         "flex";
@@ -1804,9 +1837,9 @@ function openAddModal(){
 }
 
 
-/* =====================================================
+/* =========================================
    EDIT PRODUCT
-===================================================== */
+========================================= */
 
 function editProduct(id){
 
@@ -1864,31 +1897,9 @@ function editProduct(id){
 
 
     document.getElementById(
-        "productStock"
-    ).value =
-        product.stock ?? 0;
-
-
-    document.getElementById(
         "productImage"
     ).value =
         "";
-
-
-    /*
-        Status is calculated from stock.
-    */
-
-    document.getElementById(
-        "productStatus"
-    ).value =
-        Number(
-            product.stock || 0
-        ) > 0
-        ?
-        "active"
-        :
-        "inactive";
 
 
     const currentImageText =
@@ -1897,31 +1908,33 @@ function editProduct(id){
         );
 
 
-    const currentImage =
+    const imageUrl =
         getProductImageUrl(
             product
         );
 
 
-    if(currentImage){
+    if(imageUrl){
 
         currentImageText.innerHTML = `
 
             Current image:
 
-            <br>
-
-            <span style="
-                word-break:break-all;
-            ">
-
-                ${escapeHtml(
-                    currentImage
-                )}
-
-            </span>
-
             <br><br>
+
+            <img
+                src="${escapeHtml(imageUrl)}"
+                style="
+                    width:100px;
+                    height:100px;
+                    object-fit:cover;
+                    border-radius:10px;
+                    border:1px solid rgba(255,255,255,.1);
+                "
+                onerror="this.style.display='none'"
+            >
+
+            <br>
 
             Choose a new image only if you want
             to replace the current image.
@@ -1939,6 +1952,12 @@ function editProduct(id){
 
 
     document.getElementById(
+        "imagePreview"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
         "productModal"
     ).style.display =
         "flex";
@@ -1946,14 +1965,64 @@ function editProduct(id){
 }
 
 
-/* =====================================================
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+
+function previewImage(event){
+
+    const file =
+        event.target.files[0];
+
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+
+    if(!file){
+
+        preview.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            preview.src =
+                e.target.result;
+
+            preview.style.display =
+                "block";
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================
    UPLOAD IMAGE
-===================================================== */
+========================================= */
 
 async function uploadProductImage(file){
 
-    if(!file)
+    if(!file){
+
         return null;
+
+    }
 
 
     const extension =
@@ -1965,14 +2034,17 @@ async function uploadProductImage(file){
 
     const safeName =
         file.name
+
             .replace(
                 /\.[^/.]+$/,
                 ""
             )
+
             .replace(
                 /[^a-zA-Z0-9-_]/g,
                 "-"
             )
+
             .toLowerCase();
 
 
@@ -1988,20 +2060,28 @@ async function uploadProductImage(file){
         error
     } =
         await supabaseClient
+
             .storage
+
             .from(
                 PRODUCT_BUCKET
             )
+
             .upload(
+
                 filePath,
+
                 file,
+
                 {
                     cacheControl:
                         "3600",
 
                     upsert:
                         false
+
                 }
+
             );
 
 
@@ -2012,18 +2092,34 @@ async function uploadProductImage(file){
     }
 
 
-    return filePath;
+    const {
+        data
+    } =
+        supabaseClient
+
+            .storage
+
+            .from(
+                PRODUCT_BUCKET
+            )
+
+            .getPublicUrl(
+                filePath
+            );
+
+
+    return data.publicUrl;
 
 }
 
 
-/* =====================================================
+/* =========================================
    SAVE PRODUCT
-===================================================== */
+========================================= */
 
 async function saveProduct(){
 
-    const saveButton =
+    const button =
         document.getElementById(
             "saveButton"
         );
@@ -2053,20 +2149,15 @@ async function saveProduct(){
         .trim();
 
 
+    const priceValue =
+        document.getElementById(
+            "productPrice"
+        )
+        .value;
+
+
     const price =
-        Number(
-            document.getElementById(
-                "productPrice"
-            ).value
-        );
-
-
-    const stock =
-        Number(
-            document.getElementById(
-                "productStock"
-            ).value
-        );
+        Number(priceValue);
 
 
     const imageFile =
@@ -2075,6 +2166,10 @@ async function saveProduct(){
         )
         .files[0];
 
+
+    /* =====================================
+       VALIDATION
+    ====================================== */
 
     if(!name){
 
@@ -2088,7 +2183,8 @@ async function saveProduct(){
 
 
     if(
-        !Number.isFinite(price) ||
+        priceValue === "" ||
+        isNaN(price) ||
         price < 0
     ){
 
@@ -2101,44 +2197,21 @@ async function saveProduct(){
     }
 
 
-    if(
-        !Number.isFinite(stock) ||
-        stock < 0
-    ){
-
-        alert(
-            "Please enter a valid stock."
-        );
-
-        return;
-
-    }
-
-
     try{
 
-        saveButton.disabled = true;
+        button.disabled = true;
 
-        saveButton.textContent =
+        button.textContent =
             "Saving...";
 
-
-        /*
-            IMPORTANT:
-
-            Database column is:
-
-            image
-
-            NOT image_url.
-        */
 
         let imagePath = null;
 
 
         /*
-            Editing:
-            keep old image.
+            EDIT
+
+            Keep current image.
         */
 
         if(editingId){
@@ -2151,19 +2224,22 @@ async function saveProduct(){
                 );
 
 
-            if(existingProduct){
-
-                imagePath =
-                    existingProduct.image ||
-                    null;
-
-            }
+            imagePath =
+                existingProduct
+                ?
+                existingProduct.image ||
+                null
+                :
+                null;
 
         }
 
 
         /*
-            Upload new image
+            NEW IMAGE
+
+            Only upload if user
+            selected a new image.
         */
 
         if(imageFile){
@@ -2177,14 +2253,16 @@ async function saveProduct(){
 
 
         /*
-            IMPORTANT:
+            IMPORTANT
 
-            Do NOT add:
+            Database columns are ONLY:
 
-            is_active
+            name
+            description
+            category
+            price
+            image
 
-            because that column
-            does not exist in your table.
         */
 
         const productData = {
@@ -2201,9 +2279,6 @@ async function saveProduct(){
             price:
                 price,
 
-            stock:
-                stock,
-
             image:
                 imagePath
 
@@ -2213,18 +2288,21 @@ async function saveProduct(){
         let result;
 
 
-        /* =====================
+        /* =================================
            UPDATE
-        ===================== */
+        ================================= */
 
         if(editingId){
 
             result =
                 await supabaseClient
+
                     .from("products")
+
                     .update(
                         productData
                     )
+
                     .eq(
                         "id",
                         editingId
@@ -2233,15 +2311,17 @@ async function saveProduct(){
         }
 
 
-        /* =====================
+        /* =================================
            INSERT
-        ===================== */
+        ================================= */
 
         else{
 
             result =
                 await supabaseClient
+
                     .from("products")
+
                     .insert(
                         productData
                     );
@@ -2252,14 +2332,16 @@ async function saveProduct(){
         if(result.error){
 
             console.error(
-                "Supabase save error:",
                 result.error
             );
 
 
             alert(
+
                 "Failed to save product:\n\n" +
+
                 result.error.message
+
             );
 
 
@@ -2269,11 +2351,17 @@ async function saveProduct(){
 
 
         alert(
+
             editingId
+
             ?
+
             "Product updated successfully!"
+
             :
+
             "Product added successfully!"
+
         );
 
 
@@ -2287,23 +2375,26 @@ async function saveProduct(){
     catch(error){
 
         console.error(
-            "Save product error:",
             error
         );
 
 
         alert(
-            "Something went wrong:\n\n" +
+
+            "Failed to save product:\n\n" +
+
             error.message
+
         );
 
     }
 
     finally{
 
-        saveButton.disabled = false;
+        button.disabled =
+            false;
 
-        saveButton.textContent =
+        button.textContent =
             "Save Product";
 
     }
@@ -2311,9 +2402,9 @@ async function saveProduct(){
 }
 
 
-/* =====================================================
+/* =========================================
    DELETE PRODUCT
-===================================================== */
+========================================= */
 
 async function deleteProduct(id){
 
@@ -2334,7 +2425,9 @@ async function deleteProduct(id){
 
     const confirmed =
         confirm(
+
             `Delete "${product.name}"?`
+
         );
 
 
@@ -2351,8 +2444,11 @@ async function deleteProduct(id){
             error
         } =
             await supabaseClient
+
                 .from("products")
+
                 .delete()
+
                 .eq(
                     "id",
                     id
@@ -2361,14 +2457,18 @@ async function deleteProduct(id){
 
         if(error){
 
-            console.error(error);
+            console.error(
+                error
+            );
 
 
             alert(
-                "Failed to delete product:\n\n" +
-                error.message
-            );
 
+                "Failed to delete product:\n\n" +
+
+                error.message
+
+            );
 
             return;
 
@@ -2386,12 +2486,17 @@ async function deleteProduct(id){
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
 
 
         alert(
+
             "Something went wrong:\n\n" +
+
             error.message
+
         );
 
     }
@@ -2399,9 +2504,9 @@ async function deleteProduct(id){
 }
 
 
-/* =====================================================
+/* =========================================
    CLEAR FORM
-===================================================== */
+========================================= */
 
 function clearForm(){
 
@@ -2430,28 +2535,28 @@ function clearForm(){
 
 
     document.getElementById(
-        "productStock"
-    ).value =
-        "0";
-
-
-    document.getElementById(
         "productImage"
     ).value =
         "";
 
 
     document.getElementById(
-        "productStatus"
-    ).value =
-        "active";
+        "imagePreview"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).src =
+        "";
 
 }
 
 
-/* =====================================================
+/* =========================================
    CLOSE MODAL
-===================================================== */
+========================================= */
 
 function closeModal(){
 
@@ -2463,35 +2568,33 @@ function closeModal(){
 }
 
 
-/* =====================================================
+/* =========================================
    CLOSE MODAL OUTSIDE
-===================================================== */
+========================================= */
 
-window.addEventListener(
-    "click",
-    function(event){
+window.onclick =
+function(event){
 
-        const modal =
-            document.getElementById(
-                "productModal"
-            );
+    const modal =
+        document.getElementById(
+            "productModal"
+        );
 
 
-        if(
-            event.target === modal
-        ){
+    if(
+        event.target === modal
+    ){
 
-            closeModal();
-
-        }
+        closeModal();
 
     }
-);
+
+};
 
 
-/* =====================================================
+/* =========================================
    ESCAPE HTML
-===================================================== */
+========================================= */
 
 function escapeHtml(value){
 
@@ -2535,9 +2638,9 @@ function escapeHtml(value){
 }
 
 
-/* =====================================================
+/* =========================================
    START
-===================================================== */
+========================================= */
 
 loadProducts();
 
