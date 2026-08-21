@@ -35,7 +35,11 @@
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:
-        radial-gradient(circle at top right,#17153b 0%,#080816 45%),
+        radial-gradient(
+            circle at top right,
+            #17153b 0%,
+            #080816 45%
+        ),
         var(--bg);
     color:var(--text);
     min-height:100vh;
@@ -139,7 +143,12 @@ body{
 
 .add-btn{
     border:1px solid rgba(139,92,246,.4);
-    background:linear-gradient(135deg,#5b21b6,#8b5cf6);
+    background:
+        linear-gradient(
+            135deg,
+            #5b21b6,
+            #8b5cf6
+        );
     color:#fff;
     padding:12px 18px;
     border-radius:10px;
@@ -276,7 +285,7 @@ tr:hover td{
 
 
 /* =========================================
-   PRODUCT TEXT
+   PRODUCT INFO
 ========================================= */
 
 .product-name{
@@ -444,28 +453,15 @@ select:focus{
     padding:13px;
     border:none;
     border-radius:10px;
-    background:linear-gradient(135deg,#6d28d9,#8b5cf6);
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #8b5cf6
+        );
     color:#fff;
     font-weight:bold;
     cursor:pointer;
-}
-
-
-/* =========================================
-   IMAGE PREVIEW
-========================================= */
-
-.image-preview{
-    margin-top:10px;
-    display:none;
-}
-
-.image-preview img{
-    width:100px;
-    height:100px;
-    object-fit:cover;
-    border-radius:10px;
-    border:1px solid var(--border);
 }
 
 
@@ -614,9 +610,7 @@ select:focus{
     </div>
 
 
-    <!-- =========================================
-         STATS
-    ========================================= -->
+    <!-- STATS -->
 
     <section class="stats">
 
@@ -670,9 +664,7 @@ select:focus{
     </section>
 
 
-    <!-- =========================================
-         PRODUCTS TABLE
-    ========================================= -->
+    <!-- PRODUCTS TABLE -->
 
     <section class="products-card">
 
@@ -822,7 +814,6 @@ select:focus{
                     id="productImage"
                     type="file"
                     accept="image/*"
-                    onchange="previewSelectedImage()"
                 >
 
                 <div
@@ -833,17 +824,6 @@ select:focus{
                         margin-top:3px;
                     "
                 ></div>
-
-                <div
-                    class="image-preview"
-                    id="imagePreview"
-                >
-                    <img
-                        id="previewImage"
-                        src=""
-                        alt="Preview"
-                    >
-                </div>
 
             </div>
 
@@ -894,7 +874,6 @@ select:focus{
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
 
@@ -904,6 +883,28 @@ const supabaseClient =
         SUPABASE_URL,
         SUPABASE_PUBLISHABLE_KEY
     );
+
+
+/* =========================================
+   GITHUB
+========================================= */
+
+/*
+    IMPORTANT
+
+    الصور موجودة في نفس Repository:
+
+    ahmedramadansadek1112-collab/x-3d-printing
+
+    والفرع:
+
+    main
+
+    لذلك هنقرأ الصور مباشرة من GitHub.
+*/
+
+const GITHUB_RAW_BASE =
+    "https://raw.githubusercontent.com/ahmedramadansadek1112-collab/x-3d-printing/main";
 
 
 /* =========================================
@@ -924,29 +925,255 @@ let editingId = null;
 
 
 /* =========================================
-   GET IMAGE URL
+   IMAGE FILE MAP
 ========================================= */
 
-function getProductImageUrl(imagePath){
+const PRODUCT_IMAGES = {
 
-    if(!imagePath){
+    /*
+        Custom Name Keychain
+    */
 
+    "custom name keychain":
+        "01-custom-name-keychain.jpeg",
+
+    "custom name":
+        "01-custom-name-keychain.jpeg",
+
+    "01-custom-name-keychain":
+        "01-custom-name-keychain.jpeg",
+
+
+    /*
+        Football Keychain
+    */
+
+    "football keychain":
+        "03-football-keychain.jpeg",
+
+    "03-football-keychain":
+        "03-football-keychain.jpeg",
+
+
+    /*
+        Fighter Jets
+    */
+
+    "fighter jets - set of 2":
+        "02-fighter-jet-1.jpeg",
+
+    "fighter jets":
+        "02-fighter-jet-1.jpeg",
+
+    "fighter jet":
+        "02-fighter-jet-1.jpeg",
+
+    "02-fighter-jet-1":
+        "02-fighter-jet-1.jpeg",
+
+
+    /*
+        Knife
+    */
+
+    "knife":
+        "04-knife-1.jpeg",
+
+    "04-knife-1":
+        "04-knife-1.jpeg"
+
+};
+
+
+/* =========================================
+   NORMALIZE TEXT
+========================================= */
+
+function normalizeText(value){
+
+    return String(value || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[_-]+/g," ")
+        .replace(/\s+/g," ");
+
+}
+
+
+/* =========================================
+   GET GITHUB IMAGE
+========================================= */
+
+function getGithubImageUrl(product){
+
+    if(!product){
         return "";
+    }
+
+
+    const name =
+        normalizeText(product.name);
+
+
+    /*
+        First:
+        Try image_url from database.
+    */
+
+    let databaseImage =
+        String(
+            product.image_url || ""
+        ).trim();
+
+
+    /*
+        If database contains something like:
+
+        images/01-custom-name-keychain.jpeg
+
+        or:
+
+        01-custom-name-keychain.jpeg
+
+        extract only the filename.
+    */
+
+    if(databaseImage){
+
+        databaseImage =
+            databaseImage
+                .split("/")
+                .pop()
+                .trim();
+
+
+        /*
+            If this exact filename exists
+            in our GitHub repository,
+            use it.
+        */
+
+        const knownFiles = [
+
+            "01-custom-name-keychain.jpeg",
+
+            "02-fighter-jet-1.jpeg",
+
+            "02-fighter-jet-2.jpeg",
+
+            "03-football-keychain.jpeg",
+
+            "04-knife-1.jpeg",
+
+            "04-knife-2.jpeg"
+
+        ];
+
+
+        if(
+            knownFiles.includes(
+                databaseImage
+            )
+        ){
+
+            return (
+                GITHUB_RAW_BASE +
+                "/" +
+                encodeURIComponent(databaseImage)
+            );
+
+        }
 
     }
 
 
-    const cleanPath =
-        String(imagePath)
-        .replace(/^\/+/, "");
+    /*
+        If image_url doesn't match,
+        use product name.
+    */
+
+    if(
+        PRODUCT_IMAGES[name]
+    ){
+
+        return (
+            GITHUB_RAW_BASE +
+            "/" +
+            encodeURIComponent(
+                PRODUCT_IMAGES[name]
+            )
+        );
+
+    }
 
 
-    return (
-        `${SUPABASE_URL}` +
-        `/storage/v1/object/public/` +
-        `${PRODUCT_BUCKET}/` +
-        `${cleanPath}`
-    );
+    /*
+        Additional flexible matching.
+    */
+
+    if(
+        name.includes("custom") &&
+        name.includes("keychain")
+    ){
+
+        return (
+            GITHUB_RAW_BASE +
+            "/01-custom-name-keychain.jpeg"
+        );
+
+    }
+
+
+    if(
+        name.includes("football") &&
+        name.includes("keychain")
+    ){
+
+        return (
+            GITHUB_RAW_BASE +
+            "/03-football-keychain.jpeg"
+        );
+
+    }
+
+
+    if(
+        name.includes("fighter") &&
+        name.includes("jet")
+    ){
+
+        return (
+            GITHUB_RAW_BASE +
+            "/02-fighter-jet-1.jpeg"
+        );
+
+    }
+
+
+    if(
+        name.includes("knife")
+    ){
+
+        return (
+            GITHUB_RAW_BASE +
+            "/04-knife-1.jpeg"
+        );
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================
+   GET IMAGE URL
+========================================= */
+
+function getProductImageUrl(product){
+
+    return getGithubImageUrl(product);
 
 }
 
@@ -972,16 +1199,19 @@ async function loadProducts(){
 
     try{
 
-        const { data, error } =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
-            .from("products")
-            .select("*")
-            .order(
-                "id",
-                {
-                    ascending:false
-                }
-            );
+                .from("products")
+                .select("*")
+                .order(
+                    "id",
+                    {
+                        ascending:false
+                    }
+                );
 
 
         if(error){
@@ -996,10 +1226,13 @@ async function loadProducts(){
 
                     <br><br>
 
-                    ${escapeHtml(error.message)}
+                    ${escapeHtml(
+                        error.message
+                    )}
 
                 </div>
             `;
+
 
             return;
 
@@ -1013,6 +1246,7 @@ async function loadProducts(){
         updateStats();
 
         renderProducts();
+
 
     }
 
@@ -1028,7 +1262,9 @@ async function loadProducts(){
 
                 <br><br>
 
-                ${escapeHtml(error.message)}
+                ${escapeHtml(
+                    error.message
+                )}
 
             </div>
         `;
@@ -1125,9 +1361,13 @@ function renderProducts(){
 
 
                     return (
+
                         name.includes(search) ||
+
                         category.includes(search) ||
+
                         description.includes(search)
+
                     );
 
                 }
@@ -1194,191 +1434,166 @@ function renderProducts(){
 
                 ${
                     filtered
-                    .map(
-                        product => {
+                        .map(
+                            product => {
 
-                            /*
-                                IMPORTANT:
-                                Database column is "image"
-                                NOT "image_url".
-                            */
-
-                            const imageUrl =
-                                getProductImageUrl(
-                                    product.image
-                                );
+                                const imageUrl =
+                                    getProductImageUrl(
+                                        product
+                                    );
 
 
-                            return `
+                                return `
 
-                                <tr>
+                                    <tr>
 
-                                    <td>
+                                        <td>
 
-                                        ${
-                                            imageUrl
+                                            ${
+                                                imageUrl
 
-                                            ?
+                                                ?
 
-                                            `
-                                            <img
-                                                class="product-image"
-                                                src="${escapeHtml(imageUrl)}"
-                                                alt="${escapeHtml(
+                                                `
+                                                    <img
+                                                        class="product-image"
+                                                        src="${escapeHtml(imageUrl)}"
+                                                        alt="${escapeHtml(
+                                                            product.name ||
+                                                            "Product"
+                                                        )}"
+                                                        onerror="handleImageError(this)"
+                                                    >
+                                                `
+
+                                                :
+
+                                                `
+                                                    <div class="product-image-placeholder">
+                                                        No Image
+                                                    </div>
+                                                `
+                                            }
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <div class="product-name">
+
+                                                ${escapeHtml(
                                                     product.name ||
-                                                    "Product"
-                                                )}"
-                                                onerror="handleImageError(this)"
-                                            >
-                                            `
+                                                    "-"
+                                                )}
 
-                                            :
-
-                                            `
-                                            <div
-                                                class="product-image-placeholder"
-                                            >
-                                                No Image
                                             </div>
-                                            `
-                                        }
-
-                                    </td>
 
 
-                                    <td>
+                                            <div class="product-description">
 
-                                        <div
-                                            class="product-name"
-                                        >
+                                                ${escapeHtml(
+                                                    product.description ||
+                                                    ""
+                                                )}
+
+                                            </div>
+
+                                        </td>
+
+
+                                        <td>
 
                                             ${escapeHtml(
-                                                product.name ||
+                                                product.category ||
                                                 "-"
                                             )}
 
-                                        </div>
+                                        </td>
 
 
-                                        <div
-                                            class="product-description"
-                                        >
+                                        <td>
 
-                                            ${escapeHtml(
-                                                product.description ||
-                                                ""
-                                            )}
+                                            <span class="price">
 
-                                        </div>
+                                                EGP ${Number(
+                                                    product.price || 0
+                                                ).toLocaleString()}
 
-                                    </td>
+                                            </span>
 
-
-                                    <td>
-
-                                        ${escapeHtml(
-                                            product.category ||
-                                            "-"
-                                        )}
-
-                                    </td>
+                                        </td>
 
 
-                                    <td>
+                                        <td>
 
-                                        <span
-                                            class="price"
-                                        >
+                                            <span class="stock">
 
-                                            EGP
-                                            ${
-                                                Number(
-                                                    product.price ||
+                                                ${escapeHtml(
+                                                    product.stock ??
                                                     0
-                                                )
-                                                .toLocaleString()
+                                                )}
+
+                                            </span>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            ${
+                                                product.is_active !== false
+
+                                                ?
+
+                                                `
+                                                    <span class="active">
+                                                        Active
+                                                    </span>
+                                                `
+
+                                                :
+
+                                                `
+                                                    <span class="inactive">
+                                                        Inactive
+                                                    </span>
+                                                `
                                             }
 
-                                        </span>
-
-                                    </td>
+                                        </td>
 
 
-                                    <td>
+                                        <td>
 
-                                        <span
-                                            class="stock"
-                                        >
-
-                                            ${escapeHtml(
-                                                product.stock ??
-                                                0
-                                            )}
-
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        ${
-                                            product.is_active !== false
-
-                                            ?
-
-                                            `
-                                            <span
-                                                class="active"
+                                            <button
+                                                class="edit-btn"
+                                                onclick="editProduct(${Number(
+                                                    product.id
+                                                )})"
                                             >
-                                                Active
-                                            </span>
-                                            `
+                                                Edit
+                                            </button>
 
-                                            :
 
-                                            `
-                                            <span
-                                                class="inactive"
+                                            <button
+                                                class="delete-btn"
+                                                onclick="deleteProduct(${Number(
+                                                    product.id
+                                                )})"
                                             >
-                                                Inactive
-                                            </span>
-                                            `
-                                        }
+                                                Delete
+                                            </button>
 
-                                    </td>
+                                        </td>
 
+                                    </tr>
 
-                                    <td>
+                                `;
 
-                                        <button
-                                            class="edit-btn"
-                                            onclick="editProduct(${Number(
-                                                product.id
-                                            )})"
-                                        >
-                                            Edit
-                                        </button>
-
-
-                                        <button
-                                            class="delete-btn"
-                                            onclick="deleteProduct(${Number(
-                                                product.id
-                                            )})"
-                                        >
-                                            Delete
-                                        </button>
-
-                                    </td>
-
-                                </tr>
-
-                            `;
-
-                        }
-                    )
-                    .join("")
+                            }
+                        )
+                        .join("")
                 }
 
             </tbody>
@@ -1403,67 +1618,10 @@ function handleImageError(image){
 
 
     image.outerHTML = `
-        <div
-            class="product-image-placeholder"
-        >
+        <div class="product-image-placeholder">
             Image Error
         </div>
     `;
-
-}
-
-
-/* =========================================
-   IMAGE PREVIEW
-========================================= */
-
-function previewSelectedImage(){
-
-    const fileInput =
-        document.getElementById(
-            "productImage"
-        );
-
-
-    const preview =
-        document.getElementById(
-            "imagePreview"
-        );
-
-
-    const previewImage =
-        document.getElementById(
-            "previewImage"
-        );
-
-
-    const file =
-        fileInput.files[0];
-
-
-    if(!file){
-
-        preview.style.display =
-            "none";
-
-        previewImage.src =
-            "";
-
-        return;
-
-    }
-
-
-    const objectUrl =
-        URL.createObjectURL(file);
-
-
-    previewImage.src =
-        objectUrl;
-
-
-    preview.style.display =
-        "block";
 
 }
 
@@ -1474,8 +1632,7 @@ function previewSelectedImage(){
 
 function openAddModal(){
 
-    editingId =
-        null;
+    editingId = null;
 
 
     document.getElementById(
@@ -1491,12 +1648,6 @@ function openAddModal(){
         "currentImageText"
     ).textContent =
         "";
-
-
-    document.getElementById(
-        "imagePreview"
-    ).style.display =
-        "none";
 
 
     document.getElementById(
@@ -1521,11 +1672,8 @@ function editProduct(id){
         );
 
 
-    if(!product){
-
+    if(!product)
         return;
-
-    }
 
 
     editingId =
@@ -1590,38 +1738,32 @@ function editProduct(id){
         );
 
 
-    const imagePreview =
-        document.getElementById(
-            "imagePreview"
+    const currentImage =
+        getProductImageUrl(
+            product
         );
 
 
-    const previewImage =
-        document.getElementById(
-            "previewImage"
-        );
+    if(currentImage){
 
+        currentImageText.innerHTML = `
 
-    if(product.image){
+            Current image loaded from GitHub.
 
-        currentImageText.textContent =
-            "Current image: " +
-            product.image +
-            " — Choose a new image only if you want to replace it.";
+            <br>
 
+            <span style="word-break:break-all;">
+                ${escapeHtml(
+                    currentImage
+                )}
+            </span>
 
-        const currentUrl =
-            getProductImageUrl(
-                product.image
-            );
+            <br><br>
 
+            Choose a new image only if you want
+            to replace the current image.
 
-        previewImage.src =
-            currentUrl;
-
-
-        imagePreview.style.display =
-            "block";
+        `;
 
     }
 
@@ -1629,10 +1771,6 @@ function editProduct(id){
 
         currentImageText.textContent =
             "No current image.";
-
-
-        imagePreview.style.display =
-            "none";
 
     }
 
@@ -1651,31 +1789,28 @@ function editProduct(id){
 
 async function uploadProductImage(file){
 
-    if(!file){
-
+    if(!file)
         return null;
-
-    }
 
 
     const extension =
         file.name
-        .split(".")
-        .pop()
-        .toLowerCase();
+            .split(".")
+            .pop()
+            .toLowerCase();
 
 
     const safeName =
         file.name
-        .replace(
-            /\.[^/.]+$/,
-            ""
-        )
-        .replace(
-            /[^a-zA-Z0-9-_]/g,
-            "-"
-        )
-        .toLowerCase();
+            .replace(
+                /\.[^/.]+$/,
+                ""
+            )
+            .replace(
+                /[^a-zA-Z0-9-_]/g,
+                "-"
+            )
+            .toLowerCase();
 
 
     const fileName =
@@ -1690,16 +1825,21 @@ async function uploadProductImage(file){
         error
     } =
         await supabaseClient
-        .storage
-        .from(PRODUCT_BUCKET)
-        .upload(
-            filePath,
-            file,
-            {
-                cacheControl:"3600",
-                upsert:false
-            }
-        );
+            .storage
+            .from(
+                PRODUCT_BUCKET
+            )
+            .upload(
+                filePath,
+                file,
+                {
+                    cacheControl:
+                        "3600",
+
+                    upsert:
+                        false
+                }
+            );
 
 
     if(error){
@@ -1770,13 +1910,8 @@ async function saveProduct(){
     const is_active =
         document.getElementById(
             "productActive"
-        )
-        .value === "true";
+        ).value === "true";
 
-
-    /* =====================================
-       VALIDATION
-    ===================================== */
 
     if(!name){
 
@@ -1813,14 +1948,13 @@ async function saveProduct(){
 
     try{
 
-        let imagePath =
-            null;
+        let imagePath = null;
 
 
         /*
-            EDITING:
-            Keep old image if no new image
-            is selected.
+            When editing:
+
+            Keep existing database image value.
         */
 
         if(editingId){
@@ -1836,7 +1970,8 @@ async function saveProduct(){
             imagePath =
                 existingProduct
                 ?
-                existingProduct.image || null
+                existingProduct.image_url ||
+                null
                 :
                 null;
 
@@ -1844,7 +1979,8 @@ async function saveProduct(){
 
 
         /*
-            UPLOAD NEW IMAGE
+            Upload new image only
+            when user selects one.
         */
 
         if(imageFile){
@@ -1856,12 +1992,6 @@ async function saveProduct(){
 
         }
 
-
-        /*
-            IMPORTANT:
-            Database column is "image"
-            NOT "image_url".
-        */
 
         const productData = {
 
@@ -1875,7 +2005,7 @@ async function saveProduct(){
 
             stock,
 
-            image:
+            image_url:
                 imagePath,
 
             is_active
@@ -1886,38 +2016,29 @@ async function saveProduct(){
         let result;
 
 
-        /* =================================
-           UPDATE
-        ================================= */
-
         if(editingId){
 
             result =
                 await supabaseClient
-                .from("products")
-                .update(
-                    productData
-                )
-                .eq(
-                    "id",
-                    editingId
-                );
+                    .from("products")
+                    .update(
+                        productData
+                    )
+                    .eq(
+                        "id",
+                        editingId
+                    );
 
         }
-
-
-        /* =================================
-           INSERT
-        ================================= */
 
         else{
 
             result =
                 await supabaseClient
-                .from("products")
-                .insert(
-                    productData
-                );
+                    .from("products")
+                    .insert(
+                        productData
+                    );
 
         }
 
@@ -1958,9 +2079,7 @@ async function saveProduct(){
 
     catch(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
 
         alert(
@@ -1987,11 +2106,8 @@ async function deleteProduct(id){
         );
 
 
-    if(!product){
-
+    if(!product)
         return;
-
-    }
 
 
     const confirmed =
@@ -2000,19 +2116,14 @@ async function deleteProduct(id){
         );
 
 
-    if(!confirmed){
-
+    if(!confirmed)
         return;
 
-    }
 
-
-    try{
-
-        const {
-            error
-        } =
-            await supabaseClient
+    const {
+        error
+    } =
+        await supabaseClient
             .from("products")
             .delete()
             .eq(
@@ -2021,46 +2132,28 @@ async function deleteProduct(id){
             );
 
 
-        if(error){
+    if(error){
 
-            console.error(
-                error
-            );
-
-
-            alert(
-                "Failed to delete product:\n\n" +
-                error.message
-            );
-
-
-            return;
-
-        }
+        console.error(error);
 
 
         alert(
-            "Product deleted successfully!"
-        );
-
-
-        await loadProducts();
-
-    }
-
-    catch(error){
-
-        console.error(
-            error
-        );
-
-
-        alert(
-            "Something went wrong:\n\n" +
+            "Failed to delete product:\n\n" +
             error.message
         );
 
+
+        return;
+
     }
+
+
+    alert(
+        "Product deleted successfully!"
+    );
+
+
+    await loadProducts();
 
 }
 
@@ -2112,18 +2205,6 @@ function clearForm(){
     ).value =
         "true";
 
-
-    document.getElementById(
-        "imagePreview"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "previewImage"
-    ).src =
-        "";
-
 }
 
 
@@ -2154,10 +2235,7 @@ function(event){
         );
 
 
-    if(
-        event.target ===
-        modal
-    ){
+    if(event.target === modal){
 
         closeModal();
 
