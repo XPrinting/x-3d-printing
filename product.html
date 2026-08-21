@@ -5,7 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>X3D Printing | Products</title>
 
@@ -29,12 +30,10 @@
     --primary:#8b5cf6;
     --green:#22c55e;
     --red:#ef4444;
-    --blue:#3b82f6;
 }
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-
     background:
         radial-gradient(
             circle at top right,
@@ -42,15 +41,14 @@ body{
             #080816 45%
         ),
         var(--bg);
-
     color:var(--text);
     min-height:100vh;
 }
 
 
-/* =========================================
+/* =========================
    SIDEBAR
-========================================= */
+========================= */
 
 .sidebar{
     position:fixed;
@@ -58,20 +56,15 @@ body{
     top:0;
     width:250px;
     height:100vh;
-
     background:rgba(10,12,28,.96);
-
     border-right:1px solid var(--border);
-
     padding:25px 18px;
-
     z-index:100;
 }
 
 .logo{
     font-size:25px;
     font-weight:800;
-
     padding:10px 12px 30px;
 }
 
@@ -81,14 +74,10 @@ body{
 
 .menu-title{
     color:#68728a;
-
     font-size:11px;
     font-weight:bold;
-
     text-transform:uppercase;
-
     padding:0 12px;
-
     margin-bottom:10px;
 }
 
@@ -101,19 +90,12 @@ body{
 .menu-item{
     display:flex;
     align-items:center;
-
     gap:12px;
-
     color:var(--muted);
-
     padding:13px 14px;
-
     border-radius:11px;
-
     cursor:pointer;
-
     transition:.2s;
-
     text-decoration:none;
 }
 
@@ -133,9 +115,9 @@ body{
 }
 
 
-/* =========================================
+/* =========================
    MAIN
-========================================= */
+========================= */
 
 .main{
     margin-left:250px;
@@ -144,12 +126,9 @@ body{
 
 .topbar{
     display:flex;
-
     justify-content:space-between;
     align-items:center;
-
     margin-bottom:25px;
-
     gap:20px;
 }
 
@@ -164,55 +143,41 @@ body{
 
 .add-btn{
     border:1px solid rgba(139,92,246,.4);
-
     background:
         linear-gradient(
             135deg,
             #5b21b6,
             #8b5cf6
         );
-
     color:#fff;
-
     padding:12px 18px;
-
     border-radius:10px;
-
     cursor:pointer;
-
     font-weight:bold;
 }
 
 
-/* =========================================
+/* =========================
    STATS
-========================================= */
+========================= */
 
 .stats{
     display:grid;
-
-    grid-template-columns:1fr;
-
+    grid-template-columns:repeat(3,1fr);
     gap:18px;
-
     margin-bottom:25px;
 }
 
 .stat-card{
     background:rgba(17,23,42,.92);
-
     border:1px solid var(--border);
-
     border-radius:17px;
-
     padding:20px;
 }
 
 .stat-label{
     color:var(--muted);
-
     font-size:13px;
-
     margin-bottom:10px;
 }
 
@@ -222,30 +187,23 @@ body{
 }
 
 
-/* =========================================
+/* =========================
    PRODUCTS
-========================================= */
+========================= */
 
 .products-card{
     background:rgba(17,23,42,.92);
-
     border:1px solid var(--border);
-
     border-radius:20px;
-
     overflow:hidden;
 }
 
 .products-header{
     padding:22px;
-
     border-bottom:1px solid var(--border);
-
     display:flex;
-
     justify-content:space-between;
     align-items:center;
-
     gap:15px;
 }
 
@@ -255,17 +213,11 @@ body{
 
 .search{
     background:#0b1020;
-
     border:1px solid var(--border);
-
     color:#fff;
-
     padding:11px 14px;
-
     border-radius:9px;
-
     outline:none;
-
     width:260px;
 }
 
@@ -275,35 +227,26 @@ body{
 
 .table-wrapper{
     width:100%;
-
     overflow-x:auto;
 }
 
 table{
     width:100%;
-
     border-collapse:collapse;
-
-    min-width:900px;
+    min-width:1000px;
 }
 
 th{
     text-align:left;
-
     color:#7f89a3;
-
     font-size:12px;
-
     text-transform:uppercase;
-
     padding:16px 20px;
-
     background:rgba(7,10,23,.45);
 }
 
 td{
     padding:15px 20px;
-
     border-top:1px solid var(--border);
 }
 
@@ -312,51 +255,38 @@ tr:hover td{
 }
 
 
-/* =========================================
+/* =========================
    PRODUCT IMAGE
-========================================= */
+========================= */
 
 .product-image{
     width:65px;
     height:65px;
-
     border-radius:10px;
-
     object-fit:cover;
-
     background:#0b1020;
-
     border:1px solid var(--border);
-
     display:block;
 }
 
 .product-image-placeholder{
     width:65px;
     height:65px;
-
     border-radius:10px;
-
     background:#0b1020;
-
     border:1px solid var(--border);
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     color:#68728a;
-
     font-size:11px;
-
     text-align:center;
 }
 
 
-/* =========================================
+/* =========================
    PRODUCT INFO
-========================================= */
+========================= */
 
 .product-name{
     font-weight:bold;
@@ -364,66 +294,65 @@ tr:hover td{
 
 .product-description{
     color:var(--muted);
-
     font-size:12px;
-
     margin-top:4px;
-
     max-width:300px;
-
-    white-space:normal;
 }
 
 .price{
     font-weight:bold;
 }
 
+.stock{
+    color:#aeb6cc;
+}
 
-/* =========================================
+.active{
+    color:#4ade80;
+    font-weight:bold;
+}
+
+.inactive{
+    color:#f87171;
+    font-weight:bold;
+}
+
+
+/* =========================
    BUTTONS
-========================================= */
+========================= */
 
 .edit-btn,
 .delete-btn{
     padding:7px 11px;
-
     border-radius:8px;
-
     cursor:pointer;
-
     font-size:12px;
 }
 
 .edit-btn{
     border:1px solid rgba(139,92,246,.35);
-
     background:rgba(139,92,246,.10);
-
     color:#c4b5fd;
 }
 
 .delete-btn{
     border:1px solid rgba(239,68,68,.3);
-
     background:rgba(239,68,68,.10);
-
     color:#f87171;
-
     margin-left:5px;
 }
 
 
-/* =========================================
-   EMPTY / LOADING / ERROR
-========================================= */
+/* =========================
+   LOADING
+========================= */
 
 .loading,
 .empty,
 .error{
     padding:50px;
-
     text-align:center;
-
     color:var(--muted);
 }
 
@@ -432,80 +361,56 @@ tr:hover td{
 }
 
 
-/* =========================================
+/* =========================
    MODAL
-========================================= */
+========================= */
 
 .modal{
     display:none;
-
     position:fixed;
-
     inset:0;
-
     background:rgba(0,0,0,.75);
-
     z-index:500;
-
     align-items:center;
-
     justify-content:center;
-
     padding:20px;
 }
 
 .modal-box{
     width:100%;
-
     max-width:650px;
-
     max-height:90vh;
-
     overflow-y:auto;
-
     background:#11172a;
-
     border:1px solid var(--border);
-
     border-radius:20px;
-
     padding:25px;
 }
 
 .modal-header{
     display:flex;
-
     justify-content:space-between;
     align-items:center;
-
     margin-bottom:25px;
 }
 
 .close{
     background:transparent;
-
     border:none;
-
     color:#fff;
-
     font-size:28px;
-
     cursor:pointer;
 }
 
 .form-grid{
     display:grid;
-
     grid-template-columns:1fr 1fr;
-
     gap:15px;
 }
 
 .form-group{
     display:flex;
-
     flex-direction:column;
-
     gap:7px;
 }
 
@@ -515,97 +420,76 @@ tr:hover td{
 
 label{
     color:#aeb6cc;
-
     font-size:13px;
 }
 
 input,
-textarea{
+textarea,
+select{
     width:100%;
-
     background:#0b1020;
-
     border:1px solid var(--border);
-
     color:#fff;
-
     padding:12px;
-
     border-radius:9px;
-
     outline:none;
 }
 
 textarea{
     min-height:100px;
-
     resize:vertical;
 }
 
 input:focus,
-textarea:focus{
+textarea:focus,
+select:focus{
     border-color:var(--primary);
 }
 
 .save-btn{
     width:100%;
-
     margin-top:20px;
-
     padding:13px;
-
     border:none;
-
     border-radius:10px;
-
     background:
         linear-gradient(
             135deg,
             #6d28d9,
             #8b5cf6
         );
-
     color:#fff;
-
     font-weight:bold;
-
     cursor:pointer;
 }
 
 .save-btn:disabled{
-    opacity:.7;
-
+    opacity:.6;
     cursor:not-allowed;
 }
 
 
-/* =========================================
+/* =========================
    MOBILE
-========================================= */
+========================= */
 
 @media(max-width:900px){
 
     .sidebar{
         position:relative;
-
         width:100%;
-
         height:auto;
-
         border-right:none;
-
         border-bottom:1px solid var(--border);
     }
 
     .main{
         margin-left:0;
-
         padding:22px 15px;
     }
 
     .menu{
         flex-direction:row;
-
         overflow-x:auto;
     }
 
@@ -617,9 +501,12 @@ textarea:focus{
         display:none;
     }
 
+    .stats{
+        grid-template-columns:1fr;
+    }
+
     .topbar{
         flex-direction:column;
-
         align-items:flex-start;
     }
 
@@ -629,7 +516,6 @@ textarea:focus{
 
     .products-header{
         flex-direction:column;
-
         align-items:stretch;
     }
 
@@ -655,9 +541,9 @@ textarea:focus{
 <body>
 
 
-<!-- =========================================
+<!-- =========================
      SIDEBAR
-========================================= -->
+========================= -->
 
 <aside class="sidebar">
 
@@ -665,110 +551,74 @@ textarea:focus{
         X<span>3D</span> Admin
     </div>
 
-
     <div class="menu-title">
         Management
     </div>
 
-
     <div class="menu">
 
+        <a class="menu-item"
+           href="admin.html">
 
-        <!-- DASHBOARD -->
-
-        <a
-            class="menu-item"
-            href="admin.html"
-        >
-
-            <span class="menu-icon">
-                📊
-            </span>
+            <span class="menu-icon">📊</span>
 
             Dashboard
 
         </a>
 
 
-        <!-- ORDERS -->
+        <a class="menu-item"
+           href="orders.html">
 
-        <a
-            class="menu-item"
-            href="orders.html"
-        >
-
-            <span class="menu-icon">
-                🛒
-            </span>
+            <span class="menu-icon">🛒</span>
 
             Orders
 
         </a>
 
 
-        <!-- PRODUCTS -->
+        <a class="menu-item active"
+           href="product.html">
 
-        <a
-            class="menu-item active"
-            href="product.html"
-        >
-
-            <span class="menu-icon">
-                📦
-            </span>
+            <span class="menu-icon">📦</span>
 
             Products
 
         </a>
 
 
-        <!-- CUSTOMERS -->
+        <a class="menu-item"
+           href="#customers">
 
-        <a
-            class="menu-item"
-            href="customers.html"
-        >
-
-            <span class="menu-icon">
-                👥
-            </span>
+            <span class="menu-icon">👥</span>
 
             Customers
 
         </a>
 
 
-        <!-- CUSTOM REQUESTS -->
+        <a class="menu-item"
+           href="#custom">
 
-        <a
-            class="menu-item"
-            href="custom.html"
-        >
-
-            <span class="menu-icon">
-                🎨
-            </span>
+            <span class="menu-icon">🎨</span>
 
             Custom Requests
 
         </a>
-
 
     </div>
 
 </aside>
 
 
-
-<!-- =========================================
+<!-- =========================
      MAIN
-========================================= -->
+========================= -->
 
 <main class="main">
 
 
     <div class="topbar">
-
 
         <div class="page-title">
 
@@ -785,21 +635,18 @@ textarea:focus{
 
         <button
             class="add-btn"
-            onclick="openAddModal()"
-        >
+            onclick="openAddModal()">
 
             + Add Product
 
         </button>
 
-
     </div>
 
 
-
-    <!-- =====================================
+    <!-- =========================
          STATS
-    ====================================== -->
+    ========================= -->
 
     <section class="stats">
 
@@ -812,9 +659,44 @@ textarea:focus{
 
             <div
                 class="stat-value"
-                id="totalProducts"
-            >
+                id="totalProducts">
+
                 0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Products
+            </div>
+
+            <div
+                class="stat-value"
+                id="activeProducts">
+
+                0
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Out of Stock
+            </div>
+
+            <div
+                class="stat-value"
+                id="outOfStock">
+
+                0
+
             </div>
 
         </div>
@@ -823,16 +705,14 @@ textarea:focus{
     </section>
 
 
-
-    <!-- =====================================
+    <!-- =========================
          PRODUCTS TABLE
-    ====================================== -->
+    ========================= -->
 
     <section class="products-card">
 
 
         <div class="products-header">
-
 
             <h2>
                 All Products
@@ -843,18 +723,14 @@ textarea:focus{
                 class="search"
                 id="searchInput"
                 placeholder="Search products..."
-                oninput="renderProducts()"
-            >
-
+                oninput="renderProducts()">
 
         </div>
 
 
-
         <div
             class="table-wrapper"
-            id="tableContainer"
-        >
+            id="tableContainer">
 
             <div class="loading">
                 Loading products...
@@ -865,26 +741,22 @@ textarea:focus{
 
     </section>
 
-
 </main>
 
 
-
-<!-- =========================================
+<!-- =========================
      MODAL
-========================================= -->
+========================= -->
 
 <div
     class="modal"
-    id="productModal"
->
+    id="productModal">
 
 
     <div class="modal-box">
 
 
         <div class="modal-header">
-
 
             <h2 id="modalTitle">
                 Add Product
@@ -893,14 +765,13 @@ textarea:focus{
 
             <button
                 class="close"
-                onclick="closeModal()"
-            >
+                onclick="closeModal()">
+
                 ×
+
             </button>
 
-
         </div>
-
 
 
         <div class="form-grid">
@@ -916,11 +787,9 @@ textarea:focus{
 
                 <input
                     id="productName"
-                    placeholder="Example: Phone Stand"
-                >
+                    placeholder="Example: Phone Stand">
 
             </div>
-
 
 
             <!-- CATEGORY -->
@@ -933,11 +802,9 @@ textarea:focus{
 
                 <input
                     id="productCategory"
-                    placeholder="Example: Accessories"
-                >
+                    placeholder="Example: Accessories">
 
             </div>
-
 
 
             <!-- DESCRIPTION -->
@@ -950,11 +817,9 @@ textarea:focus{
 
                 <textarea
                     id="productDescription"
-                    placeholder="Product description..."
-                ></textarea>
+                    placeholder="Product description..."></textarea>
 
             </div>
-
 
 
             <!-- PRICE -->
@@ -969,34 +834,42 @@ textarea:focus{
                     id="productPrice"
                     type="number"
                     step="0.01"
-                    placeholder="250"
-                >
+                    placeholder="250">
 
             </div>
 
 
-
-            <!-- IMAGE -->
+            <!-- STOCK -->
 
             <div class="form-group">
 
                 <label>
-                    Image File Name
+                    Stock
                 </label>
 
                 <input
-                    id="productImage"
-                    type="text"
-                    placeholder="01-custom-name-keychain.jpeg"
-                >
+                    id="productStock"
+                    type="number"
+                    min="0"
+                    placeholder="10"
+                    value="0">
 
             </div>
 
 
-            <div
-                class="form-group full"
-                id="currentImageContainer"
-            >
+            <!-- IMAGE -->
+
+            <div class="form-group full">
+
+                <label>
+                    Product Image
+                </label>
+
+                <input
+                    id="productImage"
+                    type="file"
+                    accept="image/*">
+
 
                 <div
                     id="currentImageText"
@@ -1004,8 +877,31 @@ textarea:focus{
                         color:#8f9ab3;
                         font-size:12px;
                         margin-top:3px;
-                    "
-                ></div>
+                    ">
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select id="productStatus">
+
+                    <option value="active">
+                        Active
+                    </option>
+
+                    <option value="inactive">
+                        Inactive
+                    </option>
+
+                </select>
 
             </div>
 
@@ -1013,12 +909,10 @@ textarea:focus{
         </div>
 
 
-
         <button
             class="save-btn"
             id="saveButton"
-            onclick="saveProduct()"
-        >
+            onclick="saveProduct()">
 
             Save Product
 
@@ -1030,13 +924,11 @@ textarea:focus{
 </div>
 
 
-
 <script>
 
-
-/* =========================================
+/* =====================================================
    SUPABASE
-========================================= */
+===================================================== */
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
@@ -1053,29 +945,34 @@ const supabaseClient =
     );
 
 
-
-/* =========================================
+/* =====================================================
    GITHUB
-========================================= */
+===================================================== */
 
 const GITHUB_RAW_BASE =
     "https://raw.githubusercontent.com/ahmedramadansadek1112-collab/x-3d-printing/main";
 
 
+/* =====================================================
+   STORAGE
+===================================================== */
 
-/* =========================================
+const PRODUCT_BUCKET =
+    "product-images";
+
+
+/* =====================================================
    GLOBAL
-========================================= */
+===================================================== */
 
 let products = [];
 
 let editingId = null;
 
 
-
-/* =========================================
-   KNOWN IMAGES
-========================================= */
+/* =====================================================
+   PRODUCT IMAGE MAP
+===================================================== */
 
 const PRODUCT_IMAGES = {
 
@@ -1112,10 +1009,9 @@ const PRODUCT_IMAGES = {
 };
 
 
-
-/* =========================================
+/* =====================================================
    NORMALIZE TEXT
-========================================= */
+===================================================== */
 
 function normalizeText(value){
 
@@ -1128,24 +1024,29 @@ function normalizeText(value){
 }
 
 
+/* =====================================================
+   GITHUB IMAGE
+===================================================== */
 
-/* =========================================
-   GET IMAGE URL
-========================================= */
-
-function getProductImageUrl(product){
+function getGithubImageUrl(product){
 
     if(!product){
-
         return "";
-
     }
+
+
+    const name =
+        normalizeText(product.name);
 
 
     /*
         IMPORTANT:
-        Your database column is "image"
-        NOT image_url.
+
+        Database column is:
+        image
+
+        NOT:
+        image_url
     */
 
     let databaseImage =
@@ -1155,15 +1056,21 @@ function getProductImageUrl(product){
 
 
     /*
-        Remove folders.
+        If database contains full URL
+    */
 
-        Example:
+    if(
+        databaseImage.startsWith("http://") ||
+        databaseImage.startsWith("https://")
+    ){
 
-        images/01-custom-name-keychain.jpeg
+        return databaseImage;
 
-        becomes:
+    }
 
-        01-custom-name-keychain.jpeg
+
+    /*
+        Remove folders
     */
 
     if(databaseImage){
@@ -1175,20 +1082,47 @@ function getProductImageUrl(product){
                 .trim();
 
 
-        return (
-            GITHUB_RAW_BASE +
-            "/" +
-            encodeURIComponent(databaseImage)
-        );
+        const knownFiles = [
+
+            "01-custom-name-keychain.jpeg",
+
+            "02-fighter-jet-1.jpeg",
+
+            "02-fighter-jet-2.jpeg",
+
+            "03-football-keychain.jpeg",
+
+            "04-knife-1.jpeg",
+
+            "04-knife-2.jpeg"
+
+        ];
+
+
+        if(
+            knownFiles.includes(databaseImage)
+        ){
+
+            return (
+                GITHUB_RAW_BASE +
+                "/" +
+                encodeURIComponent(
+                    databaseImage
+                )
+            );
+
+        }
 
     }
 
 
-    const name =
-        normalizeText(product.name);
+    /*
+        Product name matching
+    */
 
-
-    if(PRODUCT_IMAGES[name]){
+    if(
+        PRODUCT_IMAGES[name]
+    ){
 
         return (
             GITHUB_RAW_BASE +
@@ -1244,7 +1178,9 @@ function getProductImageUrl(product){
     }
 
 
-    if(name.includes("knife")){
+    if(
+        name.includes("knife")
+    ){
 
         return (
             GITHUB_RAW_BASE +
@@ -1259,10 +1195,100 @@ function getProductImageUrl(product){
 }
 
 
+/* =====================================================
+   IMAGE URL
+===================================================== */
 
-/* =========================================
+function getProductImageUrl(product){
+
+    if(!product){
+        return "";
+    }
+
+
+    const image =
+        String(
+            product.image || ""
+        ).trim();
+
+
+    /*
+        Full external URL
+    */
+
+    if(
+        image.startsWith("http://") ||
+        image.startsWith("https://")
+    ){
+
+        return image;
+
+    }
+
+
+    /*
+        First try GitHub
+    */
+
+    const githubImage =
+        getGithubImageUrl(product);
+
+
+    if(githubImage){
+
+        return githubImage;
+
+    }
+
+
+    /*
+        Supabase Storage
+    */
+
+    if(image){
+
+        try{
+
+            const {
+                data
+            } =
+                supabaseClient
+                    .storage
+                    .from(PRODUCT_BUCKET)
+                    .getPublicUrl(image);
+
+
+            if(
+                data &&
+                data.publicUrl
+            ){
+
+                return data.publicUrl;
+
+            }
+
+        }
+
+        catch(error){
+
+            console.error(
+                "Storage image error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =====================================================
    LOAD PRODUCTS
-========================================= */
+===================================================== */
 
 async function loadProducts(){
 
@@ -1282,14 +1308,12 @@ async function loadProducts(){
     try{
 
         /*
-            ONLY SELECT EXISTING COLUMNS.
+            IMPORTANT:
 
-            id
-            name
-            description
-            category
-            price
-            image
+            We don't use image_url.
+            We don't use is_active.
+
+            We select all columns.
         */
 
         const {
@@ -1298,9 +1322,7 @@ async function loadProducts(){
         } =
             await supabaseClient
                 .from("products")
-                .select(
-                    "id,name,description,category,price,image"
-                )
+                .select("*")
                 .order(
                     "id",
                     {
@@ -1369,25 +1391,53 @@ async function loadProducts(){
 }
 
 
-
-/* =========================================
+/* =====================================================
    STATS
-========================================= */
+===================================================== */
 
 function updateStats(){
+
+    /*
+        Since database doesn't have is_active:
+
+        Active = stock > 0
+        Out of Stock = stock <= 0
+    */
+
 
     document.getElementById(
         "totalProducts"
     ).textContent =
         products.length;
 
+
+    document.getElementById(
+        "activeProducts"
+    ).textContent =
+        products.filter(
+            p =>
+                Number(
+                    p.stock || 0
+                ) > 0
+        ).length;
+
+
+    document.getElementById(
+        "outOfStock"
+    ).textContent =
+        products.filter(
+            p =>
+                Number(
+                    p.stock || 0
+                ) <= 0
+        ).length;
+
 }
 
 
-
-/* =========================================
+/* =====================================================
    RENDER PRODUCTS
-========================================= */
+===================================================== */
 
 function renderProducts(){
 
@@ -1397,13 +1447,20 @@ function renderProducts(){
         );
 
 
-    const search =
+    const searchInput =
         document.getElementById(
             "searchInput"
-        )
-        .value
-        .toLowerCase()
-        .trim();
+        );
+
+
+    const search =
+        searchInput
+        ?
+        searchInput.value
+            .toLowerCase()
+            .trim()
+        :
+        "";
 
 
     let filtered =
@@ -1466,7 +1523,6 @@ function renderProducts(){
     }
 
 
-
     container.innerHTML = `
 
         <table>
@@ -1492,6 +1548,14 @@ function renderProducts(){
                     </th>
 
                     <th>
+                        Stock
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
                         Actions
                     </th>
 
@@ -1513,10 +1577,19 @@ function renderProducts(){
                                     );
 
 
+                                const stock =
+                                    Number(
+                                        product.stock || 0
+                                    );
+
+
+                                const isActive =
+                                    stock > 0;
+
+
                                 return `
 
                                     <tr>
-
 
                                         <td>
 
@@ -1549,7 +1622,6 @@ function renderProducts(){
                                         </td>
 
 
-
                                         <td>
 
                                             <div class="product-name">
@@ -1574,7 +1646,6 @@ function renderProducts(){
                                         </td>
 
 
-
                                         <td>
 
                                             ${escapeHtml(
@@ -1583,7 +1654,6 @@ function renderProducts(){
                                             )}
 
                                         </td>
-
 
 
                                         <td>
@@ -1599,37 +1669,69 @@ function renderProducts(){
                                         </td>
 
 
+                                        <td>
+
+                                            <span class="stock">
+
+                                                ${escapeHtml(
+                                                    product.stock ??
+                                                    0
+                                                )}
+
+                                            </span>
+
+                                        </td>
+
 
                                         <td>
 
+                                            ${
+                                                isActive
+
+                                                ?
+
+                                                `
+                                                    <span class="active">
+                                                        Active
+                                                    </span>
+                                                `
+
+                                                :
+
+                                                `
+                                                    <span class="inactive">
+                                                        Out of Stock
+                                                    </span>
+                                                `
+                                            }
+
+                                        </td>
+
+
+                                        <td>
 
                                             <button
                                                 class="edit-btn"
                                                 onclick="editProduct(${Number(
                                                     product.id
-                                                )})"
-                                            >
+                                                )})">
 
                                                 Edit
 
                                             </button>
 
 
-
                                             <button
                                                 class="delete-btn"
                                                 onclick="deleteProduct(${Number(
                                                     product.id
-                                                )})"
-                                            >
+                                                )})">
 
                                                 Delete
 
                                             </button>
 
-
                                         </td>
-
 
                                     </tr>
 
@@ -1649,10 +1751,9 @@ function renderProducts(){
 }
 
 
-
-/* =========================================
+/* =====================================================
    IMAGE ERROR
-========================================= */
+===================================================== */
 
 function handleImageError(image){
 
@@ -1671,10 +1772,9 @@ function handleImageError(image){
 }
 
 
-
-/* =========================================
-   ADD PRODUCT
-========================================= */
+/* =====================================================
+   OPEN ADD MODAL
+===================================================== */
 
 function openAddModal(){
 
@@ -1693,7 +1793,7 @@ function openAddModal(){
     document.getElementById(
         "currentImageText"
     ).textContent =
-        "Enter the GitHub image filename, for example: 01-custom-name-keychain.jpeg";
+        "";
 
 
     document.getElementById(
@@ -1704,10 +1804,9 @@ function openAddModal(){
 }
 
 
-
-/* =========================================
+/* =====================================================
    EDIT PRODUCT
-========================================= */
+===================================================== */
 
 function editProduct(id){
 
@@ -1720,6 +1819,10 @@ function editProduct(id){
 
 
     if(!product){
+
+        alert(
+            "Product not found."
+        );
 
         return;
 
@@ -1757,13 +1860,35 @@ function editProduct(id){
     document.getElementById(
         "productPrice"
     ).value =
-        product.price ?? "";
+        product.price || "";
+
+
+    document.getElementById(
+        "productStock"
+    ).value =
+        product.stock ?? 0;
 
 
     document.getElementById(
         "productImage"
     ).value =
-        product.image || "";
+        "";
+
+
+    /*
+        Status is calculated from stock.
+    */
+
+    document.getElementById(
+        "productStatus"
+    ).value =
+        Number(
+            product.stock || 0
+        ) > 0
+        ?
+        "active"
+        :
+        "inactive";
 
 
     const currentImageText =
@@ -1786,11 +1911,20 @@ function editProduct(id){
 
             <br>
 
-            <span style="word-break:break-all;">
+            <span style="
+                word-break:break-all;
+            ">
+
                 ${escapeHtml(
                     currentImage
                 )}
+
             </span>
+
+            <br><br>
+
+            Choose a new image only if you want
+            to replace the current image.
 
         `;
 
@@ -1812,10 +1946,80 @@ function editProduct(id){
 }
 
 
+/* =====================================================
+   UPLOAD IMAGE
+===================================================== */
 
-/* =========================================
+async function uploadProductImage(file){
+
+    if(!file)
+        return null;
+
+
+    const extension =
+        file.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    const safeName =
+        file.name
+            .replace(
+                /\.[^/.]+$/,
+                ""
+            )
+            .replace(
+                /[^a-zA-Z0-9-_]/g,
+                "-"
+            )
+            .toLowerCase();
+
+
+    const fileName =
+        `${Date.now()}-${safeName}.${extension}`;
+
+
+    const filePath =
+        `images/${fileName}`;
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .storage
+            .from(
+                PRODUCT_BUCKET
+            )
+            .upload(
+                filePath,
+                file,
+                {
+                    cacheControl:
+                        "3600",
+
+                    upsert:
+                        false
+                }
+            );
+
+
+    if(error){
+
+        throw error;
+
+    }
+
+
+    return filePath;
+
+}
+
+
+/* =====================================================
    SAVE PRODUCT
-========================================= */
+===================================================== */
 
 async function saveProduct(){
 
@@ -1849,20 +2053,27 @@ async function saveProduct(){
         .trim();
 
 
-    const priceValue =
-        document.getElementById(
-            "productPrice"
-        )
-        .value
-        .trim();
+    const price =
+        Number(
+            document.getElementById(
+                "productPrice"
+            ).value
+        );
 
 
-    const image =
+    const stock =
+        Number(
+            document.getElementById(
+                "productStock"
+            ).value
+        );
+
+
+    const imageFile =
         document.getElementById(
             "productImage"
         )
-        .value
-        .trim();
+        .files[0];
 
 
     if(!name){
@@ -1876,22 +2087,10 @@ async function saveProduct(){
     }
 
 
-    if(priceValue === ""){
-
-        alert(
-            "Please enter a price."
-        );
-
-        return;
-
-    }
-
-
-    const price =
-        Number(priceValue);
-
-
-    if(!Number.isFinite(price)){
+    if(
+        !Number.isFinite(price) ||
+        price < 0
+    ){
 
         alert(
             "Please enter a valid price."
@@ -1902,26 +2101,18 @@ async function saveProduct(){
     }
 
 
-    /*
-        IMPORTANT:
+    if(
+        !Number.isFinite(stock) ||
+        stock < 0
+    ){
 
-        We are ONLY sending columns
-        that actually exist in your table.
-    */
+        alert(
+            "Please enter a valid stock."
+        );
 
-    const productData = {
+        return;
 
-        name,
-
-        description,
-
-        category,
-
-        price,
-
-        image
-
-    };
+    }
 
 
     try{
@@ -1932,12 +2123,99 @@ async function saveProduct(){
             "Saving...";
 
 
-        let result;
+        /*
+            IMPORTANT:
+
+            Database column is:
+
+            image
+
+            NOT image_url.
+        */
+
+        let imagePath = null;
 
 
         /*
-            EDIT
+            Editing:
+            keep old image.
         */
+
+        if(editingId){
+
+            const existingProduct =
+                products.find(
+                    p =>
+                        Number(p.id) ===
+                        Number(editingId)
+                );
+
+
+            if(existingProduct){
+
+                imagePath =
+                    existingProduct.image ||
+                    null;
+
+            }
+
+        }
+
+
+        /*
+            Upload new image
+        */
+
+        if(imageFile){
+
+            imagePath =
+                await uploadProductImage(
+                    imageFile
+                );
+
+        }
+
+
+        /*
+            IMPORTANT:
+
+            Do NOT add:
+
+            is_active
+
+            because that column
+            does not exist in your table.
+        */
+
+        const productData = {
+
+            name:
+                name,
+
+            description:
+                description,
+
+            category:
+                category,
+
+            price:
+                price,
+
+            stock:
+                stock,
+
+            image:
+                imagePath
+
+        };
+
+
+        let result;
+
+
+        /* =====================
+           UPDATE
+        ===================== */
 
         if(editingId){
 
@@ -1955,9 +2233,9 @@ async function saveProduct(){
         }
 
 
-        /*
-            ADD
-        */
+        /* =====================
+           INSERT
+        ===================== */
 
         else{
 
@@ -1974,6 +2252,7 @@ async function saveProduct(){
         if(result.error){
 
             console.error(
+                "Supabase save error:",
                 result.error
             );
 
@@ -2007,7 +2286,10 @@ async function saveProduct(){
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Save product error:",
+            error
+        );
 
 
         alert(
@@ -2029,10 +2311,9 @@ async function saveProduct(){
 }
 
 
-
-/* =========================================
+/* =====================================================
    DELETE PRODUCT
-========================================= */
+===================================================== */
 
 async function deleteProduct(id){
 
@@ -2118,10 +2399,9 @@ async function deleteProduct(id){
 }
 
 
-
-/* =========================================
+/* =====================================================
    CLEAR FORM
-========================================= */
+===================================================== */
 
 function clearForm(){
 
@@ -2150,17 +2430,28 @@ function clearForm(){
 
 
     document.getElementById(
+        "productStock"
+    ).value =
+        "0";
+
+
+    document.getElementById(
         "productImage"
     ).value =
         "";
 
+
+    document.getElementById(
+        "productStatus"
+    ).value =
+        "active";
+
 }
 
 
-
-/* =========================================
+/* =====================================================
    CLOSE MODAL
-========================================= */
+===================================================== */
 
 function closeModal(){
 
@@ -2172,33 +2463,35 @@ function closeModal(){
 }
 
 
-
-/* =========================================
+/* =====================================================
    CLOSE MODAL OUTSIDE
-========================================= */
+===================================================== */
 
-window.onclick =
-function(event){
+window.addEventListener(
+    "click",
+    function(event){
 
-    const modal =
-        document.getElementById(
-            "productModal"
-        );
+        const modal =
+            document.getElementById(
+                "productModal"
+            );
 
 
-    if(event.target === modal){
+        if(
+            event.target === modal
+        ){
 
-        closeModal();
+            closeModal();
+
+        }
 
     }
-
-};
-
+);
 
 
-/* =========================================
+/* =====================================================
    ESCAPE HTML
-========================================= */
+===================================================== */
 
 function escapeHtml(value){
 
@@ -2242,15 +2535,13 @@ function escapeHtml(value){
 }
 
 
-
-/* =========================================
+/* =====================================================
    START
-========================================= */
+===================================================== */
 
 loadProducts();
 
 </script>
-
 
 </body>
 
