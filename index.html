@@ -8,11 +8,9 @@
 
 <title>X3D Printing | 3D Printed Products</title>
 
-<style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-/* =========================================================
-   GLOBAL
-   ========================================================= */
+<style>
 
 * {
     margin: 0;
@@ -33,905 +31,473 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-
     background:
-        radial-gradient(
-            circle at top,
-            #17153b 0%,
-            #080816 45%
-        ),
+        radial-gradient(circle at top, #17153b 0%, #080816 45%),
         var(--bg);
-
     color: var(--text);
     min-height: 100vh;
 }
 
-
-/* =========================================================
-   HEADER
-   ========================================================= */
+/* ================= HEADER ================= */
 
 header {
-
     width: 100%;
-
     padding: 24px 7%;
-
     border-bottom: 1px solid var(--border);
-
     background: rgba(8,8,22,.85);
-
     backdrop-filter: blur(10px);
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
     position: sticky;
-
     top: 0;
-
     z-index: 100;
 }
 
-
 .logo {
-
     font-size: 28px;
-
     font-weight: 800;
 }
 
-
 .logo span {
-
     color: var(--primary);
-
 }
-
 
 nav {
-
     display: flex;
-
     gap: 35px;
-
 }
-
 
 nav a {
-
     color: white;
-
     text-decoration: none;
-
     font-weight: 600;
-
     cursor: pointer;
-
 }
-
 
 nav a:hover {
-
     color: var(--primary);
-
 }
-
 
 .cart-btn {
-
     border: 1px solid rgba(139,92,246,.5);
-
-    background:
-        linear-gradient(
-            135deg,
-            #5b21b6,
-            #8b5cf6
-        );
-
+    background: linear-gradient(135deg, #5b21b6, #8b5cf6);
     color: white;
-
     padding: 12px 20px;
-
     border-radius: 12px;
-
     cursor: pointer;
-
     font-weight: bold;
 }
-
 
 .cart-count {
-
     background: white;
-
     color: #6d28d9;
-
     padding: 3px 8px;
-
     border-radius: 20px;
-
     margin-left: 5px;
-
 }
 
-
-/* =========================================================
-   HERO
-   ========================================================= */
+/* ================= HERO ================= */
 
 .hero {
-
     padding: 80px 7% 50px;
-
     text-align: center;
-
 }
-
 
 .hero h1 {
-
     font-size: 55px;
-
     margin-bottom: 18px;
-
 }
-
 
 .hero h1 span {
-
     color: var(--primary);
-
 }
-
 
 .hero p {
-
     color: var(--muted);
-
     font-size: 18px;
-
     max-width: 650px;
-
     margin: auto;
-
     line-height: 1.7;
-
 }
 
-
-/* =========================================================
-   SECTION
-   ========================================================= */
+/* ================= SECTION ================= */
 
 .section {
-
     padding: 50px 7%;
-
 }
-
 
 .section-title {
-
     text-align: center;
-
     margin-bottom: 40px;
-
 }
-
 
 .section-title h2 {
-
     font-size: 38px;
-
     margin-bottom: 10px;
-
 }
-
 
 .section-title p {
-
     color: var(--muted);
-
 }
 
-
-/* =========================================================
-   PRODUCTS GRID
-   ========================================================= */
+/* ================= PRODUCTS ================= */
 
 .products-grid {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
-
 }
-
 
 .product-card {
-
-    background:
-        rgba(17,23,42,.92);
-
-    border:
-        1px solid var(--border);
-
+    background: rgba(17,23,42,.92);
+    border: 1px solid var(--border);
     border-radius: 22px;
-
     overflow: hidden;
-
     transition: .3s;
-
 }
-
 
 .product-card:hover {
-
     transform: translateY(-7px);
-
-    border-color:
-        rgba(139,92,246,.7);
-
-    box-shadow:
-        0 15px 50px
-        rgba(139,92,246,.15);
-
+    border-color: rgba(139,92,246,.7);
+    box-shadow: 0 15px 50px rgba(139,92,246,.15);
 }
-
 
 .product-image {
-
     width: 100%;
-
     height: 280px;
-
     background: #0d1020;
-
     overflow: hidden;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
 
 .product-image img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
     display: block;
-
 }
 
+.image-placeholder {
+    color: #aeb6cc;
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
+}
 
 .product-info {
-
     padding: 22px;
-
 }
-
 
 .category {
-
     color: #a78bfa;
-
     font-size: 13px;
-
     font-weight: bold;
-
     text-transform: uppercase;
-
     margin-bottom: 10px;
-
 }
-
 
 .product-info h3 {
-
     font-size: 21px;
-
     margin-bottom: 10px;
-
 }
-
 
 .product-info p {
-
     color: var(--muted);
-
     line-height: 1.6;
-
     min-height: 50px;
-
 }
-
 
 .product-bottom {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-top: 20px;
-
+    gap: 10px;
 }
-
 
 .price {
-
     font-size: 21px;
-
     font-weight: bold;
-
 }
-
 
 .add-btn {
-
     border: none;
-
-    background:
-        linear-gradient(
-            135deg,
-            #6d28d9,
-            #8b5cf6
-        );
-
+    background: linear-gradient(135deg, #6d28d9, #8b5cf6);
     color: white;
-
     padding: 11px 17px;
-
     border-radius: 10px;
-
     cursor: pointer;
-
     font-weight: bold;
-
 }
-
 
 .add-btn:hover {
-
     opacity: .85;
-
 }
-
 
 .add-btn:disabled {
-
-    opacity: .5;
-
+    opacity: .55;
     cursor: not-allowed;
-
 }
 
+/* ================= LOADING ================= */
 
-/* =========================================================
-   LOADING
-   ========================================================= */
-
-.products-loading {
-
+.loading {
     grid-column: 1 / -1;
-
     text-align: center;
-
-    padding: 60px 20px;
-
+    padding: 50px;
     color: var(--muted);
-
     font-size: 18px;
-
 }
 
-
-.products-error {
-
-    grid-column: 1 / -1;
-
-    text-align: center;
-
-    padding: 60px 20px;
-
-    color: #ef4444;
-
-    font-size: 18px;
-
-}
-
-
-.no-products {
-
-    grid-column: 1 / -1;
-
-    text-align: center;
-
-    padding: 60px 20px;
-
-    color: var(--muted);
-
-    font-size: 18px;
-
-}
-
-
-/* =========================================================
-   CUSTOM
-   ========================================================= */
+/* ================= CUSTOM ================= */
 
 .custom {
-
     margin: 50px 7%;
-
     padding: 50px;
-
     border-radius: 25px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(109,40,217,.25),
-            rgba(17,23,42,.9)
-        );
-
-    border:
-        1px solid
-        rgba(139,92,246,.3);
-
+    background: linear-gradient(
+        135deg,
+        rgba(109,40,217,.25),
+        rgba(17,23,42,.9)
+    );
+    border: 1px solid rgba(139,92,246,.3);
     text-align: center;
-
 }
-
 
 .custom h2 {
-
     font-size: 35px;
-
     margin-bottom: 15px;
-
 }
-
 
 .custom p {
-
     color: var(--muted);
-
     margin-bottom: 25px;
-
 }
-
 
 .custom-btn {
-
     background: white;
-
     color: #111;
-
     border: none;
-
     padding: 14px 25px;
-
     border-radius: 10px;
-
     font-weight: bold;
-
     cursor: pointer;
-
 }
 
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
+/* ================= FOOTER ================= */
 
 footer {
-
     margin-top: 70px;
-
     padding: 30px 7%;
-
     text-align: center;
-
-    border-top:
-        1px solid var(--border);
-
+    border-top: 1px solid var(--border);
     color: var(--muted);
-
 }
 
-
-/* =========================================================
-   CART
-   ========================================================= */
+/* ================= CART ================= */
 
 .cart-modal {
-
     display: none;
-
     position: fixed;
-
     inset: 0;
-
-    background:
-        rgba(0,0,0,.75);
-
+    background: rgba(0,0,0,.75);
     z-index: 200;
-
     align-items: center;
-
     justify-content: center;
-
     padding: 20px;
-
 }
-
 
 .cart-box {
-
     background: #11172a;
-
     width: 100%;
-
     max-width: 600px;
-
     max-height: 85vh;
-
     overflow-y: auto;
-
     border-radius: 20px;
-
-    border:
-        1px solid var(--border);
-
+    border: 1px solid var(--border);
     padding: 25px;
-
 }
-
 
 .cart-header {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 20px;
-
 }
-
 
 .close-btn {
-
     background: transparent;
-
     border: none;
-
     color: white;
-
     font-size: 28px;
-
     cursor: pointer;
-
 }
-
 
 .cart-item {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     gap: 15px;
-
     padding: 15px 0;
-
-    border-bottom:
-        1px solid var(--border);
-
+    border-bottom: 1px solid var(--border);
 }
-
 
 .cart-item-info h4 {
-
     margin-bottom: 5px;
-
 }
-
 
 .cart-item-info p {
-
     color: var(--muted);
-
 }
-
 
 .remove-btn {
-
     background: #ef4444;
-
     color: white;
-
     border: none;
-
     padding: 7px 10px;
-
     border-radius: 7px;
-
     cursor: pointer;
-
 }
-
 
 .cart-total {
-
     display: flex;
-
     justify-content: space-between;
-
     margin-top: 25px;
-
     font-size: 22px;
-
     font-weight: bold;
-
 }
-
 
 .checkout-btn {
-
     width: 100%;
-
     margin-top: 20px;
-
     padding: 15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #6d28d9,
-            #8b5cf6
-        );
-
+    background: linear-gradient(135deg, #6d28d9, #8b5cf6);
     color: white;
-
     border: none;
-
     border-radius: 10px;
-
     font-weight: bold;
-
     cursor: pointer;
-
 }
 
-
-.checkout-btn:disabled {
-
-    opacity: .6;
-
-    cursor: not-allowed;
-
-}
-
-
-/* =========================================================
-   CHECKOUT
-   ========================================================= */
+/* ================= CHECKOUT ================= */
 
 #checkoutForm {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 10px;
-
 }
-
 
 #checkoutForm label {
-
     font-weight: bold;
-
     margin-top: 8px;
-
 }
-
 
 #checkoutForm input,
 #checkoutForm select,
 #checkoutForm textarea {
-
     width: 100%;
-
     padding: 13px;
-
     border-radius: 10px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.12);
-
+    border: 1px solid rgba(255,255,255,.12);
     background: #0d1020;
-
     color: white;
-
     outline: none;
-
 }
-
 
 #checkoutForm textarea {
-
     min-height: 80px;
-
     resize: vertical;
-
 }
-
 
 #checkoutForm input:focus,
 #checkoutForm select:focus,
 #checkoutForm textarea:focus {
-
-    border-color:
-        var(--primary);
-
+    border-color: var(--primary);
 }
-
 
 .checkout-summary-box {
-
     background: #0d1020;
-
     padding: 18px;
-
     border-radius: 12px;
-
-    border:
-        1px solid var(--border);
-
+    border: 1px solid var(--border);
 }
-
 
 .summary-row {
-
     display: flex;
-
     justify-content: space-between;
-
     margin: 8px 0;
-
-    gap: 20px;
-
+    gap: 15px;
 }
-
 
 .summary-total {
-
     margin-top: 15px;
-
     padding-top: 15px;
-
-    border-top:
-        1px solid var(--border);
-
+    border-top: 1px solid var(--border);
     font-size: 20px;
-
     font-weight: bold;
-
 }
 
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
+/* ================= MOBILE ================= */
 
 @media (max-width: 900px) {
 
     .products-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
+        grid-template-columns: repeat(2, 1fr);
     }
 
-
     nav {
-
         gap: 15px;
-
     }
 
 }
 
-
 @media (max-width: 650px) {
 
     header {
-
         flex-wrap: wrap;
-
         gap: 15px;
-
     }
-
 
     nav {
-
         order: 3;
-
         width: 100%;
-
         justify-content: center;
-
     }
-
 
     .hero h1 {
-
         font-size: 38px;
-
     }
-
 
     .products-grid {
-
         grid-template-columns: 1fr;
-
     }
 
-
     .custom {
-
         margin: 30px 5%;
-
         padding: 30px 20px;
-
     }
 
 }
 
 </style>
 
-
-<!-- =========================================================
-     SUPABASE
-     ========================================================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     HEADER
-     ========================================================= -->
+<!-- ================= HEADER ================= -->
 
 <header>
 
     <div class="logo">
-
         X<span>3D</span> Printing
-
     </div>
-
 
     <nav>
 
@@ -948,7 +514,6 @@ footer {
         </a>
 
     </nav>
-
 
     <button
         class="cart-btn"
@@ -969,9 +534,7 @@ footer {
 </header>
 
 
-<!-- =========================================================
-     HERO
-     ========================================================= -->
+<!-- ================= HERO ================= -->
 
 <section
     class="hero"
@@ -987,22 +550,19 @@ footer {
 
     </h1>
 
-
     <p>
 
         Discover premium 3D printed products
         and custom printing services.
-        Unique designs, high quality and
-        made just for you.
+        Unique designs, high quality and made
+        just for you.
 
     </p>
 
 </section>
 
 
-<!-- =========================================================
-     PRODUCTS
-     ========================================================= -->
+<!-- ================= PRODUCTS ================= -->
 
 <section
     class="section"
@@ -1015,7 +575,6 @@ footer {
             Our Products
         </h2>
 
-
         <p>
             Premium 3D printed products ready to order.
         </p>
@@ -1023,20 +582,13 @@ footer {
     </div>
 
 
-    <!--
-        PRODUCTS ARE LOADED FROM SUPABASE
-        AUTOMATICALLY
-    -->
-
     <div
         class="products-grid"
         id="productsGrid"
     >
 
-        <div class="products-loading">
-
+        <div class="loading">
             Loading products...
-
         </div>
 
     </div>
@@ -1044,9 +596,7 @@ footer {
 </section>
 
 
-<!-- =========================================================
-     CUSTOM PRINT
-     ========================================================= -->
+<!-- ================= CUSTOM ================= -->
 
 <section
     class="custom"
@@ -1054,19 +604,13 @@ footer {
 >
 
     <h2>
-
         Need Something Custom?
-
     </h2>
 
-
     <p>
-
         Send us your idea and we'll turn it
         into a 3D printed product.
-
     </p>
-
 
     <button
         class="custom-btn"
@@ -1080,9 +624,7 @@ footer {
 </section>
 
 
-<!-- =========================================================
-     FOOTER
-     ========================================================= -->
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
@@ -1092,9 +634,7 @@ footer {
 </footer>
 
 
-<!-- =========================================================
-     CART MODAL
-     ========================================================= -->
+<!-- ================= CART MODAL ================= -->
 
 <div
     class="cart-modal"
@@ -1109,14 +649,11 @@ footer {
                 Your Cart
             </h2>
 
-
             <button
                 class="close-btn"
                 onclick="closeCart()"
             >
-
                 ×
-
             </button>
 
         </div>
@@ -1125,9 +662,7 @@ footer {
         <div id="cartItems">
 
             <p style="color:#aeb6cc;">
-
                 Your cart is empty.
-
             </p>
 
         </div>
@@ -1139,11 +674,8 @@ footer {
                 Total
             </span>
 
-
             <span id="cartTotal">
-
                 EGP 0
-
             </span>
 
         </div>
@@ -1163,9 +695,7 @@ footer {
 </div>
 
 
-<!-- =========================================================
-     CHECKOUT MODAL
-     ========================================================= -->
+<!-- ================= CHECKOUT MODAL ================= -->
 
 <div
     class="cart-modal"
@@ -1180,14 +710,11 @@ footer {
                 Checkout
             </h2>
 
-
             <button
                 class="close-btn"
                 onclick="closeCheckout()"
             >
-
                 ×
-
             </button>
 
         </div>
@@ -1195,11 +722,9 @@ footer {
 
         <form id="checkoutForm">
 
-
             <label>
                 Full Name
             </label>
-
 
             <input
                 type="text"
@@ -1213,7 +738,6 @@ footer {
                 Phone Number
             </label>
 
-
             <input
                 type="tel"
                 id="customerPhone"
@@ -1225,7 +749,6 @@ footer {
             <label>
                 Governorate
             </label>
-
 
             <input
                 type="text"
@@ -1239,7 +762,6 @@ footer {
                 Area
             </label>
 
-
             <input
                 type="text"
                 id="area"
@@ -1252,7 +774,6 @@ footer {
                 Full Address
             </label>
 
-
             <textarea
                 id="address"
                 placeholder="Enter your full delivery address"
@@ -1263,7 +784,6 @@ footer {
             <label>
                 Color
             </label>
-
 
             <select id="color">
 
@@ -1302,7 +822,6 @@ footer {
                 Notes
             </label>
 
-
             <textarea
                 id="notes"
                 placeholder="Any special instructions?"
@@ -1312,7 +831,6 @@ footer {
             <label>
                 Payment Method
             </label>
-
 
             <select
                 id="paymentMethod"
@@ -1346,7 +864,6 @@ footer {
 
             </button>
 
-
         </form>
 
     </div>
@@ -1354,24 +871,17 @@ footer {
 </div>
 
 
-<!-- =========================================================
-     JAVASCRIPT
-     ========================================================= -->
-
 <script>
 
-
 /* =========================================================
-   SUPABASE CONNECTION
+   SUPABASE
    ========================================================= */
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1381,28 +891,181 @@ const supabaseClient =
 
 
 /* =========================================================
+   STATIC IMAGE FALLBACK
+   =========================================================
+
+   These are the image files already inside GitHub.
+
+   If an old product has only an image filename,
+   the Store will use these files.
+*/
+
+const imageFallbacks = {
+
+    "Custom Name Keychain":
+        "01-custom-name-keychain.jpeg",
+
+    "Fighter Jets — Set of 2":
+        "02-fighter-jet-1.jpeg",
+
+    "Fighter Jets - Set of 2":
+        "02-fighter-jet-1.jpeg",
+
+    "Football Keychain":
+        "03-football-keychain.jpeg",
+
+    "3D Printed Knife":
+        "04-knife-1.jpeg"
+
+};
+
+
+/* =========================================================
    PRODUCTS
    ========================================================= */
 
-/*
-    IMPORTANT:
+let products = [];
 
-    Products are NO LONGER hard-coded.
-
-    They are loaded from:
-
-        Supabase
-        ↓
-        products table
-        ↓
-        Store
-
-*/
+let cart = [];
 
 
-let products = {};
+/* =========================================================
+   GET PRODUCT IMAGE
+   ========================================================= */
 
-let productsList = [];
+function getProductImage(product) {
+
+    /*
+       Try all possible column names.
+    */
+
+    let image =
+        product.image_url ||
+        product.image ||
+        product.imageUrl ||
+        product.product_image ||
+        product.productImage ||
+        null;
+
+
+    /*
+       If there is no image in Supabase,
+       check the old static products.
+    */
+
+    if (!image || String(image).trim() === "") {
+
+        if (
+            imageFallbacks[
+                product.name
+            ]
+        ) {
+
+            return imageFallbacks[
+                product.name
+            ];
+
+        }
+
+        return null;
+
+    }
+
+
+    image = String(image).trim();
+
+
+    /*
+       Full Supabase Storage URL
+       or any external URL.
+    */
+
+    if (
+        image.startsWith("http://") ||
+        image.startsWith("https://") ||
+        image.startsWith("data:")
+    ) {
+
+        return image;
+
+    }
+
+
+    /*
+       If it is a path such as:
+       product-images/file.jpeg
+       keep it as a relative path.
+    */
+
+    return image;
+
+}
+
+
+/* =========================================================
+   IMAGE ERROR HANDLER
+   ========================================================= */
+
+function handleImageError(img, productName) {
+
+    /*
+       Prevent infinite error loops.
+    */
+
+    img.onerror = null;
+
+
+    /*
+       Try old static image based
+       on product name.
+    */
+
+    const fallback =
+        imageFallbacks[
+            productName
+        ];
+
+
+    if (
+        fallback &&
+        img.src !== fallback
+    ) {
+
+        img.src = fallback;
+
+        return;
+
+    }
+
+
+    /*
+       If no fallback exists,
+       show placeholder.
+    */
+
+    const parent =
+        img.parentElement;
+
+    if (parent) {
+
+        img.remove();
+
+        const placeholder =
+            document.createElement("div");
+
+        placeholder.className =
+            "image-placeholder";
+
+        placeholder.textContent =
+            "Image unavailable";
+
+        parent.appendChild(
+            placeholder
+        );
+
+    }
+
+}
 
 
 /* =========================================================
@@ -1411,67 +1074,72 @@ let productsList = [];
 
 async function loadProducts() {
 
-    const productsGrid =
+    const grid =
         document.getElementById(
             "productsGrid"
         );
 
 
+    grid.innerHTML = `
+        <div class="loading">
+            Loading products...
+        </div>
+    `;
+
+
     try {
-
-
-        productsGrid.innerHTML = `
-
-            <div class="products-loading">
-
-                Loading products...
-
-            </div>
-
-        `;
-
-
-        /*
-            Get products from Supabase.
-
-            We use select("*")
-            so we don't depend on
-            specific column names.
-        */
-
 
         const {
             data,
             error
-        } = await supabaseClient
-
-            .from("products")
-
-            .select("*");
+        } =
+            await supabaseClient
+                .from("products")
+                .select("*")
+                .order("id", {
+                    ascending: true
+                });
 
 
         if (error) {
 
             console.error(
-                "Supabase Products Error:",
+                "Products error:",
                 error
             );
 
+            throw error;
 
-            productsGrid.innerHTML = `
+        }
 
-                <div class="products-error">
 
-                    Failed to load products.
+        /*
+           Save products globally.
+        */
 
-                    <br><br>
+        products =
+            data || [];
 
-                    ${escapeHTML(
-                        error.message
-                    )}
 
+        console.log(
+            "Products loaded:",
+            products
+        );
+
+
+        /*
+           If no products are returned,
+           show a message.
+        */
+
+        if (
+            products.length === 0
+        ) {
+
+            grid.innerHTML = `
+                <div class="loading">
+                    No products available.
                 </div>
-
             `;
 
             return;
@@ -1479,194 +1147,75 @@ async function loadProducts() {
         }
 
 
-        console.log(
-            "Products loaded from Supabase:",
-            data
-        );
-
-
-        /*
-            Keep only active products.
-
-            This handles:
-
-                Active
-                active
-                ACTIVE
-
-        */
-
-
-        productsList =
-            (data || []).filter(product => {
-
-                const status =
-                    String(
-                        product.status ?? "Active"
-                    )
-                    .trim()
-                    .toLowerCase();
-
-
-                return (
-                    status === "active" ||
-                    status === "available" ||
-                    status === "published"
-                );
-
-            });
-
-
-        /*
-            If status column doesn't exist
-            or products don't have a status,
-            show all products.
-        */
-
-        if (
-            productsList.length === 0 &&
-            data &&
-            data.length > 0
-        ) {
-
-            const hasStatus =
-                data.some(
-                    product =>
-                        product.status !== undefined
-                );
-
-
-            if (!hasStatus) {
-
-                productsList = data;
-
-            }
-
-        }
-
-
-        /*
-            Create products object
-            for the Cart.
-        */
-
-
-        products = {};
-
-
-        productsList.forEach(product => {
-
-
-            const productId =
-                product.id;
-
-
-            const productName =
-                product.name ??
-                product.product_name ??
-                product.title ??
-                "Unnamed Product";
-
-
-            const productPrice =
-                Number(
-                    product.price ??
-                    product.price_egp ??
-                    product.product_price ??
-                    0
-                );
-
-
-            const productCategory =
-                product.category ??
-                product.product_category ??
-                "General";
-
-
-            const productDescription =
-                product.description ??
-                product.product_description ??
-                "";
-
-
-            const productStock =
-                Number(
-                    product.stock ??
-                    product.quantity ??
-                    0
-                );
-
-
-            const productImage =
-                product.image_url ??
-                product.image ??
-                product.product_image ??
-                product.imageurl ??
-                "";
-
-
-            products[productId] = {
-
-                id:
-                    productId,
-
-                name:
-                    productName,
-
-                category:
-                    productCategory,
-
-                description:
-                    productDescription,
-
-                price:
-                    productPrice,
-
-                stock:
-                    productStock,
-
-                image:
-                    productImage
-
-            };
-
-
-        });
-
-
-        /*
-            Render products.
-        */
-
-
         renderProducts();
 
 
     } catch (error) {
 
-
         console.error(
-            "Unexpected Products Error:",
             error
         );
 
 
-        productsGrid.innerHTML = `
+        /*
+           If Supabase fails completely,
+           show the original products.
+        */
 
-            <div class="products-error">
+        products = [
 
-                Something went wrong
-                while loading products.
+            {
+                id: 1,
+                name: "Custom Name Keychain",
+                category: "Accessories",
+                description:
+                    "Personalized 3D printed keychain with your name or any word you like.",
+                price: 80,
+                stock: 10,
+                image_url:
+                    "01-custom-name-keychain.jpeg"
+            },
 
-                <br><br>
+            {
+                id: 2,
+                name: "Fighter Jets — Set of 2",
+                category: "Decoration",
+                description:
+                    "Detailed 3D printed fighter jets. Perfect for display and collectors.",
+                price: 300,
+                stock: 10,
+                image_url:
+                    "02-fighter-jet-1.jpeg"
+            },
 
-                ${escapeHTML(
-                    error.message
-                )}
+            {
+                id: 3,
+                name: "Football Keychain",
+                category: "Accessories",
+                description:
+                    "Lightweight 3D printed football keychain with a detailed design.",
+                price: 70,
+                stock: 10,
+                image_url:
+                    "03-football-keychain.jpeg"
+            },
 
-            </div>
+            {
+                id: 4,
+                name: "3D Printed Knife",
+                category: "Decoration",
+                description:
+                    "Detailed 3D printed decorative model for collectors and display.",
+                price: 120,
+                stock: 10,
+                image_url:
+                    "04-knife-1.jpeg"
+            }
 
-        `;
+        ];
+
+
+        renderProducts();
 
     }
 
@@ -1679,31 +1228,21 @@ async function loadProducts() {
 
 function renderProducts() {
 
-
-    const productsGrid =
+    const grid =
         document.getElementById(
             "productsGrid"
         );
 
 
-    /*
-        No products.
-    */
-
-
     if (
-        !productsList ||
-        productsList.length === 0
+        !products ||
+        products.length === 0
     ) {
 
-        productsGrid.innerHTML = `
-
-            <div class="no-products">
-
+        grid.innerHTML = `
+            <div class="loading">
                 No products available.
-
             </div>
-
         `;
 
         return;
@@ -1711,308 +1250,209 @@ function renderProducts() {
     }
 
 
-    /*
-        Build Product Cards.
-    */
+    grid.innerHTML =
+        products.map(
+            product => {
+
+                const image =
+                    getProductImage(
+                        product
+                    );
 
 
-    productsGrid.innerHTML =
+                /*
+                   Stock handling.
 
-        productsList.map(product => {
+                   IMPORTANT:
+                   If stock is NULL / undefined,
+                   don't automatically make it
+                   Out of Stock.
 
+                   Only 0 means out of stock.
+                */
 
-            const productId =
-                product.id;
-
-
-            const productName =
-                product.name ??
-                product.product_name ??
-                product.title ??
-                "Unnamed Product";
-
-
-            const productCategory =
-                product.category ??
-                product.product_category ??
-                "General";
+                const stockValue =
+                    Number(
+                        product.stock
+                    );
 
 
-            const productDescription =
-                product.description ??
-                product.product_description ??
-                "";
+                const hasStock =
+                    product.stock !== null &&
+                    product.stock !== undefined &&
+                    product.stock !== ""
+                        ? stockValue > 0
+                        : true;
 
 
-            const productPrice =
-                Number(
-                    product.price ??
-                    product.price_egp ??
-                    product.product_price ??
-                    0
-                );
+                const status =
+                    String(
+                        product.status ||
+                        "Active"
+                    ).toLowerCase();
 
 
-            const productStock =
-                Number(
-                    product.stock ??
-                    product.quantity ??
-                    0
-                );
+                const isActive =
+                    status === "active" ||
+                    status === "available" ||
+                    status === "published" ||
+                    status === "";
 
 
-            const productImage =
-                product.image_url ??
-                product.image ??
-                product.product_image ??
-                product.imageurl ??
-                "";
+                const canBuy =
+                    hasStock &&
+                    isActive;
 
 
-            /*
-                Image
-            */
+                return `
 
-
-            let imageHTML = "";
-
-
-            if (productImage) {
-
-
-                imageHTML = `
-
-                    <img
-                        src="${escapeAttribute(productImage)}"
-                        alt="${escapeAttribute(productName)}"
-                        onerror="handleImageError(this)"
+                    <div
+                        class="product-card"
                     >
 
-                `;
+                        <div
+                            class="product-image"
+                        >
+
+                            ${
+                                image
+                                ?
+
+                                `
+                                <img
+                                    src="${escapeAttribute(image)}"
+                                    alt="${escapeAttribute(product.name || "Product")}"
+                                    onerror="handleImageError(this, '${escapeJS(product.name || "")}')"
+                                >
+                                `
+
+                                :
+
+                                `
+                                <div class="image-placeholder">
+                                    Image unavailable
+                                </div>
+                                `
+                            }
+
+                        </div>
 
 
-            } else {
+                        <div
+                            class="product-info"
+                        >
+
+                            <div
+                                class="category"
+                            >
+                                ${
+                                    escapeHTML(
+                                        product.category ||
+                                        "General"
+                                    )
+                                }
+                            </div>
 
 
-                imageHTML = `
+                            <h3>
+                                ${
+                                    escapeHTML(
+                                        product.name ||
+                                        "Unnamed Product"
+                                    )
+                                }
+                            </h3>
 
-                    <div style="
-                        width:100%;
-                        height:100%;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        color:#aeb6cc;
-                        font-size:18px;
-                    ">
 
-                        No Image
+                            <p>
+                                ${
+                                    escapeHTML(
+                                        product.description ||
+                                        "Premium 3D printed product."
+                                    )
+                                }
+                            </p>
+
+
+                            <div
+                                class="product-bottom"
+                            >
+
+                                <div
+                                    class="price"
+                                >
+                                    EGP
+                                    ${
+                                        Number(
+                                            product.price || 0
+                                        )
+                                    }
+                                </div>
+
+
+                                ${
+                                    canBuy
+
+                                    ?
+
+                                    `
+                                    <button
+                                        class="add-btn"
+                                        onclick="addDynamicProductToCart(${product.id})"
+                                    >
+                                        Add to Cart
+                                    </button>
+                                    `
+
+                                    :
+
+                                    `
+                                    <button
+                                        class="add-btn"
+                                        disabled
+                                    >
+                                        Out of Stock
+                                    </button>
+                                    `
+                                }
+
+                            </div>
+
+                        </div>
 
                     </div>
 
                 `;
 
             }
-
-
-            /*
-                Stock button
-            */
-
-
-            const outOfStock =
-                productStock <= 0;
-
-
-            const buttonHTML = outOfStock
-
-                ? `
-
-                    <button
-                        class="add-btn"
-                        disabled
-                    >
-
-                        Out of Stock
-
-                    </button>
-
-                `
-
-                : `
-
-                    <button
-                        class="add-btn"
-                        onclick="addToCart('${escapeAttribute(String(productId))}')"
-                    >
-
-                        Add to Cart
-
-                    </button>
-
-                `;
-
-
-            return `
-
-                <div
-                    class="product-card"
-                    data-product-id="${escapeAttribute(String(productId))}"
-                >
-
-
-                    <div class="product-image">
-
-                        ${imageHTML}
-
-                    </div>
-
-
-                    <div class="product-info">
-
-
-                        <div class="category">
-
-                            ${escapeHTML(
-                                productCategory
-                            )}
-
-                        </div>
-
-
-                        <h3>
-
-                            ${escapeHTML(
-                                productName
-                            )}
-
-                        </h3>
-
-
-                        <p>
-
-                            ${escapeHTML(
-                                productDescription
-                            )}
-
-                        </p>
-
-
-                        <div class="product-bottom">
-
-
-                            <div class="price">
-
-                                EGP
-                                ${productPrice.toLocaleString()}
-
-                            </div>
-
-
-                            ${buttonHTML}
-
-
-                        </div>
-
-
-                    </div>
-
-
-                </div>
-
-            `;
-
-        }).join("");
+        ).join("");
 
 }
 
 
 /* =========================================================
-   IMAGE ERROR
-   ========================================================= */
-
-function handleImageError(image) {
-
-    image.style.display = "none";
-
-
-    const container =
-        image.parentElement;
-
-
-    if (
-        container &&
-        !container.querySelector(
-            ".image-error"
-        )
-    ) {
-
-        const fallback =
-            document.createElement(
-                "div"
-            );
-
-
-        fallback.className =
-            "image-error";
-
-
-        fallback.style.cssText = `
-
-            width:100%;
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:#aeb6cc;
-            font-size:18px;
-
-        `;
-
-
-        fallback.textContent =
-            "Image unavailable";
-
-
-        container.appendChild(
-            fallback
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   HTML ESCAPE
+   ESCAPE HTML
    ========================================================= */
 
 function escapeHTML(value) {
 
-    return String(
-        value ?? ""
-    )
-
+    return String(value)
         .replace(
             /&/g,
             "&amp;"
         )
-
         .replace(
             /</g,
             "&lt;"
         )
-
         .replace(
             />/g,
             "&gt;"
         )
-
         .replace(
             /"/g,
             "&quot;"
         )
-
         .replace(
             /'/g,
             "&#039;"
@@ -2021,58 +1461,58 @@ function escapeHTML(value) {
 }
 
 
+/* =========================================================
+   ESCAPE ATTRIBUTE
+   ========================================================= */
+
 function escapeAttribute(value) {
 
-    return escapeHTML(value);
+    return escapeHTML(
+        value
+    );
 
 }
 
 
 /* =========================================================
-   CART
+   ESCAPE JS
    ========================================================= */
 
-let cart = [];
+function escapeJS(value) {
+
+    return String(value)
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+        .replace(
+            /'/g,
+            "\\'"
+        )
+        .replace(
+            /\n/g,
+            "\\n"
+        )
+        .replace(
+            /\r/g,
+            "\\r"
+        );
+
+}
 
 
 /* =========================================================
-   ADD TO CART
+   ADD PRODUCT TO CART
    ========================================================= */
 
-function addToCart(id) {
+function addDynamicProductToCart(id) {
 
-
-    /*
-        Convert ID to match
-        Supabase data.
-    */
-
-
-    let product =
-        products[id];
-
-
-    /*
-        If not found, try
-        string comparison.
-    */
-
-
-    if (!product) {
-
-        product =
-            productsList.find(
-                item =>
-                    String(item.id) ===
-                    String(id)
-            );
-
-    }
-
-
-    /*
-        Product doesn't exist.
-    */
+    const product =
+        products.find(
+            p =>
+                String(p.id) ===
+                String(id)
+        );
 
 
     if (!product) {
@@ -2086,54 +1526,22 @@ function addToCart(id) {
     }
 
 
-    /*
-        Normalize product.
-    */
-
-
-    const normalizedProduct = {
-
-        id:
-            product.id,
-
-        name:
-            product.name ??
-            product.product_name ??
-            product.title ??
-            "Unnamed Product",
-
-        price:
-            Number(
-                product.price ??
-                product.price_egp ??
-                product.product_price ??
-                0
-            ),
-
-        image:
-            product.image_url ??
-            product.image ??
-            product.product_image ??
-            product.imageurl ??
-            "",
-
-        stock:
-            Number(
-                product.stock ??
-                product.quantity ??
-                0
-            )
-
-    };
+    const stock =
+        Number(
+            product.stock
+        );
 
 
     /*
-        Check stock.
+       Only stop if stock exists
+       and is actually zero.
     */
-
 
     if (
-        normalizedProduct.stock <= 0
+        product.stock !== null &&
+        product.stock !== undefined &&
+        product.stock !== "" &&
+        stock <= 0
     ) {
 
         alert(
@@ -2145,48 +1553,32 @@ function addToCart(id) {
     }
 
 
-    /*
-        Check current quantity.
-    */
+    cart.push({
 
+        id:
+            product.id,
 
-    const currentQuantity =
-        cart.filter(
-            item =>
-                String(item.id) ===
-                String(normalizedProduct.id)
-        ).length;
+        name:
+            product.name,
 
+        price:
+            Number(
+                product.price || 0
+            ),
 
-    if (
-        currentQuantity >=
-        normalizedProduct.stock
-    ) {
+        image:
+            getProductImage(
+                product
+            )
 
-        alert(
-            "You have reached the available stock."
-        );
-
-        return;
-
-    }
-
-
-    /*
-        Add product.
-    */
-
-
-    cart.push(
-        normalizedProduct
-    );
+    });
 
 
     updateCart();
 
 
     alert(
-        normalizedProduct.name +
+        product.name +
         " added to cart!"
     );
 
@@ -2204,7 +1596,6 @@ function removeFromCart(index) {
         1
     );
 
-
     updateCart();
 
 }
@@ -2217,14 +1608,18 @@ function removeFromCart(index) {
 function getCartTotal() {
 
     return cart.reduce(
+        (
+            total,
+            item
+        ) => {
 
-        (total, item) =>
+            return total +
+                Number(
+                    item.price || 0
+                );
 
-            total +
-            Number(item.price || 0),
-
+        },
         0
-
     );
 
 }
@@ -2236,18 +1631,15 @@ function getCartTotal() {
 
 function updateCart() {
 
-
     const cartCount =
         document.getElementById(
             "cartCount"
         );
 
-
     const cartItems =
         document.getElementById(
             "cartItems"
         );
-
 
     const cartTotal =
         document.getElementById(
@@ -2255,58 +1647,37 @@ function updateCart() {
         );
 
 
-    /*
-        Count
-    */
-
-
     cartCount.textContent =
         cart.length;
-
-
-    /*
-        Empty Cart
-    */
 
 
     if (
         cart.length === 0
     ) {
 
-
         cartItems.innerHTML = `
-
             <p style="color:#aeb6cc;">
-
                 Your cart is empty.
-
             </p>
-
         `;
-
 
         cartTotal.textContent =
             "EGP 0";
-
 
         return;
 
     }
 
 
-    /*
-        Render Cart.
-    */
-
-
     let total = 0;
 
 
     cartItems.innerHTML =
-
         cart.map(
-            (item, index) => {
-
+            (
+                item,
+                index
+            ) => {
 
                 total +=
                     Number(
@@ -2316,27 +1687,29 @@ function updateCart() {
 
                 return `
 
-                    <div class="cart-item">
+                    <div
+                        class="cart-item"
+                    >
 
-
-                        <div class="cart-item-info">
+                        <div
+                            class="cart-item-info"
+                        >
 
                             <h4>
-
-                                ${escapeHTML(
-                                    item.name
-                                )}
-
+                                ${
+                                    escapeHTML(
+                                        item.name
+                                    )
+                                }
                             </h4>
 
-
                             <p>
-
                                 EGP
-                                ${Number(
-                                    item.price
-                                ).toLocaleString()}
-
+                                ${
+                                    Number(
+                                        item.price || 0
+                                    )
+                                }
                             </p>
 
                         </div>
@@ -2346,11 +1719,8 @@ function updateCart() {
                             class="remove-btn"
                             onclick="removeFromCart(${index})"
                         >
-
                             Remove
-
                         </button>
-
 
                     </div>
 
@@ -2361,8 +1731,7 @@ function updateCart() {
 
 
     cartTotal.textContent =
-        "EGP " +
-        total.toLocaleString();
+        "EGP " + total;
 
 }
 
@@ -2375,8 +1744,7 @@ function openCart() {
 
     document.getElementById(
         "cartModal"
-    ).style.display =
-        "flex";
+    ).style.display = "flex";
 
 }
 
@@ -2389,8 +1757,7 @@ function closeCart() {
 
     document.getElementById(
         "cartModal"
-    ).style.display =
-        "none";
+    ).style.display = "none";
 
 }
 
@@ -2400,7 +1767,6 @@ function closeCart() {
    ========================================================= */
 
 function checkout() {
-
 
     if (
         cart.length === 0
@@ -2417,14 +1783,12 @@ function checkout() {
 
     closeCart();
 
-
     renderCheckoutSummary();
 
 
     document.getElementById(
         "checkoutModal"
-    ).style.display =
-        "flex";
+    ).style.display = "flex";
 
 }
 
@@ -2437,8 +1801,7 @@ function closeCheckout() {
 
     document.getElementById(
         "checkoutModal"
-    ).style.display =
-        "none";
+    ).style.display = "none";
 
 }
 
@@ -2448,7 +1811,6 @@ function closeCheckout() {
    ========================================================= */
 
 function renderCheckoutSummary() {
-
 
     const subtotal =
         getCartTotal();
@@ -2467,69 +1829,74 @@ function renderCheckoutSummary() {
         "checkoutSummary"
     ).innerHTML = `
 
-        <div class="checkout-summary-box">
-
+        <div
+            class="checkout-summary-box"
+        >
 
             <h3>
                 Order Summary
             </h3>
 
-
             <br>
 
 
-            ${cart.map(
-                item => `
+            ${
 
-                    <div class="summary-row">
+                cart.map(
+                    item => `
 
-                        <span>
+                        <div
+                            class="summary-row"
+                        >
 
-                            ${escapeHTML(
-                                item.name
-                            )}
+                            <span>
+                                ${
+                                    escapeHTML(
+                                        item.name
+                                    )
+                                }
+                            </span>
 
-                        </span>
+                            <span>
+                                EGP
+                                ${
+                                    Number(
+                                        item.price || 0
+                                    )
+                                }
+                            </span>
+
+                        </div>
+
+                    `
+                ).join("")
+
+            }
 
 
-                        <span>
-
-                            EGP
-                            ${Number(
-                                item.price
-                            ).toLocaleString()}
-
-                        </span>
-
-                    </div>
-
-                `
-            ).join("")}
-
-
-            <div class="summary-row">
+            <div
+                class="summary-row"
+            >
 
                 <span>
                     Subtotal
                 </span>
 
-
                 <span>
-
                     EGP
-                    ${subtotal.toLocaleString()}
-
+                    ${subtotal}
                 </span>
 
             </div>
 
 
-            <div class="summary-row">
+            <div
+                class="summary-row"
+            >
 
                 <span>
                     Delivery
                 </span>
-
 
                 <span>
                     Will be confirmed
@@ -2539,24 +1906,19 @@ function renderCheckoutSummary() {
 
 
             <div
-                class="summary-row
-                       summary-total"
+                class="summary-row summary-total"
             >
 
                 <span>
                     Products Total
                 </span>
 
-
                 <span>
-
                     EGP
-                    ${total.toLocaleString()}
-
+                    ${total}
                 </span>
 
             </div>
-
 
         </div>
 
@@ -2577,7 +1939,6 @@ document
         "submit",
         async function(event) {
 
-
             event.preventDefault();
 
 
@@ -2592,11 +1953,6 @@ document
                 return;
 
             }
-
-
-            /*
-                Customer Information
-            */
 
 
             const customerName =
@@ -2669,11 +2025,6 @@ document
                     .value;
 
 
-            /*
-                Submit Button
-            */
-
-
             const button =
                 document.querySelector(
                     "#checkoutForm button[type='submit']"
@@ -2690,113 +2041,86 @@ document
 
             try {
 
-
                 /*
-                    Create one order
-                    for every cart item.
+                   Create one order row
+                   for each cart item.
                 */
 
-
                 for (
-                    const item of cart
+                    const item
+                    of cart
                 ) {
 
-
                     const orderData = {
-
 
                         customer_name:
                             customerName,
 
-
                         phone:
                             phone,
-
 
                         governorate:
                             governorate,
 
-
                         area:
                             area,
-
 
                         address:
                             address,
 
-
                         product_id:
                             item.id,
-
 
                         product_name:
                             item.name,
 
-
                         quantity:
                             1,
 
-
                         color:
-                            color ||
-                            null,
-
+                            color || null,
 
                         custom_color:
-                            color ===
-                            "Custom",
-
+                            color === "Custom",
 
                         file_type:
                             null,
 
-
                         file_url:
                             null,
 
-
                         notes:
-                            notes ||
-                            null,
-
+                            notes || null,
 
                         subtotal:
                             Number(
-                                item.price
+                                item.price || 0
                             ),
-
 
                         delivery_fee:
                             0,
 
-
                         total_price:
                             Number(
-                                item.price
+                                item.price || 0
                             ),
-
 
                         deposit_amount:
                             0,
 
-
                         remaining_amount:
                             Number(
-                                item.price
+                                item.price || 0
                             ),
-
 
                         payment_method:
                             paymentMethod,
 
-
                         deposit_status:
                             "pending",
 
-
                         order_status:
                             "new",
-
 
                         whatsapp_confirmed:
                             false
@@ -2804,36 +2128,26 @@ document
                     };
 
 
-                    console.log(
-                        "Creating order:",
-                        orderData
-                    );
-
-
                     const {
                         data,
                         error
                     } =
-
                         await supabaseClient
-
                             .from("orders")
-
                             .insert(
-                                [orderData]
+                                [
+                                    orderData
+                                ]
                             )
-
                             .select();
 
 
                     if (error) {
 
-
                         console.error(
-                            "Order Error:",
+                            "Supabase Order Error:",
                             error
                         );
-
 
                         throw error;
 
@@ -2845,39 +2159,19 @@ document
                         data
                     );
 
-
                 }
 
 
-                /*
-                    Success
-                */
-
-
                 alert(
-
                     "Order placed successfully! 🎉\n\n" +
-
-                    "We will contact you on WhatsApp " +
-                    "to confirm your order."
-
+                    "We will contact you on WhatsApp to confirm your order."
                 );
-
-
-                /*
-                    Clear Cart
-                */
 
 
                 cart = [];
 
 
                 updateCart();
-
-
-                /*
-                    Reset Form
-                */
 
 
                 document
@@ -2887,16 +2181,10 @@ document
                     .reset();
 
 
-                /*
-                    Close Checkout
-                */
-
-
                 closeCheckout();
 
 
             } catch (error) {
-
 
                 console.error(
                     error
@@ -2904,16 +2192,11 @@ document
 
 
                 alert(
-
                     "Failed to place order.\n\n" +
-
                     error.message
-
                 );
 
-
             } finally {
-
 
                 button.disabled =
                     false;
@@ -2935,11 +2218,8 @@ document
 function customPrint() {
 
     alert(
-
         "Custom Print Request\n\n" +
-
         "Custom file upload will be added next."
-
     );
 
 }
@@ -2951,7 +2231,6 @@ function customPrint() {
 
 window.onclick =
     function(event) {
-
 
         const cartModal =
             document.getElementById(
@@ -2988,39 +2267,12 @@ window.onclick =
 
 
 /* =========================================================
-   INITIALIZE STORE
+   START
    ========================================================= */
-
-
-/*
-    This is the important part.
-
-    When Store opens:
-
-        Store
-          ↓
-        Supabase
-          ↓
-        products table
-          ↓
-        loadProducts()
-          ↓
-        renderProducts()
-*/
-
 
 loadProducts();
-
-
-/* =========================================================
-   INITIAL CART
-   ========================================================= */
-
-updateCart();
-
 
 </script>
 
 </body>
-
 </html>
