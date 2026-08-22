@@ -27,33 +27,23 @@
     --muted: #aeb6cc;
     --primary: #8b5cf6;
     --primary2: #6d28d9;
-    --danger: #ef4444;
 }
 
 body {
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 
     background:
-        radial-gradient(
-            circle at top,
-            #17153b 0%,
-            #080816 45%
-        ),
+        radial-gradient(circle at top, #17153b 0%, #080816 45%),
         var(--bg);
 
     color: var(--text);
-
     min-height: 100vh;
 }
 
 
-/* =========================================================
+/* =========================
    HEADER
-   ========================================================= */
+========================= */
 
 header {
 
@@ -61,14 +51,11 @@ header {
 
     padding: 24px 7%;
 
-    border-bottom:
-        1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 
-    background:
-        rgba(8,8,22,.85);
+    background: rgba(8,8,22,.85);
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter: blur(10px);
 
     display: flex;
 
@@ -94,8 +81,7 @@ header {
 
 .logo span {
 
-    color:
-        var(--primary);
+    color: var(--primary);
 }
 
 
@@ -116,22 +102,18 @@ nav a {
     font-weight: 600;
 
     cursor: pointer;
-
-    transition: .2s;
 }
 
 
 nav a:hover {
 
-    color:
-        var(--primary);
+    color: var(--primary);
 }
 
 
 .cart-btn {
 
-    border:
-        1px solid rgba(139,92,246,.5);
+    border: 1px solid rgba(139,92,246,.5);
 
     background:
         linear-gradient(
@@ -156,124 +138,98 @@ nav a:hover {
 
     background: white;
 
-    color:
-        #6d28d9;
+    color: #6d28d9;
 
-    padding:
-        3px 8px;
+    padding: 3px 8px;
 
-    border-radius:
-        20px;
+    border-radius: 20px;
 
-    margin-left:
-        5px;
+    margin-left: 5px;
 }
 
 
-/* =========================================================
+/* =========================
    HERO
-   ========================================================= */
+========================= */
 
 .hero {
 
-    padding:
-        80px 7% 50px;
+    padding: 80px 7% 50px;
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .hero h1 {
 
-    font-size:
-        55px;
+    font-size: 55px;
 
-    margin-bottom:
-        18px;
+    margin-bottom: 18px;
 }
 
 
 .hero h1 span {
 
-    color:
-        var(--primary);
+    color: var(--primary);
 }
 
 
 .hero p {
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    font-size:
-        18px;
+    font-size: 18px;
 
-    max-width:
-        650px;
+    max-width: 650px;
 
-    margin:
-        auto;
+    margin: auto;
 
-    line-height:
-        1.7;
+    line-height: 1.7;
 }
 
 
-/* =========================================================
+/* =========================
    PRODUCTS
-   ========================================================= */
+========================= */
 
 .section {
 
-    padding:
-        50px 7%;
+    padding: 50px 7%;
 }
 
 
 .section-title {
 
-    text-align:
-        center;
+    text-align: center;
 
-    margin-bottom:
-        40px;
+    margin-bottom: 40px;
 }
 
 
 .section-title h2 {
 
-    font-size:
-        38px;
+    font-size: 38px;
 
-    margin-bottom:
-        10px;
+    margin-bottom: 10px;
 }
 
 
 .section-title p {
 
-    color:
-        var(--muted);
+    color: var(--muted);
 }
 
 
 .products-grid {
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap:
-        25px;
+    gap: 25px;
 }
 
-
-/* =========================================================
-   PRODUCT CARD
-   ========================================================= */
 
 .product-card {
 
@@ -283,20 +239,11 @@ nav a:hover {
     border:
         1px solid var(--border);
 
-    border-radius:
-        22px;
+    border-radius: 22px;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
-    transition:
-        .3s;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
+    transition: .3s;
 }
 
 
@@ -314,13 +261,55 @@ nav a:hover {
 }
 
 
+/* =========================
+   PRODUCT IMAGE
+========================= */
+
 .product-image {
 
-    width:
-        100%;
+    width: 100%;
 
-    height:
-        280px;
+    height: 280px;
+
+    background: #0d1020;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.product-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.image-placeholder {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #777;
+
+    font-size: 16px;
 
     background:
         linear-gradient(
@@ -328,175 +317,74 @@ nav a:hover {
             #11172a,
             #0d1020
         );
-
-    overflow:
-        hidden;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
 }
 
 
-.product-image img {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    object-fit:
-        cover;
-
-    display:
-        block;
-}
-
-
-.image-placeholder {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    flex-direction:
-        column;
-
-    gap:
-        10px;
-
-    color:
-        var(--muted);
-
-    font-size:
-        15px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #11172a,
-            #0b0e1b
-        );
-}
-
-
-.image-placeholder-icon {
-
-    font-size:
-        42px;
-
-    opacity:
-        .5;
-}
-
+/* =========================
+   PRODUCT INFO
+========================= */
 
 .product-info {
 
-    padding:
-        22px;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    flex: 1;
+    padding: 22px;
 }
 
 
 .category {
 
-    color:
-        #a78bfa;
+    color: #a78bfa;
 
-    font-size:
-        13px;
+    font-size: 13px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 
-    margin-bottom:
-        10px;
+    margin-bottom: 10px;
 }
 
 
 .product-info h3 {
 
-    font-size:
-        21px;
+    font-size: 21px;
 
-    margin-bottom:
-        10px;
+    margin-bottom: 10px;
 }
 
 
 .product-info p {
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    line-height:
-        1.6;
+    line-height: 1.6;
 
-    min-height:
-        50px;
+    min-height: 50px;
 }
 
 
 .product-bottom {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    align-items:
-        center;
+    align-items: center;
 
-    margin-top:
-        auto;
-
-    padding-top:
-        20px;
+    margin-top: 20px;
 }
 
 
 .price {
 
-    font-size:
-        21px;
+    font-size: 21px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 }
 
 
 .add-btn {
 
-    border:
-        none;
+    border: none;
 
     background:
         linear-gradient(
@@ -505,105 +393,91 @@ nav a:hover {
             #8b5cf6
         );
 
-    color:
-        white;
+    color: white;
 
-    padding:
-        11px 17px;
+    padding: 11px 17px;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 }
 
 
 .add-btn:hover {
 
-    opacity:
-        .85;
+    opacity: .85;
 }
 
 
 .add-btn:disabled {
 
-    background:
-        #4b5563;
+    background: #555;
 
-    cursor:
-        not-allowed;
+    cursor: not-allowed;
 
-    opacity:
-        .8;
+    opacity: .7;
 }
 
 
-/* =========================================================
+.out-stock {
+
+    background: #555;
+
+    color: white;
+
+    padding: 11px 17px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    font-size: 13px;
+}
+
+
+/* =========================
    LOADING
-   ========================================================= */
+========================= */
 
-.products-loading {
+.loading {
 
-    grid-column:
-        1 / -1;
+    grid-column: 1 / -1;
 
-    text-align:
-        center;
+    text-align: center;
 
-    padding:
-        50px;
+    padding: 70px 20px;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    font-size:
-        18px;
+    font-size: 18px;
 }
 
 
-.products-error {
+.error-message {
 
-    grid-column:
-        1 / -1;
+    grid-column: 1 / -1;
 
-    text-align:
-        center;
+    text-align: center;
 
-    padding:
-        40px;
+    padding: 50px;
 
-    color:
-        #fca5a5;
-
-    background:
-        rgba(239,68,68,.08);
-
-    border:
-        1px solid rgba(239,68,68,.2);
-
-    border-radius:
-        15px;
+    color: #ff7777;
 }
 
 
-/* =========================================================
+/* =========================
    CUSTOM
-   ========================================================= */
+========================= */
 
 .custom {
 
-    margin:
-        50px 7%;
+    margin: 50px 7%;
 
-    padding:
-        50px;
+    padding: 50px;
 
-    border-radius:
-        25px;
+    border-radius: 25px;
 
     background:
         linear-gradient(
@@ -613,197 +487,148 @@ nav a:hover {
         );
 
     border:
-        1px solid
-        rgba(139,92,246,.3);
+        1px solid rgba(139,92,246,.3);
 
-    text-align:
-        center;
+    text-align: center;
 }
 
 
 .custom h2 {
 
-    font-size:
-        35px;
+    font-size: 35px;
 
-    margin-bottom:
-        15px;
+    margin-bottom: 15px;
 }
 
 
 .custom p {
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    margin-bottom:
-        25px;
+    margin-bottom: 25px;
 }
 
 
 .custom-btn {
 
-    background:
-        white;
+    background: white;
 
-    color:
-        #111;
+    color: #111;
 
-    border:
-        none;
+    border: none;
 
-    padding:
-        14px 25px;
+    padding: 14px 25px;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 }
 
 
-/* =========================================================
+/* =========================
    FOOTER
-   ========================================================= */
+========================= */
 
 footer {
 
-    margin-top:
-        70px;
+    margin-top: 70px;
 
-    padding:
-        30px 7%;
+    padding: 30px 7%;
 
-    text-align:
-        center;
+    text-align: center;
 
     border-top:
         1px solid var(--border);
 
-    color:
-        var(--muted);
+    color: var(--muted);
 }
 
 
-/* =========================================================
-   MODALS
-   ========================================================= */
+/* =========================
+   CART
+========================= */
 
 .cart-modal {
 
-    display:
-        none;
+    display: none;
 
-    position:
-        fixed;
+    position: fixed;
 
-    inset:
-        0;
+    inset: 0;
 
     background:
         rgba(0,0,0,.75);
 
-    z-index:
-        200;
+    z-index: 200;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    padding:
-        20px;
+    padding: 20px;
 }
 
 
 .cart-box {
 
-    background:
-        #11172a;
+    background: #11172a;
 
-    width:
-        100%;
+    width: 100%;
 
-    max-width:
-        600px;
+    max-width: 600px;
 
-    max-height:
-        85vh;
+    max-height: 85vh;
 
-    overflow-y:
-        auto;
+    overflow-y: auto;
 
-    border-radius:
-        20px;
+    border-radius: 20px;
 
     border:
         1px solid var(--border);
 
-    padding:
-        25px;
+    padding: 25px;
 }
 
 
 .cart-header {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    align-items:
-        center;
+    align-items: center;
 
-    margin-bottom:
-        20px;
+    margin-bottom: 20px;
 }
 
 
 .close-btn {
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        none;
+    border: none;
 
-    color:
-        white;
+    color: white;
 
-    font-size:
-        28px;
+    font-size: 28px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 }
 
 
-/* =========================================================
-   CART ITEMS
-   ========================================================= */
-
 .cart-item {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    align-items:
-        center;
+    align-items: center;
 
-    gap:
-        15px;
+    gap: 15px;
 
-    padding:
-        15px 0;
+    padding: 15px 0;
 
     border-bottom:
         1px solid var(--border);
@@ -812,69 +637,53 @@ footer {
 
 .cart-item-info h4 {
 
-    margin-bottom:
-        5px;
+    margin-bottom: 5px;
 }
 
 
 .cart-item-info p {
 
-    color:
-        var(--muted);
+    color: var(--muted);
 }
 
 
 .remove-btn {
 
-    background:
-        #ef4444;
+    background: #ef4444;
 
-    color:
-        white;
+    color: white;
 
-    border:
-        none;
+    border: none;
 
-    padding:
-        7px 10px;
+    padding: 7px 10px;
 
-    border-radius:
-        7px;
+    border-radius: 7px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 }
 
 
 .cart-total {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    margin-top:
-        25px;
+    margin-top: 25px;
 
-    font-size:
-        22px;
+    font-size: 22px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 }
 
 
 .checkout-btn {
 
-    width:
-        100%;
+    width: 100%;
 
-    margin-top:
-        20px;
+    margin-top: 20px;
 
-    padding:
-        15px;
+    padding: 15px;
 
     background:
         linear-gradient(
@@ -883,57 +692,37 @@ footer {
             #8b5cf6
         );
 
-    color:
-        white;
+    color: white;
 
-    border:
-        none;
+    border: none;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 }
 
 
-.checkout-btn:disabled {
-
-    opacity:
-        .6;
-
-    cursor:
-        not-allowed;
-}
-
-
-/* =========================================================
-   CHECKOUT FORM
-   ========================================================= */
+/* =========================
+   CHECKOUT
+========================= */
 
 #checkoutForm {
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    gap:
-        10px;
+    gap: 10px;
 }
 
 
 #checkoutForm label {
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    margin-top:
-        8px;
+    margin-top: 8px;
 }
 
 
@@ -941,37 +730,28 @@ footer {
 #checkoutForm select,
 #checkoutForm textarea {
 
-    width:
-        100%;
+    width: 100%;
 
-    padding:
-        13px;
+    padding: 13px;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
     border:
-        1px solid
-        rgba(255,255,255,.12);
+        1px solid rgba(255,255,255,.12);
 
-    background:
-        #0d1020;
+    background: #0d1020;
 
-    color:
-        white;
+    color: white;
 
-    outline:
-        none;
+    outline: none;
 }
 
 
 #checkoutForm textarea {
 
-    min-height:
-        80px;
+    min-height: 80px;
 
-    resize:
-        vertical;
+    resize: vertical;
 }
 
 
@@ -986,61 +766,47 @@ footer {
 
 .checkout-summary-box {
 
-    background:
-        #0d1020;
+    background: #0d1020;
 
-    padding:
-        18px;
+    padding: 18px;
 
-    border-radius:
-        12px;
+    border-radius: 12px;
 
     border:
         1px solid var(--border);
-
-    margin-top:
-        15px;
 }
 
 
 .summary-row {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    margin:
-        8px 0;
+    margin: 8px 0;
 
-    gap:
-        15px;
+    gap: 20px;
 }
 
 
 .summary-total {
 
-    margin-top:
-        15px;
+    margin-top: 15px;
 
-    padding-top:
-        15px;
+    padding-top: 15px;
 
     border-top:
         1px solid var(--border);
 
-    font-size:
-        20px;
+    font-size: 20px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 }
 
 
-/* =========================================================
+/* =========================
    MOBILE
-   ========================================================= */
+========================= */
 
 @media (max-width: 900px) {
 
@@ -1052,10 +818,8 @@ footer {
 
     nav {
 
-        gap:
-            15px;
+        gap: 15px;
     }
-
 }
 
 
@@ -1063,46 +827,36 @@ footer {
 
     header {
 
-        flex-wrap:
-            wrap;
+        flex-wrap: wrap;
 
-        gap:
-            15px;
+        gap: 15px;
     }
 
     nav {
 
-        order:
-            3;
+        order: 3;
 
-        width:
-            100%;
+        width: 100%;
 
-        justify-content:
-            center;
+        justify-content: center;
     }
 
     .hero h1 {
 
-        font-size:
-            38px;
+        font-size: 38px;
     }
 
     .products-grid {
 
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
 
     .custom {
 
-        margin:
-            30px 5%;
+        margin: 30px 5%;
 
-        padding:
-            30px 20px;
+        padding: 30px 20px;
     }
-
 }
 
 </style>
@@ -1113,14 +867,16 @@ footer {
 <body>
 
 
-<!-- =========================================================
+<!-- =========================
      HEADER
-     ========================================================= -->
+========================= -->
 
 <header>
 
     <div class="logo">
+
         X<span>3D</span> Printing
+
     </div>
 
 
@@ -1160,10 +916,9 @@ footer {
 </header>
 
 
-
-<!-- =========================================================
+<!-- =========================
      HERO
-     ========================================================= -->
+========================= -->
 
 <section
     class="hero"
@@ -1171,10 +926,12 @@ footer {
 >
 
     <h1>
+
         Premium
         <span>
             3D Printing
         </span>
+
     </h1>
 
 
@@ -1182,20 +939,18 @@ footer {
 
         Discover premium 3D printed
         products and custom printing
-        services.
-
-        Unique designs, high quality
-        and made just for you.
+        services. Unique designs,
+        high quality and made just
+        for you.
 
     </p>
 
 </section>
 
 
-
-<!-- =========================================================
+<!-- =========================
      PRODUCTS
-     ========================================================= -->
+========================= -->
 
 <section
     class="section"
@@ -1221,7 +976,7 @@ footer {
         id="productsGrid"
     >
 
-        <div class="products-loading">
+        <div class="loading">
 
             Loading products...
 
@@ -1232,10 +987,9 @@ footer {
 </section>
 
 
-
-<!-- =========================================================
+<!-- =========================
      CUSTOM PRINT
-     ========================================================= -->
+========================= -->
 
 <section
     class="custom"
@@ -1250,7 +1004,8 @@ footer {
     <p>
 
         Send us your idea and we'll
-        turn it into a 3D printed product.
+        turn it into a 3D printed
+        product.
 
     </p>
 
@@ -1267,10 +1022,9 @@ footer {
 </section>
 
 
-
-<!-- =========================================================
+<!-- =========================
      FOOTER
-     ========================================================= -->
+========================= -->
 
 <footer>
 
@@ -1280,10 +1034,9 @@ footer {
 </footer>
 
 
-
-<!-- =========================================================
+<!-- =========================
      CART MODAL
-     ========================================================= -->
+========================= -->
 
 <div
     class="cart-modal"
@@ -1291,7 +1044,6 @@ footer {
 >
 
     <div class="cart-box">
-
 
         <div class="cart-header">
 
@@ -1304,9 +1056,7 @@ footer {
                 class="close-btn"
                 onclick="closeCart()"
             >
-
                 ×
-
             </button>
 
         </div>
@@ -1329,7 +1079,6 @@ footer {
                 Total
             </span>
 
-
             <span id="cartTotal">
                 EGP 0
             </span>
@@ -1351,10 +1100,9 @@ footer {
 </div>
 
 
-
-<!-- =========================================================
+<!-- =========================
      CHECKOUT MODAL
-     ========================================================= -->
+========================= -->
 
 <div
     class="cart-modal"
@@ -1362,7 +1110,6 @@ footer {
 >
 
     <div class="cart-box">
-
 
         <div class="cart-header">
 
@@ -1390,6 +1137,7 @@ footer {
                 Full Name
             </label>
 
+
             <input
                 type="text"
                 id="customerName"
@@ -1401,6 +1149,7 @@ footer {
             <label>
                 Phone Number
             </label>
+
 
             <input
                 type="tel"
@@ -1414,6 +1163,7 @@ footer {
                 Governorate
             </label>
 
+
             <input
                 type="text"
                 id="governorate"
@@ -1425,6 +1175,7 @@ footer {
             <label>
                 Area
             </label>
+
 
             <input
                 type="text"
@@ -1438,6 +1189,7 @@ footer {
                 Full Address
             </label>
 
+
             <textarea
                 id="address"
                 placeholder="Enter your full delivery address"
@@ -1448,6 +1200,7 @@ footer {
             <label>
                 Color
             </label>
+
 
             <select id="color">
 
@@ -1486,6 +1239,7 @@ footer {
                 Notes
             </label>
 
+
             <textarea
                 id="notes"
                 placeholder="Any special instructions?"
@@ -1495,6 +1249,7 @@ footer {
             <label>
                 Payment Method
             </label>
+
 
             <select
                 id="paymentMethod"
@@ -1516,7 +1271,9 @@ footer {
             </select>
 
 
-            <div id="checkoutSummary"></div>
+            <div
+                id="checkoutSummary"
+            ></div>
 
 
             <button
@@ -1535,12 +1292,13 @@ footer {
 </div>
 
 
-
 <script>
+
 
 /* =========================================================
    SUPABASE
-   ========================================================= */
+========================================================= */
+
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
@@ -1557,349 +1315,171 @@ const supabaseClient =
     );
 
 
+/* =========================================================
+   CART
+========================================================= */
+
+
+let cart = [];
+
 
 /* =========================================================
-   STATIC PRODUCTS
-   ========================================================= */
+   OLD IMAGE FALLBACKS
+========================================================= */
 
 /*
-   These are the original products.
-
-   Their images are located in the
-   same GitHub Pages folder.
+   الصور الموجودة فعليًا في GitHub.
+   
+   لو المنتج القديم مفيهوش image_url
+   في Supabase هنستخدم الصور دي.
 */
 
-const staticProducts = [
 
-    {
-        id: 1,
+const OLD_IMAGES = {
 
-        name:
-            "Custom Name Keychain",
+    "custom name keychain":
+        "01-custom-name-keychain.jpeg",
 
-        category:
-            "Accessories",
+    "fighter jets - set of 2":
+        "02-fighter-jet-1.jpeg",
 
-        description:
-            "Personalized 3D printed keychain with your name or any word you like.",
+    "fighter jets — set of 2":
+        "02-fighter-jet-1.jpeg",
 
-        price:
-            80,
+    "football keychain":
+        "03-football-keychain.jpeg",
 
-        stock:
-            10,
+    "3d printed knife":
+        "04-knife-1.jpeg",
 
-        image_url:
-            "01-custom-name-keychain.jpeg"
-    },
+    "knife":
+        "04-knife-1.jpeg"
 
-
-    {
-        id: 2,
-
-        name:
-            "Fighter Jets — Set of 2",
-
-        category:
-            "Decoration",
-
-        description:
-            "Detailed 3D printed fighter jets. Perfect for display and collectors.",
-
-        price:
-            300,
-
-        stock:
-            10,
-
-        image_url:
-            "02-fighter-jet-1.jpeg"
-    },
-
-
-    {
-        id: 3,
-
-        name:
-            "Football Keychain",
-
-        category:
-            "Accessories",
-
-        description:
-            "Lightweight 3D printed football keychain with a detailed design.",
-
-        price:
-            70,
-
-        stock:
-            10,
-
-        image_url:
-            "03-football-keychain.jpeg"
-    },
-
-
-    {
-        id: 4,
-
-        name:
-            "3D Printed Knife",
-
-        category:
-            "Decoration",
-
-        description:
-            "Detailed 3D printed decorative model for collectors and display.",
-
-        price:
-            120,
-
-        stock:
-            10,
-
-        image_url:
-            "04-knife-1.jpeg"
-    }
-
-];
-
+};
 
 
 /* =========================================================
-   PRODUCTS ARRAY
-   ========================================================= */
+   NORMALIZE NAME
+========================================================= */
 
-let products = [];
 
+function normalizeName(name) {
+
+    return String(name || "")
+        .trim()
+        .toLowerCase();
+
+}
 
 
 /* =========================================================
-   IMAGE URL FIX
-   ========================================================= */
-
-/*
-   This is the important part.
-
-   It supports:
-
-   1. Full URL
-   2. Data URL
-   3. File name
-   4. Relative path
-   5. Supabase Storage URL
-*/
-
-function resolveImageUrl(image) {
-
-    if (!image) {
-
-        return null;
-
-    }
+   IMAGE URL
+========================================================= */
 
 
-    image =
-        String(image).trim();
-
-
-    if (!image) {
-
-        return null;
-
-    }
-
+function getProductImage(product) {
 
     /*
-       Data URL
+       الأولوية:
+
+       1 - image_url من Supabase
+       2 - image من Supabase
+       3 - الصور القديمة الموجودة في GitHub
     */
+
 
     if (
-        image.startsWith("data:image/")
+        product.image_url &&
+        String(product.image_url).trim() !== ""
     ) {
 
-        return image;
+        return String(
+            product.image_url
+        ).trim();
 
     }
 
-
-    /*
-       Full HTTP / HTTPS URL
-    */
 
     if (
-        image.startsWith("http://") ||
-        image.startsWith("https://")
+        product.image &&
+        String(product.image).trim() !== ""
     ) {
 
-        return image;
+        return String(
+            product.image
+        ).trim();
 
     }
 
 
-    /*
-       Supabase storage path
-
-       If your database contains something like:
-
-       products/abc.jpg
-
-       change this section if your
-       bucket has another name.
-    */
-
-    if (
-        image.startsWith("products/")
-    ) {
-
-        const {
-            data
-        } =
-            supabaseClient
-                .storage
-                .from("products")
-                .getPublicUrl(
-                    image.replace(
-                        "products/",
-                        ""
-                    )
-                );
-
-        if (
-            data &&
-            data.publicUrl
-        ) {
-
-            return data.publicUrl;
-
-        }
-
-    }
-
-
-    /*
-       Remove leading slash
-    */
-
-    image =
-        image.replace(
-            /^\/+/,
-            ""
+    const name =
+        normalizeName(
+            product.name
         );
 
 
-    /*
-       IMPORTANT:
+    if (
+        OLD_IMAGES[name]
+    ) {
 
-       Build the image URL relative
-       to the current GitHub Pages
-       website.
-
-       Example:
-
-       https://ahmedramadansadek1112-collab.github.io/x-3d-printing/
-
-       + image filename
-    */
-
-    try {
-
-        return new URL(
-            image,
-            window.location.href
-        ).href;
-
-    } catch {
-
-        return image;
+        return OLD_IMAGES[name];
 
     }
+
+
+    return null;
 
 }
 
 
-
 /* =========================================================
-   IMAGE HTML
-   ========================================================= */
+   IMAGE ERROR
+========================================================= */
 
-function createImageHTML(
-    imageUrl,
-    productName
-) {
 
-    const finalUrl =
-        resolveImageUrl(
-            imageUrl
+function handleImageError(img) {
+
+    const parent =
+        img.parentElement;
+
+
+    img.style.display =
+        "none";
+
+
+    if (
+        !parent.querySelector(
+            ".image-placeholder"
+        )
+    ) {
+
+        const placeholder =
+            document.createElement(
+                "div"
+            );
+
+
+        placeholder.className =
+            "image-placeholder";
+
+
+        placeholder.innerHTML =
+            "Image unavailable";
+
+
+        parent.appendChild(
+            placeholder
         );
 
-
-    if (!finalUrl) {
-
-        return `
-
-            <div class="image-placeholder">
-
-                <div class="image-placeholder-icon">
-                    🖼️
-                </div>
-
-                <div>
-                    Image unavailable
-                </div>
-
-            </div>
-
-        `;
-
     }
 
-
-    return `
-
-        <img
-
-            src="${finalUrl}"
-
-            alt="${escapeHTML(productName)}"
-
-            loading="lazy"
-
-            onerror="this.onerror=null; this.parentElement.innerHTML='
-                <div class=&quot;image-placeholder&quot;>
-                    <div class=&quot;image-placeholder-icon&quot;>🖼️</div>
-                    <div>Image unavailable</div>
-                </div>
-            ';"
-
-        >
-
-    `;
-
 }
-
-
-
-/* =========================================================
-   ESCAPE HTML
-   ========================================================= */
-
-function escapeHTML(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
 
 
 /* =========================================================
    LOAD PRODUCTS
-   ========================================================= */
+========================================================= */
+
 
 async function loadProducts() {
 
@@ -1911,7 +1491,7 @@ async function loadProducts() {
 
     grid.innerHTML = `
 
-        <div class="products-loading">
+        <div class="loading">
 
             Loading products...
 
@@ -1923,11 +1503,9 @@ async function loadProducts() {
     try {
 
         /*
-           Get products from Supabase.
-
-           Change "products" only if
-           your table has another name.
+           بنجيب المنتجات من Supabase
         */
+
 
         const {
             data,
@@ -1947,19 +1525,35 @@ async function loadProducts() {
         if (error) {
 
             console.error(
-                "Products error:",
+                "Products Error:",
                 error
             );
 
-            /*
-               If Supabase fails,
-               show the original products.
-            */
+            throw error;
 
-            products =
-                staticProducts;
+        }
 
-            renderProducts();
+
+        console.log(
+            "Products from Supabase:",
+            data
+        );
+
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            grid.innerHTML = `
+
+                <div class="loading">
+
+                    No products available.
+
+                </div>
+
+            `;
 
             return;
 
@@ -1967,293 +1561,310 @@ async function loadProducts() {
 
 
         /*
-           Convert Supabase products
-           to the format we need.
+           بنعرض المنتجات
         */
 
-        const databaseProducts =
-            (data || []).map(
-                product => {
 
-                    return {
-
-                        id:
-                            product.id,
-
-                        name:
-                            product.product_name ??
-                            product.name ??
-                            "Unnamed Product",
-
-                        category:
-                            product.category ??
-                            "3D Printing",
-
-                        description:
-                            product.description ??
-                            "Premium 3D printed product.",
-
-                        price:
-                            Number(
-                                product.price ?? 0
-                            ),
-
-                        stock:
-                            Number(
-                                product.stock ?? 0
-                            ),
-
-                        image_url:
-                            product.image_url ??
-                            product.image ??
-                            product.product_image ??
-                            null
-
-                    };
-
-                }
-            );
+        grid.innerHTML = "";
 
 
-        /*
-           If database contains products,
-           use them.
+        data.forEach(
+            product => {
 
-           If not, show static products.
-        */
+                renderProduct(
+                    product,
+                    grid
+                );
 
-        if (
-            databaseProducts.length > 0
-        ) {
-
-            products =
-                databaseProducts;
-
-        } else {
-
-            products =
-                staticProducts;
-
-        }
+            }
+        );
 
 
-        renderProducts();
-
-    }
-    catch (error) {
+    } catch (error) {
 
         console.error(
-            "Load products error:",
             error
         );
 
 
-        products =
-            staticProducts;
-
-        renderProducts();
-
-    }
-
-}
-
-
-
-/* =========================================================
-   RENDER PRODUCTS
-   ========================================================= */
-
-function renderProducts() {
-
-    const grid =
-        document.getElementById(
-            "productsGrid"
-        );
-
-
-    if (
-        !products ||
-        products.length === 0
-    ) {
-
         grid.innerHTML = `
 
-            <div class="products-error">
+            <div class="error-message">
 
-                No products available.
+                Failed to load products.
+
+                <br><br>
+
+                ${escapeHtml(
+                    error.message
+                )}
 
             </div>
 
         `;
 
-        return;
-
     }
-
-
-    grid.innerHTML =
-        products.map(
-            product => {
-
-                const stock =
-                    Number(
-                        product.stock ?? 0
-                    );
-
-
-                const outOfStock =
-                    stock <= 0;
-
-
-                return `
-
-                    <div
-                        class="product-card"
-                    >
-
-
-                        <div
-                            class="product-image"
-                        >
-
-                            ${createImageHTML(
-                                product.image_url,
-                                product.name
-                            )}
-
-                        </div>
-
-
-                        <div
-                            class="product-info"
-                        >
-
-
-                            <div
-                                class="category"
-                            >
-
-                                ${escapeHTML(
-                                    product.category
-                                )}
-
-                            </div>
-
-
-                            <h3>
-
-                                ${escapeHTML(
-                                    product.name
-                                )}
-
-                            </h3>
-
-
-                            <p>
-
-                                ${escapeHTML(
-                                    product.description
-                                )}
-
-                            </p>
-
-
-                            <div
-                                class="product-bottom"
-                            >
-
-
-                                <div
-                                    class="price"
-                                >
-
-                                    EGP
-                                    ${Number(
-                                        product.price
-                                    ).toLocaleString()}
-
-                                </div>
-
-
-                                <button
-
-                                    class="add-btn"
-
-                                    onclick="addToCart(${Number(product.id)})"
-
-                                    ${outOfStock ? "disabled" : ""}
-
-                                >
-
-                                    ${
-                                        outOfStock
-                                            ? "Out of Stock"
-                                            : "Add to Cart"
-                                    }
-
-                                </button>
-
-
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-                `;
-
-            }
-        )
-        .join("");
 
 }
 
 
+/* =========================================================
+   RENDER PRODUCT
+========================================================= */
+
+
+function renderProduct(
+    product,
+    grid
+) {
+
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "product-card";
+
+
+    const image =
+        getProductImage(
+            product
+        );
+
+
+    const name =
+        product.name ||
+        "Unnamed Product";
+
+
+    const category =
+        product.category ||
+        "3D Printing";
+
+
+    const description =
+        product.description ||
+        "High quality 3D printed product.";
+
+
+    const price =
+        Number(
+            product.price || 0
+        );
+
+
+    const stock =
+        Number(
+            product.stock || 0
+        );
+
+
+    /*
+       Status handling
+    */
+
+
+    const status =
+        String(
+            product.status || "Active"
+        ).toLowerCase();
+
+
+    const available =
+        stock > 0 &&
+        status !== "inactive" &&
+        status !== "disabled";
+
+
+    /*
+       Image HTML
+    */
+
+
+    let imageHTML;
+
+
+    if (image) {
+
+        imageHTML = `
+
+            <img
+                src="${escapeAttribute(image)}"
+                alt="${escapeAttribute(name)}"
+                onerror="handleImageError(this)"
+            >
+
+        `;
+
+    } else {
+
+        imageHTML = `
+
+            <div class="image-placeholder">
+
+                Image unavailable
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+       Button
+    */
+
+
+    let buttonHTML;
+
+
+    if (available) {
+
+        buttonHTML = `
+
+            <button
+                class="add-btn"
+                onclick="addToCartByProduct(
+                    ${JSON.stringify(product).replace(
+                        /"/g,
+                        '&quot;'
+                    )}
+                )"
+            >
+
+                Add to Cart
+
+            </button>
+
+        `;
+
+    } else {
+
+        buttonHTML = `
+
+            <div class="out-stock">
+
+                Out of Stock
+
+            </div>
+
+        `;
+
+    }
+
+
+    card.innerHTML = `
+
+        <div class="product-image">
+
+            ${imageHTML}
+
+        </div>
+
+
+        <div class="product-info">
+
+            <div class="category">
+
+                ${escapeHtml(category)}
+
+            </div>
+
+
+            <h3>
+
+                ${escapeHtml(name)}
+
+            </h3>
+
+
+            <p>
+
+                ${escapeHtml(description)}
+
+            </p>
+
+
+            <div class="product-bottom">
+
+                <div class="price">
+
+                    EGP ${price}
+
+                </div>
+
+
+                ${buttonHTML}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    grid.appendChild(
+        card
+    );
+
+}
+
 
 /* =========================================================
-   CART
-   ========================================================= */
-
-let cart = [];
+   ESCAPE HTML
+========================================================= */
 
 
+function escapeHtml(value) {
 
-function addToCart(id) {
-
-    const product =
-        products.find(
-            item =>
-                Number(item.id) ===
-                Number(id)
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
         );
 
-
-    if (!product) {
-
-        alert(
-            "Product not found."
-        );
-
-        return;
-
-    }
+}
 
 
-    if (
-        Number(product.stock) <= 0
-    ) {
+function escapeAttribute(value) {
 
-        alert(
-            "This product is out of stock."
-        );
+    return escapeHtml(
+        value
+    );
 
-        return;
-
-    }
+}
 
 
-    cart.push({
+/* =========================================================
+   ADD PRODUCT TO CART
+========================================================= */
+
+
+function addToCartByProduct(
+    product
+) {
+
+    const item = {
 
         id:
             product.id,
@@ -2263,30 +1874,41 @@ function addToCart(id) {
 
         price:
             Number(
-                product.price
+                product.price || 0
             ),
 
         image:
-            product.image_url
+            getProductImage(
+                product
+            )
 
-    });
+    };
+
+
+    cart.push(
+        item
+    );
 
 
     updateCart();
 
 
     alert(
-
-        product.name +
+        item.name +
         " added to cart!"
-
     );
 
 }
 
 
+/* =========================================================
+   REMOVE CART ITEM
+========================================================= */
 
-function removeFromCart(index) {
+
+function removeFromCart(
+    index
+) {
 
     cart.splice(
         index,
@@ -2299,32 +1921,37 @@ function removeFromCart(index) {
 }
 
 
+/* =========================================================
+   CART TOTAL
+========================================================= */
+
 
 function getCartTotal() {
 
     return cart.reduce(
-
         (
             total,
             item
-        ) =>
+        ) => {
 
-            total +
-            Number(
-                item.price
-            ),
+            return (
+                total +
+                Number(
+                    item.price || 0
+                )
+            );
 
+        },
         0
-
     );
 
 }
 
 
-
 /* =========================================================
    UPDATE CART
-   ========================================================= */
+========================================================= */
+
 
 function updateCart() {
 
@@ -2378,7 +2005,6 @@ function updateCart() {
 
 
     cartItems.innerHTML =
-
         cart.map(
             (
                 item,
@@ -2387,23 +2013,19 @@ function updateCart() {
 
                 total +=
                     Number(
-                        item.price
+                        item.price || 0
                     );
 
 
                 return `
 
-                    <div
-                        class="cart-item"
-                    >
+                    <div class="cart-item">
 
-                        <div
-                            class="cart-item-info"
-                        >
+                        <div class="cart-item-info">
 
                             <h4>
 
-                                ${escapeHTML(
+                                ${escapeHtml(
                                     item.name
                                 )}
 
@@ -2412,10 +2034,7 @@ function updateCart() {
 
                             <p>
 
-                                EGP
-                                ${Number(
-                                    item.price
-                                ).toLocaleString()}
+                                EGP ${item.price}
 
                             </p>
 
@@ -2423,11 +2042,8 @@ function updateCart() {
 
 
                         <button
-
                             class="remove-btn"
-
                             onclick="removeFromCart(${index})"
-
                         >
 
                             Remove
@@ -2444,16 +2060,15 @@ function updateCart() {
 
 
     cartTotal.textContent =
-        "EGP " +
-        total.toLocaleString();
+        "EGP " + total;
 
 }
 
 
-
 /* =========================================================
-   CART MODAL
-   ========================================================= */
+   OPEN CART
+========================================================= */
+
 
 function openCart() {
 
@@ -2463,6 +2078,11 @@ function openCart() {
         "flex";
 
 }
+
+
+/* =========================================================
+   CLOSE CART
+========================================================= */
 
 
 function closeCart() {
@@ -2475,10 +2095,10 @@ function closeCart() {
 }
 
 
-
 /* =========================================================
    CHECKOUT
-   ========================================================= */
+========================================================= */
+
 
 function checkout() {
 
@@ -2509,6 +2129,10 @@ function checkout() {
 }
 
 
+/* =========================================================
+   CLOSE CHECKOUT
+========================================================= */
+
 
 function closeCheckout() {
 
@@ -2520,10 +2144,10 @@ function closeCheckout() {
 }
 
 
-
 /* =========================================================
    CHECKOUT SUMMARY
-   ========================================================= */
+========================================================= */
+
 
 function renderCheckoutSummary() {
 
@@ -2544,9 +2168,7 @@ function renderCheckoutSummary() {
         "checkoutSummary"
     ).innerHTML = `
 
-        <div
-            class="checkout-summary-box"
-        >
+        <div class="checkout-summary-box">
 
             <h3>
                 Order Summary
@@ -2559,13 +2181,11 @@ function renderCheckoutSummary() {
             ${cart.map(
                 item => `
 
-                    <div
-                        class="summary-row"
-                    >
+                    <div class="summary-row">
 
                         <span>
 
-                            ${escapeHTML(
+                            ${escapeHtml(
                                 item.name
                             )}
 
@@ -2574,10 +2194,7 @@ function renderCheckoutSummary() {
 
                         <span>
 
-                            EGP
-                            ${Number(
-                                item.price
-                            ).toLocaleString()}
+                            EGP ${item.price}
 
                         </span>
 
@@ -2587,9 +2204,7 @@ function renderCheckoutSummary() {
             ).join("")}
 
 
-            <div
-                class="summary-row"
-            >
+            <div class="summary-row">
 
                 <span>
                     Subtotal
@@ -2597,18 +2212,13 @@ function renderCheckoutSummary() {
 
 
                 <span>
-
-                    EGP
-                    ${subtotal.toLocaleString()}
-
+                    EGP ${subtotal}
                 </span>
 
             </div>
 
 
-            <div
-                class="summary-row"
-            >
+            <div class="summary-row">
 
                 <span>
                     Delivery
@@ -2622,9 +2232,7 @@ function renderCheckoutSummary() {
             </div>
 
 
-            <div
-                class="summary-row summary-total"
-            >
+            <div class="summary-row summary-total">
 
                 <span>
                     Products Total
@@ -2632,10 +2240,7 @@ function renderCheckoutSummary() {
 
 
                 <span>
-
-                    EGP
-                    ${total.toLocaleString()}
-
+                    EGP ${total}
                 </span>
 
             </div>
@@ -2647,19 +2252,17 @@ function renderCheckoutSummary() {
 }
 
 
-
 /* =========================================================
    CREATE ORDER
-   ========================================================= */
+========================================================= */
+
 
 document
     .getElementById(
         "checkoutForm"
     )
     .addEventListener(
-
         "submit",
-
         async function(event) {
 
             event.preventDefault();
@@ -2764,9 +2367,11 @@ document
 
             try {
 
+
                 for (
                     const item of cart
                 ) {
+
 
                     const orderData = {
 
@@ -2795,12 +2400,10 @@ document
                             1,
 
                         color:
-                            color ||
-                            null,
+                            color || null,
 
                         custom_color:
-                            color ===
-                            "Custom",
+                            color === "Custom",
 
                         file_type:
                             null,
@@ -2809,12 +2412,11 @@ document
                             null,
 
                         notes:
-                            notes ||
-                            null,
+                            notes || null,
 
                         subtotal:
                             Number(
-                                item.price
+                                item.price || 0
                             ),
 
                         delivery_fee:
@@ -2822,7 +2424,7 @@ document
 
                         total_price:
                             Number(
-                                item.price
+                                item.price || 0
                             ),
 
                         deposit_amount:
@@ -2830,7 +2432,7 @@ document
 
                         remaining_amount:
                             Number(
-                                item.price
+                                item.price || 0
                             ),
 
                         payment_method:
@@ -2852,24 +2454,18 @@ document
                         data,
                         error
                     } =
-
                         await supabaseClient
-
-                            .from(
-                                "orders"
-                            )
-
+                            .from("orders")
                             .insert(
                                 [orderData]
                             )
-
                             .select();
 
 
                     if (error) {
 
                         console.error(
-                            "Supabase Order Error:",
+                            "Supabase Error:",
                             error
                         );
 
@@ -2887,11 +2483,8 @@ document
 
 
                 alert(
-
                     "Order placed successfully! 🎉\n\n" +
-
                     "We will contact you on WhatsApp to confirm your order."
-
                 );
 
 
@@ -2910,8 +2503,8 @@ document
 
                 closeCheckout();
 
-            }
-            catch (error) {
+
+            } catch (error) {
 
                 console.error(
                     error
@@ -2919,15 +2512,11 @@ document
 
 
                 alert(
-
                     "Failed to place order.\n\n" +
-
                     error.message
-
                 );
 
-            }
-            finally {
+            } finally {
 
                 button.disabled =
                     false;
@@ -2939,32 +2528,28 @@ document
             }
 
         }
-
     );
-
 
 
 /* =========================================================
    CUSTOM PRINT
-   ========================================================= */
+========================================================= */
+
 
 function customPrint() {
 
     alert(
-
         "Custom Print Request\n\n" +
-
         "Custom file upload will be added next."
-
     );
 
 }
 
 
-
 /* =========================================================
-   CLOSE MODALS
-   ========================================================= */
+   CLOSE MODALS OUTSIDE
+========================================================= */
+
 
 window.onclick =
     function(event) {
@@ -3003,12 +2588,19 @@ window.onclick =
     };
 
 
-
 /* =========================================================
    START
-   ========================================================= */
+========================================================= */
 
-loadProducts();
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadProducts();
+
+    }
+);
 
 </script>
 
