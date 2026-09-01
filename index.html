@@ -333,10 +333,63 @@ nav a:hover {
 
 footer {
     margin-top: 70px;
-    padding: 30px 7%;
+    padding: 35px 7%;
     text-align: center;
     border-top: 1px solid var(--border);
     color: var(--muted);
+}
+
+.social-title {
+    margin-top: 22px;
+    margin-bottom: 15px;
+    color: #aeb6cc;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    padding: 11px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(17,23,42,.8);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .25s;
+}
+
+.social-link:hover {
+    transform: translateY(-3px);
+    border-color: rgba(139,92,246,.7);
+}
+
+.whatsapp-link:hover {
+    border-color: #25D366;
+}
+
+.instagram-link:hover {
+    border-color: #E4405F;
+}
+
+.tiktok-link:hover {
+    border-color: #ffffff;
+}
+
+.facebook-link:hover {
+    border-color: #1877F2;
 }
 
 
@@ -748,6 +801,16 @@ footer {
         grid-column: auto;
     }
 
+    .social-links {
+        gap: 8px;
+    }
+
+    .social-link {
+        min-width: 105px;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
 }
 
 </style>
@@ -927,8 +990,67 @@ footer {
 
 <footer>
 
-    ©️ 2026 X3D Printing.
-    All rights reserved.
+    <div>
+        ©️ 2026 X3D Printing.
+        All rights reserved.
+    </div>
+
+
+    <div class="social-title">
+        Follow us & Contact us
+    </div>
+
+
+    <div class="social-links">
+
+        <!-- WhatsApp -->
+
+        <a
+            href="https://wa.me/201062352065"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link whatsapp-link"
+        >
+            💬 WhatsApp
+        </a>
+
+
+        <!-- Instagram -->
+
+        <a
+            href="https://www.instagram.com/x3d_printing_/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link instagram-link"
+        >
+            📸 Instagram
+        </a>
+
+
+        <!-- TikTok -->
+
+        <a
+            href="https://www.tiktok.com/@x.print8"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link tiktok-link"
+        >
+            🎵 TikTok
+        </a>
+
+
+        <!-- Facebook -->
+
+        <a
+            href="https://www.facebook.com/profile.php?id=61593893795865"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link facebook-link"
+        >
+            📘 Facebook
+        </a>
+
+    </div>
 
 </footer>
 
@@ -2267,11 +2389,6 @@ document
                 );
 
 
-                /*
-                 * نملأ بيانات التتبع
-                 * تلقائيًا بعد نجاح الأوردر
-                 */
-
                 document.getElementById(
                     "trackOrderId"
                 ).value =
@@ -2415,13 +2532,6 @@ document
 
 
             try {
-
-                /*
-                 * مهم:
-                 *
-                 * بنجيب الأوردر بالـ ID
-                 * ورقم التليفون مع بعض.
-                 */
 
                 const {
                     data,
