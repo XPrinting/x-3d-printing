@@ -2,704 +2,739 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>X3D Printing | Orders</title>
+<meta charset="UTF-8">
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <style>
+<title>X3D Printing | Orders</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        :root {
-            --bg: #080816;
-            --surface: #11172a;
-            --border: rgba(255,255,255,.10);
-            --text: #ffffff;
-            --muted: #aeb6cc;
-            --primary: #8b5cf6;
-            --green: #22c55e;
-            --orange: #f59e0b;
-            --red: #ef4444;
-            --blue: #3b82f6;
-        }
+<style>
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background:
-                radial-gradient(
-                    circle at top right,
-                    #17153b 0%,
-                    #080816 45%
-                ),
-                var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
+:root{
+    --bg:#080816;
+    --surface:#11172a;
+    --surface2:#0b1020;
+    --border:rgba(255,255,255,.10);
+    --text:#fff;
+    --muted:#aeb6cc;
+    --primary:#8b5cf6;
+    --green:#22c55e;
+    --orange:#f59e0b;
+    --red:#ef4444;
+    --blue:#3b82f6;
+}
 
-        /* =====================================================
-           SIDEBAR
-        ===================================================== */
+body{
+    font-family:Arial,Helvetica,sans-serif;
 
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            height: 100vh;
+    background:
+        radial-gradient(
+            circle at top right,
+            #17153b 0%,
+            #080816 45%
+        ),
+        var(--bg);
 
-            background: rgba(10, 12, 28, .96);
+    color:var(--text);
+    min-height:100vh;
+}
 
-            border-right: 1px solid var(--border);
 
-            padding: 25px 18px;
+/* =====================================================
+   SIDEBAR
+===================================================== */
 
-            z-index: 100;
-        }
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
 
-        .logo {
-            font-size: 25px;
-            font-weight: 800;
+    width:250px;
+    height:100vh;
 
-            padding: 10px 12px 30px;
-        }
+    background:rgba(10,12,28,.96);
 
-        .logo span {
-            color: var(--primary);
-        }
+    border-right:1px solid var(--border);
 
-        .menu-title {
-            color: #68728a;
+    padding:25px 18px;
 
-            font-size: 11px;
-            font-weight: bold;
+    z-index:100;
+}
 
-            text-transform: uppercase;
+.logo{
+    font-size:25px;
+    font-weight:800;
 
-            padding: 0 12px;
+    padding:10px 12px 30px;
+}
 
-            margin-bottom: 10px;
-        }
+.logo span{
+    color:var(--primary);
+}
 
-        .menu {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+.menu-title{
+    color:#68728a;
 
-        .menu-item {
-            display: flex;
-            align-items: center;
+    font-size:11px;
+    font-weight:bold;
 
-            gap: 12px;
+    text-transform:uppercase;
 
-            color: var(--muted);
+    padding:0 12px;
 
-            padding: 13px 14px;
+    margin-bottom:10px;
+}
 
-            border-radius: 11px;
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
 
-            cursor: pointer;
+.menu-item{
+    display:flex;
+    align-items:center;
 
-            transition: .2s;
+    gap:12px;
 
-            text-decoration: none;
-        }
+    color:var(--muted);
 
-        .menu-item:hover,
-        .menu-item.active {
-            background: rgba(139, 92, 246, .16);
-            color: white;
-        }
+    padding:13px 14px;
 
-        .menu-item.active {
-            border-left: 3px solid var(--primary);
-        }
+    border-radius:11px;
 
-        .menu-icon {
-            width: 24px;
-            text-align: center;
-        }
+    cursor:pointer;
 
+    transition:.2s;
 
-        /* =====================================================
-           MAIN
-        ===================================================== */
+    text-decoration:none;
+}
 
-        .main {
-            margin-left: 250px;
+.menu-item:hover,
+.menu-item.active{
+    background:rgba(139,92,246,.16);
+    color:#fff;
+}
 
-            padding: 30px 35px;
-        }
+.menu-item.active{
+    border-left:3px solid var(--primary);
+}
 
-        .topbar {
-            display: flex;
+.menu-icon{
+    width:24px;
+    text-align:center;
+}
 
-            justify-content: space-between;
-            align-items: center;
 
-            margin-bottom: 30px;
+/* =====================================================
+   MAIN
+===================================================== */
 
-            gap: 20px;
-        }
+.main{
+    margin-left:250px;
+    padding:30px 35px;
+}
 
-        .page-title h1 {
-            font-size: 30px;
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-            margin-bottom: 7px;
-        }
+    margin-bottom:30px;
 
-        .page-title p {
-            color: var(--muted);
-        }
+    gap:20px;
+}
 
-        .refresh-btn {
-            border: 1px solid rgba(139,92,246,.4);
+.page-title h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #5b21b6,
-                    #8b5cf6
-                );
+.page-title p{
+    color:var(--muted);
+}
 
-            color: white;
+.refresh-btn{
+    border:1px solid rgba(139,92,246,.4);
 
-            padding: 11px 18px;
+    background:
+        linear-gradient(
+            135deg,
+            #5b21b6,
+            #8b5cf6
+        );
 
-            border-radius: 10px;
+    color:#fff;
 
-            cursor: pointer;
+    padding:11px 18px;
 
-            font-weight: bold;
-        }
+    border-radius:10px;
 
+    cursor:pointer;
 
-        /* =====================================================
-           STATS
-        ===================================================== */
+    font-weight:bold;
+}
 
-        .stats {
-            display: grid;
 
-            grid-template-columns:
-                repeat(4, 1fr);
+/* =====================================================
+   STATS
+===================================================== */
 
-            gap: 18px;
+.stats{
+    display:grid;
 
-            margin-bottom: 25px;
-        }
+    grid-template-columns:
+        repeat(5,1fr);
 
-        .stat-card {
-            background:
-                rgba(17,23,42,.92);
+    gap:15px;
 
-            border: 1px solid var(--border);
+    margin-bottom:25px;
+}
 
-            border-radius: 17px;
+.stat-card{
+    background:rgba(17,23,42,.92);
 
-            padding: 20px;
-        }
+    border:1px solid var(--border);
 
-        .stat-label {
-            color: var(--muted);
+    border-radius:17px;
 
-            font-size: 13px;
+    padding:20px;
+}
 
-            margin-bottom: 12px;
-        }
+.stat-label{
+    color:var(--muted);
 
-        .stat-value {
-            font-size: 28px;
+    font-size:13px;
 
-            font-weight: bold;
-        }
+    margin-bottom:12px;
+}
 
+.stat-value{
+    font-size:28px;
+    font-weight:bold;
+}
 
-        /* =====================================================
-           ORDERS
-        ===================================================== */
 
-        .orders-card {
-            background:
-                rgba(17,23,42,.92);
+/* =====================================================
+   ORDERS CARD
+===================================================== */
 
-            border: 1px solid var(--border);
+.orders-card{
+    background:rgba(17,23,42,.92);
 
-            border-radius: 20px;
+    border:1px solid var(--border);
 
-            overflow: hidden;
-        }
+    border-radius:20px;
 
-        .orders-header {
-            padding: 22px;
+    overflow:hidden;
+}
 
-            border-bottom: 1px solid var(--border);
+.orders-header{
+    padding:22px;
 
-            display: flex;
+    border-bottom:1px solid var(--border);
 
-            justify-content: space-between;
+    display:flex;
 
-            align-items: center;
+    justify-content:space-between;
 
-            gap: 15px;
-        }
+    align-items:center;
 
-        .orders-header h2 {
-            font-size: 21px;
-        }
+    gap:15px;
+}
 
-        .orders-actions {
-            display: flex;
+.orders-header h2{
+    font-size:21px;
+}
 
-            gap: 10px;
-        }
+.orders-actions{
+    display:flex;
+    gap:10px;
+}
 
-        .search {
-            background: #0b1020;
+.search{
+    background:#0b1020;
 
-            border: 1px solid var(--border);
+    border:1px solid var(--border);
 
-            color: white;
+    color:#fff;
 
-            padding: 10px 13px;
+    padding:10px 13px;
 
-            border-radius: 9px;
+    border-radius:9px;
 
-            outline: none;
+    outline:none;
 
-            width: 250px;
-        }
+    width:250px;
+}
 
-        .search:focus {
-            border-color: var(--primary);
-        }
+.search:focus{
+    border-color:var(--primary);
+}
 
-        .filter {
-            background: #0b1020;
+.filter{
+    background:#0b1020;
 
-            border: 1px solid var(--border);
+    border:1px solid var(--border);
 
-            color: white;
+    color:#fff;
 
-            padding: 10px 13px;
+    padding:10px 13px;
 
-            border-radius: 9px;
+    border-radius:9px;
 
-            outline: none;
-        }
+    outline:none;
+}
 
-        .table-wrapper {
-            width: 100%;
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
 
-            overflow-x: auto;
-        }
+table{
+    width:100%;
 
-        table {
-            width: 100%;
+    border-collapse:collapse;
 
-            border-collapse: collapse;
+    min-width:1200px;
+}
 
-            min-width: 1000px;
-        }
+th{
+    text-align:left;
 
-        th {
-            text-align: left;
+    color:#7f89a3;
 
-            color: #7f89a3;
+    font-size:12px;
 
-            font-size: 12px;
+    text-transform:uppercase;
 
-            text-transform: uppercase;
+    padding:16px 20px;
 
-            padding: 16px 20px;
+    background:rgba(7,10,23,.45);
 
-            background:
-                rgba(7,10,23,.45);
+    white-space:nowrap;
+}
 
-            white-space: nowrap;
-        }
+td{
+    padding:17px 20px;
 
-        td {
-            padding: 17px 20px;
+    border-top:1px solid var(--border);
 
-            border-top:
-                1px solid var(--border);
+    white-space:nowrap;
+}
 
-            white-space: nowrap;
-        }
+tr:hover td{
+    background:rgba(139,92,246,.04);
+}
 
-        tr:hover td {
-            background:
-                rgba(139,92,246,.04);
-        }
+.order-id{
+    color:#a78bfa;
+    font-weight:bold;
+}
 
-        .order-id {
-            color: #a78bfa;
+.customer-name{
+    font-weight:bold;
+}
 
-            font-weight: bold;
-        }
+.customer-phone{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
 
-        .customer-name {
-            font-weight: bold;
-        }
+.amount{
+    font-weight:bold;
+}
 
-        .customer-phone {
-            color: var(--muted);
 
-            font-size: 12px;
+/* =====================================================
+   STATUS
+===================================================== */
 
-            margin-top: 4px;
-        }
+.status{
+    display:inline-flex;
 
-        .amount {
-            font-weight: bold;
-        }
+    padding:6px 10px;
 
+    border-radius:20px;
 
-        /* =====================================================
-           STATUS
-        ===================================================== */
+    font-size:12px;
 
-        .status {
-            display: inline-flex;
+    font-weight:bold;
+}
 
-            padding: 6px 10px;
+.status-new{
+    background:rgba(59,130,246,.15);
+    color:#60a5fa;
+}
 
-            border-radius: 20px;
+.status-confirmed{
+    background:rgba(34,197,94,.15);
+    color:#4ade80;
+}
 
-            font-size: 12px;
+.status-preparing{
+    background:rgba(245,158,11,.15);
+    color:#fbbf24;
+}
 
-            font-weight: bold;
-        }
+.status-out_for_delivery{
+    background:rgba(6,182,212,.15);
+    color:#67e8f9;
+}
 
-        .status-new {
-            background:
-                rgba(59,130,246,.15);
+.status-delivered{
+    background:rgba(139,92,246,.15);
+    color:#a78bfa;
+}
 
-            color: #60a5fa;
-        }
+.status-cancelled{
+    background:rgba(239,68,68,.15);
+    color:#f87171;
+}
 
-        .status-confirmed {
-            background:
-                rgba(34,197,94,.15);
+.status-unknown{
+    background:rgba(148,163,184,.15);
+    color:#cbd5e1;
+}
 
-            color: #4ade80;
-        }
 
-        .status-preparing {
-            background:
-                rgba(245,158,11,.15);
+/* =====================================================
+   BUTTON
+===================================================== */
 
-            color: #fbbf24;
-        }
+.view-btn{
+    border:1px solid rgba(139,92,246,.35);
 
-        .status-delivered {
-            background:
-                rgba(139,92,246,.15);
+    background:rgba(139,92,246,.10);
 
-            color: #a78bfa;
-        }
+    color:#c4b5fd;
 
-        .status-cancelled {
-            background:
-                rgba(239,68,68,.15);
+    padding:7px 11px;
 
-            color: #f87171;
-        }
+    border-radius:8px;
 
-        .view-btn {
-            border:
-                1px solid rgba(139,92,246,.35);
+    cursor:pointer;
+}
 
-            background:
-                rgba(139,92,246,.10);
+.view-btn:hover{
+    background:rgba(139,92,246,.20);
+}
 
-            color: #c4b5fd;
 
-            padding: 7px 11px;
+/* =====================================================
+   LOADING
+===================================================== */
 
-            border-radius: 8px;
+.loading,
+.empty{
+    padding:50px;
 
-            cursor: pointer;
-        }
+    text-align:center;
 
+    color:var(--muted);
+}
 
-        /* =====================================================
-           LOADING / ERROR
-        ===================================================== */
+.error{
+    padding:30px;
 
-        .loading,
-        .empty {
-            padding: 50px;
+    text-align:center;
 
-            text-align: center;
+    color:#f87171;
+}
 
-            color: var(--muted);
-        }
 
-        .error {
-            padding: 30px;
+/* =====================================================
+   MODAL
+===================================================== */
 
-            text-align: center;
+.modal{
+    display:none;
 
-            color: #f87171;
-        }
+    position:fixed;
 
+    inset:0;
 
-        /* =====================================================
-           MODAL
-        ===================================================== */
+    background:rgba(0,0,0,.75);
 
-        .modal {
-            display: none;
+    z-index:500;
 
-            position: fixed;
+    align-items:center;
 
-            inset: 0;
+    justify-content:center;
 
-            background:
-                rgba(0,0,0,.75);
+    padding:20px;
+}
 
-            z-index: 500;
+.modal-box{
+    width:100%;
 
-            align-items: center;
+    max-width:750px;
 
-            justify-content: center;
+    max-height:90vh;
 
-            padding: 20px;
-        }
+    overflow-y:auto;
 
-        .modal-box {
-            width: 100%;
+    background:#11172a;
 
-            max-width: 650px;
+    border:1px solid var(--border);
 
-            max-height: 90vh;
+    border-radius:20px;
 
-            overflow-y: auto;
+    padding:25px;
+}
 
-            background: #11172a;
+.modal-header{
+    display:flex;
 
-            border:
-                1px solid var(--border);
+    justify-content:space-between;
 
-            border-radius: 20px;
+    align-items:center;
 
-            padding: 25px;
-        }
+    margin-bottom:25px;
+}
 
-        .modal-header {
-            display: flex;
+.close{
+    background:transparent;
 
-            justify-content: space-between;
+    border:none;
 
-            align-items: center;
+    color:#fff;
 
-            margin-bottom: 25px;
-        }
+    font-size:28px;
 
-        .close {
-            background: transparent;
+    cursor:pointer;
+}
 
-            border: none;
+.details-grid{
+    display:grid;
 
-            color: white;
+    grid-template-columns:
+        1fr 1fr;
 
-            font-size: 28px;
+    gap:15px;
+}
 
-            cursor: pointer;
-        }
+.detail{
+    background:#0b1020;
 
-        .details-grid {
-            display: grid;
+    border:1px solid var(--border);
 
-            grid-template-columns:
-                1fr 1fr;
+    border-radius:12px;
 
-            gap: 15px;
-        }
+    padding:14px;
+}
 
-        .detail {
-            background: #0b1020;
+.detail.full{
+    grid-column:1/-1;
+}
 
-            border:
-                1px solid var(--border);
+.detail-label{
+    color:#7f89a3;
 
-            border-radius: 12px;
+    font-size:11px;
 
-            padding: 14px;
-        }
+    text-transform:uppercase;
 
-        .detail.full {
-            grid-column: 1 / -1;
-        }
+    margin-bottom:7px;
+}
 
-        .detail-label {
-            color: #7f89a3;
+.detail-value{
+    color:#fff;
 
-            font-size: 11px;
+    word-break:break-word;
+}
 
-            text-transform: uppercase;
 
-            margin-bottom: 7px;
-        }
+/* =====================================================
+   STATUS CONTROL
+===================================================== */
 
-        .detail-value {
-            color: white;
+.status-control{
+    margin-top:5px;
+}
 
-            word-break: break-word;
-        }
+.status-select{
+    width:100%;
 
-        .status-control {
-            margin-top: 15px;
-        }
+    background:#0b1020;
 
-        .status-select {
-            width: 100%;
+    border:1px solid var(--border);
 
-            background: #0b1020;
+    color:#fff;
 
-            border:
-                1px solid var(--border);
+    padding:12px;
 
-            color: white;
+    border-radius:9px;
 
-            padding: 12px;
+    outline:none;
+}
 
-            border-radius: 9px;
+.save-status{
+    width:100%;
 
-            outline: none;
-        }
+    margin-top:12px;
 
-        .save-status {
-            width: 100%;
+    padding:12px;
 
-            margin-top: 12px;
+    border:none;
 
-            padding: 12px;
+    border-radius:9px;
 
-            border: none;
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #8b5cf6
+        );
 
-            border-radius: 9px;
+    color:#fff;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #6d28d9,
-                    #8b5cf6
-                );
+    font-weight:bold;
 
-            color: white;
+    cursor:pointer;
+}
 
-            font-weight: bold;
+.save-status:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
 
-            cursor: pointer;
-        }
 
-        .save-status:disabled {
-            opacity: .6;
+/* =====================================================
+   INFO BADGES
+===================================================== */
 
-            cursor: not-allowed;
-        }
+.info-badge{
+    display:inline-flex;
 
+    padding:5px 9px;
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+    border-radius:20px;
 
-        @media (max-width: 1100px) {
+    font-size:11px;
 
-            .stats {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
+    font-weight:bold;
+}
 
-        }
+.badge-green{
+    background:rgba(34,197,94,.15);
+    color:#4ade80;
+}
 
+.badge-red{
+    background:rgba(239,68,68,.15);
+    color:#f87171;
+}
 
-        @media (max-width: 800px) {
+.badge-orange{
+    background:rgba(245,158,11,.15);
+    color:#fbbf24;
+}
 
-            .sidebar {
-                position: relative;
+.badge-gray{
+    background:rgba(148,163,184,.15);
+    color:#cbd5e1;
+}
 
-                width: 100%;
 
-                height: auto;
+/* =====================================================
+   MOBILE
+===================================================== */
 
-                border-right: none;
+@media(max-width:1200px){
 
-                border-bottom:
-                    1px solid var(--border);
-            }
+    .stats{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
 
-            .main {
-                margin-left: 0;
+}
 
-                padding: 22px 15px;
-            }
+@media(max-width:900px){
 
-            .menu {
-                flex-direction: row;
+    .sidebar{
+        position:relative;
 
-                overflow-x: auto;
-            }
+        width:100%;
 
-            .menu-item {
-                min-width: max-content;
-            }
+        height:auto;
 
-            .menu-title {
-                display: none;
-            }
+        border-right:none;
 
-            .topbar {
-                flex-direction: column;
+        border-bottom:
+            1px solid var(--border);
+    }
 
-                align-items: flex-start;
-            }
+    .main{
+        margin-left:0;
 
-            .orders-header {
-                flex-direction: column;
+        padding:22px 15px;
+    }
 
-                align-items: stretch;
-            }
+    .menu{
+        flex-direction:row;
 
-            .orders-actions {
-                flex-direction: column;
-            }
+        overflow-x:auto;
+    }
 
-            .search {
-                width: 100%;
-            }
+    .menu-item{
+        min-width:max-content;
+    }
 
-        }
+    .menu-title{
+        display:none;
+    }
 
+    .topbar{
+        flex-direction:column;
 
-        @media (max-width: 550px) {
+        align-items:flex-start;
+    }
 
-            .stats {
-                grid-template-columns: 1fr;
-            }
+    .orders-header{
+        flex-direction:column;
 
-            .details-grid {
-                grid-template-columns: 1fr;
-            }
+        align-items:stretch;
+    }
 
-            .detail.full {
-                grid-column: auto;
-            }
+    .orders-actions{
+        flex-direction:column;
+    }
 
-        }
+    .search{
+        width:100%;
+    }
 
-    </style>
+}
+
+@media(max-width:600px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .details-grid{
+        grid-template-columns:1fr;
+    }
+
+    .detail.full{
+        grid-column:auto;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -707,9 +742,9 @@
 <body>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SIDEBAR
-========================================================= -->
+===================================================== -->
 
 <aside class="sidebar">
 
@@ -717,11 +752,9 @@
         X<span>3D</span> Admin
     </div>
 
-
     <div class="menu-title">
         Management
     </div>
-
 
     <div class="menu">
 
@@ -729,10 +762,7 @@
             class="menu-item"
             href="admin.html"
         >
-            <span class="menu-icon">
-                📊
-            </span>
-
+            <span class="menu-icon">📊</span>
             Dashboard
         </a>
 
@@ -741,46 +771,36 @@
             class="menu-item active"
             href="orders.html"
         >
-            <span class="menu-icon">
-                🛒
-            </span>
-
+            <span class="menu-icon">🛒</span>
             Orders
         </a>
 
 
+        <!-- FIXED PRODUCTS LINK -->
+
         <a
             class="menu-item"
-            href="#"
+            href="product.html"
         >
-            <span class="menu-icon">
-                📦
-            </span>
-
+            <span class="menu-icon">📦</span>
             Products
         </a>
 
 
         <a
             class="menu-item"
-            href="#"
+            href="#customers"
         >
-            <span class="menu-icon">
-                👥
-            </span>
-
+            <span class="menu-icon">👥</span>
             Customers
         </a>
 
 
         <a
             class="menu-item"
-            href="#"
+            href="#custom"
         >
-            <span class="menu-icon">
-                🎨
-            </span>
-
+            <span class="menu-icon">🎨</span>
             Custom Requests
         </a>
 
@@ -790,9 +810,9 @@
 
 
 
-<!-- =========================================================
+<!-- =====================================================
      MAIN
-========================================================= -->
+===================================================== -->
 
 <main class="main">
 
@@ -846,7 +866,6 @@
         </div>
 
 
-
         <div class="stat-card">
 
             <div class="stat-label">
@@ -861,7 +880,6 @@
             </div>
 
         </div>
-
 
 
         <div class="stat-card">
@@ -880,6 +898,21 @@
         </div>
 
 
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Out for Delivery
+            </div>
+
+            <div
+                class="stat-value"
+                id="deliveryOrders"
+            >
+                0
+            </div>
+
+        </div>
+
 
         <div class="stat-card">
 
@@ -896,7 +929,6 @@
 
         </div>
 
-
     </section>
 
 
@@ -910,7 +942,6 @@
 
         <div class="orders-header">
 
-
             <h2>
                 All Orders
             </h2>
@@ -918,12 +949,11 @@
 
             <div class="orders-actions">
 
-
                 <input
                     class="search"
                     id="searchInput"
                     type="text"
-                    placeholder="Search customer or phone..."
+                    placeholder="Search customer, phone, product..."
                     oninput="renderOrders()"
                 >
 
@@ -950,6 +980,10 @@
                         Preparing
                     </option>
 
+                    <option value="out_for_delivery">
+                        Out for Delivery
+                    </option>
+
                     <option value="delivered">
                         Delivered
                     </option>
@@ -960,12 +994,9 @@
 
                 </select>
 
-
             </div>
 
-
         </div>
-
 
 
         <div
@@ -979,34 +1010,29 @@
 
         </div>
 
-
     </section>
-
 
 </main>
 
 
 
-<!-- =========================================================
+<!-- =====================================================
      ORDER DETAILS MODAL
-========================================================= -->
+===================================================== -->
 
 <div
     class="modal"
     id="detailsModal"
 >
 
-
     <div class="modal-box">
 
 
         <div class="modal-header">
 
-
             <h2>
                 Order Details
             </h2>
-
 
             <button
                 class="close"
@@ -1014,7 +1040,6 @@
             >
                 ×
             </button>
-
 
         </div>
 
@@ -1028,25 +1053,21 @@
 
     </div>
 
-
 </div>
 
 
 
 <script>
 
-
-/* =========================================================
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_Z1_vjXxFAUU_PAI05Hqd4w_zjopEwwH";
-
 
 const supabaseClient =
     window.supabase.createClient(
@@ -1055,28 +1076,25 @@ const supabaseClient =
     );
 
 
-
-/* =========================================================
+/* =====================================================
    GLOBAL
-========================================================= */
+===================================================== */
 
 let orders = [];
 
 let selectedOrder = null;
 
 
-
-/* =========================================================
+/* =====================================================
    LOAD ORDERS
-========================================================= */
+===================================================== */
 
-async function loadOrders() {
+async function loadOrders(){
 
     const container =
         document.getElementById(
             "tableContainer"
         );
-
 
     container.innerHTML = `
         <div class="loading">
@@ -1084,8 +1102,7 @@ async function loadOrders() {
         </div>
     `;
 
-
-    try {
+    try{
 
         const {
             data,
@@ -1097,65 +1114,43 @@ async function loadOrders() {
                 .order(
                     "id",
                     {
-                        ascending: false
+                        ascending:false
                     }
                 );
 
+        if(error){
 
-        if (error) {
-
-            console.error(
-                "Load orders error:",
-                error
-            );
-
-
-            container.innerHTML = `
-                <div class="error">
-                    ❌ Failed to load orders.
-                    <br><br>
-                    ${escapeHtml(
-                        error.message
-                    )}
-                </div>
-            `;
-
-
-            return;
+            throw error;
 
         }
 
-
         orders =
             data || [];
-
-
-        console.log(
-            "Orders loaded:",
-            orders
-        );
-
 
         updateStats();
 
         renderOrders();
 
+    }
 
-    } catch (error) {
+    catch(error){
 
         console.error(
-            "Unexpected error:",
+            "Load orders error:",
             error
         );
 
-
         container.innerHTML = `
             <div class="error">
-                ❌ Something went wrong.
+
+                ❌ Failed to load orders.
+
                 <br><br>
+
                 ${escapeHtml(
                     error.message
                 )}
+
             </div>
         `;
 
@@ -1164,12 +1159,34 @@ async function loadOrders() {
 }
 
 
+/* =====================================================
+   STATUS
+===================================================== */
 
-/* =========================================================
-   GET REAL STATUS
-========================================================= */
+function normalizeStatus(status){
 
-function getStatus(order) {
+    if(
+        status === null ||
+        status === undefined ||
+        status === ""
+    ){
+
+        return "new";
+
+    }
+
+    return String(status)
+        .toLowerCase()
+        .trim()
+        .replace(
+            /\s+/g,
+            "_"
+        );
+
+}
+
+
+function getStatus(order){
 
     return normalizeStatus(
         order &&
@@ -1179,25 +1196,119 @@ function getStatus(order) {
 }
 
 
+/* =====================================================
+   STATUS LABEL
+===================================================== */
 
-/* =========================================================
+function getStatusLabel(status){
+
+    const normalized =
+        normalizeStatus(status);
+
+    const labels = {
+
+        new:
+            "New",
+
+        confirmed:
+            "Confirmed",
+
+        preparing:
+            "Preparing",
+
+        out_for_delivery:
+            "Out for Delivery",
+
+        delivered:
+            "Delivered",
+
+        cancelled:
+            "Cancelled"
+
+    };
+
+    return (
+        labels[normalized] ||
+        normalized
+    );
+
+}
+
+
+/* =====================================================
+   STATUS BADGE
+===================================================== */
+
+function statusBadge(status){
+
+    const normalized =
+        normalizeStatus(status);
+
+    const label =
+        getStatusLabel(normalized);
+
+    const known = [
+
+        "new",
+        "confirmed",
+        "preparing",
+        "out_for_delivery",
+        "delivered",
+        "cancelled"
+
+    ];
+
+    const cssStatus =
+        known.includes(normalized)
+        ?
+        normalized
+        :
+        "unknown";
+
+    return `
+
+        <span
+            class="status status-${escapeHtml(
+                cssStatus
+            )}"
+        >
+
+            ${escapeHtml(
+                label
+            )}
+
+        </span>
+
+    `;
+
+}
+
+
+/* =====================================================
    STATS
-========================================================= */
+===================================================== */
 
-function updateStats() {
+function updateStats(){
 
-    const total =
+    document.getElementById(
+        "totalOrders"
+    ).textContent =
         orders.length;
 
 
-    const newOrders =
+    document.getElementById(
+        "newOrders"
+    ).textContent =
         orders.filter(
             order =>
-                getStatus(order) === "new"
+                getStatus(order) ===
+                "new"
         ).length;
 
 
-    const preparing =
+    document.getElementById(
+        "preparingOrders"
+    ).textContent =
         orders.filter(
             order =>
                 getStatus(order) ===
@@ -1205,52 +1316,38 @@ function updateStats() {
         ).length;
 
 
-    const delivered =
+    document.getElementById(
+        "deliveryOrders"
+    ).textContent =
+        orders.filter(
+            order =>
+                getStatus(order) ===
+                "out_for_delivery"
+        ).length;
+
+
+    document.getElementById(
+        "deliveredOrders"
+    ).textContent =
         orders.filter(
             order =>
                 getStatus(order) ===
                 "delivered"
         ).length;
 
-
-    document.getElementById(
-        "totalOrders"
-    ).textContent =
-        total;
-
-
-    document.getElementById(
-        "newOrders"
-    ).textContent =
-        newOrders;
-
-
-    document.getElementById(
-        "preparingOrders"
-    ).textContent =
-        preparing;
-
-
-    document.getElementById(
-        "deliveredOrders"
-    ).textContent =
-        delivered;
-
 }
 
 
+/* =====================================================
+   RENDER
+===================================================== */
 
-/* =========================================================
-   RENDER ORDERS
-========================================================= */
-
-function renderOrders() {
+function renderOrders(){
 
     const container =
         document.getElementById(
             "tableContainer"
         );
-
 
     const search =
         document.getElementById(
@@ -1259,7 +1356,6 @@ function renderOrders() {
         .value
         .toLowerCase()
         .trim();
-
 
     const selectedStatus =
         document.getElementById(
@@ -1271,82 +1367,46 @@ function renderOrders() {
         [...orders];
 
 
-
     /* SEARCH */
 
-    if (search) {
+    if(search){
 
         filtered =
             filtered.filter(
                 order => {
 
-                    const name =
-                        String(
-                            order.customer_name ||
-                            ""
-                        ).toLowerCase();
+                    const values = [
+
+                        order.customer_name,
+
+                        order.phone,
+
+                        order.governorate,
+
+                        order.area,
+
+                        order.address,
+
+                        order.product_name,
+
+                        order.product,
+
+                        order.product_id,
+
+                        order.color,
+
+                        order.payment_method
+
+                    ];
 
 
-                    const phone =
-                        String(
-                            order.phone ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const governorate =
-                        String(
-                            order.governorate ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const area =
-                        String(
-                            order.area ||
-                            ""
-                        ).toLowerCase();
-
-
-                    const product =
-                        String(
-                            order.product_name ||
-                            order.product ||
-                            order.product_id ||
-                            ""
-                        ).toLowerCase();
-
-
-                    return (
-
-                        name.includes(
-                            search
-                        )
-
-                        ||
-
-                        phone.includes(
-                            search
-                        )
-
-                        ||
-
-                        governorate.includes(
-                            search
-                        )
-
-                        ||
-
-                        area.includes(
-                            search
-                        )
-
-                        ||
-
-                        product.includes(
-                            search
-                        )
-
+                    return values.some(
+                        value =>
+                            String(
+                                value || ""
+                            )
+                            .toLowerCase()
+                            .includes(search)
                     );
 
                 }
@@ -1355,13 +1415,12 @@ function renderOrders() {
     }
 
 
+    /* STATUS */
 
-    /* STATUS FILTER */
-
-    if (
+    if(
         selectedStatus !==
         "all"
-    ) {
+    ){
 
         filtered =
             filtered.filter(
@@ -1373,25 +1432,26 @@ function renderOrders() {
     }
 
 
-
     /* EMPTY */
 
-    if (
+    if(
         filtered.length ===
         0
-    ) {
+    ){
 
         container.innerHTML = `
-            <div class="empty">
-                No orders found.
-            </div>
-        `;
 
+            <div class="empty">
+
+                No orders found.
+
+            </div>
+
+        `;
 
         return;
 
     }
-
 
 
     /* TABLE */
@@ -1404,41 +1464,25 @@ function renderOrders() {
 
                 <tr>
 
-                    <th>
-                        Order
-                    </th>
+                    <th>Order</th>
 
-                    <th>
-                        Customer
-                    </th>
+                    <th>Customer</th>
 
-                    <th>
-                        Location
-                    </th>
+                    <th>Location</th>
 
-                    <th>
-                        Product
-                    </th>
+                    <th>Product</th>
 
-                    <th>
-                        Quantity
-                    </th>
+                    <th>Qty</th>
 
-                    <th>
-                        Color
-                    </th>
+                    <th>Color</th>
 
-                    <th>
-                        Total
-                    </th>
+                    <th>Total</th>
 
-                    <th>
-                        Status
-                    </th>
+                    <th>Payment</th>
 
-                    <th>
-                        Action
-                    </th>
+                    <th>Status</th>
+
+                    <th>Action</th>
 
                 </tr>
 
@@ -1477,7 +1521,6 @@ function renderOrders() {
                                 )}
 
                             </div>
-
 
                             <div
                                 class="customer-phone"
@@ -1566,6 +1609,16 @@ function renderOrders() {
 
                         <td>
 
+                            ${escapeHtml(
+                                order.payment_method ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
                             ${statusBadge(
                                 order.order_status
                             )}
@@ -1588,7 +1641,6 @@ function renderOrders() {
 
                         </td>
 
-
                     </tr>
 
                 `
@@ -1603,12 +1655,11 @@ function renderOrders() {
 }
 
 
-
-/* =========================================================
+/* =====================================================
    VIEW ORDER
-========================================================= */
+===================================================== */
 
-function viewOrder(id) {
+function viewOrder(id){
 
     selectedOrder =
         orders.find(
@@ -1618,7 +1669,11 @@ function viewOrder(id) {
         );
 
 
-    if (!selectedOrder) {
+    if(!selectedOrder){
+
+        alert(
+            "Order not found."
+        );
 
         return;
 
@@ -1633,10 +1688,11 @@ function viewOrder(id) {
         getStatus(order);
 
 
-
     document.getElementById(
         "detailsContent"
     ).innerHTML = `
+
+        <!-- ORDER -->
 
         <div class="detail">
 
@@ -1645,15 +1701,34 @@ function viewOrder(id) {
             </div>
 
             <div class="detail-value">
+                #${escapeHtml(order.id)}
+            </div>
 
-                #${escapeHtml(
-                    order.id
+        </div>
+
+
+        <!-- CREATED -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                Created At
+            </div>
+
+            <div class="detail-value">
+
+                ${escapeHtml(
+                    formatDate(
+                        order.created_at
+                    )
                 )}
 
             </div>
 
         </div>
 
+
+        <!-- CUSTOMER -->
 
         <div class="detail">
 
@@ -1673,6 +1748,8 @@ function viewOrder(id) {
         </div>
 
 
+        <!-- PHONE -->
+
         <div class="detail">
 
             <div class="detail-label">
@@ -1690,6 +1767,8 @@ function viewOrder(id) {
 
         </div>
 
+
+        <!-- PRODUCT -->
 
         <div class="detail">
 
@@ -1716,6 +1795,28 @@ function viewOrder(id) {
         </div>
 
 
+        <!-- PRODUCT ID -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                Product ID
+            </div>
+
+            <div class="detail-value">
+
+                ${escapeHtml(
+                    order.product_id ||
+                    "-"
+                )}
+
+            </div>
+
+        </div>
+
+
+        <!-- QUANTITY -->
+
         <div class="detail">
 
             <div class="detail-label">
@@ -1734,6 +1835,8 @@ function viewOrder(id) {
         </div>
 
 
+        <!-- COLOR -->
+
         <div class="detail">
 
             <div class="detail-label">
@@ -1751,17 +1854,19 @@ function viewOrder(id) {
         </div>
 
 
+        <!-- SUBTOTAL -->
+
         <div class="detail">
 
             <div class="detail-label">
-                Total
+                Subtotal
             </div>
 
             <div class="detail-value">
 
                 EGP ${escapeHtml(
-                    getOrderTotal(
-                        order
+                    formatMoney(
+                        order.subtotal
                     )
                 )}
 
@@ -1770,10 +1875,96 @@ function viewOrder(id) {
         </div>
 
 
+        <!-- DELIVERY -->
+
         <div class="detail">
 
             <div class="detail-label">
-                Payment
+                Delivery Fee
+            </div>
+
+            <div class="detail-value">
+
+                EGP ${escapeHtml(
+                    formatMoney(
+                        order.delivery_fee
+                    )
+                )}
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                Total
+            </div>
+
+            <div class="detail-value">
+
+                <strong>
+                    EGP ${escapeHtml(
+                        getOrderTotal(order)
+                    )}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- DEPOSIT -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                Deposit
+            </div>
+
+            <div class="detail-value">
+
+                EGP ${escapeHtml(
+                    formatMoney(
+                        order.deposit_amount
+                    )
+                )}
+
+            </div>
+
+        </div>
+
+
+        <!-- REMAINING -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                Remaining
+            </div>
+
+            <div class="detail-value">
+
+                EGP ${escapeHtml(
+                    formatMoney(
+                        order.remaining_amount
+                    )
+                )}
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                Payment Method
             </div>
 
             <div class="detail-value">
@@ -1787,6 +1978,65 @@ function viewOrder(id) {
 
         </div>
 
+
+        <!-- DEPOSIT STATUS -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                Deposit Status
+            </div>
+
+            <div class="detail-value">
+
+                ${infoBadge(
+                    order.deposit_status
+                )}
+
+            </div>
+
+        </div>
+
+
+        <!-- WHATSAPP -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                WhatsApp Confirmed
+            </div>
+
+            <div class="detail-value">
+
+                ${booleanBadge(
+                    order.whatsapp_confirmed
+                )}
+
+            </div>
+
+        </div>
+
+
+        <!-- STOCK -->
+
+        <div class="detail">
+
+            <div class="detail-label">
+                Stock Deducted
+            </div>
+
+            <div class="detail-value">
+
+                ${booleanBadge(
+                    order.stock_deducted
+                )}
+
+            </div>
+
+        </div>
+
+
+        <!-- ADDRESS -->
 
         <div class="detail full">
 
@@ -1817,24 +2067,7 @@ function viewOrder(id) {
         </div>
 
 
-        <div class="detail full">
-
-            <div class="detail-label">
-                Created At
-            </div>
-
-            <div class="detail-value">
-
-                ${escapeHtml(
-                    formatDate(
-                        order.created_at
-                    )
-                )}
-
-            </div>
-
-        </div>
-
+        <!-- STATUS -->
 
         <div class="detail full status-control">
 
@@ -1848,71 +2081,41 @@ function viewOrder(id) {
                 id="orderStatus"
             >
 
+                ${statusOption(
+                    "new",
+                    "New",
+                    currentStatus
+                )}
 
-                <option
-                    value="new"
-                    ${
-                        currentStatus ===
-                        "new"
-                            ? "selected"
-                            : ""
-                    }
-                >
-                    New
-                </option>
+                ${statusOption(
+                    "confirmed",
+                    "Confirmed",
+                    currentStatus
+                )}
 
+                ${statusOption(
+                    "preparing",
+                    "Preparing",
+                    currentStatus
+                )}
 
-                <option
-                    value="confirmed"
-                    ${
-                        currentStatus ===
-                        "confirmed"
-                            ? "selected"
-                            : ""
-                    }
-                >
-                    Confirmed
-                </option>
+                ${statusOption(
+                    "out_for_delivery",
+                    "Out for Delivery",
+                    currentStatus
+                )}
 
+                ${statusOption(
+                    "delivered",
+                    "Delivered",
+                    currentStatus
+                )}
 
-                <option
-                    value="preparing"
-                    ${
-                        currentStatus ===
-                        "preparing"
-                            ? "selected"
-                            : ""
-                    }
-                >
-                    Preparing
-                </option>
-
-
-                <option
-                    value="delivered"
-                    ${
-                        currentStatus ===
-                        "delivered"
-                            ? "selected"
-                            : ""
-                    }
-                >
-                    Delivered
-                </option>
-
-
-                <option
-                    value="cancelled"
-                    ${
-                        currentStatus ===
-                        "cancelled"
-                            ? "selected"
-                            : ""
-                    }
-                >
-                    Cancelled
-                </option>
-
+                ${statusOption(
+                    "cancelled",
+                    "Cancelled",
+                    currentStatus
+                )}
 
             </select>
 
@@ -1927,7 +2130,6 @@ function viewOrder(id) {
 
             </button>
 
-
         </div>
 
     `;
@@ -1941,14 +2143,45 @@ function viewOrder(id) {
 }
 
 
+/* =====================================================
+   STATUS OPTION
+===================================================== */
 
-/* =========================================================
-   UPDATE ORDER STATUS
-========================================================= */
+function statusOption(
+    value,
+    label,
+    current
+){
 
-async function updateOrderStatus() {
+    return `
 
-    if (!selectedOrder) {
+        <option
+            value="${escapeHtml(value)}"
+            ${
+                current === value
+                ?
+                "selected"
+                :
+                ""
+            }
+        >
+
+            ${escapeHtml(label)}
+
+        </option>
+
+    `;
+
+}
+
+
+/* =====================================================
+   UPDATE STATUS
+===================================================== */
+
+async function updateOrderStatus(){
+
+    if(!selectedOrder){
 
         alert(
             "No order selected."
@@ -1964,18 +2197,13 @@ async function updateOrderStatus() {
             "orderStatus"
         );
 
-
     const button =
         document.getElementById(
             "saveStatusButton"
         );
 
 
-    if (!select) {
-
-        alert(
-            "Status selector not found."
-        );
+    if(!select){
 
         return;
 
@@ -1986,28 +2214,23 @@ async function updateOrderStatus() {
         select.value;
 
 
-
     const validStatuses = [
 
         "new",
-
         "confirmed",
-
         "preparing",
-
+        "out_for_delivery",
         "delivered",
-
         "cancelled"
 
     ];
 
 
-
-    if (
+    if(
         !validStatuses.includes(
             newStatus
         )
-    ) {
+    ){
 
         alert(
             "Invalid order status."
@@ -2018,10 +2241,7 @@ async function updateOrderStatus() {
     }
 
 
-
-    /* Disable button */
-
-    if (button) {
+    if(button){
 
         button.disabled = true;
 
@@ -2031,124 +2251,54 @@ async function updateOrderStatus() {
     }
 
 
-
-    console.log(
-        "Updating order:",
-        selectedOrder.id
-    );
-
-    console.log(
-        "New order_status:",
-        newStatus
-    );
-
-
-
-    try {
-
-
-        /*
-         * IMPORTANT:
-         *
-         * Supabase column is:
-         *
-         * order_status
-         *
-         * NOT:
-         *
-         * status
-         */
-
+    try{
 
         const {
             data,
             error
         } =
-
             await supabaseClient
-
                 .from("orders")
-
                 .update({
 
                     order_status:
                         newStatus
 
                 })
-
                 .eq(
                     "id",
                     selectedOrder.id
                 )
-
                 .select();
 
 
+        if(error){
 
-        if (error) {
-
-            console.error(
-                "Supabase update error:",
-                error
-            );
-
-
-            alert(
-
-                "Failed to update status:\n\n" +
-
-                error.message
-
-            );
-
-
-            return;
+            throw error;
 
         }
 
 
-
-        console.log(
-            "Update result:",
-            data
-        );
-
-
-
-        /*
-         * If RLS prevents the update,
-         * Supabase may return no rows.
-         */
-
-        if (
+        if(
             !data ||
             data.length === 0
-        ) {
+        ){
 
             alert(
 
                 "The status was not changed.\n\n" +
 
-                "The order exists, but Supabase did not return an updated row.\n\n" +
-
                 "Check the UPDATE RLS policy on the orders table."
 
             );
-
 
             return;
 
         }
 
 
-
-        /*
-         * Update local data immediately.
-         */
-
         selectedOrder.order_status =
             newStatus;
-
 
 
         const index =
@@ -2161,8 +2311,7 @@ async function updateOrderStatus() {
             );
 
 
-
-        if (index !== -1) {
+        if(index !== -1){
 
             orders[index]
                 .order_status =
@@ -2171,31 +2320,25 @@ async function updateOrderStatus() {
         }
 
 
-
-        /*
-         * Close modal and redraw page.
-         */
-
-        closeModal();
-
         updateStats();
 
         renderOrders();
 
+        closeModal();
 
 
         alert(
             "Order status updated successfully!"
         );
 
+    }
 
-    } catch (error) {
+    catch(error){
 
         console.error(
-            "Unexpected update error:",
+            "Status update error:",
             error
         );
-
 
         alert(
 
@@ -2205,10 +2348,11 @@ async function updateOrderStatus() {
 
         );
 
+    }
 
-    } finally {
+    finally{
 
-        if (button) {
+        if(button){
 
             button.disabled =
                 false;
@@ -2223,134 +2367,19 @@ async function updateOrderStatus() {
 }
 
 
+/* =====================================================
+   TOTAL
+===================================================== */
 
-/* =========================================================
-   NORMALIZE STATUS
-========================================================= */
-
-function normalizeStatus(status) {
-
-    if (
-        status === null ||
-        status === undefined ||
-        status === ""
-    ) {
-
-        return "new";
-
-    }
-
-
-    return String(status)
-
-        .toLowerCase()
-
-        .trim()
-
-        .replace(
-            /\s+/g,
-            "_"
-        );
-
-}
-
-
-
-/* =========================================================
-   STATUS BADGE
-========================================================= */
-
-function statusBadge(status) {
-
-    const normalized =
-        normalizeStatus(
-            status
-        );
-
-
-    let label =
-        normalized;
-
-
-    if (
-        normalized ===
-        "new"
-    ) {
-
-        label = "New";
-
-    }
-
-    else if (
-        normalized ===
-        "confirmed"
-    ) {
-
-        label = "Confirmed";
-
-    }
-
-    else if (
-        normalized ===
-        "preparing"
-    ) {
-
-        label = "Preparing";
-
-    }
-
-    else if (
-        normalized ===
-        "delivered"
-    ) {
-
-        label = "Delivered";
-
-    }
-
-    else if (
-        normalized ===
-        "cancelled"
-    ) {
-
-        label = "Cancelled";
-
-    }
-
-
-    return `
-
-        <span
-            class="status status-${escapeHtml(
-                normalized
-            )}"
-        >
-
-            ${escapeHtml(
-                label
-            )}
-
-        </span>
-
-    `;
-
-}
-
-
-
-/* =========================================================
-   ORDER TOTAL
-========================================================= */
-
-function getOrderTotal(order) {
+function getOrderTotal(order){
 
     const value =
 
-        order.total ??
-
         order.total_price ??
 
-        order.price ??
+        order.total ??
+
+        order.subtotal ??
 
         0;
 
@@ -2359,9 +2388,9 @@ function getOrderTotal(order) {
         Number(value);
 
 
-    if (
+    if(
         Number.isNaN(number)
-    ) {
+    ){
 
         return "0";
 
@@ -2373,80 +2402,203 @@ function getOrderTotal(order) {
 }
 
 
+/* =====================================================
+   MONEY
+===================================================== */
 
-/* =========================================================
+function formatMoney(value){
+
+    const number =
+        Number(value ?? 0);
+
+
+    if(
+        Number.isNaN(number)
+    ){
+
+        return "0";
+
+    }
+
+
+    return number.toLocaleString();
+
+}
+
+
+/* =====================================================
    COLOR
-========================================================= */
+===================================================== */
 
-function getColor(order) {
+function getColor(order){
 
-    if (
-        order.color
-    ) {
+    if(order.color){
 
         return order.color;
 
     }
 
-
-    if (
-        order.colors
-    ) {
+    if(order.colors){
 
         return order.colors;
 
     }
 
-
-    if (
+    if(
         order.color_1 &&
         order.color_2
-    ) {
+    ){
 
         return (
 
             order.color_1 +
-
             " + " +
-
             order.color_2
 
         );
 
     }
 
-
-    if (
-        order.color_1
-    ) {
+    if(order.color_1){
 
         return order.color_1;
 
     }
 
-
-    if (
-        order.color_2
-    ) {
+    if(order.color_2){
 
         return order.color_2;
 
     }
-
 
     return "-";
 
 }
 
 
+/* =====================================================
+   BOOLEAN BADGE
+===================================================== */
 
-/* =========================================================
+function booleanBadge(value){
+
+    const yes =
+        value === true ||
+        value === "true" ||
+        value === 1 ||
+        value === "1";
+
+
+    if(yes){
+
+        return `
+
+            <span class="info-badge badge-green">
+                Yes
+            </span>
+
+        `;
+
+    }
+
+
+    return `
+
+        <span class="info-badge badge-gray">
+            No
+        </span>
+
+    `;
+
+}
+
+
+/* =====================================================
+   INFO BADGE
+===================================================== */
+
+function infoBadge(value){
+
+    if(!value){
+
+        return `
+
+            <span class="info-badge badge-gray">
+                -
+            </span>
+
+        `;
+
+    }
+
+
+    const normalized =
+        String(value)
+        .toLowerCase()
+        .trim();
+
+
+    let css =
+        "badge-gray";
+
+
+    if(
+        normalized ===
+        "paid" ||
+        normalized ===
+        "confirmed"
+    ){
+
+        css =
+            "badge-green";
+
+    }
+
+    else if(
+        normalized ===
+        "pending"
+    ){
+
+        css =
+            "badge-orange";
+
+    }
+
+    else if(
+        normalized ===
+        "failed"
+    ){
+
+        css =
+            "badge-red";
+
+    }
+
+
+    return `
+
+        <span
+            class="info-badge ${css}"
+        >
+
+            ${escapeHtml(
+                String(value)
+            )}
+
+        </span>
+
+    `;
+
+}
+
+
+/* =====================================================
    DATE
-========================================================= */
+===================================================== */
 
-function formatDate(date) {
+function formatDate(date){
 
-    if (!date) {
+    if(!date){
 
         return "-";
 
@@ -2457,13 +2609,13 @@ function formatDate(date) {
         new Date(date);
 
 
-    if (
+    if(
         isNaN(
             d.getTime()
         )
-    ) {
+    ){
 
-        return date;
+        return String(date);
 
     }
 
@@ -2473,17 +2625,16 @@ function formatDate(date) {
 }
 
 
+/* =====================================================
+   ESCAPE
+===================================================== */
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+function escapeHtml(value){
 
-function escapeHtml(value) {
-
-    if (
+    if(
         value === null ||
         value === undefined
-    ) {
+    ){
 
         return "";
 
@@ -2520,28 +2671,30 @@ function escapeHtml(value) {
 }
 
 
-
-/* =========================================================
+/* =====================================================
    CLOSE MODAL
-========================================================= */
+===================================================== */
 
-function closeModal() {
+function closeModal(){
 
     document.getElementById(
         "detailsModal"
     ).style.display =
         "none";
 
+    selectedOrder =
+        null;
+
 }
 
 
+/* =====================================================
+   CLICK OUTSIDE
+===================================================== */
 
-/* =========================================================
-   CLOSE MODAL WHEN CLICK OUTSIDE
-========================================================= */
-
-window.onclick =
-    function(event) {
+window.addEventListener(
+    "click",
+    function(event){
 
         const modal =
             document.getElementById(
@@ -2549,25 +2702,24 @@ window.onclick =
             );
 
 
-        if (
+        if(
             event.target ===
             modal
-        ) {
+        ){
 
             closeModal();
 
         }
 
-    };
+    }
+);
 
 
-
-/* =========================================================
+/* =====================================================
    START
-========================================================= */
+===================================================== */
 
 loadOrders();
-
 
 </script>
 
