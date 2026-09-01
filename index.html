@@ -27,6 +27,10 @@
     --muted: #aeb6cc;
     --primary: #8b5cf6;
     --primary2: #6d28d9;
+    --green: #22c55e;
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --blue: #3b82f6;
 }
 
 body {
@@ -82,7 +86,8 @@ nav a:hover {
     color: var(--primary);
 }
 
-.cart-btn {
+.cart-btn,
+.track-btn {
     border: 1px solid rgba(139,92,246,.5);
     background:
         linear-gradient(
@@ -95,6 +100,17 @@ nav a:hover {
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
+}
+
+.track-btn {
+    background: transparent;
+    border-color: rgba(139,92,246,.45);
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .cart-count {
@@ -157,35 +173,23 @@ nav a:hover {
 
 .products-grid {
     display: grid;
-    grid-template-columns:
-        repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 }
 
 .product-card {
-    background:
-        rgba(17,23,42,.92);
-    border:
-        1px solid var(--border);
+    background: rgba(17,23,42,.92);
+    border: 1px solid var(--border);
     border-radius: 22px;
     overflow: hidden;
     transition: .3s;
 }
 
 .product-card:hover {
-    transform:
-        translateY(-7px);
-    border-color:
-        rgba(139,92,246,.7);
-    box-shadow:
-        0 15px 50px
-        rgba(139,92,246,.15);
+    transform: translateY(-7px);
+    border-color: rgba(139,92,246,.7);
+    box-shadow: 0 15px 50px rgba(139,92,246,.15);
 }
-
-
-/* =========================
-   PRODUCT IMAGE
-========================= */
 
 .product-image {
     width: 100%;
@@ -219,11 +223,6 @@ nav a:hover {
             #0d1020
         );
 }
-
-
-/* =========================
-   PRODUCT INFO
-========================= */
 
 .product-info {
     padding: 22px;
@@ -279,12 +278,6 @@ nav a:hover {
     opacity: .85;
 }
 
-.add-btn:disabled {
-    background: #555;
-    cursor: not-allowed;
-    opacity: .7;
-}
-
 .out-stock {
     background: #555;
     color: white;
@@ -292,26 +285,6 @@ nav a:hover {
     border-radius: 10px;
     font-weight: bold;
     font-size: 13px;
-}
-
-
-/* =========================
-   LOADING
-========================= */
-
-.loading {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 70px 20px;
-    color: var(--muted);
-    font-size: 18px;
-}
-
-.error-message {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 50px;
-    color: #ff7777;
 }
 
 
@@ -329,8 +302,7 @@ nav a:hover {
             rgba(109,40,217,.25),
             rgba(17,23,42,.9)
         );
-    border:
-        1px solid rgba(139,92,246,.3);
+    border: 1px solid rgba(139,92,246,.3);
     text-align: center;
 }
 
@@ -363,8 +335,7 @@ footer {
     margin-top: 70px;
     padding: 30px 7%;
     text-align: center;
-    border-top:
-        1px solid var(--border);
+    border-top: 1px solid var(--border);
     color: var(--muted);
 }
 
@@ -377,8 +348,7 @@ footer {
     display: none;
     position: fixed;
     inset: 0;
-    background:
-        rgba(0,0,0,.75);
+    background: rgba(0,0,0,.75);
     z-index: 200;
     align-items: center;
     justify-content: center;
@@ -392,8 +362,7 @@ footer {
     max-height: 85vh;
     overflow-y: auto;
     border-radius: 20px;
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
     padding: 25px;
 }
 
@@ -418,8 +387,7 @@ footer {
     align-items: center;
     gap: 15px;
     padding: 15px 0;
-    border-bottom:
-        1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 }
 
 .cart-item-info h4 {
@@ -475,19 +443,20 @@ footer {
     gap: 10px;
 }
 
-#checkoutForm label {
+#checkoutForm label,
+.track-form label {
     font-weight: bold;
     margin-top: 8px;
 }
 
 #checkoutForm input,
 #checkoutForm select,
-#checkoutForm textarea {
+#checkoutForm textarea,
+.track-form input {
     width: 100%;
     padding: 13px;
     border-radius: 10px;
-    border:
-        1px solid rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.12);
     background: #0d1020;
     color: white;
     outline: none;
@@ -500,17 +469,16 @@ footer {
 
 #checkoutForm input:focus,
 #checkoutForm select:focus,
-#checkoutForm textarea:focus {
-    border-color:
-        var(--primary);
+#checkoutForm textarea:focus,
+.track-form input:focus {
+    border-color: var(--primary);
 }
 
 .checkout-summary-box {
     background: #0d1020;
     padding: 18px;
     border-radius: 12px;
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
 }
 
 .summary-row {
@@ -523,10 +491,202 @@ footer {
 .summary-total {
     margin-top: 15px;
     padding-top: 15px;
-    border-top:
-        1px solid var(--border);
+    border-top: 1px solid var(--border);
     font-size: 20px;
     font-weight: bold;
+}
+
+
+/* =========================
+   TRACK ORDER
+========================= */
+
+.track-box {
+    max-width: 600px;
+}
+
+.track-intro {
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.track-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.track-search-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background:
+        linear-gradient(
+            135deg,
+            #6d28d9,
+            #8b5cf6
+        );
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.track-search-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.track-result {
+    margin-top: 25px;
+}
+
+.track-error {
+    background: rgba(239,68,68,.10);
+    border: 1px solid rgba(239,68,68,.25);
+    color: #f87171;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.order-track-card {
+    background: #0d1020;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.track-order-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.track-order-id {
+    color: #a78bfa;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.track-status {
+    display: inline-flex;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.track-status-new {
+    background: rgba(59,130,246,.15);
+    color: #60a5fa;
+}
+
+.track-status-confirmed {
+    background: rgba(34,197,94,.15);
+    color: #4ade80;
+}
+
+.track-status-preparing {
+    background: rgba(245,158,11,.15);
+    color: #fbbf24;
+}
+
+.track-status-delivered {
+    background: rgba(139,92,246,.15);
+    color: #a78bfa;
+}
+
+.track-status-cancelled {
+    background: rgba(239,68,68,.15);
+    color: #f87171;
+}
+
+.order-progress {
+    margin: 25px 0;
+}
+
+.progress-line {
+    height: 5px;
+    background: #252b40;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background:
+        linear-gradient(
+            90deg,
+            #6d28d9,
+            #8b5cf6
+        );
+    transition: .4s;
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 9px;
+    color: #68728a;
+    font-size: 10px;
+}
+
+.progress-labels span.active {
+    color: #c4b5fd;
+    font-weight: bold;
+}
+
+.track-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.track-detail {
+    background: #11172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.track-detail.full {
+    grid-column: 1 / -1;
+}
+
+.track-detail-label {
+    color: #7f89a3;
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.track-detail-value {
+    color: white;
+    word-break: break-word;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 70px 20px;
+    color: var(--muted);
+    font-size: 18px;
+}
+
+.error-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px;
+    color: #ff7777;
 }
 
 
@@ -537,15 +697,14 @@ footer {
 @media (max-width: 900px) {
 
     .products-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     nav {
         gap: 15px;
     }
-}
 
+}
 
 @media (max-width: 650px) {
 
@@ -560,6 +719,14 @@ footer {
         justify-content: center;
     }
 
+    .header-actions {
+        margin-left: auto;
+    }
+
+    .track-btn {
+        padding: 10px 12px;
+    }
+
     .hero h1 {
         font-size: 38px;
     }
@@ -572,6 +739,15 @@ footer {
         margin: 30px 5%;
         padding: 30px 20px;
     }
+
+    .track-details {
+        grid-template-columns: 1fr;
+    }
+
+    .track-detail.full {
+        grid-column: auto;
+    }
+
 }
 
 </style>
@@ -610,21 +786,33 @@ footer {
     </nav>
 
 
-    <button
-        class="cart-btn"
-        onclick="openCart()"
-    >
+    <div class="header-actions">
 
-        🛒 Cart
-
-        <span
-            class="cart-count"
-            id="cartCount"
+        <button
+            class="track-btn"
+            onclick="openTrackOrder()"
         >
-            0
-        </span>
+            Track Order
+        </button>
 
-    </button>
+
+        <button
+            class="cart-btn"
+            onclick="openCart()"
+        >
+
+            🛒 Cart
+
+            <span
+                class="cart-count"
+                id="cartCount"
+            >
+                0
+            </span>
+
+        </button>
+
+    </div>
 
 </header>
 
@@ -690,9 +878,7 @@ footer {
     >
 
         <div class="loading">
-
             Loading products...
-
         </div>
 
     </div>
@@ -984,9 +1170,7 @@ footer {
             </select>
 
 
-            <div
-                id="checkoutSummary"
-            ></div>
+            <div id="checkoutSummary"></div>
 
 
             <button
@@ -1005,13 +1189,102 @@ footer {
 </div>
 
 
+<!-- =========================
+     TRACK ORDER MODAL
+========================= -->
+
+<div
+    class="cart-modal"
+    id="trackModal"
+>
+
+    <div class="cart-box track-box">
+
+        <div class="cart-header">
+
+            <h2>
+                Track Your Order
+            </h2>
+
+
+            <button
+                class="close-btn"
+                onclick="closeTrackOrder()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <p class="track-intro">
+
+            Enter your Order ID and the phone
+            number used when placing the order.
+
+        </p>
+
+
+        <form
+            class="track-form"
+            id="trackForm"
+        >
+
+            <label>
+                Order ID
+            </label>
+
+
+            <input
+                type="number"
+                id="trackOrderId"
+                placeholder="Example: 25"
+                required
+            >
+
+
+            <label>
+                Phone Number
+            </label>
+
+
+            <input
+                type="tel"
+                id="trackPhone"
+                placeholder="01xxxxxxxxx"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="track-search-btn"
+                id="trackSearchButton"
+            >
+
+                Track Order
+
+            </button>
+
+        </form>
+
+
+        <div
+            class="track-result"
+            id="trackResult"
+        ></div>
+
+    </div>
+
+</div>
+
+
 <script>
 
 
 /* =========================================================
    SUPABASE
 ========================================================= */
-
 
 const SUPABASE_URL =
     "https://wxezuqdktbftlkjxqcmi.supabase.co";
@@ -1103,7 +1376,7 @@ function escapeAttribute(value) {
 
 
 /* =========================================================
-   SUPABASE STORAGE IMAGE URL
+   STORAGE IMAGE
 ========================================================= */
 
 function getStorageImageUrl(path) {
@@ -1112,20 +1385,12 @@ function getStorageImageUrl(path) {
         return null;
     }
 
-
     let imagePath =
         String(path).trim();
-
 
     if (!imagePath) {
         return null;
     }
-
-
-    /*
-       لو الصورة أصلًا رابط كامل
-       نستخدمه كما هو
-    */
 
     if (
         imagePath.startsWith("http://") ||
@@ -1137,51 +1402,23 @@ function getStorageImageUrl(path) {
 
     }
 
-
-    /*
-       الصور عندنا موجودة داخل:
-
-       product-images
-
-       ولو القيمة في Supabase:
-
-       images/filename.jpeg
-
-       يبقى الرابط النهائي:
-
-       /storage/v1/object/public/product-images/images/filename.jpeg
-    */
-
-
     imagePath =
         imagePath.replace(/^\/+/, "");
 
-
-    const publicUrl =
+    return (
         SUPABASE_URL +
         "/storage/v1/object/public/product-images/" +
-        imagePath;
-
-
-    return publicUrl;
+        imagePath
+    );
 
 }
 
 
 /* =========================================================
-   IMAGE URL
+   PRODUCT IMAGE
 ========================================================= */
 
 function getProductImage(product) {
-
-    /*
-       الأولوية:
-
-       1 - image_url
-       2 - image
-       3 - الصورة القديمة
-    */
-
 
     if (
         product.image_url &&
@@ -1194,7 +1431,6 @@ function getProductImage(product) {
 
     }
 
-
     if (
         product.image &&
         String(product.image).trim() !== ""
@@ -1206,26 +1442,14 @@ function getProductImage(product) {
 
     }
 
-
     const name =
-        normalizeName(
-            product.name
-        );
+        normalizeName(product.name);
 
-
-    if (
-        OLD_IMAGES[name]
-    ) {
-
-        /*
-           الصور القديمة موجودة على GitHub
-           لذلك نرجع اسمها فقط
-        */
+    if (OLD_IMAGES[name]) {
 
         return OLD_IMAGES[name];
 
     }
-
 
     return null;
 
@@ -1243,14 +1467,11 @@ function handleImageError(img) {
         img.src
     );
 
-
     const parent =
         img.parentElement;
 
-
     img.style.display =
         "none";
-
 
     if (
         !parent.querySelector(
@@ -1263,14 +1484,11 @@ function handleImageError(img) {
                 "div"
             );
 
-
         placeholder.className =
             "image-placeholder";
 
-
         placeholder.innerHTML =
             "Image unavailable";
-
 
         parent.appendChild(
             placeholder
@@ -1292,17 +1510,11 @@ async function loadProducts() {
             "productsGrid"
         );
 
-
     grid.innerHTML = `
-
         <div class="loading">
-
             Loading products...
-
         </div>
-
     `;
-
 
     try {
 
@@ -1320,24 +1532,11 @@ async function loadProducts() {
                     }
                 );
 
-
         if (error) {
-
-            console.error(
-                "Products Error:",
-                error
-            );
 
             throw error;
 
         }
-
-
-        console.log(
-            "Products from Supabase:",
-            data
-        );
-
 
         if (
             !data ||
@@ -1345,22 +1544,16 @@ async function loadProducts() {
         ) {
 
             grid.innerHTML = `
-
                 <div class="loading">
-
                     No products available.
-
                 </div>
-
             `;
 
             return;
 
         }
 
-
         grid.innerHTML = "";
-
 
         data.forEach(
             product => {
@@ -1373,7 +1566,6 @@ async function loadProducts() {
             }
         );
 
-
     } catch (error) {
 
         console.error(
@@ -1381,9 +1573,7 @@ async function loadProducts() {
             error
         );
 
-
         grid.innerHTML = `
-
             <div class="error-message">
 
                 Failed to load products.
@@ -1395,7 +1585,6 @@ async function loadProducts() {
                 )}
 
             </div>
-
         `;
 
     }
@@ -1417,96 +1606,67 @@ function renderProduct(
             "div"
         );
 
-
     card.className =
         "product-card";
 
-
     const image =
-        getProductImage(
-            product
-        );
-
+        getProductImage(product);
 
     const name =
         product.name ||
         "Unnamed Product";
 
-
     const category =
         product.category ||
         "3D Printing";
 
-
     const description =
         product.description ||
         "High quality 3D printed product.";
-
 
     const price =
         Number(
             product.price || 0
         );
 
-
     const stock =
         Number(
             product.stock || 0
         );
-
 
     const status =
         String(
             product.status || "Active"
         ).toLowerCase();
 
-
     const available =
         stock > 0 &&
         status !== "inactive" &&
         status !== "disabled";
 
-
-    /* =========================
-       IMAGE
-    ========================= */
-
     let imageHTML;
-
 
     if (image) {
 
         imageHTML = `
-
             <img
                 src="${escapeAttribute(image)}"
                 alt="${escapeAttribute(name)}"
                 onerror="handleImageError(this)"
             >
-
         `;
 
     } else {
 
         imageHTML = `
-
             <div class="image-placeholder">
-
                 Image unavailable
-
             </div>
-
         `;
 
     }
 
-
-    /* =========================
-       BUTTON
-    ========================= */
-
     let buttonHTML;
-
 
     if (available) {
 
@@ -1514,34 +1674,24 @@ function renderProduct(
             JSON.stringify(product)
                 .replace(/"/g, "&quot;");
 
-
         buttonHTML = `
-
             <button
                 class="add-btn"
                 onclick="addToCartByProduct(${safeProduct})"
             >
-
                 Add to Cart
-
             </button>
-
         `;
 
     } else {
 
         buttonHTML = `
-
             <div class="out-stock">
-
                 Out of Stock
-
             </div>
-
         `;
 
     }
-
 
     card.innerHTML = `
 
@@ -1555,34 +1705,25 @@ function renderProduct(
         <div class="product-info">
 
             <div class="category">
-
                 ${escapeHtml(category)}
-
             </div>
 
 
             <h3>
-
                 ${escapeHtml(name)}
-
             </h3>
 
 
             <p>
-
                 ${escapeHtml(description)}
-
             </p>
 
 
             <div class="product-bottom">
 
                 <div class="price">
-
                     EGP ${price}
-
                 </div>
-
 
                 ${buttonHTML}
 
@@ -1592,21 +1733,16 @@ function renderProduct(
 
     `;
 
-
-    grid.appendChild(
-        card
-    );
+    grid.appendChild(card);
 
 }
 
 
 /* =========================================================
-   ADD PRODUCT TO CART
+   CART
 ========================================================= */
 
-function addToCartByProduct(
-    product
-) {
+function addToCartByProduct(product) {
 
     const item = {
 
@@ -1622,20 +1758,13 @@ function addToCartByProduct(
             ),
 
         image:
-            getProductImage(
-                product
-            )
+            getProductImage(product)
 
     };
 
-
-    cart.push(
-        item
-    );
-
+    cart.push(item);
 
     updateCart();
-
 
     alert(
         item.name +
@@ -1645,28 +1774,17 @@ function addToCartByProduct(
 }
 
 
-/* =========================================================
-   REMOVE CART ITEM
-========================================================= */
-
-function removeFromCart(
-    index
-) {
+function removeFromCart(index) {
 
     cart.splice(
         index,
         1
     );
 
-
     updateCart();
 
 }
 
-
-/* =========================================================
-   CART TOTAL
-========================================================= */
 
 function getCartTotal() {
 
@@ -1690,10 +1808,6 @@ function getCartTotal() {
 }
 
 
-/* =========================================================
-   UPDATE CART
-========================================================= */
-
 function updateCart() {
 
     const cartCount =
@@ -1701,49 +1815,37 @@ function updateCart() {
             "cartCount"
         );
 
-
     const cartItems =
         document.getElementById(
             "cartItems"
         );
-
 
     const cartTotal =
         document.getElementById(
             "cartTotal"
         );
 
-
     cartCount.textContent =
         cart.length;
-
 
     if (
         cart.length === 0
     ) {
 
         cartItems.innerHTML = `
-
             <p style="color:#aeb6cc;">
-
                 Your cart is empty.
-
             </p>
-
         `;
-
 
         cartTotal.textContent =
             "EGP 0";
-
 
         return;
 
     }
 
-
     let total = 0;
-
 
     cartItems.innerHTML =
         cart.map(
@@ -1757,58 +1859,42 @@ function updateCart() {
                         item.price || 0
                     );
 
-
                 return `
-
                     <div class="cart-item">
 
                         <div class="cart-item-info">
 
                             <h4>
-
                                 ${escapeHtml(
                                     item.name
                                 )}
-
                             </h4>
 
-
                             <p>
-
                                 EGP ${item.price}
-
                             </p>
 
                         </div>
-
 
                         <button
                             class="remove-btn"
                             onclick="removeFromCart(${index})"
                         >
-
                             Remove
-
                         </button>
 
                     </div>
-
                 `;
 
             }
         )
         .join("");
 
-
     cartTotal.textContent =
         "EGP " + total;
 
 }
 
-
-/* =========================================================
-   OPEN CART
-========================================================= */
 
 function openCart() {
 
@@ -1819,10 +1905,6 @@ function openCart() {
 
 }
 
-
-/* =========================================================
-   CLOSE CART
-========================================================= */
 
 function closeCart() {
 
@@ -1852,12 +1934,9 @@ function checkout() {
 
     }
 
-
     closeCart();
 
-
     renderCheckoutSummary();
-
 
     document.getElementById(
         "checkoutModal"
@@ -1866,10 +1945,6 @@ function checkout() {
 
 }
 
-
-/* =========================================================
-   CLOSE CHECKOUT
-========================================================= */
 
 function closeCheckout() {
 
@@ -1881,24 +1956,17 @@ function closeCheckout() {
 }
 
 
-/* =========================================================
-   CHECKOUT SUMMARY
-========================================================= */
-
 function renderCheckoutSummary() {
 
     const subtotal =
         getCartTotal();
 
-
     const deliveryFee =
         0;
-
 
     const total =
         subtotal +
         deliveryFee;
-
 
     document.getElementById(
         "checkoutSummary"
@@ -1910,9 +1978,7 @@ function renderCheckoutSummary() {
                 Order Summary
             </h3>
 
-
             <br>
-
 
             ${cart.map(
                 item => `
@@ -1920,18 +1986,13 @@ function renderCheckoutSummary() {
                     <div class="summary-row">
 
                         <span>
-
                             ${escapeHtml(
                                 item.name
                             )}
-
                         </span>
 
-
                         <span>
-
                             EGP ${item.price}
-
                         </span>
 
                     </div>
@@ -1939,13 +2000,11 @@ function renderCheckoutSummary() {
                 `
             ).join("")}
 
-
             <div class="summary-row">
 
                 <span>
                     Subtotal
                 </span>
-
 
                 <span>
                     EGP ${subtotal}
@@ -1953,13 +2012,11 @@ function renderCheckoutSummary() {
 
             </div>
 
-
             <div class="summary-row">
 
                 <span>
                     Delivery
                 </span>
-
 
                 <span>
                     Will be confirmed
@@ -1967,13 +2024,11 @@ function renderCheckoutSummary() {
 
             </div>
 
-
             <div class="summary-row summary-total">
 
                 <span>
                     Products Total
                 </span>
-
 
                 <span>
                     EGP ${total}
@@ -1993,15 +2048,12 @@ function renderCheckoutSummary() {
 ========================================================= */
 
 document
-    .getElementById(
-        "checkoutForm"
-    )
+    .getElementById("checkoutForm")
     .addEventListener(
         "submit",
         async function(event) {
 
             event.preventDefault();
-
 
             if (
                 cart.length === 0
@@ -2015,7 +2067,6 @@ document
 
             }
 
-
             const customerName =
                 document
                     .getElementById(
@@ -2023,7 +2074,6 @@ document
                     )
                     .value
                     .trim();
-
 
             const phone =
                 document
@@ -2033,7 +2083,6 @@ document
                     .value
                     .trim();
 
-
             const governorate =
                 document
                     .getElementById(
@@ -2041,7 +2090,6 @@ document
                     )
                     .value
                     .trim();
-
 
             const area =
                 document
@@ -2051,7 +2099,6 @@ document
                     .value
                     .trim();
 
-
             const address =
                 document
                     .getElementById(
@@ -2060,14 +2107,12 @@ document
                     .value
                     .trim();
 
-
             const color =
                 document
                     .getElementById(
                         "color"
                     )
                     .value;
-
 
             const notes =
                 document
@@ -2077,7 +2122,6 @@ document
                     .value
                     .trim();
 
-
             const paymentMethod =
                 document
                     .getElementById(
@@ -2085,22 +2129,20 @@ document
                     )
                     .value;
 
-
             const button =
                 document.querySelector(
                     "#checkoutForm button[type='submit']"
                 );
 
-
             button.disabled =
                 true;
-
 
             button.textContent =
                 "Placing Order...";
 
-
             try {
+
+                let firstOrderId = null;
 
                 for (
                     const item of cart
@@ -2192,40 +2234,59 @@ document
                             .insert(
                                 [orderData]
                             )
-                            .select();
+                            .select("id");
 
 
                     if (error) {
-
-                        console.error(
-                            "Supabase Error:",
-                            error
-                        );
 
                         throw error;
 
                     }
 
 
-                    console.log(
-                        "Order created:",
-                        data
-                    );
+                    if (
+                        data &&
+                        data.length > 0 &&
+                        !firstOrderId
+                    ) {
+
+                        firstOrderId =
+                            data[0].id;
+
+                    }
 
                 }
 
 
                 alert(
                     "Order placed successfully! 🎉\n\n" +
-                    "We will contact you on WhatsApp to confirm your order."
+                    "Your Order ID is: #" +
+                    firstOrderId +
+                    "\n\n" +
+                    "Save this Order ID to track your order."
                 );
+
+
+                /*
+                 * نملأ بيانات التتبع
+                 * تلقائيًا بعد نجاح الأوردر
+                 */
+
+                document.getElementById(
+                    "trackOrderId"
+                ).value =
+                    firstOrderId || "";
+
+
+                document.getElementById(
+                    "trackPhone"
+                ).value =
+                    phone;
 
 
                 cart = [];
 
-
                 updateCart();
-
 
                 document
                     .getElementById(
@@ -2233,16 +2294,15 @@ document
                     )
                     .reset();
 
-
                 closeCheckout();
 
 
             } catch (error) {
 
                 console.error(
+                    "Create order error:",
                     error
                 );
-
 
                 alert(
                     "Failed to place order.\n\n" +
@@ -2254,7 +2314,6 @@ document
                 button.disabled =
                     false;
 
-
                 button.textContent =
                     "Place Order";
 
@@ -2262,6 +2321,649 @@ document
 
         }
     );
+
+
+/* =========================================================
+   TRACK ORDER
+========================================================= */
+
+function openTrackOrder() {
+
+    document.getElementById(
+        "trackModal"
+    ).style.display =
+        "flex";
+
+    document.getElementById(
+        "trackResult"
+    ).innerHTML = "";
+
+}
+
+
+function closeTrackOrder() {
+
+    document.getElementById(
+        "trackModal"
+    ).style.display =
+        "none";
+
+}
+
+
+document
+    .getElementById("trackForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const orderId =
+                document
+                    .getElementById(
+                        "trackOrderId"
+                    )
+                    .value
+                    .trim();
+
+            const phone =
+                document
+                    .getElementById(
+                        "trackPhone"
+                    )
+                    .value
+                    .trim();
+
+            const result =
+                document.getElementById(
+                    "trackResult"
+                );
+
+            const button =
+                document.getElementById(
+                    "trackSearchButton"
+                );
+
+
+            if (
+                !orderId ||
+                !phone
+            ) {
+
+                return;
+
+            }
+
+
+            button.disabled =
+                true;
+
+            button.textContent =
+                "Searching...";
+
+
+            result.innerHTML = `
+                <div style="
+                    text-align:center;
+                    color:#aeb6cc;
+                    padding:20px;
+                ">
+                    Searching for your order...
+                </div>
+            `;
+
+
+            try {
+
+                /*
+                 * مهم:
+                 *
+                 * بنجيب الأوردر بالـ ID
+                 * ورقم التليفون مع بعض.
+                 */
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("orders")
+                        .select("*")
+                        .eq(
+                            "id",
+                            orderId
+                        )
+                        .eq(
+                            "phone",
+                            phone
+                        )
+                        .maybeSingle();
+
+
+                if (error) {
+
+                    throw error;
+
+                }
+
+
+                if (!data) {
+
+                    result.innerHTML = `
+                        <div class="track-error">
+
+                            ❌ Order not found.
+
+                            <br><br>
+
+                            Please make sure the
+                            Order ID and phone number
+                            are correct.
+
+                        </div>
+                    `;
+
+                    return;
+
+                }
+
+
+                renderTrackedOrder(
+                    data
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Track order error:",
+                    error
+                );
+
+                result.innerHTML = `
+                    <div class="track-error">
+
+                        ❌ Failed to find order.
+
+                        <br><br>
+
+                        ${escapeHtml(
+                            error.message
+                        )}
+
+                    </div>
+                `;
+
+            } finally {
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    "Track Order";
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   NORMALIZE STATUS
+========================================================= */
+
+function normalizeStatus(status) {
+
+    if (
+        status === null ||
+        status === undefined ||
+        status === ""
+    ) {
+
+        return "new";
+
+    }
+
+    return String(status)
+        .toLowerCase()
+        .trim()
+        .replace(
+            /\s+/g,
+            "_"
+        );
+
+}
+
+
+/* =========================================================
+   STATUS LABEL
+========================================================= */
+
+function getStatusLabel(status) {
+
+    const normalized =
+        normalizeStatus(status);
+
+    const labels = {
+
+        new:
+            "New",
+
+        confirmed:
+            "Confirmed",
+
+        preparing:
+            "Preparing",
+
+        delivered:
+            "Delivered",
+
+        cancelled:
+            "Cancelled"
+
+    };
+
+    return (
+        labels[normalized] ||
+        normalized
+    );
+
+}
+
+
+/* =========================================================
+   STATUS PROGRESS
+========================================================= */
+
+function getStatusProgress(status) {
+
+    const normalized =
+        normalizeStatus(status);
+
+
+    if (
+        normalized === "new"
+    ) {
+
+        return 25;
+
+    }
+
+
+    if (
+        normalized === "confirmed"
+    ) {
+
+        return 50;
+
+    }
+
+
+    if (
+        normalized === "preparing"
+    ) {
+
+        return 75;
+
+    }
+
+
+    if (
+        normalized === "delivered"
+    ) {
+
+        return 100;
+
+    }
+
+
+    if (
+        normalized === "cancelled"
+    ) {
+
+        return 100;
+
+    }
+
+
+    return 25;
+
+}
+
+
+/* =========================================================
+   RENDER TRACKED ORDER
+========================================================= */
+
+function renderTrackedOrder(order) {
+
+    const result =
+        document.getElementById(
+            "trackResult"
+        );
+
+
+    const status =
+        normalizeStatus(
+            order.order_status
+        );
+
+
+    const statusLabel =
+        getStatusLabel(
+            status
+        );
+
+
+    const progress =
+        getStatusProgress(
+            status
+        );
+
+
+    const product =
+        order.product_name ||
+        order.product ||
+        order.product_id ||
+        "-";
+
+
+    const total =
+        Number(
+            order.total_price ??
+            order.total ??
+            order.price ??
+            0
+        );
+
+
+    let progressHTML = "";
+
+
+    if (
+        status === "cancelled"
+    ) {
+
+        progressHTML = `
+
+            <div class="progress-line">
+
+                <div
+                    class="progress-fill"
+                    style="width:100%; background:#ef4444;"
+                ></div>
+
+            </div>
+
+            <div
+                style="
+                    color:#f87171;
+                    text-align:center;
+                    margin-top:10px;
+                    font-size:13px;
+                    font-weight:bold;
+                "
+            >
+                This order has been cancelled.
+            </div>
+
+        `;
+
+    } else {
+
+        progressHTML = `
+
+            <div class="progress-line">
+
+                <div
+                    class="progress-fill"
+                    style="width:${progress}%"
+                ></div>
+
+            </div>
+
+
+            <div class="progress-labels">
+
+                <span
+                    class="${
+                        progress >= 25
+                            ? "active"
+                            : ""
+                    }"
+                >
+                    New
+                </span>
+
+
+                <span
+                    class="${
+                        progress >= 50
+                            ? "active"
+                            : ""
+                    }"
+                >
+                    Confirmed
+                </span>
+
+
+                <span
+                    class="${
+                        progress >= 75
+                            ? "active"
+                            : ""
+                    }"
+                >
+                    Preparing
+                </span>
+
+
+                <span
+                    class="${
+                        progress >= 100
+                            ? "active"
+                            : ""
+                    }"
+                >
+                    Delivered
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    result.innerHTML = `
+
+        <div class="order-track-card">
+
+
+            <div class="track-order-head">
+
+                <div>
+
+                    <div
+                        style="
+                            color:#7f89a3;
+                            font-size:11px;
+                            margin-bottom:5px;
+                        "
+                    >
+                        ORDER
+                    </div>
+
+
+                    <div class="track-order-id">
+
+                        #${escapeHtml(
+                            order.id
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="
+                        track-status
+                        track-status-${escapeHtml(
+                            status
+                        )}
+                    "
+                >
+
+                    ${escapeHtml(
+                        statusLabel
+                    )}
+
+                </span>
+
+            </div>
+
+
+            <div class="order-progress">
+
+                ${progressHTML}
+
+            </div>
+
+
+            <div class="track-details">
+
+
+                <div class="track-detail">
+
+                    <div class="track-detail-label">
+                        Product
+                    </div>
+
+                    <div class="track-detail-value">
+
+                        ${escapeHtml(
+                            product
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="track-detail">
+
+                    <div class="track-detail-label">
+                        Quantity
+                    </div>
+
+                    <div class="track-detail-value">
+
+                        ${escapeHtml(
+                            order.quantity ??
+                            1
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="track-detail">
+
+                    <div class="track-detail-label">
+                        Color
+                    </div>
+
+                    <div class="track-detail-value">
+
+                        ${escapeHtml(
+                            order.color ||
+                            "-"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="track-detail">
+
+                    <div class="track-detail-label">
+                        Total
+                    </div>
+
+                    <div class="track-detail-value">
+
+                        EGP ${escapeHtml(
+                            total.toLocaleString()
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="track-detail full">
+
+                    <div class="track-detail-label">
+                        Order Date
+                    </div>
+
+                    <div class="track-detail-value">
+
+                        ${escapeHtml(
+                            formatDate(
+                                order.created_at
+                            )
+                        )}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatDate(date) {
+
+    if (!date) {
+
+        return "-";
+
+    }
+
+
+    const d =
+        new Date(date);
+
+
+    if (
+        isNaN(
+            d.getTime()
+        )
+    ) {
+
+        return String(date);
+
+    }
+
+
+    return d.toLocaleString();
+
+}
 
 
 /* =========================================================
@@ -2290,10 +2992,14 @@ window.onclick =
                 "cartModal"
             );
 
-
         const checkoutModal =
             document.getElementById(
                 "checkoutModal"
+            );
+
+        const trackModal =
+            document.getElementById(
+                "trackModal"
             );
 
 
@@ -2316,6 +3022,16 @@ window.onclick =
 
         }
 
+
+        if (
+            event.target ===
+            trackModal
+        ) {
+
+            closeTrackOrder();
+
+        }
+
     };
 
 
@@ -2328,6 +3044,8 @@ document.addEventListener(
     function() {
 
         loadProducts();
+
+        updateCart();
 
     }
 );
