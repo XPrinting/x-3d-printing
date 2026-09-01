@@ -4,15 +4,10 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>X3D Printing | 3D Printed Products</title>
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -24,7 +19,6 @@
 }
 
 :root {
-
     --bg: #080816;
     --surface: #11172a;
     --surface2: #171f38;
@@ -33,129 +27,93 @@
     --muted: #aeb6cc;
     --primary: #8b5cf6;
     --primary2: #6d28d9;
-
 }
 
 body {
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 
     background:
-        radial-gradient(
-            circle at top,
-            #17153b 0%,
-            #080816 45%
-        ),
+        radial-gradient(circle at top, #17153b 0%, #080816 45%),
         var(--bg);
 
     color: var(--text);
-
     min-height: 100vh;
-
 }
 
 
-/* =====================================================
+/* =========================
    HEADER
-===================================================== */
+========================= */
 
 header {
 
     width: 100%;
 
-    padding:
-        24px 7%;
+    padding: 24px 7%;
 
-    border-bottom:
-        1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 
-    background:
-        rgba(8,8,22,.85);
+    background: rgba(8,8,22,.85);
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter: blur(10px);
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    position:
-        sticky;
+    position: sticky;
 
     top: 0;
 
     z-index: 100;
-
 }
 
 
 .logo {
 
-    font-size:
-        28px;
+    font-size: 28px;
 
-    font-weight:
-        800;
-
+    font-weight: 800;
 }
 
 
 .logo span {
 
-    color:
-        var(--primary);
-
+    color: var(--primary);
 }
 
 
 nav {
 
-    display:
-        flex;
+    display: flex;
 
-    gap:
-        35px;
-
+    gap: 35px;
 }
 
 
 nav a {
 
-    color:
-        white;
+    color: white;
 
-    text-decoration:
-        none;
+    text-decoration: none;
 
-    font-weight:
-        600;
+    font-weight: 600;
 
-    cursor:
-        pointer;
-
+    cursor: pointer;
 }
 
 
 nav a:hover {
 
-    color:
-        var(--primary);
-
+    color: var(--primary);
 }
 
 
 .cart-btn {
 
-    border:
-        1px solid rgba(139,92,246,.5);
+    border: 1px solid rgba(139,92,246,.5);
 
     background:
         linear-gradient(
@@ -164,155 +122,112 @@ nav a:hover {
             #8b5cf6
         );
 
-    color:
-        white;
+    color: white;
 
-    padding:
-        12px 20px;
+    padding: 12px 20px;
 
-    border-radius:
-        12px;
+    border-radius: 12px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    font-weight:
-        bold;
-
+    font-weight: bold;
 }
 
 
 .cart-count {
 
-    background:
-        white;
+    background: white;
 
-    color:
-        #6d28d9;
+    color: #6d28d9;
 
-    padding:
-        3px 8px;
+    padding: 3px 8px;
 
-    border-radius:
-        20px;
+    border-radius: 20px;
 
-    margin-left:
-        5px;
-
+    margin-left: 5px;
 }
 
 
-/* =====================================================
+/* =========================
    HERO
-===================================================== */
+========================= */
 
 .hero {
 
-    padding:
-        80px 7% 50px;
+    padding: 80px 7% 50px;
 
-    text-align:
-        center;
-
+    text-align: center;
 }
 
 
 .hero h1 {
 
-    font-size:
-        55px;
+    font-size: 55px;
 
-    margin-bottom:
-        18px;
-
+    margin-bottom: 18px;
 }
 
 
 .hero h1 span {
 
-    color:
-        var(--primary);
-
+    color: var(--primary);
 }
 
 
 .hero p {
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    font-size:
-        18px;
+    font-size: 18px;
 
-    max-width:
-        650px;
+    max-width: 650px;
 
-    margin:
-        auto;
+    margin: auto;
 
-    line-height:
-        1.7;
-
+    line-height: 1.7;
 }
 
 
-/* =====================================================
-   PRODUCTS SECTION
-===================================================== */
+/* =========================
+   PRODUCTS
+========================= */
 
 .section {
 
-    padding:
-        50px 7%;
-
+    padding: 50px 7%;
 }
 
 
 .section-title {
 
-    text-align:
-        center;
+    text-align: center;
 
-    margin-bottom:
-        40px;
-
+    margin-bottom: 40px;
 }
 
 
 .section-title h2 {
 
-    font-size:
-        38px;
+    font-size: 38px;
 
-    margin-bottom:
-        10px;
-
+    margin-bottom: 10px;
 }
 
 
 .section-title p {
 
-    color:
-        var(--muted);
-
+    color: var(--muted);
 }
 
 
-/* =====================================================
-   PRODUCTS GRID
-===================================================== */
-
 .products-grid {
 
-    display:
-        grid;
+    display: grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap:
-        25px;
-
+    gap: 25px;
 }
 
 
@@ -324,15 +239,11 @@ nav a:hover {
     border:
         1px solid var(--border);
 
-    border-radius:
-        22px;
+    border-radius: 22px;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
-    transition:
-        .3s;
-
+    transition: .3s;
 }
 
 
@@ -347,177 +258,133 @@ nav a:hover {
     box-shadow:
         0 15px 50px
         rgba(139,92,246,.15);
-
 }
 
 
-/* =====================================================
+/* =========================
    PRODUCT IMAGE
-===================================================== */
+========================= */
 
 .product-image {
 
-    width:
-        100%;
+    width: 100%;
 
-    height:
-        280px;
+    height: 280px;
 
-    background:
-        #0d1020;
+    background: #0d1020;
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
-
+    justify-content: center;
 }
 
 
 .product-image img {
 
-    width:
-        100%;
+    width: 100%;
 
-    height:
-        100%;
+    height: 100%;
 
-    object-fit:
-        cover;
+    object-fit: cover;
 
-    display:
-        block;
-
+    display: block;
 }
 
-
-/* fallback when image fails */
 
 .image-placeholder {
 
-    width:
-        100%;
+    width: 100%;
 
-    height:
-        100%;
+    height: 100%;
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    color:
-        #8b93aa;
+    color: #777;
 
-    font-size:
-        15px;
+    font-size: 16px;
 
     background:
-        #0d1020;
-
+        linear-gradient(
+            135deg,
+            #11172a,
+            #0d1020
+        );
 }
 
 
-/* =====================================================
+/* =========================
    PRODUCT INFO
-===================================================== */
+========================= */
 
 .product-info {
 
-    padding:
-        22px;
-
+    padding: 22px;
 }
 
 
 .category {
 
-    color:
-        #a78bfa;
+    color: #a78bfa;
 
-    font-size:
-        13px;
+    font-size: 13px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    text-transform:
-        uppercase;
+    text-transform: uppercase;
 
-    margin-bottom:
-        10px;
-
+    margin-bottom: 10px;
 }
 
 
 .product-info h3 {
 
-    font-size:
-        21px;
+    font-size: 21px;
 
-    margin-bottom:
-        10px;
-
+    margin-bottom: 10px;
 }
 
 
 .product-info p {
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    line-height:
-        1.6;
+    line-height: 1.6;
 
-    min-height:
-        50px;
-
+    min-height: 50px;
 }
 
 
 .product-bottom {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    align-items:
-        center;
+    align-items: center;
 
-    margin-top:
-        20px;
-
+    margin-top: 20px;
 }
 
 
 .price {
 
-    font-size:
-        21px;
+    font-size: 21px;
 
-    font-weight:
-        bold;
-
+    font-weight: bold;
 }
 
 
 .add-btn {
 
-    border:
-        none;
+    border: none;
 
     background:
         linear-gradient(
@@ -526,114 +393,91 @@ nav a:hover {
             #8b5cf6
         );
 
-    color:
-        white;
+    color: white;
 
-    padding:
-        11px 17px;
+    padding: 11px 17px;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
-    font-weight:
-        bold;
-
+    font-weight: bold;
 }
 
 
 .add-btn:hover {
 
-    opacity:
-        .85;
-
+    opacity: .85;
 }
 
 
 .add-btn:disabled {
 
-    opacity:
-        .5;
+    background: #555;
 
-    cursor:
-        not-allowed;
+    cursor: not-allowed;
 
+    opacity: .7;
 }
 
 
-/* =====================================================
-   OUT OF STOCK
-===================================================== */
+.out-stock {
 
-.out-stock-btn {
+    background: #555;
 
-    border:
-        none;
+    color: white;
 
-    background:
-        #6d28d9;
+    padding: 11px 17px;
 
-    color:
-        white;
+    border-radius: 10px;
 
-    padding:
-        11px 17px;
+    font-weight: bold;
 
-    border-radius:
-        10px;
-
-    font-weight:
-        bold;
-
-    cursor:
-        not-allowed;
-
-    opacity:
-        .8;
-
+    font-size: 13px;
 }
 
 
-/* =====================================================
+/* =========================
    LOADING
-===================================================== */
+========================= */
 
-.products-loading {
+.loading {
 
-    grid-column:
-        1 / -1;
+    grid-column: 1 / -1;
 
-    text-align:
-        center;
+    text-align: center;
 
-    padding:
-        60px;
+    padding: 70px 20px;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    font-size:
-        18px;
-
+    font-size: 18px;
 }
 
 
-/* =====================================================
+.error-message {
+
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 50px;
+
+    color: #ff7777;
+}
+
+
+/* =========================
    CUSTOM
-===================================================== */
+========================= */
 
 .custom {
 
-    margin:
-        50px 7%;
+    margin: 50px 7%;
 
-    padding:
-        50px;
+    padding: 50px;
 
-    border-radius:
-        25px;
+    border-radius: 25px;
 
     background:
         linear-gradient(
@@ -643,278 +487,203 @@ nav a:hover {
         );
 
     border:
-        1px solid
-        rgba(139,92,246,.3);
+        1px solid rgba(139,92,246,.3);
 
-    text-align:
-        center;
-
+    text-align: center;
 }
 
 
 .custom h2 {
 
-    font-size:
-        35px;
+    font-size: 35px;
 
-    margin-bottom:
-        15px;
-
+    margin-bottom: 15px;
 }
 
 
 .custom p {
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
-    margin-bottom:
-        25px;
-
+    margin-bottom: 25px;
 }
 
 
 .custom-btn {
 
-    background:
-        white;
+    background: white;
 
-    color:
-        #111;
+    color: #111;
 
-    border:
-        none;
+    border: none;
 
-    padding:
-        14px 25px;
+    padding: 14px 25px;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    cursor:
-        pointer;
-
+    cursor: pointer;
 }
 
 
-/* =====================================================
+/* =========================
    FOOTER
-===================================================== */
+========================= */
 
 footer {
 
-    margin-top:
-        70px;
+    margin-top: 70px;
 
-    padding:
-        30px 7%;
+    padding: 30px 7%;
 
-    text-align:
-        center;
+    text-align: center;
 
     border-top:
         1px solid var(--border);
 
-    color:
-        var(--muted);
-
+    color: var(--muted);
 }
 
 
-/* =====================================================
+/* =========================
    CART
-===================================================== */
+========================= */
 
 .cart-modal {
 
-    display:
-        none;
+    display: none;
 
-    position:
-        fixed;
+    position: fixed;
 
-    inset:
-        0;
+    inset: 0;
 
     background:
         rgba(0,0,0,.75);
 
-    z-index:
-        200;
+    z-index: 200;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    padding:
-        20px;
-
+    padding: 20px;
 }
 
 
 .cart-box {
 
-    background:
-        #11172a;
+    background: #11172a;
 
-    width:
-        100%;
+    width: 100%;
 
-    max-width:
-        600px;
+    max-width: 600px;
 
-    max-height:
-        85vh;
+    max-height: 85vh;
 
-    overflow-y:
-        auto;
+    overflow-y: auto;
 
-    border-radius:
-        20px;
+    border-radius: 20px;
 
     border:
         1px solid var(--border);
 
-    padding:
-        25px;
-
+    padding: 25px;
 }
 
 
 .cart-header {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    align-items:
-        center;
+    align-items: center;
 
-    margin-bottom:
-        20px;
-
+    margin-bottom: 20px;
 }
 
 
 .close-btn {
 
-    background:
-        transparent;
+    background: transparent;
 
-    border:
-        none;
+    border: none;
 
-    color:
-        white;
+    color: white;
 
-    font-size:
-        28px;
+    font-size: 28px;
 
-    cursor:
-        pointer;
-
+    cursor: pointer;
 }
 
 
 .cart-item {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    align-items:
-        center;
+    align-items: center;
 
-    gap:
-        15px;
+    gap: 15px;
 
-    padding:
-        15px 0;
+    padding: 15px 0;
 
     border-bottom:
         1px solid var(--border);
-
 }
 
 
 .cart-item-info h4 {
 
-    margin-bottom:
-        5px;
-
+    margin-bottom: 5px;
 }
 
 
 .cart-item-info p {
 
-    color:
-        var(--muted);
-
+    color: var(--muted);
 }
 
 
 .remove-btn {
 
-    background:
-        #ef4444;
+    background: #ef4444;
 
-    color:
-        white;
+    color: white;
 
-    border:
-        none;
+    border: none;
 
-    padding:
-        7px 10px;
+    padding: 7px 10px;
 
-    border-radius:
-        7px;
+    border-radius: 7px;
 
-    cursor:
-        pointer;
-
+    cursor: pointer;
 }
 
 
 .cart-total {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    margin-top:
-        25px;
+    margin-top: 25px;
 
-    font-size:
-        22px;
+    font-size: 22px;
 
-    font-weight:
-        bold;
-
+    font-weight: bold;
 }
 
 
 .checkout-btn {
 
-    width:
-        100%;
+    width: 100%;
 
-    margin-top:
-        20px;
+    margin-top: 20px;
 
-    padding:
-        15px;
+    padding: 15px;
 
     background:
         linear-gradient(
@@ -923,50 +692,37 @@ footer {
             #8b5cf6
         );
 
-    color:
-        white;
+    color: white;
 
-    border:
-        none;
+    border: none;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    cursor:
-        pointer;
-
+    cursor: pointer;
 }
 
 
-/* =====================================================
+/* =========================
    CHECKOUT
-===================================================== */
+========================= */
 
 #checkoutForm {
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    gap:
-        10px;
-
+    gap: 10px;
 }
 
 
 #checkoutForm label {
 
-    font-weight:
-        bold;
+    font-weight: bold;
 
-    margin-top:
-        8px;
-
+    margin-top: 8px;
 }
 
 
@@ -974,39 +730,28 @@ footer {
 #checkoutForm select,
 #checkoutForm textarea {
 
-    width:
-        100%;
+    width: 100%;
 
-    padding:
-        13px;
+    padding: 13px;
 
-    border-radius:
-        10px;
+    border-radius: 10px;
 
     border:
-        1px solid
-        rgba(255,255,255,.12);
+        1px solid rgba(255,255,255,.12);
 
-    background:
-        #0d1020;
+    background: #0d1020;
 
-    color:
-        white;
+    color: white;
 
-    outline:
-        none;
-
+    outline: none;
 }
 
 
 #checkoutForm textarea {
 
-    min-height:
-        80px;
+    min-height: 80px;
 
-    resize:
-        vertical;
-
+    resize: vertical;
 }
 
 
@@ -1016,64 +761,52 @@ footer {
 
     border-color:
         var(--primary);
-
 }
 
 
 .checkout-summary-box {
 
-    background:
-        #0d1020;
+    background: #0d1020;
 
-    padding:
-        18px;
+    padding: 18px;
 
-    border-radius:
-        12px;
+    border-radius: 12px;
 
     border:
         1px solid var(--border);
-
 }
 
 
 .summary-row {
 
-    display:
-        flex;
+    display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
-    margin:
-        8px 0;
+    margin: 8px 0;
 
+    gap: 20px;
 }
 
 
 .summary-total {
 
-    margin-top:
-        15px;
+    margin-top: 15px;
 
-    padding-top:
-        15px;
+    padding-top: 15px;
 
     border-top:
         1px solid var(--border);
 
-    font-size:
-        20px;
+    font-size: 20px;
 
-    font-weight:
-        bold;
-
+    font-weight: bold;
 }
 
 
-/* =====================================================
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
 @media (max-width: 900px) {
 
@@ -1081,16 +814,12 @@ footer {
 
         grid-template-columns:
             repeat(2, 1fr);
-
     }
 
     nav {
 
-        gap:
-            15px;
-
+        gap: 15px;
     }
-
 }
 
 
@@ -1098,51 +827,36 @@ footer {
 
     header {
 
-        flex-wrap:
-            wrap;
+        flex-wrap: wrap;
 
-        gap:
-            15px;
-
+        gap: 15px;
     }
 
     nav {
 
-        order:
-            3;
+        order: 3;
 
-        width:
-            100%;
+        width: 100%;
 
-        justify-content:
-            center;
-
+        justify-content: center;
     }
 
     .hero h1 {
 
-        font-size:
-            38px;
-
+        font-size: 38px;
     }
 
     .products-grid {
 
-        grid-template-columns:
-            1fr;
-
+        grid-template-columns: 1fr;
     }
 
     .custom {
 
-        margin:
-            30px 5%;
+        margin: 30px 5%;
 
-        padding:
-            30px 20px;
-
+        padding: 30px 20px;
     }
-
 }
 
 </style>
@@ -1153,14 +867,12 @@ footer {
 <body>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header>
 
     <div class="logo">
+
         X<span>3D</span> Printing
+
     </div>
 
 
@@ -1200,35 +912,33 @@ footer {
 </header>
 
 
-<!-- =====================================================
-     HERO
-===================================================== -->
-
 <section
     class="hero"
     id="home"
 >
 
     <h1>
-        Premium <span>3D Printing</span>
+
+        Premium
+        <span>
+            3D Printing
+        </span>
+
     </h1>
 
 
     <p>
 
-        Discover premium 3D printed products
-        and custom printing services.
-        Unique designs, high quality and made
-        just for you.
+        Discover premium 3D printed
+        products and custom printing
+        services. Unique designs,
+        high quality and made just
+        for you.
 
     </p>
 
 </section>
 
-
-<!-- =====================================================
-     PRODUCTS
-===================================================== -->
 
 <section
     class="section"
@@ -1242,23 +952,19 @@ footer {
         </h2>
 
         <p>
-            Premium 3D printed products ready to order.
+            Premium 3D printed products
+            ready to order.
         </p>
 
     </div>
 
-
-    <!--
-        IMPORTANT:
-        Products will be loaded from Supabase here.
-    -->
 
     <div
         class="products-grid"
         id="productsGrid"
     >
 
-        <div class="products-loading">
+        <div class="loading">
 
             Loading products...
 
@@ -1268,10 +974,6 @@ footer {
 
 </section>
 
-
-<!-- =====================================================
-     CUSTOM PRINT
-===================================================== -->
 
 <section
     class="custom"
@@ -1285,8 +987,9 @@ footer {
 
     <p>
 
-        Send us your idea and we'll turn it
-        into a 3D printed product.
+        Send us your idea and we'll
+        turn it into a 3D printed
+        product.
 
     </p>
 
@@ -1303,10 +1006,6 @@ footer {
 </section>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer>
 
     ©️ 2026 X3D Printing.
@@ -1315,9 +1014,7 @@ footer {
 </footer>
 
 
-<!-- =====================================================
-     CART MODAL
-===================================================== -->
+<!-- CART -->
 
 <div
     class="cart-modal"
@@ -1325,7 +1022,6 @@ footer {
 >
 
     <div class="cart-box">
-
 
         <div class="cart-header">
 
@@ -1338,9 +1034,7 @@ footer {
                 class="close-btn"
                 onclick="closeCart()"
             >
-
                 ×
-
             </button>
 
         </div>
@@ -1384,9 +1078,7 @@ footer {
 </div>
 
 
-<!-- =====================================================
-     CHECKOUT MODAL
-===================================================== -->
+<!-- CHECKOUT -->
 
 <div
     class="cart-modal"
@@ -1394,7 +1086,6 @@ footer {
 >
 
     <div class="cart-box">
-
 
         <div class="cart-header">
 
@@ -1416,7 +1107,6 @@ footer {
 
 
         <form id="checkoutForm">
-
 
             <label>
                 Full Name
@@ -1548,7 +1238,9 @@ footer {
             </select>
 
 
-            <div id="checkoutSummary"></div>
+            <div
+                id="checkoutSummary"
+            ></div>
 
 
             <button
@@ -1589,42 +1281,34 @@ const supabaseClient =
 
 
 /* =========================================================
-   SITE PATH
+   PRODUCT STORAGE
 ========================================================= */
 
-/*
-    index.html and all local images are
-    in the same GitHub repository folder.
-
-    Example:
-
-    x-3d-printing/
-        index.html
-        admin.html
-        product.html
-        01-custom-name-keychain.jpeg
-        02-fighter-jet-1.jpeg
-        ...
-*/
-
-const SITE_BASE =
-    "./";
+const PRODUCT_BUCKET =
+    "product-images";
 
 
 /* =========================================================
-   PRODUCTS
+   CART
 ========================================================= */
 
-let products = [];
+let cart = [];
 
 
 /* =========================================================
-   KNOWN LOCAL IMAGE FALLBACKS
+   OLD GITHUB IMAGES
 ========================================================= */
 
-const localImageMap = {
+const GITHUB_RAW_BASE =
+    "https://raw.githubusercontent.com/ahmedramadansadek1112-collab/x-3d-printing/main";
+
+
+const OLD_IMAGES = {
 
     "custom name keychain":
+        "01-custom-name-keychain.jpeg",
+
+    "custom name":
         "01-custom-name-keychain.jpeg",
 
     "fighter jets - set of 2":
@@ -1633,7 +1317,10 @@ const localImageMap = {
     "fighter jets — set of 2":
         "02-fighter-jet-1.jpeg",
 
-    "fighter jets - set of 2":
+    "fighter jets":
+        "02-fighter-jet-1.jpeg",
+
+    "fighter jet":
         "02-fighter-jet-1.jpeg",
 
     "football keychain":
@@ -1649,244 +1336,344 @@ const localImageMap = {
 
 
 /* =========================================================
-   IMAGE URL RESOLVER
+   NORMALIZE NAME
 ========================================================= */
 
-function resolveImageUrl(product) {
+function normalizeName(name) {
+
+    return String(name || "")
+        .trim()
+        .toLowerCase()
+        .replace(/[_-]+/g, " ")
+        .replace(/\s+/g, " ");
+
+}
+
+
+/* =========================================================
+   GET SUPABASE STORAGE URL
+========================================================= */
+
+function getSupabaseStorageUrl(path) {
+
+    if (!path) {
+        return null;
+    }
+
+
+    const cleanPath =
+        String(path)
+            .trim()
+            .replace(/^\/+/, "");
+
 
     /*
-        Try all possible fields that might exist
-        in your products table.
+       Already a complete URL
     */
 
-    let image =
-        product.image_url ||
-        product.imageUrl ||
-        product.image ||
-        product.photo_url ||
-        product.photo ||
-        product.file_url ||
-        product.fileUrl ||
-        "";
+    if (
+        cleanPath.startsWith("http://") ||
+        cleanPath.startsWith("https://")
+    ) {
 
+        return cleanPath;
 
-    image =
-        String(image || "").trim();
+    }
 
 
     /*
-        If database has no image,
-        use local GitHub image based on product name.
+       If the database contains:
+
+       images/filename.jpg
+
+       we use it directly.
+
+       Supabase bucket:
+
+       product-images
     */
 
-    if (!image) {
 
-        const name =
-            String(
-                product.name || ""
-            )
-            .toLowerCase()
-            .trim();
+    try {
+
+        const {
+            data
+        } =
+            supabaseClient
+                .storage
+                .from(PRODUCT_BUCKET)
+                .getPublicUrl(
+                    cleanPath
+                );
 
 
-        if (localImageMap[name]) {
+        if (
+            data &&
+            data.publicUrl
+        ) {
 
-            return (
-                SITE_BASE +
-                localImageMap[name]
-            );
+            return data.publicUrl;
 
         }
 
-        return "";
+    }
+
+    catch(error) {
+
+        console.error(
+            "Storage URL error:",
+            error
+        );
 
     }
 
 
-    /*
-        DATA URL
-        Example:
-        data:image/jpeg;base64,...
-    */
+    return null;
 
-    if (
-        image.startsWith("data:image")
-    ) {
+}
 
-        return image;
 
+/* =========================================================
+   GET PRODUCT IMAGE
+========================================================= */
+
+function getProductImage(product) {
+
+    if (!product) {
+        return null;
     }
 
 
     /*
-        FULL HTTP URL
+       =========================================
+       1. image_url
+       =========================================
     */
 
     if (
-        image.startsWith("http://") ||
-        image.startsWith("https://")
+        product.image_url &&
+        String(product.image_url).trim() !== ""
     ) {
 
-        return image;
+        const imageUrl =
+            String(
+                product.image_url
+            ).trim();
 
-    }
 
-
-    /*
-        SUPABASE STORAGE PATH
-    */
-
-    if (
-        image.includes(
-            "/storage/v1/object/"
-        )
-    ) {
+        /*
+           Full URL
+        */
 
         if (
-            image.startsWith("/")
+            imageUrl.startsWith("http://") ||
+            imageUrl.startsWith("https://")
         ) {
 
-            return (
-                window.location.origin +
+            return imageUrl;
+
+        }
+
+
+        /*
+           Storage path
+        */
+
+        const storageUrl =
+            getSupabaseStorageUrl(
+                imageUrl
+            );
+
+
+        if (storageUrl) {
+
+            return storageUrl;
+
+        }
+
+    }
+
+
+    /*
+       =========================================
+       2. image
+       =========================================
+    */
+
+    if (
+        product.image &&
+        String(product.image).trim() !== ""
+    ) {
+
+        const image =
+            String(
+                product.image
+            ).trim();
+
+
+        /*
+           Full URL
+        */
+
+        if (
+            image.startsWith("http://") ||
+            image.startsWith("https://")
+        ) {
+
+            return image;
+
+        }
+
+
+        /*
+           Supabase Storage path
+        */
+
+        const storageUrl =
+            getSupabaseStorageUrl(
                 image
             );
 
+
+        if (storageUrl) {
+
+            return storageUrl;
+
         }
 
-        return image;
-
     }
 
 
     /*
-        If image contains a bucket name/path
-        like:
-
-        product-images/file.jpg
-
-        change this part if your bucket
-        has another name.
-    */
-
-    if (
-        image.startsWith(
-            "product-images/"
-        )
-    ) {
-
-        const storagePath =
-            image.replace(
-                "product-images/",
-                ""
-            );
-
-
-        return (
-            SUPABASE_URL +
-            "/storage/v1/object/public/product-images/" +
-            storagePath
-        );
-
-    }
-
-
-    /*
-        Otherwise assume the image is
-        stored in the GitHub repository.
-
-        Examples:
-
-        01-custom-name-keychain.jpeg
-        images/product.jpeg
-        ./04-knife-1.jpeg
-    */
-
-    image =
-        image.replace(
-            /^\.?\//,
-            ""
-        );
-
-
-    return (
-        SITE_BASE +
-        image
-    );
-
-}
-
-
-/* =========================================================
-   IMAGE ERROR HANDLER
-========================================================= */
-
-function handleImageError(
-    img,
-    product
-) {
-
-    console.warn(
-        "Image failed:",
-        img.src,
-        product
-    );
-
-
-    /*
-        Try local fallback from product name.
+       =========================================
+       3. OLD GITHUB PRODUCTS
+       =========================================
     */
 
     const name =
-        String(
-            product.name || ""
-        )
-        .toLowerCase()
-        .trim();
-
-
-    const fallback =
-        localImageMap[name];
+        normalizeName(
+            product.name
+        );
 
 
     if (
-        fallback &&
-        !img.dataset.fallbackUsed
+        OLD_IMAGES[name]
     ) {
 
-        img.dataset.fallbackUsed =
-            "true";
-
-
-        img.src =
-            SITE_BASE +
-            fallback;
-
-
-        return;
+        return (
+            GITHUB_RAW_BASE +
+            "/" +
+            encodeURIComponent(
+                OLD_IMAGES[name]
+            )
+        );
 
     }
 
 
     /*
-        If fallback also fails,
-        show placeholder.
+       Flexible old-product matching
     */
 
-    const wrapper =
+    if (
+        name.includes("custom") &&
+        name.includes("keychain")
+    ) {
+
+        return (
+            GITHUB_RAW_BASE +
+            "/01-custom-name-keychain.jpeg"
+        );
+
+    }
+
+
+    if (
+        name.includes("football") &&
+        name.includes("keychain")
+    ) {
+
+        return (
+            GITHUB_RAW_BASE +
+            "/03-football-keychain.jpeg"
+        );
+
+    }
+
+
+    if (
+        name.includes("fighter") &&
+        name.includes("jet")
+    ) {
+
+        return (
+            GITHUB_RAW_BASE +
+            "/02-fighter-jet-1.jpeg"
+        );
+
+    }
+
+
+    if (
+        name.includes("knife")
+    ) {
+
+        return (
+            GITHUB_RAW_BASE +
+            "/04-knife-1.jpeg"
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =========================================================
+   IMAGE ERROR
+========================================================= */
+
+function handleImageError(img) {
+
+    console.error(
+        "Image failed:",
+        img.src
+    );
+
+
+    const parent =
         img.parentElement;
 
 
-    if (wrapper) {
+    img.style.display =
+        "none";
 
-        wrapper.innerHTML = `
 
-            <div class="image-placeholder">
+    if (
+        !parent.querySelector(
+            ".image-placeholder"
+        )
+    ) {
 
-                Image unavailable
+        const placeholder =
+            document.createElement(
+                "div"
+            );
 
-            </div>
 
-        `;
+        placeholder.className =
+            "image-placeholder";
+
+
+        placeholder.textContent =
+            "Image unavailable";
+
+
+        parent.appendChild(
+            placeholder
+        );
 
     }
 
@@ -1894,7 +1681,7 @@ function handleImageError(
 
 
 /* =========================================================
-   LOAD PRODUCTS FROM SUPABASE
+   LOAD PRODUCTS
 ========================================================= */
 
 async function loadProducts() {
@@ -1903,6 +1690,17 @@ async function loadProducts() {
         document.getElementById(
             "productsGrid"
         );
+
+
+    grid.innerHTML = `
+
+        <div class="loading">
+
+            Loading products...
+
+        </div>
+
+    `;
 
 
     try {
@@ -1917,7 +1715,7 @@ async function loadProducts() {
                 .order(
                     "id",
                     {
-                        ascending: false
+                        ascending: true
                     }
                 );
 
@@ -1934,42 +1732,67 @@ async function loadProducts() {
         }
 
 
-        products =
-            data || [];
-
-
         console.log(
-            "Products loaded:",
-            products
+            "Products from Supabase:",
+            data
         );
 
 
-        renderProducts();
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            grid.innerHTML = `
+
+                <div class="loading">
+
+                    No products available.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        grid.innerHTML = "";
+
+
+        data.forEach(
+            product => {
+
+                renderProduct(
+                    product,
+                    grid
+                );
+
+            }
+        );
 
 
     }
-    catch (error) {
+
+    catch(error) {
 
         console.error(
-            "Failed to load products:",
+            "Load products error:",
             error
         );
 
 
         grid.innerHTML = `
 
-            <div
-                class="products-loading"
-                style="color:#f87171;"
-            >
+            <div class="error-message">
 
                 Failed to load products.
 
                 <br><br>
 
                 ${escapeHtml(
-                    error.message ||
-                    "Unknown error"
+                    error.message
                 )}
 
             </div>
@@ -1982,55 +1805,28 @@ async function loadProducts() {
 
 
 /* =========================================================
-   RENDER PRODUCTS
+   RENDER PRODUCT
 ========================================================= */
 
-function renderProducts() {
+function renderProduct(
+    product,
+    grid
+) {
 
-    const grid =
-        document.getElementById(
-            "productsGrid"
+    const card =
+        document.createElement(
+            "div"
         );
 
 
-    if (!products.length) {
-
-        grid.innerHTML = `
-
-            <div class="products-loading">
-
-                No products available.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
+    card.className =
+        "product-card";
 
 
-    grid.innerHTML =
-        products
-            .map(
-                product =>
-                    createProductCard(
-                        product
-                    )
-            )
-            .join("");
-
-}
-
-
-/* =========================================================
-   CREATE PRODUCT CARD
-========================================================= */
-
-function createProductCard(product) {
-
-    const id =
-        product.id;
+    const image =
+        getProductImage(
+            product
+        );
 
 
     const name =
@@ -2038,14 +1834,14 @@ function createProductCard(product) {
         "Unnamed Product";
 
 
-    const description =
-        product.description ||
-        "Premium 3D printed product.";
-
-
     const category =
         product.category ||
-        "Products";
+        "3D Printing";
+
+
+    const description =
+        product.description ||
+        "High quality 3D printed product.";
 
 
     const price =
@@ -2055,168 +1851,171 @@ function createProductCard(product) {
 
 
     /*
-        Stock
+       IMPORTANT:
+
+       Your database currently doesn't
+       necessarily have a stock column.
+
+       So if stock is missing, the
+       product remains available.
     */
 
-    const stock =
-        Number(
-            product.stock ??
-            product.quantity ??
-            0
-        );
+    let available = true;
+
+
+    if (
+        product.stock !== undefined &&
+        product.stock !== null
+    ) {
+
+        available =
+            Number(
+                product.stock
+            ) > 0;
+
+    }
 
 
     /*
-        Image
-    */
-
-    const image =
-        resolveImageUrl(
-            product
-        );
-
-
-    /*
-        Status
+       If status exists and is inactive
     */
 
     const status =
         String(
-            product.status ||
-            ""
+            product.status || ""
         )
         .toLowerCase()
         .trim();
 
 
-    const isOutOfStock =
-        stock <= 0 ||
-        status === "out_of_stock" ||
-        status === "out of stock";
+    if (
+        status === "inactive" ||
+        status === "disabled"
+    ) {
+
+        available = false;
+
+    }
 
 
-    return `
+    /*
+       IMAGE
+    */
 
-        <div class="product-card">
+    let imageHTML;
 
-            <div class="product-image">
 
-                ${
-                    image
-                    ?
+    if (image) {
 
-                    `
+        imageHTML = `
 
-                    <img
-                        src="${escapeAttribute(
-                            image
-                        )}"
-                        alt="${escapeAttribute(
-                            name
-                        )}"
-                        loading="lazy"
-                        onerror="handleImageError(this, ${escapeAttribute(
-                            JSON.stringify(product)
-                        )})"
-                    >
+            <img
+                src="${escapeAttribute(image)}"
+                alt="${escapeAttribute(name)}"
+                onerror="handleImageError(this)"
+            >
 
-                    `
+        `;
 
-                    :
+    }
 
-                    `
+    else {
 
-                    <div class="image-placeholder">
+        imageHTML = `
 
-                        Image unavailable
+            <div class="image-placeholder">
 
-                    </div>
+                Image unavailable
 
-                    `
-                }
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+       BUTTON
+    */
+
+    let buttonHTML;
+
+
+    if (available) {
+
+        buttonHTML = `
+
+            <button
+                class="add-btn"
+                data-product-id="${escapeAttribute(product.id)}"
+                onclick="addProductFromButton(this)"
+            >
+
+                Add to Cart
+
+            </button>
+
+        `;
+
+    }
+
+    else {
+
+        buttonHTML = `
+
+            <div class="out-stock">
+
+                Out of Stock
+
+            </div>
+
+        `;
+
+    }
+
+
+    card.innerHTML = `
+
+        <div class="product-image">
+
+            ${imageHTML}
+
+        </div>
+
+
+        <div class="product-info">
+
+            <div class="category">
+
+                ${escapeHtml(category)}
 
             </div>
 
 
-            <div class="product-info">
+            <h3>
+
+                ${escapeHtml(name)}
+
+            </h3>
 
 
-                <div class="category">
+            <p>
 
-                    ${escapeHtml(
-                        category
-                    )}
+                ${escapeHtml(description)}
 
-                </div>
+            </p>
 
 
-                <h3>
+            <div class="product-bottom">
 
-                    ${escapeHtml(
-                        name
-                    )}
+                <div class="price">
 
-                </h3>
-
-
-                <p>
-
-                    ${escapeHtml(
-                        description
-                    )}
-
-                </p>
-
-
-                <div class="product-bottom">
-
-
-                    <div class="price">
-
-                        EGP ${price.toLocaleString()}
-
-                    </div>
-
-
-                    ${
-                        isOutOfStock
-
-                        ?
-
-                        `
-
-                        <button
-                            class="out-stock-btn"
-                            disabled
-                        >
-
-                            Out of Stock
-
-                        </button>
-
-                        `
-
-                        :
-
-                        `
-
-                        <button
-                            class="add-btn"
-                            onclick="addToCartById('${escapeAttribute(
-                                id
-                            )}')"
-                        >
-
-                            Add to Cart
-
-                        </button>
-
-                        `
-
-                    }
+                    EGP ${price.toLocaleString()}
 
                 </div>
 
+
+                ${buttonHTML}
 
             </div>
 
@@ -2224,41 +2023,53 @@ function createProductCard(product) {
 
     `;
 
-}
+
+    /*
+       Store actual product object
+       on the button.
+
+       This avoids JSON breaking
+       when product names contain
+       quotes or special characters.
+    */
+
+    const button =
+        card.querySelector(
+            ".add-btn"
+        );
 
 
-/* =========================================================
-   FIND PRODUCT
-========================================================= */
+    if (button) {
 
-function findProductById(id) {
+        button._product =
+            product;
 
-    return products.find(
-        product =>
-            String(product.id) ===
-            String(id)
+    }
+
+
+    grid.appendChild(
+        card
     );
 
 }
 
 
 /* =========================================================
-   CART
+   ADD PRODUCT
 ========================================================= */
 
-let cart = [];
-
-
-function addToCartById(id) {
+function addProductFromButton(
+    button
+) {
 
     const product =
-        findProductById(id);
+        button._product;
 
 
     if (!product) {
 
         alert(
-            "Product not found."
+            "Product could not be added."
         );
 
         return;
@@ -2266,26 +2077,22 @@ function addToCartById(id) {
     }
 
 
-    const stock =
-        Number(
-            product.stock ??
-            product.quantity ??
-            0
-        );
+    addToCartByProduct(
+        product
+    );
+
+}
 
 
-    if (stock <= 0) {
+/* =========================================================
+   ADD TO CART
+========================================================= */
 
-        alert(
-            "This product is out of stock."
-        );
+function addToCartByProduct(
+    product
+) {
 
-        return;
-
-    }
-
-
-    cart.push({
+    const item = {
 
         id:
             product.id,
@@ -2299,25 +2106,36 @@ function addToCartById(id) {
             ),
 
         image:
-            resolveImageUrl(
+            getProductImage(
                 product
             )
 
-    });
+    };
+
+
+    cart.push(
+        item
+    );
 
 
     updateCart();
 
 
     alert(
-        product.name +
+        item.name +
         " added to cart!"
     );
 
 }
 
 
-function removeFromCart(index) {
+/* =========================================================
+   REMOVE CART
+========================================================= */
+
+function removeFromCart(
+    index
+) {
 
     cart.splice(
         index,
@@ -2330,17 +2148,26 @@ function removeFromCart(index) {
 }
 
 
+/* =========================================================
+   CART TOTAL
+========================================================= */
+
 function getCartTotal() {
 
     return cart.reduce(
         (
             total,
             item
-        ) =>
-            total +
-            Number(
-                item.price || 0
-            ),
+        ) => {
+
+            return (
+                total +
+                Number(
+                    item.price || 0
+                )
+            );
+
+        },
         0
     );
 
@@ -2399,67 +2226,62 @@ function updateCart() {
     }
 
 
-    let total =
-        0;
+    let total = 0;
 
 
     cartItems.innerHTML =
-        cart
-            .map(
-                (
-                    item,
-                    index
-                ) => {
+        cart.map(
+            (
+                item,
+                index
+            ) => {
 
-                    total +=
-                        Number(
-                            item.price || 0
-                        );
-
-
-                    return `
-
-                        <div class="cart-item">
+                total +=
+                    Number(
+                        item.price || 0
+                    );
 
 
-                            <div class="cart-item-info">
+                return `
 
-                                <h4>
+                    <div class="cart-item">
 
-                                    ${escapeHtml(
-                                        item.name
-                                    )}
+                        <div class="cart-item-info">
 
-                                </h4>
+                            <h4>
 
+                                ${escapeHtml(
+                                    item.name
+                                )}
 
-                                <p>
-
-                                    EGP ${Number(
-                                        item.price
-                                    ).toLocaleString()}
-
-                                </p>
-
-                            </div>
+                            </h4>
 
 
-                            <button
-                                class="remove-btn"
-                                onclick="removeFromCart(${index})"
-                            >
+                            <p>
 
-                                Remove
+                                EGP ${item.price}
 
-                            </button>
+                            </p>
 
                         </div>
 
-                    `;
 
-                }
-            )
-            .join("");
+                        <button
+                            class="remove-btn"
+                            onclick="removeFromCart(${index})"
+                        >
+
+                            Remove
+
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+        )
+        .join("");
 
 
     cartTotal.textContent =
@@ -2561,7 +2383,6 @@ function renderCheckoutSummary() {
 
         <div class="checkout-summary-box">
 
-
             <h3>
                 Order Summary
             </h3>
@@ -2570,34 +2391,32 @@ function renderCheckoutSummary() {
             <br>
 
 
-            ${cart
-                .map(
-                    item => `
+            ${cart.map(
+                item => `
 
-                        <div class="summary-row">
+                    <div class="summary-row">
 
-                            <span>
+                        <span>
 
-                                ${escapeHtml(
-                                    item.name
-                                )}
+                            ${escapeHtml(
+                                item.name
+                            )}
 
-                            </span>
+                        </span>
 
-                            <span>
 
-                                EGP ${Number(
-                                    item.price
-                                ).toLocaleString()}
+                        <span>
 
-                            </span>
+                            EGP ${Number(
+                                item.price
+                            ).toLocaleString()}
 
-                        </div>
+                        </span>
 
-                    `
-                )
-                .join("")
-            }
+                    </div>
+
+                `
+            ).join("")}
 
 
             <div class="summary-row">
@@ -2605,6 +2424,7 @@ function renderCheckoutSummary() {
                 <span>
                     Subtotal
                 </span>
+
 
                 <span>
                     EGP ${subtotal.toLocaleString()}
@@ -2619,6 +2439,7 @@ function renderCheckoutSummary() {
                     Delivery
                 </span>
 
+
                 <span>
                     Will be confirmed
                 </span>
@@ -2626,20 +2447,18 @@ function renderCheckoutSummary() {
             </div>
 
 
-            <div
-                class="summary-row summary-total"
-            >
+            <div class="summary-row summary-total">
 
                 <span>
                     Products Total
                 </span>
+
 
                 <span>
                     EGP ${total.toLocaleString()}
                 </span>
 
             </div>
-
 
         </div>
 
@@ -2762,11 +2581,9 @@ document
 
             try {
 
-
                 for (
                     const item of cart
                 ) {
-
 
                     const orderData = {
 
@@ -2795,12 +2612,10 @@ document
                             1,
 
                         color:
-                            color ||
-                            null,
+                            color || null,
 
                         custom_color:
-                            color ===
-                            "Custom",
+                            color === "Custom",
 
                         file_type:
                             null,
@@ -2809,23 +2624,28 @@ document
                             null,
 
                         notes:
-                            notes ||
-                            null,
+                            notes || null,
 
                         subtotal:
-                            item.price,
+                            Number(
+                                item.price || 0
+                            ),
 
                         delivery_fee:
                             0,
 
                         total_price:
-                            item.price,
+                            Number(
+                                item.price || 0
+                            ),
 
                         deposit_amount:
                             0,
 
                         remaining_amount:
-                            item.price,
+                            Number(
+                                item.price || 0
+                            ),
 
                         payment_method:
                             paymentMethod,
@@ -2848,9 +2668,9 @@ document
                     } =
                         await supabaseClient
                             .from("orders")
-                            .insert([
-                                orderData
-                            ])
+                            .insert(
+                                [orderData]
+                            )
                             .select();
 
 
@@ -2895,10 +2715,10 @@ document
 
                 closeCheckout();
 
+
             }
 
-
-            catch (error) {
+            catch(error) {
 
                 console.error(
                     error
@@ -2911,7 +2731,6 @@ document
                 );
 
             }
-
 
             finally {
 
@@ -2937,65 +2756,6 @@ function customPrint() {
     alert(
         "Custom Print Request\n\n" +
         "Custom file upload will be added next."
-    );
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(value) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "";
-
-    }
-
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =========================================================
-   ESCAPE ATTRIBUTE
-========================================================= */
-
-function escapeAttribute(value) {
-
-    return escapeHtml(
-        value
     );
 
 }
@@ -3046,10 +2806,16 @@ window.onclick =
    START
 ========================================================= */
 
-loadProducts();
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadProducts();
+
+    }
+);
 
 </script>
 
 </body>
-
 </html>
