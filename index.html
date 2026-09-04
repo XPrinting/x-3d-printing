@@ -604,6 +604,11 @@ footer {
     border-radius: 10px;
 }
 
+
+/* =========================
+   NORMAL ORDER TRACK CARD
+========================= */
+
 .order-track-card {
     background: #0d1020;
     border: 1px solid var(--border);
@@ -720,6 +725,100 @@ footer {
 .track-detail-value {
     color: white;
     word-break: break-word;
+}
+
+
+/* =========================
+   CUSTOM REQUEST TRACK CARD
+========================= */
+
+.custom-track-card {
+    background: #0d1020;
+    border: 1px solid rgba(139,92,246,.35);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.custom-track-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.custom-track-title {
+    color: #a78bfa;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
+.custom-track-id {
+    color: #a78bfa;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.custom-track-status {
+    display: inline-flex;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.custom-status-new {
+    background: rgba(59,130,246,.15);
+    color: #60a5fa;
+}
+
+.custom-status-confirmed {
+    background: rgba(34,197,94,.15);
+    color: #4ade80;
+}
+
+.custom-status-preparing {
+    background: rgba(245,158,11,.15);
+    color: #fbbf24;
+}
+
+.custom-status-delivered {
+    background: rgba(139,92,246,.15);
+    color: #a78bfa;
+}
+
+.custom-status-cancelled {
+    background: rgba(239,68,68,.15);
+    color: #f87171;
+}
+
+.custom-track-detail {
+    background: #11172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.custom-track-detail-label {
+    color: #7f89a3;
+    font-size: 10px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.custom-track-detail-value {
+    color: white;
+    word-break: break-word;
+}
+
+.custom-track-date {
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+    color: #7f89a3;
+    font-size: 12px;
 }
 
 
@@ -1003,8 +1102,6 @@ footer {
 
     <div class="social-links">
 
-        <!-- WhatsApp -->
-
         <a
             href="https://wa.me/201062352065"
             target="_blank"
@@ -1014,8 +1111,6 @@ footer {
             💬 WhatsApp
         </a>
 
-
-        <!-- Instagram -->
 
         <a
             href="https://www.instagram.com/x3d_printing_/"
@@ -1027,8 +1122,6 @@ footer {
         </a>
 
 
-        <!-- TikTok -->
-
         <a
             href="https://www.tiktok.com/@x.print8"
             target="_blank"
@@ -1038,8 +1131,6 @@ footer {
             🎵 TikTok
         </a>
 
-
-        <!-- Facebook -->
 
         <a
             href="https://www.facebook.com/profile.php?id=61593893795865"
@@ -1360,7 +1451,7 @@ footer {
             <input
                 type="text"
                 id="trackOrderId"
-                placeholder="Example: 25"
+                placeholder="Example: 25 or 1006"
                 required
             >
 
@@ -2533,58 +2624,26 @@ document
 
             try {
 
+                /* =========================================
+                   1. SEARCH NORMAL ORDER
+                ========================================= */
+
                 const {
-  data,
-  error
-} =
-  await supabaseClient
-    .from("orders")
-    .select("*")
-    .eq(
-      "id",
-      orderId
-    )
-    .eq(
-      "phone",
-      phone
-    )
-    .maybeSingle();
-
-
-let customRequest = null;
-
-
-if (!data && !error) {
-
-  const {
-    data: customData,
-    error: customError
-  } =
-    await supabaseClient.rpc(
-      "track_custom_request",
-      {
-        p_request_number: orderId,
-        p_phone: phone
-      }
-    );
-
-
-  if (customError) {
-    throw customError;
-  }
-
-
-  if (
-    customData &&
-    customData.length > 0
-  ) {
-
-    customRequest =
-      customData[0];
-
-  }
-
-}
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("orders")
+                        .select("*")
+                        .eq(
+                            "id",
+                            orderId
+                        )
+                        .eq(
+                            "phone",
+                            phone
+                        )
+                        .maybeSingle();
 
 
                 if (error) {
@@ -2594,7 +2653,60 @@ if (!data && !error) {
                 }
 
 
-                if (!data && !customRequest) {
+                /* =========================================
+                   2. SEARCH CUSTOM REQUEST
+                   IF NORMAL ORDER WAS NOT FOUND
+                ========================================= */
+
+                let customRequest = null;
+
+
+                if (!data) {
+
+                    const {
+                        data: customData,
+                        error: customError
+                    } =
+                        await supabaseClient.rpc(
+                            "track_custom_request",
+                            {
+                                p_request_number:
+                                    orderId,
+
+                                p_phone:
+                                    phone
+                            }
+                        );
+
+
+                    if (customError) {
+
+                        throw customError;
+
+                    }
+
+
+                    if (
+                        customData &&
+                        customData.length > 0
+                    ) {
+
+                        customRequest =
+                            customData[0];
+
+                    }
+
+                }
+
+
+                /* =========================================
+                   3. NOTHING FOUND
+                ========================================= */
+
+                if (
+                    !data &&
+                    !customRequest
+                ) {
 
                     result.innerHTML = `
                         <div class="track-error">
@@ -2615,19 +2727,23 @@ if (!data && !error) {
                 }
 
 
+                /* =========================================
+                   4. RENDER RESULT
+                ========================================= */
+
                 if (customRequest) {
 
-  renderTrackedCustomRequest(
-    customRequest
-  );
+                    renderTrackedCustomRequest(
+                        customRequest
+                    );
 
-} else {
+                } else {
 
-  renderTrackedOrder(
-    data
-  );
+                    renderTrackedOrder(
+                        data
+                    );
 
-}
+                }
 
 
             } catch (error) {
@@ -2789,78 +2905,249 @@ function getStatusProgress(status) {
 
 
 /* =========================================================
-   RENDER TRACKED ORDER
+   RENDER CUSTOM REQUEST
 ========================================================= */
+
 function renderTrackedCustomRequest(request) {
 
-    const result = document.getElementById("trackResult");
+    const result =
+        document.getElementById(
+            "trackResult"
+        );
+
+
+    const rawStatus =
+        String(
+            request.status || "pending"
+        )
+        .toLowerCase()
+        .trim();
+
 
     const statusMap = {
-        pending: "new",
-        reviewing: "confirmed",
-        approved: "preparing",
-        completed: "delivered",
-        rejected: "cancelled"
+
+        pending:
+            "new",
+
+        reviewing:
+            "confirmed",
+
+        approved:
+            "preparing",
+
+        completed:
+            "delivered",
+
+        rejected:
+            "cancelled"
+
     };
 
-    const status = statusMap[
-        String(request.status || "").toLowerCase()
-    ] || "new";
+
+    const status =
+        statusMap[rawStatus] ||
+        "new";
+
+
+    const statusLabelMap = {
+
+        pending:
+            "Pending",
+
+        reviewing:
+            "Reviewing",
+
+        approved:
+            "Approved",
+
+        completed:
+            "Completed",
+
+        rejected:
+            "Rejected"
+
+    };
+
+
+    const statusLabel =
+        statusLabelMap[rawStatus] ||
+        rawStatus;
+
 
     result.innerHTML = `
-        <div class="track-card">
 
-            <div class="track-header">
-                <span>CUSTOM REQUEST</span>
-                <strong>#${request.request_number}</strong>
+        <div class="custom-track-card">
+
+
+            <div class="custom-track-header">
+
+                <div>
+
+                    <div class="custom-track-title">
+                        CUSTOM PRINT REQUEST
+                    </div>
+
+                    <div class="custom-track-id">
+                        #${escapeHtml(
+                            request.request_number
+                        )}
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="track-status ${status}">
-                ${String(request.status || "pending").toUpperCase()}
+
+            <div
+                class="
+                    custom-track-status
+                    custom-status-${escapeHtml(
+                        status
+                    )}
+                "
+            >
+
+                ${escapeHtml(
+                    statusLabel
+                )}
+
             </div>
+
 
             <div class="track-details">
 
-                <div>
-                    <span>Project</span>
-                    <strong>${request.project_title || "-"}</strong>
+
+                <div class="custom-track-detail">
+
+                    <div class="custom-track-detail-label">
+                        Project
+                    </div>
+
+                    <div class="custom-track-detail-value">
+
+                        ${escapeHtml(
+                            request.project_title ||
+                            "-"
+                        )}
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <span>Quantity</span>
-                    <strong>${request.quantity || "-"}</strong>
+
+                <div class="custom-track-detail">
+
+                    <div class="custom-track-detail-label">
+                        Quantity
+                    </div>
+
+                    <div class="custom-track-detail-value">
+
+                        ${escapeHtml(
+                            request.quantity ??
+                            "-"
+                        )}
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <span>Material</span>
-                    <strong>${request.material || "-"}</strong>
+
+                <div class="custom-track-detail">
+
+                    <div class="custom-track-detail-label">
+                        Material
+                    </div>
+
+                    <div class="custom-track-detail-value">
+
+                        ${escapeHtml(
+                            request.material ||
+                            "-"
+                        )}
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <span>Color</span>
-                    <strong>${request.color || "-"}</strong>
+
+                <div class="custom-track-detail">
+
+                    <div class="custom-track-detail-label">
+                        Color
+                    </div>
+
+                    <div class="custom-track-detail-value">
+
+                        ${escapeHtml(
+                            request.color ||
+                            "-"
+                        )}
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <span>Dimensions</span>
-                    <strong>${request.dimensions || "-"}</strong>
+
+                <div class="custom-track-detail">
+
+                    <div class="custom-track-detail-label">
+                        Dimensions
+                    </div>
+
+                    <div class="custom-track-detail-value">
+
+                        ${escapeHtml(
+                            request.dimensions ||
+                            "-"
+                        )}
+
+                    </div>
+
                 </div>
 
-                <div>
-                    <span>Price</span>
-                    <strong>Price to be confirmed</strong>
+
+                <div class="custom-track-detail">
+
+                    <div class="custom-track-detail-label">
+                        Price
+                    </div>
+
+                    <div class="custom-track-detail-value">
+
+                        Price to be confirmed
+
+                    </div>
+
                 </div>
+
 
             </div>
 
-            <div class="track-date">
+
+            <div class="custom-track-date">
+
                 Request Date:
-                ${new Date(request.created_at).toLocaleDateString()}
+                ${escapeHtml(
+                    formatDate(
+                        request.created_at
+                    )
+                )}
+
             </div>
+
 
         </div>
+
     `;
+
 }
+
+
+/* =========================================================
+   RENDER NORMAL TRACKED ORDER
+========================================================= */
+
 function renderTrackedOrder(order) {
 
     const result =
@@ -2916,7 +3203,10 @@ function renderTrackedOrder(order) {
 
                 <div
                     class="progress-fill"
-                    style="width:100%; background:#ef4444;"
+                    style="
+                        width:100%;
+                        background:#ef4444;
+                    "
                 ></div>
 
             </div>
@@ -3196,7 +3486,10 @@ function formatDate(date) {
 ========================================================= */
 
 function customPrint() {
-    window.location.href = "custom-request.html";
+
+    window.location.href =
+        "custom-request.html";
+
 }
 
 
