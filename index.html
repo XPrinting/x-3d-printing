@@ -785,9 +785,13 @@ footer {
 .error-message {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 50px;
+    padding: 50px 20px;
     color: #ff7777;
     line-height: 1.7;
+}
+
+.error-message strong {
+    color: white;
 }
 
 
@@ -941,15 +945,24 @@ html[dir="rtl"] .product-info {
 
     <nav>
 
-        <a href="#home" data-i18n="home">
+        <a
+            href="#home"
+            data-i18n="home"
+        >
             Home
         </a>
 
-        <a href="#products" data-i18n="products">
+        <a
+            href="#products"
+            data-i18n="products"
+        >
             Products
         </a>
 
-        <a href="custom-request.html" data-i18n="customPrint">
+        <a
+            href="custom-request.html"
+            data-i18n="customPrint"
+        >
             Custom Print
         </a>
 
@@ -998,6 +1011,7 @@ html[dir="rtl"] .product-info {
         >
 
             🛒
+
             <span data-i18n="cart">
                 Cart
             </span>
@@ -1026,10 +1040,12 @@ html[dir="rtl"] .product-info {
 >
 
     <h1 data-i18n-html="heroTitle">
+
         Premium
         <span>
             3D Printing
         </span>
+
     </h1>
 
 
@@ -1076,7 +1092,7 @@ html[dir="rtl"] .product-info {
 
         <div
             class="loading"
-            data-i18n="loadingProducts"
+            id="productsLoading"
         >
             Loading products...
         </div>
@@ -1112,6 +1128,7 @@ html[dir="rtl"] .product-info {
     <a
         class="custom-btn"
         href="custom-request.html"
+        onclick="customPrint(event)"
         data-i18n="requestCustom"
     >
         Request Custom Print
@@ -1216,7 +1233,7 @@ html[dir="rtl"] .product-info {
 
         <div id="cartItems">
 
-            <p style="color:#aeb6cc;" data-i18n="cartEmpty">
+            <p style="color:#aeb6cc;">
                 Your cart is empty.
             </p>
 
@@ -1280,7 +1297,6 @@ html[dir="rtl"] .product-info {
 
 
         <form id="checkoutForm">
-
 
             <label data-i18n="fullName">
                 Full Name
@@ -1360,27 +1376,45 @@ html[dir="rtl"] .product-info {
                     Select Color
                 </option>
 
-                <option value="Black" data-i18n="black">
+                <option
+                    value="Black"
+                    data-i18n="black"
+                >
                     Black
                 </option>
 
-                <option value="White" data-i18n="white">
+                <option
+                    value="White"
+                    data-i18n="white"
+                >
                     White
                 </option>
 
-                <option value="Blue" data-i18n="blue">
+                <option
+                    value="Blue"
+                    data-i18n="blue"
+                >
                     Blue
                 </option>
 
-                <option value="Green" data-i18n="green">
+                <option
+                    value="Green"
+                    data-i18n="green"
+                >
                     Green
                 </option>
 
-                <option value="Red" data-i18n="red">
+                <option
+                    value="Red"
+                    data-i18n="red"
+                >
                     Red
                 </option>
 
-                <option value="Custom" data-i18n="customColor">
+                <option
+                    value="Custom"
+                    data-i18n="customColor"
+                >
                     Custom Color
                 </option>
 
@@ -1798,7 +1832,16 @@ const translations = {
             "Save this Order ID to track your order.",
 
         failedOrder:
-            "Failed to place order."
+            "Failed to place order.",
+
+        remove:
+            "Remove",
+
+        cancelledMessage:
+            "This order has been cancelled.",
+
+        productNotFound:
+            "Product not found."
 
     },
 
@@ -2040,7 +2083,16 @@ const translations = {
             "احتفظ برقم الطلب لتتمكن من تتبعه.",
 
         failedOrder:
-            "فشل إنشاء الطلب."
+            "فشل إنشاء الطلب.",
+
+        remove:
+            "حذف",
+
+        cancelledMessage:
+            "هذا الطلب تم إلغاؤه.",
+
+        productNotFound:
+            "المنتج غير موجود."
 
     }
 
@@ -2051,16 +2103,30 @@ let currentLanguage =
     localStorage.getItem("x3d_language") || "en";
 
 
+if (
+    currentLanguage !== "en" &&
+    currentLanguage !== "ar"
+) {
+
+    currentLanguage = "en";
+
+}
+
+
 function t(key) {
 
     return (
         translations[currentLanguage]?.[key] ??
-        translations.en[key] ??
+        translations.en?.[key] ??
         key
     );
 
 }
 
+
+/* =========================================================
+   LANGUAGE SWITCH
+========================================================= */
 
 function setLanguage(language) {
 
@@ -2073,16 +2139,20 @@ function setLanguage(language) {
 
     }
 
+
     currentLanguage =
         language;
+
 
     localStorage.setItem(
         "x3d_language",
         language
     );
 
+
     document.documentElement.lang =
         language;
+
 
     document.documentElement.dir =
         language === "ar"
@@ -2129,32 +2199,47 @@ function setLanguage(language) {
         });
 
 
-    document
-        .getElementById("enBtn")
-        .classList
-        .toggle(
+    const enBtn =
+        document.getElementById("enBtn");
+
+    const arBtn =
+        document.getElementById("arBtn");
+
+
+    if (enBtn) {
+
+        enBtn.classList.toggle(
             "active",
             language === "en"
         );
 
+    }
 
-    document
-        .getElementById("arBtn")
-        .classList
-        .toggle(
+
+    if (arBtn) {
+
+        arBtn.classList.toggle(
             "active",
             language === "ar"
         );
+
+    }
 
 
     renderProducts();
 
     updateCart();
 
-    if (
+
+    const checkoutModal =
         document.getElementById(
             "checkoutModal"
-        ).style.display === "flex"
+        );
+
+
+    if (
+        checkoutModal &&
+        checkoutModal.style.display === "flex"
     ) {
 
         renderCheckoutSummary();
@@ -2237,21 +2322,39 @@ function escapeHtml(value) {
 
 
 /* =========================================================
+   ESCAPE ATTRIBUTE
+========================================================= */
+
+function escapeAttribute(value) {
+
+    return escapeHtml(value);
+
+}
+
+
+/* =========================================================
    STORAGE IMAGE
 ========================================================= */
 
 function getStorageImageUrl(path) {
 
     if (!path) {
+
         return null;
+
     }
+
 
     let imagePath =
         String(path).trim();
 
+
     if (!imagePath) {
+
         return null;
+
     }
+
 
     if (
         imagePath.startsWith("http://") ||
@@ -2263,8 +2366,10 @@ function getStorageImageUrl(path) {
 
     }
 
+
     imagePath =
         imagePath.replace(/^\/+/, "");
+
 
     return (
         SUPABASE_URL +
@@ -2282,6 +2387,7 @@ function getStorageImageUrl(path) {
 function getProductImage(product) {
 
     if (
+        product &&
         product.image_url &&
         String(product.image_url).trim() !== ""
     ) {
@@ -2294,6 +2400,7 @@ function getProductImage(product) {
 
 
     if (
+        product &&
         product.image &&
         String(product.image).trim() !== ""
     ) {
@@ -2306,10 +2413,14 @@ function getProductImage(product) {
 
 
     const name =
-        normalizeName(product.name);
+        normalizeName(
+            product?.name
+        );
 
 
-    if (OLD_IMAGES[name]) {
+    if (
+        OLD_IMAGES[name]
+    ) {
 
         return OLD_IMAGES[name];
 
@@ -2328,12 +2439,21 @@ function getProductImage(product) {
 function handleImageError(img) {
 
     console.error(
-        "Image failed:",
+        "Product image failed:",
         img.src
     );
 
+
     const parent =
         img.parentElement;
+
+
+    if (!parent) {
+
+        return;
+
+    }
+
 
     img.style.display =
         "none";
@@ -2350,11 +2470,14 @@ function handleImageError(img) {
                 "div"
             );
 
+
         placeholder.className =
             "image-placeholder";
 
+
         placeholder.textContent =
             t("imageUnavailable");
+
 
         parent.appendChild(
             placeholder
@@ -2366,7 +2489,7 @@ function handleImageError(img) {
 
 
 /* =========================================================
-   LOAD PRODUCTS
+   LOAD PRODUCTS FROM SUPABASE
 ========================================================= */
 
 async function loadProducts() {
@@ -2375,6 +2498,17 @@ async function loadProducts() {
         document.getElementById(
             "productsGrid"
         );
+
+
+    if (!grid) {
+
+        console.error(
+            "productsGrid not found."
+        );
+
+        return;
+
+    }
 
 
     grid.innerHTML = `
@@ -2388,10 +2522,12 @@ async function loadProducts() {
 
     try {
 
-        const {
-            data,
-            error
-        } =
+        console.log(
+            "Loading products from Supabase..."
+        );
+
+
+        const response =
             await supabaseClient
                 .from("products")
                 .select("*")
@@ -2403,10 +2539,18 @@ async function loadProducts() {
                 );
 
 
+        const data =
+            response.data;
+
+
+        const error =
+            response.error;
+
+
         if (error) {
 
             console.error(
-                "Supabase products error:",
+                "SUPABASE PRODUCTS ERROR:",
                 error
             );
 
@@ -2415,13 +2559,20 @@ async function loadProducts() {
         }
 
 
+        console.log(
+            "Products loaded:",
+            data
+        );
+
+
         productsCache =
             Array.isArray(data)
                 ? data
                 : [];
 
 
-        productsById = {};
+        productsById =
+            {};
 
 
         productsCache.forEach(
@@ -2435,23 +2586,42 @@ async function loadProducts() {
         );
 
 
-        renderProducts();
+        if (
+            productsCache.length === 0
+        ) {
 
+            grid.innerHTML = `
+                <div class="loading">
+                    ${escapeHtml(
+                        t("noProducts")
+                    )}
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        renderProducts();
 
     } catch (error) {
 
         console.error(
-            "Load products error:",
+            "LOAD PRODUCTS ERROR:",
             error
         );
 
 
         grid.innerHTML = `
+
             <div class="error-message">
 
-                ${escapeHtml(
-                    t("failedProducts")
-                )}
+                <strong>
+                    ${escapeHtml(
+                        t("failedProducts")
+                    )}
+                </strong>
 
                 <br><br>
 
@@ -2461,6 +2631,7 @@ async function loadProducts() {
                 )}
 
             </div>
+
         `;
 
     }
@@ -2469,7 +2640,7 @@ async function loadProducts() {
 
 
 /* =========================================================
-   RENDER ALL PRODUCTS
+   RENDER PRODUCTS
 ========================================================= */
 
 function renderProducts() {
@@ -2481,32 +2652,16 @@ function renderProducts() {
 
 
     if (!grid) {
+
         return;
+
     }
 
 
     if (
-        !productsCache ||
+        !Array.isArray(productsCache) ||
         productsCache.length === 0
     ) {
-
-        if (
-            grid.querySelector(
-                ".loading"
-            )
-        ) {
-
-            return;
-
-        }
-
-        grid.innerHTML = `
-            <div class="loading">
-                ${escapeHtml(
-                    t("noProducts")
-                )}
-            </div>
-        `;
 
         return;
 
@@ -2531,7 +2686,7 @@ function renderProducts() {
 
 
 /* =========================================================
-   RENDER PRODUCT
+   RENDER ONE PRODUCT
 ========================================================= */
 
 function renderProduct(
@@ -2554,44 +2709,70 @@ function renderProduct(
 
 
     const name =
-        product.name ||
+        product?.name ||
         "Unnamed Product";
 
 
     const category =
-        product.category ||
+        product?.category ||
         "3D Printing";
 
 
     const description =
-        product.description ||
+        product?.description ||
         "High quality 3D printed product.";
 
 
     const price =
         Number(
-            product.price || 0
+            product?.price ?? 0
         );
 
 
-    const stock =
-        Number(
-            product.stock || 0
-        );
+    const rawStock =
+        product?.stock;
 
 
     const status =
         String(
-            product.status || "Active"
+            product?.status ??
+            "active"
         )
         .toLowerCase()
         .trim();
 
 
-    const available =
-        stock > 0 &&
-        status !== "inactive" &&
-        status !== "disabled";
+    /*
+       لو stock موجود فعلاً:
+       stock > 0 = متاح
+
+       لو stock مش موجود أو NULL:
+       نعتبر المنتج متاح طالما status مش inactive.
+    */
+
+    let available;
+
+
+    if (
+        rawStock === null ||
+        rawStock === undefined ||
+        rawStock === ""
+    ) {
+
+        available =
+            status !== "inactive" &&
+            status !== "disabled" &&
+            status !== "out_of_stock";
+
+    } else {
+
+        available =
+            Number(rawStock) > 0 &&
+            status !== "inactive" &&
+            status !== "disabled" &&
+            status !== "out_of_stock";
+
+    }
 
 
     let imageHTML;
@@ -2600,21 +2781,27 @@ function renderProduct(
     if (image) {
 
         imageHTML = `
+
             <img
-                src="${escapeHtml(image)}"
-                alt="${escapeHtml(name)}"
+                src="${escapeAttribute(image)}"
+                alt="${escapeAttribute(name)}"
                 onerror="handleImageError(this)"
             >
+
         `;
 
     } else {
 
         imageHTML = `
+
             <div class="image-placeholder">
+
                 ${escapeHtml(
                     t("imageUnavailable")
                 )}
+
             </div>
+
         `;
 
     }
@@ -2626,25 +2813,33 @@ function renderProduct(
     if (available) {
 
         buttonHTML = `
+
             <button
                 class="add-btn"
                 type="button"
-                onclick="addToCartById('${escapeHtml(String(product.id))}')"
+                onclick="addToCartById(${JSON.stringify(String(product.id))})"
             >
+
                 ${escapeHtml(
                     t("addToCart")
                 )}
+
             </button>
+
         `;
 
     } else {
 
         buttonHTML = `
+
             <div class="out-stock">
+
                 ${escapeHtml(
                     t("outOfStock")
                 )}
+
             </div>
+
         `;
 
     }
@@ -2662,25 +2857,34 @@ function renderProduct(
         <div class="product-info">
 
             <div class="category">
+
                 ${escapeHtml(category)}
+
             </div>
 
 
             <h3>
+
                 ${escapeHtml(name)}
+
             </h3>
 
 
             <p>
+
                 ${escapeHtml(description)}
+
             </p>
 
 
             <div class="product-bottom">
 
                 <div class="price">
+
                     EGP ${price.toLocaleString()}
+
                 </div>
+
 
                 ${buttonHTML}
 
@@ -2691,7 +2895,9 @@ function renderProduct(
     `;
 
 
-    grid.appendChild(card);
+    grid.appendChild(
+        card
+    );
 
 }
 
@@ -2711,9 +2917,7 @@ function addToCartById(productId) {
     if (!product) {
 
         alert(
-            currentLanguage === "ar"
-                ? "المنتج غير موجود."
-                : "Product not found."
+            t("productNotFound")
         );
 
         return;
@@ -2731,7 +2935,7 @@ function addToCartById(productId) {
 
         price:
             Number(
-                product.price || 0
+                product.price ?? 0
             ),
 
         image:
@@ -2740,7 +2944,9 @@ function addToCartById(productId) {
     };
 
 
-    cart.push(item);
+    cart.push(
+        item
+    );
 
 
     updateCart();
@@ -2756,7 +2962,7 @@ function addToCartById(productId) {
 
 
 /* =========================================================
-   REMOVE FROM CART
+   REMOVE CART ITEM
 ========================================================= */
 
 function removeFromCart(index) {
@@ -2765,6 +2971,7 @@ function removeFromCart(index) {
         index,
         1
     );
+
 
     updateCart();
 
@@ -2808,10 +3015,12 @@ function updateCart() {
             "cartCount"
         );
 
+
     const cartItems =
         document.getElementById(
             "cartItems"
         );
+
 
     const cartTotal =
         document.getElementById(
@@ -2819,8 +3028,14 @@ function updateCart() {
         );
 
 
-    if (!cartCount) {
+    if (
+        !cartCount ||
+        !cartItems ||
+        !cartTotal
+    ) {
+
         return;
+
     }
 
 
@@ -2833,11 +3048,15 @@ function updateCart() {
     ) {
 
         cartItems.innerHTML = `
+
             <p style="color:#aeb6cc;">
+
                 ${escapeHtml(
                     t("cartEmpty")
                 )}
+
             </p>
+
         `;
 
 
@@ -2860,27 +3079,34 @@ function updateCart() {
                 index
             ) => {
 
-                total +=
+                const itemPrice =
                     Number(
                         item.price || 0
                     );
 
 
+                total +=
+                    itemPrice;
+
+
                 return `
+
                     <div class="cart-item">
 
                         <div class="cart-item-info">
 
                             <h4>
+
                                 ${escapeHtml(
                                     item.name
                                 )}
+
                             </h4>
 
                             <p>
-                                EGP ${Number(
-                                    item.price || 0
-                                ).toLocaleString()}
+
+                                EGP ${itemPrice.toLocaleString()}
+
                             </p>
 
                         </div>
@@ -2891,14 +3117,15 @@ function updateCart() {
                             type="button"
                             onclick="removeFromCart(${index})"
                         >
+
                             ${escapeHtml(
-                                currentLanguage === "ar"
-                                    ? "حذف"
-                                    : "Remove"
+                                t("remove")
                             )}
+
                         </button>
 
                     </div>
+
                 `;
 
             }
@@ -2914,7 +3141,7 @@ function updateCart() {
 
 
 /* =========================================================
-   OPEN / CLOSE CART
+   CART OPEN / CLOSE
 ========================================================= */
 
 function openCart() {
@@ -3006,12 +3233,15 @@ function renderCheckoutSummary() {
         <div class="checkout-summary-box">
 
             <h3>
+
                 ${escapeHtml(
                     t("orderSummary")
                 )}
+
             </h3>
 
             <br>
+
 
             ${cart.map(
                 item => `
@@ -3019,15 +3249,19 @@ function renderCheckoutSummary() {
                     <div class="summary-row">
 
                         <span>
+
                             ${escapeHtml(
                                 item.name
                             )}
+
                         </span>
 
                         <span>
+
                             EGP ${Number(
                                 item.price || 0
                             ).toLocaleString()}
+
                         </span>
 
                     </div>
@@ -3039,13 +3273,17 @@ function renderCheckoutSummary() {
             <div class="summary-row">
 
                 <span>
+
                     ${escapeHtml(
                         t("subtotal")
                     )}
+
                 </span>
 
                 <span>
+
                     EGP ${subtotal.toLocaleString()}
+
                 </span>
 
             </div>
@@ -3054,15 +3292,19 @@ function renderCheckoutSummary() {
             <div class="summary-row">
 
                 <span>
+
                     ${escapeHtml(
                         t("delivery")
                     )}
+
                 </span>
 
                 <span>
+
                     ${escapeHtml(
                         t("deliveryConfirmed")
                     )}
+
                 </span>
 
             </div>
@@ -3071,13 +3313,17 @@ function renderCheckoutSummary() {
             <div class="summary-row summary-total">
 
                 <span>
+
                     ${escapeHtml(
                         t("productsTotal")
                     )}
+
                 </span>
 
                 <span>
+
                     EGP ${total.toLocaleString()}
+
                 </span>
 
             </div>
@@ -3286,10 +3532,7 @@ document
                     };
 
 
-                    const {
-                        data,
-                        error
-                    } =
+                    const response =
                         await supabaseClient
                             .from("orders")
                             .insert(
@@ -3298,21 +3541,23 @@ document
                             .select("id");
 
 
-                    if (error) {
+                    if (
+                        response.error
+                    ) {
 
-                        throw error;
+                        throw response.error;
 
                     }
 
 
                     if (
-                        data &&
-                        data.length > 0 &&
+                        response.data &&
+                        response.data.length > 0 &&
                         !firstOrderId
                     ) {
 
                         firstOrderId =
-                            data[0].id;
+                            response.data[0].id;
 
                     }
 
@@ -3371,7 +3616,7 @@ document
             } catch (error) {
 
                 console.error(
-                    "Create order error:",
+                    "CREATE ORDER ERROR:",
                     error
                 );
 
@@ -3496,24 +3741,25 @@ document
 
 
             result.innerHTML = `
+
                 <div style="
                     text-align:center;
                     color:#aeb6cc;
                     padding:20px;
                 ">
+
                     ${escapeHtml(
                         t("searchingOrder")
                     )}
+
                 </div>
+
             `;
 
 
             try {
 
-                const {
-                    data,
-                    error
-                } =
+                const response =
                     await supabaseClient
                         .from("orders")
                         .select("*")
@@ -3528,14 +3774,18 @@ document
                         .maybeSingle();
 
 
-                if (error) {
+                if (
+                    response.error
+                ) {
 
-                    throw error;
+                    throw response.error;
 
                 }
 
 
-                if (!data) {
+                if (
+                    !response.data
+                ) {
 
                     result.innerHTML = `
 
@@ -3561,175 +3811,12 @@ document
 
 
                 renderTrackedOrder(
-                    data
+                    response.data
                 );
 
 
             } catch (error) {
 
                 console.error(
-                    "Track order error:",
-                    error
-                );
-
-
-                result.innerHTML = `
-
-                    <div class="track-error">
-
-                        ${escapeHtml(
-                            t("failedTrack")
-                        )}
-
-                        <br><br>
-
-                        ${escapeHtml(
-                            error?.message ||
-                            "Unknown error"
-                        )}
-
-                    </div>
-
-                `;
-
-            } finally {
-
-                button.disabled =
-                    false;
-
-
-                button.textContent =
-                    t("trackOrder");
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-   NORMALIZE STATUS
-========================================================= */
-
-function normalizeStatus(status) {
-
-    if (
-        status === null ||
-        status === undefined ||
-        status === ""
-    ) {
-
-        return "new";
-
-    }
-
-
-    return String(status)
-        .toLowerCase()
-        .trim()
-        .replace(
-            /\s+/g,
-            "_"
-        );
-
-}
-
-
-/* =========================================================
-   STATUS LABEL
-========================================================= */
-
-function getStatusLabel(status) {
-
-    const normalized =
-        normalizeStatus(status);
-
-
-    return (
-        translations[currentLanguage]?.[
-            normalized
-        ] ||
-        translations.en?.[
-            normalized
-        ] ||
-        normalized
-    );
-
-}
-
-
-/* =========================================================
-   STATUS PROGRESS
-========================================================= */
-
-function getStatusProgress(status) {
-
-    const normalized =
-        normalizeStatus(status);
-
-
-    if (
-        normalized === "new"
-    ) {
-
-        return 25;
-
-    }
-
-
-    if (
-        normalized === "confirmed"
-    ) {
-
-        return 50;
-
-    }
-
-
-    if (
-        normalized === "preparing"
-    ) {
-
-        return 75;
-
-    }
-
-
-    if (
-        normalized === "delivered"
-    ) {
-
-        return 100;
-
-    }
-
-
-    if (
-        normalized === "cancelled"
-    ) {
-
-        return 100;
-
-    }
-
-
-    return 25;
-
-}
-
-
-/* =========================================================
-   RENDER TRACKED ORDER
-========================================================= */
-
-function renderTrackedOrder(order) {
-
-    const result =
-        document.getElementById(
-            "trackResult"
-        );
-
-
-    const status =
-        normalizeStatus(
-            order.order_statu
+                    "TRACK ORDER ERROR:",
+      
