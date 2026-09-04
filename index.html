@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
 
@@ -33,6 +33,10 @@
     --blue: #3b82f6;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     background:
@@ -49,21 +53,23 @@ body {
 
 header {
     width: 100%;
-    padding: 24px 7%;
+    padding: 20px 7%;
     border-bottom: 1px solid var(--border);
-    background: rgba(8,8,22,.85);
-    backdrop-filter: blur(10px);
+    background: rgba(8,8,22,.88);
+    backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 100;
+    gap: 20px;
 }
 
 .logo {
     font-size: 28px;
     font-weight: 800;
+    white-space: nowrap;
 }
 
 .logo span {
@@ -73,6 +79,7 @@ header {
 nav {
     display: flex;
     gap: 35px;
+    align-items: center;
 }
 
 nav a {
@@ -80,10 +87,17 @@ nav a {
     text-decoration: none;
     font-weight: 600;
     cursor: pointer;
+    transition: .2s;
 }
 
 nav a:hover {
     color: var(--primary);
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .cart-btn,
@@ -96,21 +110,21 @@ nav a:hover {
             #8b5cf6
         );
     color: white;
-    padding: 12px 20px;
+    padding: 11px 17px;
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
+    transition: .2s;
+}
+
+.cart-btn:hover,
+.track-btn:hover {
+    transform: translateY(-2px);
 }
 
 .track-btn {
     background: transparent;
     border-color: rgba(139,92,246,.45);
-}
-
-.header-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
 }
 
 .cart-count {
@@ -119,6 +133,36 @@ nav a:hover {
     padding: 3px 8px;
     border-radius: 20px;
     margin-left: 5px;
+}
+
+.lang-switcher {
+    display: flex;
+    gap: 5px;
+    padding: 4px;
+    background: rgba(17,23,42,.9);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+}
+
+.lang-btn {
+    border: none;
+    background: transparent;
+    color: #aeb6cc;
+    padding: 7px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    transition: .2s;
+}
+
+.lang-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+.lang-btn:hover {
+    color: white;
 }
 
 
@@ -143,7 +187,7 @@ nav a:hover {
 .hero p {
     color: var(--muted);
     font-size: 18px;
-    max-width: 650px;
+    max-width: 700px;
     margin: auto;
     line-height: 1.7;
 }
@@ -252,6 +296,7 @@ nav a:hover {
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    gap: 10px;
 }
 
 .price {
@@ -294,7 +339,7 @@ nav a:hover {
 
 .custom {
     margin: 50px 7%;
-    padding: 50px;
+    padding: 55px 30px;
     border-radius: 25px;
     background:
         linear-gradient(
@@ -314,6 +359,7 @@ nav a:hover {
 .custom p {
     color: var(--muted);
     margin-bottom: 25px;
+    line-height: 1.7;
 }
 
 .custom-btn {
@@ -324,6 +370,12 @@ nav a:hover {
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
+    transition: .2s;
+}
+
+.custom-btn:hover {
+    transform: translateY(-2px);
+    background: #f1f1f1;
 }
 
 
@@ -359,8 +411,8 @@ footer {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    min-width: 120px;
+    gap: 9px;
+    min-width: 125px;
     padding: 11px 16px;
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -371,30 +423,41 @@ footer {
     transition: .25s;
 }
 
+.social-link svg {
+    width: 21px;
+    height: 21px;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
 .social-link:hover {
     transform: translateY(-3px);
-    border-color: rgba(139,92,246,.7);
+    background: rgba(255,255,255,.06);
 }
 
 .whatsapp-link:hover {
     border-color: #25D366;
+    color: #25D366;
 }
 
 .instagram-link:hover {
     border-color: #E4405F;
+    color: #E4405F;
 }
 
 .tiktok-link:hover {
     border-color: #ffffff;
+    color: #ffffff;
 }
 
 .facebook-link:hover {
     border-color: #1877F2;
+    color: #1877F2;
 }
 
 
 /* =========================
-   CART
+   MODALS
 ========================= */
 
 .cart-modal {
@@ -424,6 +487,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    gap: 15px;
 }
 
 .close-btn {
@@ -483,6 +547,11 @@ footer {
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.checkout-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
 }
 
 
@@ -744,29 +813,55 @@ footer {
 
 
 /* =========================
+   RTL
+========================= */
+
+html[dir="rtl"] body {
+    font-family: Arial, Tahoma, sans-serif;
+}
+
+html[dir="rtl"] .cart-count {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+html[dir="rtl"] .product-bottom,
+html[dir="rtl"] .cart-item,
+html[dir="rtl"] .cart-total,
+html[dir="rtl"] .summary-row,
+html[dir="rtl"] .track-order-head {
+    direction: rtl;
+}
+
+
+/* =========================
    MOBILE
 ========================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
+
+    header {
+        flex-wrap: wrap;
+    }
 
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    nav {
-        gap: 15px;
-    }
-
 }
 
-@media (max-width: 650px) {
+@media (max-width: 750px) {
 
     header {
-        flex-wrap: wrap;
-        gap: 15px;
+        padding: 17px 5%;
+    }
+
+    .logo {
+        font-size: 24px;
     }
 
     nav {
+        gap: 18px;
         order: 3;
         width: 100%;
         justify-content: center;
@@ -780,6 +875,14 @@ footer {
         padding: 10px 12px;
     }
 
+    .cart-btn {
+        padding: 10px 12px;
+    }
+
+    .hero {
+        padding: 60px 5% 35px;
+    }
+
     .hero h1 {
         font-size: 38px;
     }
@@ -790,7 +893,11 @@ footer {
 
     .custom {
         margin: 30px 5%;
-        padding: 30px 20px;
+        padding: 35px 20px;
+    }
+
+    .custom h2 {
+        font-size: 28px;
     }
 
     .track-details {
@@ -811,6 +918,62 @@ footer {
         font-size: 13px;
     }
 
+}
+
+@media (max-width: 500px) {
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    .lang-switcher {
+        order: 0;
+    }
+
+    nav {
+        order: 4;
+        font-size: 14px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+    .cart-box {
+        padding: 20px;
+    }
+
+}
+
+
+/* =========================
+   SOCIAL SVG COLORS
+========================= */
+
+.whatsapp-icon {
+    color: #25D366;
+}
+
+.instagram-icon {
+    color: #E4405F;
+}
+
+.tiktok-icon {
+    color: white;
+}
+
+.facebook-icon {
+    color: #1877F2;
 }
 
 </style>
@@ -834,15 +997,15 @@ footer {
 
     <nav>
 
-        <a href="#home">
+        <a href="#home" data-i18n="navHome">
             Home
         </a>
 
-        <a href="#products">
+        <a href="#products" data-i18n="navProducts">
             Products
         </a>
 
-        <a href="#custom">
+        <a href="custom-request.html" data-i18n="navCustom">
             Custom Print
         </a>
 
@@ -851,9 +1014,31 @@ footer {
 
     <div class="header-actions">
 
+        <div class="lang-switcher">
+
+            <button
+                class="lang-btn active"
+                id="langEN"
+                onclick="setLanguage('en')"
+            >
+                EN
+            </button>
+
+            <button
+                class="lang-btn"
+                id="langAR"
+                onclick="setLanguage('ar')"
+            >
+                العربية
+            </button>
+
+        </div>
+
+
         <button
             class="track-btn"
             onclick="openTrackOrder()"
+            data-i18n="trackOrder"
         >
             Track Order
         </button>
@@ -864,7 +1049,10 @@ footer {
             onclick="openCart()"
         >
 
-            🛒 Cart
+            🛒
+            <span data-i18n="cart">
+                Cart
+            </span>
 
             <span
                 class="cart-count"
@@ -889,7 +1077,7 @@ footer {
     id="home"
 >
 
-    <h1>
+    <h1 data-i18n-html="heroTitle">
 
         Premium
         <span>
@@ -899,7 +1087,7 @@ footer {
     </h1>
 
 
-    <p>
+    <p data-i18n="heroDescription">
 
         Discover premium 3D printed
         products and custom printing
@@ -923,11 +1111,11 @@ footer {
 
     <div class="section-title">
 
-        <h2>
+        <h2 data-i18n="productsTitle">
             Our Products
         </h2>
 
-        <p>
+        <p data-i18n="productsDescription">
             Premium 3D printed products
             ready to order.
         </p>
@@ -940,7 +1128,7 @@ footer {
         id="productsGrid"
     >
 
-        <div class="loading">
+        <div class="loading" data-i18n="loadingProducts">
             Loading products...
         </div>
 
@@ -958,12 +1146,12 @@ footer {
     id="custom"
 >
 
-    <h2>
+    <h2 data-i18n="customTitle">
         Need Something Custom?
     </h2>
 
 
-    <p>
+    <p data-i18n="customDescription">
 
         Send us your idea and we'll
         turn it into a 3D printed
@@ -975,6 +1163,7 @@ footer {
     <button
         class="custom-btn"
         onclick="customPrint()"
+        data-i18n="customButton"
     >
 
         Request Custom Print
@@ -990,13 +1179,15 @@ footer {
 
 <footer>
 
-    <div>
-        ©️ 2026 X3D Printing.
-        All rights reserved.
+    <div data-i18n="copyright">
+        ©️ 2026 X3D Printing. All rights reserved.
     </div>
 
 
-    <div class="social-title">
+    <div
+        class="social-title"
+        data-i18n="socialTitle"
+    >
         Follow us & Contact us
     </div>
 
@@ -1010,8 +1201,19 @@ footer {
             target="_blank"
             rel="noopener noreferrer"
             class="social-link whatsapp-link"
+            aria-label="WhatsApp"
         >
-            💬 WhatsApp
+
+            <svg
+                class="whatsapp-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path d="M20.52 3.48A11.83 11.83 0 0 0 12.08 0C5.53 0 .2 5.33.2 11.88c0 2.09.55 4.13 1.59 5.93L.1 24l6.34-1.66a11.88 11.88 0 0 0 5.64 1.43h.01c6.54 0 11.87-5.33 11.87-11.89 0-3.17-1.23-6.15-3.44-8.4ZM12.09 21.77h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.76.99 1-3.66-.23-.38a9.85 9.85 0 0 1-1.51-5.25C2.19 6.44 6.62 2 12.09 2c2.65 0 5.14 1.03 7.01 2.9a9.86 9.86 0 0 1 2.9 7.02c0 5.46-4.45 9.85-9.91 9.85Zm5.41-7.39c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.46-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.09 4.49.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
+            </svg>
+
+            WhatsApp
+
         </a>
 
 
@@ -1022,8 +1224,19 @@ footer {
             target="_blank"
             rel="noopener noreferrer"
             class="social-link instagram-link"
+            aria-label="Instagram"
         >
-            📸 Instagram
+
+            <svg
+                class="instagram-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5ZM17.5 6.5A1 1 0 1 1 16.5 7.5a1 1 0 0 1 1-1Z"/>
+            </svg>
+
+            Instagram
+
         </a>
 
 
@@ -1034,8 +1247,19 @@ footer {
             target="_blank"
             rel="noopener noreferrer"
             class="social-link tiktok-link"
+            aria-label="TikTok"
         >
-            🎵 TikTok
+
+            <svg
+                class="tiktok-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path d="M16.5 2c.3 2.2 1.55 3.62 3.5 3.78v2.16c-1.1.1-2.25-.25-3.5-1v7.23a6.32 6.32 0 1 1-5.46-6.26v2.34a3.94 3.94 0 1 0 3.05 3.84V2h2.41Z"/>
+            </svg>
+
+            TikTok
+
         </a>
 
 
@@ -1046,8 +1270,19 @@ footer {
             target="_blank"
             rel="noopener noreferrer"
             class="social-link facebook-link"
+            aria-label="Facebook"
         >
-            📘 Facebook
+
+            <svg
+                class="facebook-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.08c0-.87.24-1.46 1.5-1.46h1.7V3.94c-.3-.04-1.34-.14-2.55-.14-2.52 0-4.25 1.54-4.25 4.37V10H7v3h2.9v8h3.6Z"/>
+            </svg>
+
+            Facebook
+
         </a>
 
     </div>
@@ -1068,7 +1303,7 @@ footer {
 
         <div class="cart-header">
 
-            <h2>
+            <h2 data-i18n="yourCart">
                 Your Cart
             </h2>
 
@@ -1085,10 +1320,11 @@ footer {
 
         <div id="cartItems">
 
-            <p style="color:#aeb6cc;">
-
+            <p
+                style="color:#aeb6cc;"
+                data-i18n="cartEmpty"
+            >
                 Your cart is empty.
-
             </p>
 
         </div>
@@ -1096,7 +1332,7 @@ footer {
 
         <div class="cart-total">
 
-            <span>
+            <span data-i18n="total">
                 Total
             </span>
 
@@ -1110,6 +1346,7 @@ footer {
         <button
             class="checkout-btn"
             onclick="checkout()"
+            data-i18n="checkout"
         >
 
             Checkout
@@ -1134,7 +1371,7 @@ footer {
 
         <div class="cart-header">
 
-            <h2>
+            <h2 data-i18n="checkoutTitle">
                 Checkout
             </h2>
 
@@ -1143,9 +1380,7 @@ footer {
                 class="close-btn"
                 onclick="closeCheckout()"
             >
-
                 ×
-
             </button>
 
         </div>
@@ -1153,131 +1388,152 @@ footer {
 
         <form id="checkoutForm">
 
-
-            <label>
+            <label data-i18n="fullName">
                 Full Name
             </label>
-
 
             <input
                 type="text"
                 id="customerName"
                 placeholder="Enter your full name"
+                data-i18n-placeholder="fullNamePlaceholder"
                 required
             >
 
 
-            <label>
+            <label data-i18n="phoneNumber">
                 Phone Number
             </label>
-
 
             <input
                 type="tel"
                 id="customerPhone"
                 placeholder="01xxxxxxxxx"
+                data-i18n-placeholder="phonePlaceholder"
                 required
             >
 
 
-            <label>
+            <label data-i18n="governorate">
                 Governorate
             </label>
-
 
             <input
                 type="text"
                 id="governorate"
                 placeholder="Cairo"
+                data-i18n-placeholder="governoratePlaceholder"
                 required
             >
 
 
-            <label>
+            <label data-i18n="area">
                 Area
             </label>
-
 
             <input
                 type="text"
                 id="area"
                 placeholder="Nasr City"
+                data-i18n-placeholder="areaPlaceholder"
                 required
             >
 
 
-            <label>
+            <label data-i18n="fullAddress">
                 Full Address
             </label>
-
 
             <textarea
                 id="address"
                 placeholder="Enter your full delivery address"
+                data-i18n-placeholder="addressPlaceholder"
                 required
             ></textarea>
 
 
-            <label>
+            <label data-i18n="color">
                 Color
             </label>
 
-
             <select id="color">
 
-                <option value="">
+                <option
+                    value=""
+                    data-i18n="selectColor"
+                >
                     Select Color
                 </option>
 
-                <option value="Black">
+                <option
+                    value="Black"
+                    data-i18n="black"
+                >
                     Black
                 </option>
 
-                <option value="White">
+                <option
+                    value="White"
+                    data-i18n="white"
+                >
                     White
                 </option>
 
-                <option value="Blue">
+                <option
+                    value="Blue"
+                    data-i18n="blue"
+                >
                     Blue
                 </option>
 
-                <option value="Green">
+                <option
+                    value="Green"
+                    data-i18n="green"
+                >
                     Green
                 </option>
 
-                <option value="Red">
+                <option
+                    value="Red"
+                    data-i18n="red"
+                >
                     Red
                 </option>
 
-                <option value="Custom">
+                <option
+                    value="Custom"
+                    data-i18n="customColor"
+                >
                     Custom Color
                 </option>
 
             </select>
 
 
-            <label>
+            <label data-i18n="notes">
                 Notes
             </label>
-
 
             <textarea
                 id="notes"
                 placeholder="Any special instructions?"
+                data-i18n-placeholder="notesPlaceholder"
             ></textarea>
 
 
-            <label>
+            <label data-i18n="paymentMethod">
                 Payment Method
             </label>
-
 
             <select
                 id="paymentMethod"
                 required
             >
 
-                <option value="">
+                <option
+                    value=""
+                    data-i18n="selectPayment"
+                >
                     Select Payment Method
                 </option>
 
@@ -1298,6 +1554,7 @@ footer {
             <button
                 type="submit"
                 class="checkout-btn"
+                data-i18n="placeOrder"
             >
 
                 Place Order
@@ -1324,7 +1581,7 @@ footer {
 
         <div class="cart-header">
 
-            <h2>
+            <h2 data-i18n="trackTitle">
                 Track Your Order
             </h2>
 
@@ -1339,7 +1596,10 @@ footer {
         </div>
 
 
-        <p class="track-intro">
+        <p
+            class="track-intro"
+            data-i18n="trackIntro"
+        >
 
             Enter your Order ID and the phone
             number used when placing the order.
@@ -1352,7 +1612,7 @@ footer {
             id="trackForm"
         >
 
-            <label>
+            <label data-i18n="orderId">
                 Order ID
             </label>
 
@@ -1361,11 +1621,12 @@ footer {
                 type="number"
                 id="trackOrderId"
                 placeholder="Example: 25"
+                data-i18n-placeholder="orderIdPlaceholder"
                 required
             >
 
 
-            <label>
+            <label data-i18n="phoneNumber">
                 Phone Number
             </label>
 
@@ -1374,6 +1635,7 @@ footer {
                 type="tel"
                 id="trackPhone"
                 placeholder="01xxxxxxxxx"
+                data-i18n-placeholder="phonePlaceholder"
                 required
             >
 
@@ -1382,6 +1644,7 @@ footer {
                 type="submit"
                 class="track-search-btn"
                 id="trackSearchButton"
+                data-i18n="trackOrder"
             >
 
                 Track Order
@@ -1402,6 +1665,466 @@ footer {
 
 
 <script>
+
+
+/* =========================================================
+   LANGUAGE SYSTEM
+========================================================= */
+
+const translations = {
+
+    en: {
+
+        navHome: "Home",
+        navProducts: "Products",
+        navCustom: "Custom Print",
+
+        trackOrder: "Track Order",
+        cart: "Cart",
+
+        heroTitle: `Premium <span>3D Printing</span>`,
+        heroDescription:
+            "Discover premium 3D printed products and custom printing services. Unique designs, high quality and made just for you.",
+
+        productsTitle: "Our Products",
+        productsDescription:
+            "Premium 3D printed products ready to order.",
+
+        loadingProducts: "Loading products...",
+        noProducts: "No products available.",
+        failedProducts: "Failed to load products.",
+        imageUnavailable: "Image unavailable",
+
+        customTitle: "Need Something Custom?",
+        customDescription:
+            "Send us your idea and we'll turn it into a 3D printed product.",
+        customButton: "Request Custom Print",
+
+        copyright:
+            "©️ 2026 X3D Printing. All rights reserved.",
+
+        socialTitle:
+            "Follow us & Contact us",
+
+        yourCart: "Your Cart",
+        cartEmpty: "Your cart is empty.",
+        total: "Total",
+        checkout: "Checkout",
+        remove: "Remove",
+
+        checkoutTitle: "Checkout",
+
+        fullName: "Full Name",
+        fullNamePlaceholder: "Enter your full name",
+
+        phoneNumber: "Phone Number",
+        phonePlaceholder: "01xxxxxxxxx",
+
+        governorate: "Governorate",
+        governoratePlaceholder: "Cairo",
+
+        area: "Area",
+        areaPlaceholder: "Nasr City",
+
+        fullAddress: "Full Address",
+        addressPlaceholder:
+            "Enter your full delivery address",
+
+        color: "Color",
+        selectColor: "Select Color",
+        black: "Black",
+        white: "White",
+        blue: "Blue",
+        green: "Green",
+        red: "Red",
+        customColor: "Custom Color",
+
+        notes: "Notes",
+        notesPlaceholder:
+            "Any special instructions?",
+
+        paymentMethod: "Payment Method",
+        selectPayment:
+            "Select Payment Method",
+
+        placeOrder: "Place Order",
+        placingOrder: "Placing Order...",
+
+        orderSummary: "Order Summary",
+        subtotal: "Subtotal",
+        delivery: "Delivery",
+        deliveryConfirm: "Will be confirmed",
+        productsTotal: "Products Total",
+
+        trackTitle: "Track Your Order",
+        trackIntro:
+            "Enter your Order ID and the phone number used when placing the order.",
+
+        orderId: "Order ID",
+        orderIdPlaceholder: "Example: 25",
+
+        searching: "Searching...",
+        searchingOrder:
+            "Searching for your order...",
+
+        orderNotFound: "❌ Order not found.",
+        checkOrderInfo:
+            "Please make sure the Order ID and phone number are correct.",
+
+        failedFindOrder: "❌ Failed to find order.",
+
+        order: "ORDER",
+        product: "Product",
+        quantity: "Quantity",
+        totalLabel: "Total",
+        orderDate: "Order Date",
+
+        new: "New",
+        confirmed: "Confirmed",
+        preparing: "Preparing",
+        delivered: "Delivered",
+        cancelled: "Cancelled",
+
+        cancelledMessage:
+            "This order has been cancelled.",
+
+        orderPlaced:
+            "Order placed successfully! 🎉",
+
+        yourOrderId:
+            "Your Order ID is: #",
+
+        saveOrderId:
+            "Save this Order ID to track your order.",
+
+        emptyCartAlert:
+            "Your cart is empty.",
+
+        addedToCart:
+            "added to cart!",
+
+        failedPlaceOrder:
+            "Failed to place order.",
+
+        customPrintRedirect:
+            "Opening Custom Print Request..."
+
+    },
+
+    ar: {
+
+        navHome: "الرئيسية",
+        navProducts: "المنتجات",
+        navCustom: "طباعة مخصصة",
+
+        trackOrder: "تتبع الطلب",
+        cart: "السلة",
+
+        heroTitle: `طباعة <span>ثلاثية الأبعاد</span> احترافية`,
+        heroDescription:
+            "اكتشف منتجاتنا المميزة المطبوعة بتقنية ثلاثية الأبعاد وخدمات الطباعة المخصصة. تصميمات مميزة وجودة عالية ومنتجات مصممة خصيصًا لك.",
+
+        productsTitle: "منتجاتنا",
+        productsDescription:
+            "منتجات مطبوعة بتقنية ثلاثية الأبعاد وجاهزة للطلب.",
+
+        loadingProducts: "جاري تحميل المنتجات...",
+        noProducts: "لا توجد منتجات متاحة حاليًا.",
+        failedProducts: "فشل تحميل المنتجات.",
+        imageUnavailable: "الصورة غير متاحة",
+
+        customTitle: "عايز حاجة بتصميمك؟",
+        customDescription:
+            "ابعتلنا فكرتك وإحنا هنحولها لمنتج مطبوع بتقنية ثلاثية الأبعاد.",
+        customButton: "اطلب طباعة مخصصة",
+
+        copyright:
+            "©️ 2026 X3D Printing. جميع الحقوق محفوظة.",
+
+        socialTitle:
+            "تابعنا وتواصل معنا",
+
+        yourCart: "سلة المشتريات",
+        cartEmpty: "السلة فارغة.",
+        total: "الإجمالي",
+        checkout: "إتمام الطلب",
+        remove: "حذف",
+
+        checkoutTitle: "إتمام الطلب",
+
+        fullName: "الاسم بالكامل",
+        fullNamePlaceholder:
+            "اكتب اسمك بالكامل",
+
+        phoneNumber: "رقم الهاتف",
+        phonePlaceholder:
+            "01xxxxxxxxx",
+
+        governorate: "المحافظة",
+        governoratePlaceholder:
+            "القاهرة",
+
+        area: "المنطقة",
+        areaPlaceholder:
+            "مدينة نصر",
+
+        fullAddress: "العنوان بالتفصيل",
+        addressPlaceholder:
+            "اكتب عنوان التوصيل بالتفصيل",
+
+        color: "اللون",
+        selectColor: "اختر اللون",
+        black: "أسود",
+        white: "أبيض",
+        blue: "أزرق",
+        green: "أخضر",
+        red: "أحمر",
+        customColor: "لون مخصص",
+
+        notes: "ملاحظات",
+        notesPlaceholder:
+            "أي تعليمات أو ملاحظات خاصة؟",
+
+        paymentMethod: "طريقة الدفع",
+        selectPayment:
+            "اختر طريقة الدفع",
+
+        placeOrder: "تأكيد الطلب",
+        placingOrder: "جاري تنفيذ الطلب...",
+
+        orderSummary: "ملخص الطلب",
+        subtotal: "المجموع الفرعي",
+        delivery: "التوصيل",
+        deliveryConfirm: "سيتم تأكيده",
+        productsTotal: "إجمالي المنتجات",
+
+        trackTitle: "تتبع طلبك",
+        trackIntro:
+            "اكتب رقم الطلب ورقم الهاتف المستخدم عند تنفيذ الطلب.",
+
+        orderId: "رقم الطلب",
+        orderIdPlaceholder:
+            "مثال: 25",
+
+        searching: "جاري البحث...",
+        searchingOrder:
+            "جاري البحث عن طلبك...",
+
+        orderNotFound:
+            "❌ لم يتم العثور على الطلب.",
+
+        checkOrderInfo:
+            "تأكد من أن رقم الطلب ورقم الهاتف صحيحان.",
+
+        failedFindOrder:
+            "❌ حدث خطأ أثناء البحث عن الطلب.",
+
+        order: "الطلب",
+        product: "المنتج",
+        quantity: "الكمية",
+        totalLabel: "الإجمالي",
+        orderDate: "تاريخ الطلب",
+
+        new: "جديد",
+        confirmed: "تم التأكيد",
+        preparing: "جاري التجهيز",
+        delivered: "تم التسليم",
+        cancelled: "ملغي",
+
+        cancelledMessage:
+            "تم إلغاء هذا الطلب.",
+
+        orderPlaced:
+            "تم تنفيذ الطلب بنجاح! 🎉",
+
+        yourOrderId:
+            "رقم طلبك هو: #",
+
+        saveOrderId:
+            "احتفظ برقم الطلب لتتمكن من تتبع طلبك.",
+
+        emptyCartAlert:
+            "السلة فارغة.",
+
+        addedToCart:
+            "تمت إضافته إلى السلة!",
+
+        failedPlaceOrder:
+            "فشل تنفيذ الطلب.",
+
+        customPrintRedirect:
+            "جاري فتح طلب الطباعة المخصصة..."
+
+    }
+
+};
+
+
+let currentLanguage =
+    localStorage.getItem("x3d_language") || "en";
+
+
+function t(key) {
+
+    return (
+        translations[currentLanguage]?.[key] ||
+        translations.en[key] ||
+        key
+    );
+
+}
+
+
+function setLanguage(language) {
+
+    if (
+        language !== "en" &&
+        language !== "ar"
+    ) {
+
+        language = "en";
+
+    }
+
+    currentLanguage =
+        language;
+
+    localStorage.setItem(
+        "x3d_language",
+        language
+    );
+
+    document.documentElement.lang =
+        language;
+
+    document.documentElement.dir =
+        language === "ar"
+            ? "rtl"
+            : "ltr";
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n]"
+        )
+        .forEach(
+            element => {
+
+                const key =
+                    element.dataset.i18n;
+
+                element.textContent =
+                    t(key);
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n-html]"
+        )
+        .forEach(
+            element => {
+
+                const key =
+                    element.dataset.i18nHtml;
+
+                element.innerHTML =
+                    t(key);
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n-placeholder]"
+        )
+        .forEach(
+            element => {
+
+                const key =
+                    element.dataset.i18nPlaceholder;
+
+                element.placeholder =
+                    t(key);
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".lang-btn"
+        )
+        .forEach(
+            button => {
+
+                button.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    const activeButton =
+        language === "ar"
+            ? document.getElementById(
+                "langAR"
+            )
+            : document.getElementById(
+                "langEN"
+            );
+
+
+    if (activeButton) {
+
+        activeButton.classList.add(
+            "active"
+        );
+
+    }
+
+
+    if (
+        document.getElementById(
+            "productsGrid"
+        )
+    ) {
+
+        loadProducts();
+
+    }
+
+
+    if (
+        document.getElementById(
+            "cartModal"
+        )
+    ) {
+
+        updateCart();
+
+    }
+
+
+    if (
+        document.getElementById(
+            "checkoutModal"
+        )
+        &&
+        document.getElementById(
+            "checkoutModal"
+        ).style.display === "flex"
+    ) {
+
+        renderCheckoutSummary();
+
+    }
+
+}
 
 
 /* =========================================================
@@ -1609,8 +2332,8 @@ function handleImageError(img) {
         placeholder.className =
             "image-placeholder";
 
-        placeholder.innerHTML =
-            "Image unavailable";
+        placeholder.textContent =
+            t("imageUnavailable");
 
         parent.appendChild(
             placeholder
@@ -1634,7 +2357,9 @@ async function loadProducts() {
 
     grid.innerHTML = `
         <div class="loading">
-            Loading products...
+            ${escapeHtml(
+                t("loadingProducts")
+            )}
         </div>
     `;
 
@@ -1667,7 +2392,9 @@ async function loadProducts() {
 
             grid.innerHTML = `
                 <div class="loading">
-                    No products available.
+                    ${escapeHtml(
+                        t("noProducts")
+                    )}
                 </div>
             `;
 
@@ -1698,7 +2425,9 @@ async function loadProducts() {
         grid.innerHTML = `
             <div class="error-message">
 
-                Failed to load products.
+                ${escapeHtml(
+                    t("failedProducts")
+                )}
 
                 <br><br>
 
@@ -1782,7 +2511,9 @@ function renderProduct(
 
         imageHTML = `
             <div class="image-placeholder">
-                Image unavailable
+                ${escapeHtml(
+                    t("imageUnavailable")
+                )}
             </div>
         `;
 
@@ -1801,7 +2532,9 @@ function renderProduct(
                 class="add-btn"
                 onclick="addToCartByProduct(${safeProduct})"
             >
-                Add to Cart
+                ${escapeHtml(
+                    t("addToCart") || "Add to Cart"
+                )}
             </button>
         `;
 
@@ -1809,7 +2542,9 @@ function renderProduct(
 
         buttonHTML = `
             <div class="out-stock">
-                Out of Stock
+                ${escapeHtml(
+                    t("outOfStock") || "Out of Stock"
+                )}
             </div>
         `;
 
@@ -1890,7 +2625,8 @@ function addToCartByProduct(product) {
 
     alert(
         item.name +
-        " added to cart!"
+        " " +
+        t("addedToCart")
     );
 
 }
@@ -1956,7 +2692,9 @@ function updateCart() {
 
         cartItems.innerHTML = `
             <p style="color:#aeb6cc;">
-                Your cart is empty.
+                ${escapeHtml(
+                    t("cartEmpty")
+                )}
             </p>
         `;
 
@@ -2002,7 +2740,9 @@ function updateCart() {
                             class="remove-btn"
                             onclick="removeFromCart(${index})"
                         >
-                            Remove
+                            ${escapeHtml(
+                                t("remove")
+                            )}
                         </button>
 
                     </div>
@@ -2049,7 +2789,7 @@ function checkout() {
     ) {
 
         alert(
-            "Your cart is empty."
+            t("emptyCartAlert")
         );
 
         return;
@@ -2097,7 +2837,9 @@ function renderCheckoutSummary() {
         <div class="checkout-summary-box">
 
             <h3>
-                Order Summary
+                ${escapeHtml(
+                    t("orderSummary")
+                )}
             </h3>
 
             <br>
@@ -2125,7 +2867,9 @@ function renderCheckoutSummary() {
             <div class="summary-row">
 
                 <span>
-                    Subtotal
+                    ${escapeHtml(
+                        t("subtotal")
+                    )}
                 </span>
 
                 <span>
@@ -2137,11 +2881,15 @@ function renderCheckoutSummary() {
             <div class="summary-row">
 
                 <span>
-                    Delivery
+                    ${escapeHtml(
+                        t("delivery")
+                    )}
                 </span>
 
                 <span>
-                    Will be confirmed
+                    ${escapeHtml(
+                        t("deliveryConfirm")
+                    )}
                 </span>
 
             </div>
@@ -2149,7 +2897,9 @@ function renderCheckoutSummary() {
             <div class="summary-row summary-total">
 
                 <span>
-                    Products Total
+                    ${escapeHtml(
+                        t("productsTotal")
+                    )}
                 </span>
 
                 <span>
@@ -2182,7 +2932,7 @@ document
             ) {
 
                 alert(
-                    "Your cart is empty."
+                    t("emptyCartAlert")
                 );
 
                 return;
@@ -2260,7 +3010,7 @@ document
                 true;
 
             button.textContent =
-                "Placing Order...";
+                t("placingOrder");
 
             try {
 
@@ -2381,11 +3131,12 @@ document
 
 
                 alert(
-                    "Order placed successfully! 🎉\n\n" +
-                    "Your Order ID is: #" +
+                    t("orderPlaced") +
+                    "\n\n" +
+                    t("yourOrderId") +
                     firstOrderId +
                     "\n\n" +
-                    "Save this Order ID to track your order."
+                    t("saveOrderId")
                 );
 
 
@@ -2422,7 +3173,8 @@ document
                 );
 
                 alert(
-                    "Failed to place order.\n\n" +
+                    t("failedPlaceOrder") +
+                    "\n\n" +
                     error.message
                 );
 
@@ -2432,7 +3184,7 @@ document
                     false;
 
                 button.textContent =
-                    "Place Order";
+                    t("placeOrder");
 
             }
 
@@ -2517,7 +3269,7 @@ document
                 true;
 
             button.textContent =
-                "Searching...";
+                t("searching");
 
 
             result.innerHTML = `
@@ -2526,7 +3278,9 @@ document
                     color:#aeb6cc;
                     padding:20px;
                 ">
-                    Searching for your order...
+                    ${escapeHtml(
+                        t("searchingOrder")
+                    )}
                 </div>
             `;
 
@@ -2563,13 +3317,15 @@ document
                     result.innerHTML = `
                         <div class="track-error">
 
-                            ❌ Order not found.
+                            ${escapeHtml(
+                                t("orderNotFound")
+                            )}
 
                             <br><br>
 
-                            Please make sure the
-                            Order ID and phone number
-                            are correct.
+                            ${escapeHtml(
+                                t("checkOrderInfo")
+                            )}
 
                         </div>
                     `;
@@ -2594,7 +3350,9 @@ document
                 result.innerHTML = `
                     <div class="track-error">
 
-                        ❌ Failed to find order.
+                        ${escapeHtml(
+                            t("failedFindOrder")
+                        )}
 
                         <br><br>
 
@@ -2611,7 +3369,7 @@ document
                     false;
 
                 button.textContent =
-                    "Track Order";
+                    t("trackOrder");
 
             }
 
@@ -2655,27 +3413,8 @@ function getStatusLabel(status) {
     const normalized =
         normalizeStatus(status);
 
-    const labels = {
-
-        new:
-            "New",
-
-        confirmed:
-            "Confirmed",
-
-        preparing:
-            "Preparing",
-
-        delivered:
-            "Delivered",
-
-        cancelled:
-            "Cancelled"
-
-    };
-
     return (
-        labels[normalized] ||
+        t(normalized) ||
         normalized
     );
 
@@ -2761,407 +3500,4 @@ function renderTrackedOrder(order) {
 
 
     const statusLabel =
-        getStatusLabel(
-            status
-        );
-
-
-    const progress =
-        getStatusProgress(
-            status
-        );
-
-
-    const product =
-        order.product_name ||
-        order.product ||
-        order.product_id ||
-        "-";
-
-
-    const total =
-        Number(
-            order.total_price ??
-            order.total ??
-            order.price ??
-            0
-        );
-
-
-    let progressHTML = "";
-
-
-    if (
-        status === "cancelled"
-    ) {
-
-        progressHTML = `
-
-            <div class="progress-line">
-
-                <div
-                    class="progress-fill"
-                    style="width:100%; background:#ef4444;"
-                ></div>
-
-            </div>
-
-            <div
-                style="
-                    color:#f87171;
-                    text-align:center;
-                    margin-top:10px;
-                    font-size:13px;
-                    font-weight:bold;
-                "
-            >
-                This order has been cancelled.
-            </div>
-
-        `;
-
-    } else {
-
-        progressHTML = `
-
-            <div class="progress-line">
-
-                <div
-                    class="progress-fill"
-                    style="width:${progress}%"
-                ></div>
-
-            </div>
-
-
-            <div class="progress-labels">
-
-                <span
-                    class="${
-                        progress >= 25
-                            ? "active"
-                            : ""
-                    }"
-                >
-                    New
-                </span>
-
-
-                <span
-                    class="${
-                        progress >= 50
-                            ? "active"
-                            : ""
-                    }"
-                >
-                    Confirmed
-                </span>
-
-
-                <span
-                    class="${
-                        progress >= 75
-                            ? "active"
-                            : ""
-                    }"
-                >
-                    Preparing
-                </span>
-
-
-                <span
-                    class="${
-                        progress >= 100
-                            ? "active"
-                            : ""
-                    }"
-                >
-                    Delivered
-                </span>
-
-            </div>
-
-        `;
-
-    }
-
-
-    result.innerHTML = `
-
-        <div class="order-track-card">
-
-
-            <div class="track-order-head">
-
-                <div>
-
-                    <div
-                        style="
-                            color:#7f89a3;
-                            font-size:11px;
-                            margin-bottom:5px;
-                        "
-                    >
-                        ORDER
-                    </div>
-
-
-                    <div class="track-order-id">
-
-                        #${escapeHtml(
-                            order.id
-                        )}
-
-                    </div>
-
-                </div>
-
-
-                <span
-                    class="
-                        track-status
-                        track-status-${escapeHtml(
-                            status
-                        )}
-                    "
-                >
-
-                    ${escapeHtml(
-                        statusLabel
-                    )}
-
-                </span>
-
-            </div>
-
-
-            <div class="order-progress">
-
-                ${progressHTML}
-
-            </div>
-
-
-            <div class="track-details">
-
-
-                <div class="track-detail">
-
-                    <div class="track-detail-label">
-                        Product
-                    </div>
-
-                    <div class="track-detail-value">
-
-                        ${escapeHtml(
-                            product
-                        )}
-
-                    </div>
-
-                </div>
-
-
-                <div class="track-detail">
-
-                    <div class="track-detail-label">
-                        Quantity
-                    </div>
-
-                    <div class="track-detail-value">
-
-                        ${escapeHtml(
-                            order.quantity ??
-                            1
-                        )}
-
-                    </div>
-
-                </div>
-
-
-                <div class="track-detail">
-
-                    <div class="track-detail-label">
-                        Color
-                    </div>
-
-                    <div class="track-detail-value">
-
-                        ${escapeHtml(
-                            order.color ||
-                            "-"
-                        )}
-
-                    </div>
-
-                </div>
-
-
-                <div class="track-detail">
-
-                    <div class="track-detail-label">
-                        Total
-                    </div>
-
-                    <div class="track-detail-value">
-
-                        EGP ${escapeHtml(
-                            total.toLocaleString()
-                        )}
-
-                    </div>
-
-                </div>
-
-
-                <div class="track-detail full">
-
-                    <div class="track-detail-label">
-                        Order Date
-                    </div>
-
-                    <div class="track-detail-value">
-
-                        ${escapeHtml(
-                            formatDate(
-                                order.created_at
-                            )
-                        )}
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function formatDate(date) {
-
-    if (!date) {
-
-        return "-";
-
-    }
-
-
-    const d =
-        new Date(date);
-
-
-    if (
-        isNaN(
-            d.getTime()
-        )
-    ) {
-
-        return String(date);
-
-    }
-
-
-    return d.toLocaleString();
-
-}
-
-
-/* =========================================================
-   CUSTOM PRINT
-========================================================= */
-
-function customPrint() {
-
-    alert(
-        "Custom Print Request\n\n" +
-        "Custom file upload will be added next."
-    );
-
-}
-
-
-/* =========================================================
-   CLOSE MODALS OUTSIDE
-========================================================= */
-
-window.onclick =
-    function(event) {
-
-        const cartModal =
-            document.getElementById(
-                "cartModal"
-            );
-
-        const checkoutModal =
-            document.getElementById(
-                "checkoutModal"
-            );
-
-        const trackModal =
-            document.getElementById(
-                "trackModal"
-            );
-
-
-        if (
-            event.target ===
-            cartModal
-        ) {
-
-            closeCart();
-
-        }
-
-
-        if (
-            event.target ===
-            checkoutModal
-        ) {
-
-            closeCheckout();
-
-        }
-
-
-        if (
-            event.target ===
-            trackModal
-        ) {
-
-            closeTrackOrder();
-
-        }
-
-    };
-
-
-/* =========================================================
-   START
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadProducts();
-
-        updateCart();
-
-    }
-);
-
-</script>
-
-</body>
-
-</html>
+    
