@@ -1651,12 +1651,14 @@ document
         ========================== */
 
         const {
-          error
-        } =
-          await supabaseClient
-            .from('custom_requests')
-            .insert(payload);
-
+  data: savedRequest,
+  error
+} =
+  await supabaseClient
+    .from('custom_requests')
+    .insert(payload)
+    .select('id, request_number')
+    .single();
 
         if(error){
 
@@ -1685,12 +1687,16 @@ document
           'block';
 
 
-        document
-          .getElementById(
-            'requestId'
-          )
-          .textContent =
-          `#${id}`;
+        const requestNumber =
+  savedRequest?.request_number ||
+  id;
+
+document
+  .getElementById(
+    'requestId'
+  )
+  .textContent =
+  `#${requestNumber}`;
 
 
         /* ==========================
@@ -1701,7 +1707,7 @@ document
           t('wa')
             .replace(
               '{id}',
-              id
+              requestNumber
             )
             .replace(
               '{name}',
