@@ -1358,7 +1358,7 @@ footer {
 
 
             <input
-                type="number"
+                type="text"
                 id="trackOrderId"
                 placeholder="Example: 25"
                 required
@@ -2534,21 +2534,57 @@ document
             try {
 
                 const {
-                    data,
-                    error
-                } =
-                    await supabaseClient
-                        .from("orders")
-                        .select("*")
-                        .eq(
-                            "id",
-                            orderId
-                        )
-                        .eq(
-                            "phone",
-                            phone
-                        )
-                        .maybeSingle();
+  data,
+  error
+} =
+  await supabaseClient
+    .from("orders")
+    .select("*")
+    .eq(
+      "id",
+      orderId
+    )
+    .eq(
+      "phone",
+      phone
+    )
+    .maybeSingle();
+
+
+let customRequest = null;
+
+
+if (!data && !error) {
+
+  const {
+    data: customData,
+    error: customError
+  } =
+    await supabaseClient.rpc(
+      "track_custom_request",
+      {
+        p_request_number: orderId,
+        p_phone: phone
+      }
+    );
+
+
+  if (customError) {
+    throw customError;
+  }
+
+
+  if (
+    customData &&
+    customData.length > 0
+  ) {
+
+    customRequest =
+      customData[0];
+
+  }
+
+}
 
 
                 if (error) {
@@ -2558,7 +2594,7 @@ document
                 }
 
 
-                if (!data) {
+                if (!data && !customRequest) {
 
                     result.innerHTML = `
                         <div class="track-error">
@@ -2579,9 +2615,19 @@ document
                 }
 
 
-                renderTrackedOrder(
-                    data
-                );
+                if (customRequest) {
+
+  renderTrackedCustomRequest(
+    customRequest
+  );
+
+} else {
+
+  renderTrackedOrder(
+    data
+  );
+
+}
 
 
             } catch (error) {
@@ -2745,7 +2791,76 @@ function getStatusProgress(status) {
 /* =========================================================
    RENDER TRACKED ORDER
 ========================================================= */
+function renderTrackedCustomRequest(request) {
 
+    const result = document.getElementById("trackResult");
+
+    const statusMap = {
+        pending: "new",
+        reviewing: "confirmed",
+        approved: "preparing",
+        completed: "delivered",
+        rejected: "cancelled"
+    };
+
+    const status = statusMap[
+        String(request.status || "").toLowerCase()
+    ] || "new";
+
+    result.innerHTML = `
+        <div class="track-card">
+
+            <div class="track-header">
+                <span>CUSTOM REQUEST</span>
+                <strong>#${request.request_number}</strong>
+            </div>
+
+            <div class="track-status ${status}">
+                ${String(request.status || "pending").toUpperCase()}
+            </div>
+
+            <div class="track-details">
+
+                <div>
+                    <span>Project</span>
+                    <strong>${request.project_title || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>Quantity</span>
+                    <strong>${request.quantity || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>Material</span>
+                    <strong>${request.material || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>Color</span>
+                    <strong>${request.color || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>Dimensions</span>
+                    <strong>${request.dimensions || "-"}</strong>
+                </div>
+
+                <div>
+                    <span>Price</span>
+                    <strong>Price to be confirmed</strong>
+                </div>
+
+            </div>
+
+            <div class="track-date">
+                Request Date:
+                ${new Date(request.created_at).toLocaleDateString()}
+            </div>
+
+        </div>
+    `;
+}
 function renderTrackedOrder(order) {
 
     const result =
