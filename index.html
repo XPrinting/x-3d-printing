@@ -8,6 +8,9 @@
 
 <title>X3D Printing | 3D Printed Products</title>
 
+<!-- Prevent favicon 404 -->
+<link rel="icon" href="data:,">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -785,13 +788,9 @@ footer {
 .error-message {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 50px 20px;
+    padding: 50px;
     color: #ff7777;
     line-height: 1.7;
-}
-
-.error-message strong {
-    color: white;
 }
 
 
@@ -945,17 +944,11 @@ html[dir="rtl"] .product-info {
 
     <nav>
 
-        <a
-            href="#home"
-            data-i18n="home"
-        >
+        <a href="#home" data-i18n="home">
             Home
         </a>
 
-        <a
-            href="#products"
-            data-i18n="products"
-        >
+        <a href="#products" data-i18n="products">
             Products
         </a>
 
@@ -1040,12 +1033,10 @@ html[dir="rtl"] .product-info {
 >
 
     <h1 data-i18n-html="heroTitle">
-
         Premium
         <span>
             3D Printing
         </span>
-
     </h1>
 
 
@@ -1090,10 +1081,7 @@ html[dir="rtl"] .product-info {
         id="productsGrid"
     >
 
-        <div
-            class="loading"
-            id="productsLoading"
-        >
+        <div class="loading">
             Loading products...
         </div>
 
@@ -1128,7 +1116,6 @@ html[dir="rtl"] .product-info {
     <a
         class="custom-btn"
         href="custom-request.html"
-        onclick="customPrint(event)"
         data-i18n="requestCustom"
     >
         Request Custom Print
@@ -1233,7 +1220,10 @@ html[dir="rtl"] .product-info {
 
         <div id="cartItems">
 
-            <p style="color:#aeb6cc;">
+            <p
+                style="color:#aeb6cc;"
+                data-i18n="cartEmpty"
+            >
                 Your cart is empty.
             </p>
 
@@ -1297,6 +1287,7 @@ html[dir="rtl"] .product-info {
 
 
         <form id="checkoutForm">
+
 
             <label data-i18n="fullName">
                 Full Name
@@ -1535,7 +1526,7 @@ html[dir="rtl"] .product-info {
 
 
             <input
-                type="number"
+                type="text"
                 id="trackOrderId"
                 data-i18n-placeholder="orderIdPlaceholder"
                 placeholder="Example: 25"
@@ -1832,16 +1823,7 @@ const translations = {
             "Save this Order ID to track your order.",
 
         failedOrder:
-            "Failed to place order.",
-
-        remove:
-            "Remove",
-
-        cancelledMessage:
-            "This order has been cancelled.",
-
-        productNotFound:
-            "Product not found."
+            "Failed to place order."
 
     },
 
@@ -2083,16 +2065,7 @@ const translations = {
             "احتفظ برقم الطلب لتتمكن من تتبعه.",
 
         failedOrder:
-            "فشل إنشاء الطلب.",
-
-        remove:
-            "حذف",
-
-        cancelledMessage:
-            "هذا الطلب تم إلغاؤه.",
-
-        productNotFound:
-            "المنتج غير موجود."
+            "فشل إنشاء الطلب."
 
     }
 
@@ -2103,30 +2076,16 @@ let currentLanguage =
     localStorage.getItem("x3d_language") || "en";
 
 
-if (
-    currentLanguage !== "en" &&
-    currentLanguage !== "ar"
-) {
-
-    currentLanguage = "en";
-
-}
-
-
 function t(key) {
 
     return (
         translations[currentLanguage]?.[key] ??
-        translations.en?.[key] ??
+        translations.en[key] ??
         key
     );
 
 }
 
-
-/* =========================================================
-   LANGUAGE SWITCH
-========================================================= */
 
 function setLanguage(language) {
 
@@ -2257,7 +2216,7 @@ let cart = [];
 
 
 /* =========================================================
-   PRODUCTS CACHE
+   PRODUCTS
 ========================================================= */
 
 let productsCache = [];
@@ -2266,7 +2225,7 @@ let productsById = {};
 
 
 /* =========================================================
-   OLD IMAGE FALLBACKS
+   LOCAL IMAGE FALLBACKS
 ========================================================= */
 
 const OLD_IMAGES = {
@@ -2322,26 +2281,13 @@ function escapeHtml(value) {
 
 
 /* =========================================================
-   ESCAPE ATTRIBUTE
-========================================================= */
-
-function escapeAttribute(value) {
-
-    return escapeHtml(value);
-
-}
-
-
-/* =========================================================
-   STORAGE IMAGE
+   GET IMAGE URL
 ========================================================= */
 
 function getStorageImageUrl(path) {
 
     if (!path) {
-
         return null;
-
     }
 
 
@@ -2350,11 +2296,11 @@ function getStorageImageUrl(path) {
 
 
     if (!imagePath) {
-
         return null;
-
     }
 
+
+    /* Full URL */
 
     if (
         imagePath.startsWith("http://") ||
@@ -2371,6 +2317,28 @@ function getStorageImageUrl(path) {
         imagePath.replace(/^\/+/, "");
 
 
+    /*
+       If the database contains just an image filename,
+       use the GitHub/local image directly.
+    */
+
+    if (
+        !imagePath.includes("/") &&
+        /\.(jpg|jpeg|png|webp|gif)$/i.test(
+            imagePath
+        )
+    ) {
+
+        return imagePath;
+
+    }
+
+
+    /*
+       Otherwise assume it is a Supabase
+       product-images storage path.
+    */
+
     return (
         SUPABASE_URL +
         "/storage/v1/object/public/product-images/" +
@@ -2386,10 +2354,14 @@ function getStorageImageUrl(path) {
 
 function getProductImage(product) {
 
+    /*
+       First check image_url.
+    */
+
     if (
         product &&
         product.image_url &&
-        String(product.image_url).trim() !== ""
+        String(product.image_url).trim()
     ) {
 
         return getStorageImageUrl(
@@ -2399,10 +2371,14 @@ function getProductImage(product) {
     }
 
 
+    /*
+       Then check image.
+    */
+
     if (
         product &&
         product.image &&
-        String(product.image).trim() !== ""
+        String(product.image).trim()
     ) {
 
         return getStorageImageUrl(
@@ -2412,15 +2388,18 @@ function getProductImage(product) {
     }
 
 
+    /*
+       Finally use old local filenames
+       based on product name.
+    */
+
     const name =
         normalizeName(
             product?.name
         );
 
 
-    if (
-        OLD_IMAGES[name]
-    ) {
+    if (OLD_IMAGES[name]) {
 
         return OLD_IMAGES[name];
 
@@ -2438,6 +2417,11 @@ function getProductImage(product) {
 
 function handleImageError(img) {
 
+    if (!img) {
+        return;
+    }
+
+
     console.error(
         "Product image failed:",
         img.src
@@ -2449,9 +2433,7 @@ function handleImageError(img) {
 
 
     if (!parent) {
-
         return;
-
     }
 
 
@@ -2489,7 +2471,7 @@ function handleImageError(img) {
 
 
 /* =========================================================
-   LOAD PRODUCTS FROM SUPABASE
+   LOAD PRODUCTS
 ========================================================= */
 
 async function loadProducts() {
@@ -2501,13 +2483,7 @@ async function loadProducts() {
 
 
     if (!grid) {
-
-        console.error(
-            "productsGrid not found."
-        );
-
         return;
-
     }
 
 
@@ -2520,17 +2496,30 @@ async function loadProducts() {
     `;
 
 
+    console.log(
+        "X3D: Loading products..."
+    );
+
+
     try {
 
-        console.log(
-            "Loading products from Supabase..."
-        );
+        /*
+           IMPORTANT:
+           We select the basic fields that definitely
+           exist in your products table.
 
+           image_url/image/stock/status are NOT required.
+        */
 
-        const response =
+        const {
+            data,
+            error
+        } =
             await supabaseClient
                 .from("products")
-                .select("*")
+                .select(
+                    "id,name,description,category,price,image_url,image,stock,status"
+                )
                 .order(
                     "id",
                     {
@@ -2539,40 +2528,59 @@ async function loadProducts() {
                 );
 
 
-        const data =
-            response.data;
-
-
-        const error =
-            response.error;
-
+        /*
+           If your table does not contain image_url,
+           image, stock or status, retry using only
+           the fields confirmed in your database.
+        */
 
         if (error) {
 
-            console.error(
-                "SUPABASE PRODUCTS ERROR:",
+            console.warn(
+                "X3D: Extended product query failed. Retrying basic query...",
                 error
             );
 
-            throw error;
+
+            const basicResponse =
+                await supabaseClient
+                    .from("products")
+                    .select(
+                        "id,name,description,category,price"
+                    )
+                    .order(
+                        "id",
+                        {
+                            ascending: true
+                        }
+                    );
+
+
+            if (basicResponse.error) {
+
+                throw basicResponse.error;
+
+            }
+
+
+            productsCache =
+                Array.isArray(
+                    basicResponse.data
+                )
+                    ? basicResponse.data
+                    : [];
+
+        } else {
+
+            productsCache =
+                Array.isArray(data)
+                    ? data
+                    : [];
 
         }
 
 
-        console.log(
-            "Products loaded:",
-            data
-        );
-
-
-        productsCache =
-            Array.isArray(data)
-                ? data
-                : [];
-
-
-        productsById =
-            {};
+        productsById = {};
 
 
         productsCache.forEach(
@@ -2586,52 +2594,40 @@ async function loadProducts() {
         );
 
 
-        if (
-            productsCache.length === 0
-        ) {
-
-            grid.innerHTML = `
-                <div class="loading">
-                    ${escapeHtml(
-                        t("noProducts")
-                    )}
-                </div>
-            `;
-
-            return;
-
-        }
+        console.log(
+            "X3D: Products loaded successfully:",
+            productsCache
+        );
 
 
         renderProducts();
 
+
     } catch (error) {
 
         console.error(
-            "LOAD PRODUCTS ERROR:",
+            "X3D: Products loading failed:",
             error
         );
 
 
         grid.innerHTML = `
-
             <div class="error-message">
 
-                <strong>
-                    ${escapeHtml(
-                        t("failedProducts")
-                    )}
-                </strong>
+                ${escapeHtml(
+                    t("failedProducts")
+                )}
 
                 <br><br>
 
-                ${escapeHtml(
-                    error?.message ||
-                    "Unknown error"
-                )}
+                <small>
+                    ${escapeHtml(
+                        error?.message ||
+                        "Unknown error"
+                    )}
+                </small>
 
             </div>
-
         `;
 
     }
@@ -2652,9 +2648,7 @@ function renderProducts() {
 
 
     if (!grid) {
-
         return;
-
     }
 
 
@@ -2662,6 +2656,16 @@ function renderProducts() {
         !Array.isArray(productsCache) ||
         productsCache.length === 0
     ) {
+
+        grid.innerHTML = `
+            <div class="loading">
+
+                ${escapeHtml(
+                    t("noProducts")
+                )}
+
+            </div>
+        `;
 
         return;
 
@@ -2704,73 +2708,105 @@ function renderProduct(
         "product-card";
 
 
-    const image =
-        getProductImage(product);
-
-
     const name =
-        product?.name ||
-        "Unnamed Product";
+        String(
+            product.name ||
+            "Unnamed Product"
+        );
 
 
     const category =
-        product?.category ||
-        "3D Printing";
+        String(
+            product.category ||
+            "3D Printing"
+        );
 
 
     const description =
-        product?.description ||
-        "High quality 3D printed product.";
+        String(
+            product.description ||
+            "High quality 3D printed product."
+        );
 
 
     const price =
         Number(
-            product?.price ?? 0
+            product.price ?? 0
         );
 
 
-    const rawStock =
-        product?.stock;
-
-
-    const status =
-        String(
-            product?.status ??
-            "active"
-        )
-        .toLowerCase()
-        .trim();
+    const image =
+        getProductImage(
+            product
+        );
 
 
     /*
-       لو stock موجود فعلاً:
-       stock > 0 = متاح
+       Product availability.
 
-       لو stock مش موجود أو NULL:
-       نعتبر المنتج متاح طالما status مش inactive.
+       If stock column exists:
+       stock > 0 = available.
+
+       If stock doesn't exist:
+       product is available.
+
+       This prevents missing stock from
+       hiding every product.
     */
 
-    let available;
+    let available = true;
 
 
     if (
-        rawStock === null ||
-        rawStock === undefined ||
-        rawStock === ""
+        product.stock !== undefined &&
+        product.stock !== null &&
+        String(product.stock).trim() !== ""
     ) {
 
-        available =
-            status !== "inactive" &&
-            status !== "disabled" &&
-            status !== "out_of_stock";
+        const stock =
+            Number(
+                product.stock
+            );
 
-    } else {
 
-        available =
-            Number(rawStock) > 0 &&
-            status !== "inactive" &&
-            status !== "disabled" &&
-            status !== "out_of_stock";
+        if (
+            !Number.isNaN(stock)
+        ) {
+
+            available =
+                stock > 0;
+
+        }
+
+    }
+
+
+    /*
+       Check status only if it actually exists.
+    */
+
+    if (
+        product.status !== undefined &&
+        product.status !== null
+    ) {
+
+        const status =
+            String(
+                product.status
+            )
+            .trim()
+            .toLowerCase();
+
+
+        if (
+            status === "inactive" ||
+            status === "disabled" ||
+            status === "out_of_stock"
+        ) {
+
+            available = false;
+
+        }
 
     }
 
@@ -2781,27 +2817,22 @@ function renderProduct(
     if (image) {
 
         imageHTML = `
-
             <img
-                src="${escapeAttribute(image)}"
-                alt="${escapeAttribute(name)}"
+                src="${escapeHtml(image)}"
+                alt="${escapeHtml(name)}"
+                loading="lazy"
                 onerror="handleImageError(this)"
             >
-
         `;
 
     } else {
 
         imageHTML = `
-
             <div class="image-placeholder">
-
                 ${escapeHtml(
                     t("imageUnavailable")
                 )}
-
             </div>
-
         `;
 
     }
@@ -2813,33 +2844,27 @@ function renderProduct(
     if (available) {
 
         buttonHTML = `
-
             <button
                 class="add-btn"
                 type="button"
-                onclick="addToCartById(${JSON.stringify(String(product.id))})"
+                onclick="addToCartById('${escapeHtml(
+                    String(product.id)
+                )}')"
             >
-
                 ${escapeHtml(
                     t("addToCart")
                 )}
-
             </button>
-
         `;
 
     } else {
 
         buttonHTML = `
-
             <div class="out-stock">
-
                 ${escapeHtml(
                     t("outOfStock")
                 )}
-
             </div>
-
         `;
 
     }
@@ -2857,34 +2882,25 @@ function renderProduct(
         <div class="product-info">
 
             <div class="category">
-
                 ${escapeHtml(category)}
-
             </div>
 
 
             <h3>
-
                 ${escapeHtml(name)}
-
             </h3>
 
 
             <p>
-
                 ${escapeHtml(description)}
-
             </p>
 
 
             <div class="product-bottom">
 
                 <div class="price">
-
                     EGP ${price.toLocaleString()}
-
                 </div>
-
 
                 ${buttonHTML}
 
@@ -2917,7 +2933,9 @@ function addToCartById(productId) {
     if (!product) {
 
         alert(
-            t("productNotFound")
+            currentLanguage === "ar"
+                ? "المنتج غير موجود."
+                : "Product not found."
         );
 
         return;
@@ -2962,7 +2980,7 @@ function addToCartById(productId) {
 
 
 /* =========================================================
-   REMOVE CART ITEM
+   REMOVE FROM CART
 ========================================================= */
 
 function removeFromCart(index) {
@@ -3015,12 +3033,10 @@ function updateCart() {
             "cartCount"
         );
 
-
     const cartItems =
         document.getElementById(
             "cartItems"
         );
-
 
     const cartTotal =
         document.getElementById(
@@ -3048,15 +3064,11 @@ function updateCart() {
     ) {
 
         cartItems.innerHTML = `
-
             <p style="color:#aeb6cc;">
-
                 ${escapeHtml(
                     t("cartEmpty")
                 )}
-
             </p>
-
         `;
 
 
@@ -3079,34 +3091,27 @@ function updateCart() {
                 index
             ) => {
 
-                const itemPrice =
+                total +=
                     Number(
                         item.price || 0
                     );
 
 
-                total +=
-                    itemPrice;
-
-
                 return `
-
                     <div class="cart-item">
 
                         <div class="cart-item-info">
 
                             <h4>
-
                                 ${escapeHtml(
                                     item.name
                                 )}
-
                             </h4>
 
                             <p>
-
-                                EGP ${itemPrice.toLocaleString()}
-
+                                EGP ${Number(
+                                    item.price || 0
+                                ).toLocaleString()}
                             </p>
 
                         </div>
@@ -3117,15 +3122,14 @@ function updateCart() {
                             type="button"
                             onclick="removeFromCart(${index})"
                         >
-
                             ${escapeHtml(
-                                t("remove")
+                                currentLanguage === "ar"
+                                    ? "حذف"
+                                    : "Remove"
                             )}
-
                         </button>
 
                     </div>
-
                 `;
 
             }
@@ -3141,25 +3145,41 @@ function updateCart() {
 
 
 /* =========================================================
-   CART OPEN / CLOSE
+   CART MODAL
 ========================================================= */
 
 function openCart() {
 
-    document.getElementById(
-        "cartModal"
-    ).style.display =
-        "flex";
+    const modal =
+        document.getElementById(
+            "cartModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "flex";
+
+    }
 
 }
 
 
 function closeCart() {
 
-    document.getElementById(
-        "cartModal"
-    ).style.display =
-        "none";
+    const modal =
+        document.getElementById(
+            "cartModal"
+        );
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
 
 }
 
@@ -3233,15 +3253,12 @@ function renderCheckoutSummary() {
         <div class="checkout-summary-box">
 
             <h3>
-
                 ${escapeHtml(
                     t("orderSummary")
                 )}
-
             </h3>
 
             <br>
-
 
             ${cart.map(
                 item => `
@@ -3249,19 +3266,15 @@ function renderCheckoutSummary() {
                     <div class="summary-row">
 
                         <span>
-
                             ${escapeHtml(
                                 item.name
                             )}
-
                         </span>
 
                         <span>
-
                             EGP ${Number(
                                 item.price || 0
                             ).toLocaleString()}
-
                         </span>
 
                     </div>
@@ -3273,17 +3286,13 @@ function renderCheckoutSummary() {
             <div class="summary-row">
 
                 <span>
-
                     ${escapeHtml(
                         t("subtotal")
                     )}
-
                 </span>
 
                 <span>
-
                     EGP ${subtotal.toLocaleString()}
-
                 </span>
 
             </div>
@@ -3292,19 +3301,15 @@ function renderCheckoutSummary() {
             <div class="summary-row">
 
                 <span>
-
                     ${escapeHtml(
                         t("delivery")
                     )}
-
                 </span>
 
                 <span>
-
                     ${escapeHtml(
                         t("deliveryConfirmed")
                     )}
-
                 </span>
 
             </div>
@@ -3313,17 +3318,13 @@ function renderCheckoutSummary() {
             <div class="summary-row summary-total">
 
                 <span>
-
                     ${escapeHtml(
                         t("productsTotal")
                     )}
-
                 </span>
 
                 <span>
-
                     EGP ${total.toLocaleString()}
-
                 </span>
 
             </div>
@@ -3340,7 +3341,9 @@ function renderCheckoutSummary() {
 ========================================================= */
 
 document
-    .getElementById("checkoutForm")
+    .getElementById(
+        "checkoutForm"
+    )
     .addEventListener(
         "submit",
         async function(event) {
@@ -3432,8 +3435,8 @@ document
 
 
             const button =
-                document.querySelector(
-                    "#checkoutForm button[type='submit']"
+                document.getElementById(
+                    "placeOrderButton"
                 );
 
 
@@ -3532,7 +3535,10 @@ document
                     };
 
 
-                    const response =
+                    const {
+                        data,
+                        error
+                    } =
                         await supabaseClient
                             .from("orders")
                             .insert(
@@ -3541,23 +3547,21 @@ document
                             .select("id");
 
 
-                    if (
-                        response.error
-                    ) {
+                    if (error) {
 
-                        throw response.error;
+                        throw error;
 
                     }
 
 
                     if (
-                        response.data &&
-                        response.data.length > 0 &&
+                        data &&
+                        data.length > 0 &&
                         !firstOrderId
                     ) {
 
                         firstOrderId =
-                            response.data[0].id;
+                            data[0].id;
 
                     }
 
@@ -3616,7 +3620,7 @@ document
             } catch (error) {
 
                 console.error(
-                    "CREATE ORDER ERROR:",
+                    "Create order error:",
                     error
                 );
 
@@ -3684,7 +3688,9 @@ function closeTrackOrder() {
 ========================================================= */
 
 document
-    .getElementById("trackForm")
+    .getElementById(
+        "trackForm"
+    )
     .addEventListener(
         "submit",
         async function(event) {
@@ -3741,82 +3747,12 @@ document
 
 
             result.innerHTML = `
-
                 <div style="
                     text-align:center;
                     color:#aeb6cc;
                     padding:20px;
                 ">
-
                     ${escapeHtml(
                         t("searchingOrder")
                     )}
-
-                </div>
-
-            `;
-
-
-            try {
-
-                const response =
-                    await supabaseClient
-                        .from("orders")
-                        .select("*")
-                        .eq(
-                            "id",
-                            orderId
-                        )
-                        .eq(
-                            "phone",
-                            phone
-                        )
-                        .maybeSingle();
-
-
-                if (
-                    response.error
-                ) {
-
-                    throw response.error;
-
-                }
-
-
-                if (
-                    !response.data
-                ) {
-
-                    result.innerHTML = `
-
-                        <div class="track-error">
-
-                            ${escapeHtml(
-                                t("orderNotFound")
-                            )}
-
-                            <br><br>
-
-                            ${escapeHtml(
-                                t("checkOrder")
-                            )}
-
-                        </div>
-
-                    `;
-
-                    return;
-
-                }
-
-
-                renderTrackedOrder(
-                    response.data
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "TRACK ORDER ERROR:",
-      
+                </
